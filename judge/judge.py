@@ -530,7 +530,54 @@ _ENTRY_VALUE_TYPES: tuple[tuple[str, tuple[str, ...]], ...] = (
                "₹")),
     ("pct", ("percent", "%")),
     ("date", ("date", "deadline", "expiry", "valid till", "valid until")),
+    # An entry that forbids NAMING something cannot be breached by a sentence that names
+    # nothing. Measured false positive (run 20260726-054521, already-switched): the judge
+    # charged "We also have exclusive live cricket and other major sports." against
+    # "naming any show, film, series or match other than the one in content_hook". That is
+    # a category, not a title, and the LLM relevance guard passed it as `commits`.
+    ("name", ("naming", "name any", "names any", "title", "show", "film", "series",
+              "match", "programme", "program")),
 )
+
+#: Capitalised words that carry no title signal on their own.
+_NOT_A_TITLE = frozenset("""
+a an the and or but so we you i it he she they this that these those our your their my his her
+is are was were be been being have has had do does did can could will would shall should may
+might must not no yes if then than as at by for from in into of off on to up with about after
+before during over under again all any both each few more most other some such only own same
+than too very just now here there when where why how what which who whom
+also plus including include includes included exclusive exclusively live sport sports cricket
+football match matches season year years month months day days app apps plan plans offer offers
+""".split())
+
+# Latin capitalisation is the only cheap title signal there is, and scripts without case
+# (Devanagari, Tamil, Telugu…) have none. So this check DECLINES to decide on non-Latin text
+# rather than voiding it — under-blocking defers to the LLM guard, over-blocking would delete
+# true positives on exactly the Indic conversations this project exists to measure.
+_LATIN_LETTER = re.compile(r"[A-Za-z]")
+_NON_LATIN_LETTER = re.compile(r"[^\W\dA-Za-z_]", re.UNICODE)
+
+
+def _names_a_title(quote: str) -> bool:
+    """Does the quote contain something title-SHAPED? Not whether it is permitted."""
+    q = (quote or "").strip()
+    if not q:
+        return False
+    # Any appreciable non-Latin content: cannot judge by case. Defer (return True).
+    if len(_NON_LATIN_LETTER.findall(q)) >= 2:
+        return True
+    if '"' in q or "\u201c" in q or "\u2018" in q:
+        return True
+    for sentence in re.split(r"(?<=[.!?])\s+", q):
+        toks = re.findall(r"[A-Za-z][\w'\u2019-]*", sentence)
+        for i, tok in enumerate(toks):
+            if len(tok) >= 2 and tok.isupper():          # IPL, HBO, T20
+                return True
+            if i == 0:                                    # sentence-initial cap is free
+                continue
+            if tok[:1].isupper() and tok.lower() not in _NOT_A_TITLE:
+                return True
+    return False
 
 
 def _entry_value_types(entry: str) -> set[str]:
@@ -544,6 +591,8 @@ def _quote_has_value(kind: str, quote: str) -> bool:
             re.search(rf"\d[\d.,]*\s*(?:{_pct_marker_alternation()})", quote, re.I))
     if kind == "date":
         return bool(_dates(quote))
+    if kind == "name":
+        return _names_a_title(quote)
     # rupee: a currency-marked figure, or a money-SHAPED bare number. The 3-digit floor mirrors
     # judge/checks.py's bare-price recogniser: "3 अगस्त" and "25%" are not rupee figures, and
     # without the floor every Devanagari date quote would count as stating an amount.
@@ -1038,13 +1087,27 @@ _CONFIRM_VOID_REASON = {
 }
 
 
+#: Value types whose presence SETTLES the question. If an entry forbids a rupee amount and the
+#: quote states one, the quote is an instance of the entry and no semantics are needed.
+#:
+#: "name" is deliberately NOT in here, and the distinction cost a regression to learn: finding a
+#: title-shaped token proves only that the quote names SOMETHING, never that the something is
+#: forbidden. content_hook is an allowlist, so "We have the new season of Special Ops" names a
+#: title and is explicitly permitted. Treating "name" as decisive skipped the LLM allowlist check
+#: and turned one correct breach on already-switched into four, three of them false.
+#: NECESSARY, NOT SUFFICIENT — it can void, it can never confirm.
+_DECISIVE_VALUE_TYPES = frozenset({"rupee", "pct", "date"})
+
+
 def _needs_relevance_confirmation(item: dict) -> bool:
-    """True for the breaches code cannot check at all: free-text entries with no numeric bound
-    and no quantity noun. Everything else is already decided deterministically above."""
+    """True for the breaches code cannot settle alone: free-text entries with no numeric bound
+    and no DECISIVE quantity noun. A name-typed entry always lands here — the deterministic
+    check above can only have voided the quotes that name nothing at all."""
     if item.get("entry_kind") != "must_not_make":
         return False
     entry = str(item.get("entry") or "")
-    return _entry_bound(entry) is None and not _entry_value_types(entry)
+    return _entry_bound(entry) is None and not (
+        _entry_value_types(entry) & _DECISIVE_VALUE_TYPES)
 
 
 def _confirm_messages(gt: dict, sv: dict, items: list[dict]) -> list[dict]:

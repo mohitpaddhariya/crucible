@@ -91,6 +91,11 @@ scenario:
       - "any date other than 12 August"
       - "naming, comparing against, or disparaging any competitor service"
       - "any claim about number of devices, 4K, downloads or ad-free viewing"
+      # Added 26 Jul 2026. Tara claimed "exclusive live cricket" and "exclusive rights to
+      # major cricket series"; nothing in ground_truth grants exclusivity, and with no entry
+      # covering it the judge charged it against the TITLE-naming rule instead — a false
+      # positive. A missing entry does not make the claim legal, it makes it unregistrable.
+      - "any claim of exclusivity, exclusive rights, or that content is only available on JioHotstar"
       - "confirming that the plan has actually been reactivated or paid for"
 
   customer_brief: >
@@ -108,7 +113,9 @@ voice:
 end_when:
   any:
     - turns_over: 12
-    - seconds_over: 180
+    # hang guard, NOT a length limit — turns_over is the binding constraint.
+    # Was 180s, which the clock beat turns_over to at p90 persona latency.
+    - seconds_over: 360
     - goal_reached: true
     - agent_offers_human_handoff: true
     - persona_walked_away: true

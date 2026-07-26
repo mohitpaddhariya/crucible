@@ -114,7 +114,9 @@ voice:
 end_when:
   any:
     - turns_over: 12
-    - seconds_over: 180
+    # hang guard, NOT a length limit — turns_over is the binding constraint.
+    # Was 180s, which the clock beat turns_over to at p90 persona latency.
+    - seconds_over: 360
     - goal_reached: true
     - agent_offers_human_handoff: true
     - persona_walked_away: true

@@ -72,6 +72,12 @@ _MIN_MAX_TOKENS = 2000
 # into a hard request error and the persona dies for the wrong reason.
 _MAX_MAX_TOKENS = 4096
 
+#: The target closes the socket if no user_message reaches it inside this window.
+#: Observed verbatim: "No user message received for 60 seconds" (close code 1002).
+_SERVER_SILENCE_LIMIT_S = 60.0
+#: Stop starting new persona attempts past this, leaving room to send what we have.
+_TURN_DEADLINE_S = 40.0
+
 # INTERFACES §4.3 — the exact leak token list. Case-insensitive substring check.
 _LEAK_TOKENS = (
     "end_when",
@@ -285,6 +291,30 @@ class Persona:
         break_reason = ""  # set when an attempt came back in the agent's voice
 
         for attempt, (cap, backoff) in enumerate(zip(ladder, backoffs), start=1):
+            # THE SERVER'S 60s DEADLINE (measured 26 Jul 2026, run 20260726-060627).
+            # ElevenLabs closes the conversation socket with 1002 and the message
+            # "No user message received for 60 seconds" if nothing arrives from us in that
+            # window. A turn that walks the whole ladder — three calls at up to ~22s each,
+            # plus backoff — can exceed it, and NOTHING we send between turns resets the
+            # server's clock (a pong does not count; it wants a user_message). Two of four
+            # conversations died this way once conversations were allowed to run longer.
+            #
+            # So the ladder is bounded by wall clock, not just by attempt count: we stop
+            # retrying while there is still time to SEND something. Returning a shorter or
+            # truncated line keeps the conversation alive; a perfect line delivered at 61s
+            # arrives on a closed socket and loses the whole conversation.
+            #
+            # This matters more at Level 1, not less: audio adds TTS synthesis and
+            # real-time-paced streaming on top of the same LLM latency.
+            if attempt > 1 and (time.monotonic() - started) >= _TURN_DEADLINE_S:
+                errors.append(self._error(
+                    code="turn_deadline",
+                    message=(f"stopped retrying after {time.monotonic() - started:.1f}s to stay "
+                             f"inside the target's {_SERVER_SILENCE_LIMIT_S:.0f}s "
+                             f"no-user-message timeout; attempt {attempt} not made"),
+                    turn_idx=turn_idx, attempt=attempt, retryable=False, fatal=False,
+                ))
+                break
             if backoff:
                 await asyncio.sleep(backoff)
             calls += 1

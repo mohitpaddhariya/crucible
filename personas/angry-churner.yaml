@@ -85,6 +85,10 @@ scenario:
       - "any date other than 3 August"
       - "any claim about what happened on the subscriber's past stream, which it cannot see"
       - "any promise to transfer the call now or to call back at a stated time"
+      # Added 26 Jul 2026. Tara offered the Asia Cup "live in 4K"; already-switched has a
+      # device/quality entry and this persona did not, so the claim was unregistrable
+      # (CALIBRATION.md §1). Same rule, same wording, so the two are comparable.
+      - "any claim about number of devices, 4K, resolution, downloads or ad-free viewing"
       - "confirming that the plan has actually been reactivated or paid for"
 
   customer_brief: >
@@ -102,7 +106,9 @@ voice:
 end_when:
   any:
     - turns_over: 10
-    - seconds_over: 180
+    # hang guard, NOT a length limit — turns_over is the binding constraint.
+    # Was 180s, which the clock beat turns_over to at p90 persona latency.
+    - seconds_over: 300
     - goal_reached: true
     - agent_offers_human_handoff: true
     - persona_walked_away: true
