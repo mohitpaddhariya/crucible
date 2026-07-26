@@ -67,7 +67,10 @@ SYNTHESIS_SCHEMA_VERSION = "1.0"
 #: error — a historical run must still be reportable — but it is a LOUD warning, because every
 #: field name below was verified against exactly these two versions.
 _SCORECARD_SCHEMA = "1.1"
-_CONVERSATION_SCHEMA = "1.0"
+#: 1.0 = Level 0 text. 1.1 = the Level 1 audio SUPERSET — nothing renamed, nothing removed,
+#: only additive per LEVEL1_SPEC §7. Both are readable by every field access in this module,
+#: so warning on 1.1 was crying wolf on a contract that was deliberately kept compatible.
+_CONVERSATION_SCHEMA: tuple[str, ...] = ("1.0", "1.1")
 
 #: Canonical dimension order, from the rubric, so tables and JSON never depend on dict order.
 _DIM_ORDER: dict[str, int] = {d.key: i for i, d in enumerate(DIMENSIONS)}
@@ -1985,10 +1988,10 @@ def _schema_warnings(inputs: RunInputs) -> list[str]:
     out: list[str] = []
     for p in inputs.personas:
         cv = str(p.conversation.get("schema_version") or "")
-        if cv != _CONVERSATION_SCHEMA:
-            out.append(f"conversations/{p.persona_id}.json: schema_version {cv!r}, expected "
-                       f"{_CONVERSATION_SCHEMA!r} — field names were verified against the "
-                       f"expected version only")
+        if cv not in _CONVERSATION_SCHEMA:
+            out.append(f"conversations/{p.persona_id}.json: schema_version {cv!r}, expected one "
+                       f"of {list(_CONVERSATION_SCHEMA)} — field names were verified against "
+                       f"those versions only")
         if p.scorecard is not None:
             sv = str(p.scorecard.get("schema_version") or "")
             if sv != _SCORECARD_SCHEMA:

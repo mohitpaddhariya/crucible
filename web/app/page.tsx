@@ -1,23 +1,14 @@
-import Demo from './components/Demo';
-import {
-  getPersonas,
-  getConversations,
-  getScorecards,
-  getDefects,
-  RUN_ID,
-} from './lib/data';
+import App from './App';
 
-// Read from disk on every request so the demo always reflects the real files.
+/**
+ * Thin shell. Everything on screen is fetched client-side from `/api/**`, which reads
+ * `runs/` off disk — so there is no build-time snapshot to go stale and no run id baked
+ * into the page. It used to import a hardcoded RUN_ID from ./lib/data; that is why.
+ *
+ * `force-dynamic` matches the route handlers under app/api (Next 16, cacheComponents off).
+ */
 export const dynamic = 'force-dynamic';
 
 export default function Page() {
-  return (
-    <Demo
-      runId={RUN_ID}
-      personas={getPersonas()}
-      conversations={getConversations()}
-      scorecards={getScorecards()}
-      defects={getDefects()}
-    />
-  );
+  return <App />;
 }

@@ -521,7 +521,15 @@ async def scenario_full_turn() -> None:
         assert opening.audio_meta["text_provenance"] == "agent_emitted"
         assert opening.audio_meta["peak"] == 25203, opening.audio_meta
         assert opening.audio_meta["speech_frames"] == 41
-        assert Path(opening.audio_meta["audio_path"]).stat().st_size == 393600
+        # `audio_path` is RELATIVE to the run directory ("audio/<persona>/turn_N_who.pcm"),
+        # per LEVEL1_SPEC §3.2 — an artifact must not carry one machine's absolute paths.
+        # So resolve it the way any consumer has to: against the run dir, not the cwd.
+        # This assertion used to open the value directly, which only worked while the
+        # producer was leaking absolute paths.
+        run_dir = tmp          # the target was given audio_dir = tmp/"audio"/"price-haggler"
+        rel = opening.audio_meta["audio_path"]
+        assert not Path(rel).is_absolute(), f"audio_path must be relative, got {rel}"
+        assert (run_dir / rel).stat().st_size == 393600
 
         before = target.audio_chunks_sent
         result = await target.send_persona_turn("English please. Fourteen ninety nine is too much.")

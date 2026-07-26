@@ -11,6 +11,15 @@ WHAT THIS FILE OWNS (docs/SYNTH_SPEC.md §3)
     covers every section, so `--no-llm`, an LLM outage, and a full rejection all still yield a
     complete, correct report.
 
+THE TRANSCRIPT APPENDIX (§4.6 below)
+    Evidence quotes say WHY a score happened; they never show WHAT WAS SAID, and a reader who
+    cannot see the conversation cannot check the judge. The report therefore ends — findings
+    first, always — with every turn of every conversation, verbatim and uncut, with the cited
+    turns marked. At Level 1 each persona turn additionally shows what the target's ASR HEARD
+    next to what was spoken, because that pair is the product (LEVEL1_SPEC §2.2). Level is read
+    off the artifact (`level`, `target.mode`), never off config. The whole section is
+    deterministic rendering of data already on disk: `--no-llm` produces it in full.
+
 NO CLAIM WITHOUT A CITATION
     Every narrative sentence is rendered with its finding ids; every finding id resolves in
     the Findings Index to scorecard JSON paths and verbatim transcript quotes. A reader can
@@ -635,9 +644,353 @@ def _fallback_summary(analysis: RunAnalysis) -> list[str]:
     return out
 
 
+# ═════════════════════════════════════════════════════════════════════════════════════════
+# §4.6 — the transcript appendix (deterministic; no LLM, no network, no scorecard needed)
+# ═════════════════════════════════════════════════════════════════════════════════════════
+#
+# The report above explains WHY a score happened and quotes only the spans the judge's
+# evidence audit kept. That is not enough to check the judge's work: a reader who cannot see
+# the conversation cannot tell a cherry-picked quote from a representative one. This appendix
+# reproduces every turn of every conversation, uncut, at the BACK of the document — findings
+# stay first — and marks the turns that were cited above so a score and its moment in the
+# dialogue are one hop apart.
+#
+# At Level 1 the interesting object is not the line, it is the PAIR (LEVEL1_SPEC §2.2): what
+# the persona said, and what the agent's ASR heard. Tara's `user_transcript` is a first-class
+# product finding — measurably lossy in three ways (code-switch mangling, phantom numbers,
+# silent truncation) — and the intended-vs-heard diff in the artifact is the ONLY place that
+# loss is ever visible. So when the two differ they are rendered adjacent, labelled, in full.
+#
+# Level is read off the ARTIFACT (`level`, `target.mode`), never off config: a config says
+# what a run was asked to do, an artifact says what it did, and a report that renders empty
+# "heard" rows for a text run because the config said audio is lying about a measurement.
+
+_ASR_NOTE = (
+    "Tara heard = the target's own `user_transcript` ASR of our audio, recorded verbatim in "
+    "`meta.tara_heard` with provenance `asr`. It is never the persona's words for any "
+    "purpose: no deterministic check parses it and no dimension is scored on it "
+    "(LEVEL1_SPEC §2.2). It is here because it is a finding about the target."
+)
+
+
+@dataclass(frozen=True)
+class TurnView:
+    """One turn, exactly as the artifact records it. Nothing here is derived except the
+    presence flags; `text` and `heard_text` are byte-for-byte from the conversation JSON."""
+    idx: int
+    speaker: str
+    text: str
+    provenance: str = ""                    # meta.text_provenance, "" when the key is absent
+    sent: bool | None = None                # meta.sent — False = generated, never delivered
+    speech_s: float | None = None           # agent turns (audio)
+    peak: float | None = None               # agent turns (audio)
+    heard_text: str | None = None           # meta.tara_heard.text — None = no key at all
+    heard_provenance: str = ""
+    heard_event_id: int | None = None
+    truncation_suspect: bool | None = None  # artifact's own heuristic flag
+
+    @property
+    def has_heard(self) -> bool:
+        return self.heard_text is not None
+
+    @property
+    def heard_differs(self) -> bool:
+        """Whitespace-normalised inequality. Anything beyond that (case, transliteration,
+        numerals) is a difference the reader must see for themselves — folding it here would
+        hide exactly the mangling this section exists to show."""
+        if self.heard_text is None:
+            return False
+        return " ".join(self.heard_text.split()) != " ".join(self.text.split())
+
+    def to_json(self) -> dict[str, Any]:
+        out: dict[str, Any] = {"idx": self.idx, "speaker": self.speaker, "text": self.text}
+        if self.provenance:
+            out["text_provenance"] = self.provenance
+        if self.sent is not None:
+            out["sent"] = self.sent
+        if self.speech_s is not None:
+            out["speech_s"] = self.speech_s
+        if self.peak is not None:
+            out["peak"] = self.peak
+        if self.heard_text is not None:
+            out["tara_heard"] = {"text": self.heard_text,
+                                 "provenance": self.heard_provenance or None,
+                                 "event_id": self.heard_event_id,
+                                 "truncation_suspect": self.truncation_suspect,
+                                 "differs_from_spoken": self.heard_differs}
+        return out
+
+
+@dataclass(frozen=True)
+class PersonaTranscript:
+    persona_id: str
+    is_control: bool
+    audio: bool
+    level: int | None
+    mode: str
+    end_reason: str
+    turns: tuple[TurnView, ...]
+
+    @property
+    def counts(self) -> tuple[int, int, int]:
+        """(agent turns, persona turns, total)."""
+        a = sum(1 for t in self.turns if t.speaker == "agent")
+        p = sum(1 for t in self.turns if t.speaker == "persona")
+        return a, p, len(self.turns)
+
+    @property
+    def heard_stats(self) -> tuple[int, int, int, int]:
+        """(persona turns, turns with a heard transcript, of those how many differ,
+        how many the artifact flagged truncation_suspect)."""
+        persona = [t for t in self.turns if t.speaker == "persona"]
+        heard = [t for t in persona if t.has_heard]
+        return (len(persona), len(heard),
+                sum(1 for t in heard if t.heard_differs),
+                sum(1 for t in heard if t.truncation_suspect))
+
+    def to_json(self) -> dict[str, Any]:
+        return {"persona_id": self.persona_id, "is_control": self.is_control,
+                "level": self.level, "mode": self.mode, "audio": self.audio,
+                "end_reason": self.end_reason,
+                "turns": [t.to_json() for t in self.turns]}
+
+
+def _as_float(x: Any) -> float | None:
+    return float(x) if isinstance(x, (int, float)) and not isinstance(x, bool) else None
+
+
+def _as_int(x: Any) -> int | None:
+    return int(x) if isinstance(x, (int, float)) and not isinstance(x, bool) else None
+
+
+def _end_reason_text(value: Any) -> str:
+    """`end_reason` is a string in some artifacts and the full end object in others. Print the
+    code either way rather than a dict repr, and never invent one when it is absent."""
+    if isinstance(value, dict):
+        code = str(value.get("code") or "")
+        kind = str(value.get("kind") or "")
+        return f"{code}" + (f" ({kind})" if code and kind else "")
+    return str(value or "—")
+
+
+def is_audio_conversation(conversation: dict[str, Any]) -> bool:
+    """Audio iff the ARTIFACT says so — `target.mode == "audio"` or `level >= 1`. A Level 0
+    artifact has neither, carries none of the §3.2 meta keys, and must render as a plain
+    transcript: no empty 'heard' rows, no apology for data that was never meant to exist."""
+    mode = str((conversation.get("target") or {}).get("mode") or "")
+    if mode == "audio":
+        return True
+    level = _as_int(conversation.get("level"))
+    return level is not None and level >= 1
+
+
+def build_transcripts(personas: Any) -> tuple[PersonaTranscript, ...]:
+    """PersonaDoc-likes (`.persona_id`, `.is_control`, `.conversation`) -> renderable turns.
+
+    Pure, total, and independent of the judge: a run with no scorecards still has a full
+    transcript, which is the case where reading the conversation matters most.
+    """
+    out: list[PersonaTranscript] = []
+    for p in personas:
+        conv = getattr(p, "conversation", None) or {}
+        views: list[TurnView] = []
+        for i, turn in enumerate(conv.get("turns") or []):
+            if not isinstance(turn, dict):
+                continue
+            meta = turn.get("meta") if isinstance(turn.get("meta"), dict) else {}
+            heard = meta.get("tara_heard") if isinstance(meta.get("tara_heard"), dict) else None
+            idx = _as_int(turn.get("idx"))
+            views.append(TurnView(
+                idx=idx if idx is not None else i,
+                speaker=str(turn.get("speaker") or "?"),
+                text=str(turn.get("text") or ""),
+                provenance=str(meta.get("text_provenance") or ""),
+                sent=meta.get("sent") if isinstance(meta.get("sent"), bool) else None,
+                speech_s=_as_float(meta.get("speech_s")),
+                peak=_as_float(meta.get("peak")),
+                heard_text=None if heard is None else str(heard.get("text") or ""),
+                heard_provenance="" if heard is None else str(heard.get("provenance") or ""),
+                heard_event_id=None if heard is None else _as_int(heard.get("event_id")),
+                truncation_suspect=(None if heard is None
+                                    else bool(heard.get("truncation_suspect"))),
+            ))
+        out.append(PersonaTranscript(
+            persona_id=str(getattr(p, "persona_id", "") or conv.get("persona_id") or "?"),
+            is_control=bool(getattr(p, "is_control", False)),
+            audio=is_audio_conversation(conv),
+            level=_as_int(conv.get("level")),
+            mode=str((conv.get("target") or {}).get("mode") or ""),
+            end_reason=_end_reason_text(conv.get("end_reason")),
+            turns=tuple(views),
+        ))
+    return tuple(out)
+
+
+#: How a finding is named in a turn's citation marker. The kind alone ("cluster") names
+#: nothing to a reader scanning the dialogue; the dimension or the defect does.
+def _finding_label(f) -> str:
+    if f.kind == "cluster":
+        key = f.key or ""
+        if key.startswith("absence:"):
+            claim = key[len("absence:"):].strip()
+            # A LABEL may be shortened (it is a pointer, not evidence); the dialogue below it
+            # never is. The full claim is in §3 and §6.
+            return "absence: " + (claim if len(claim) <= 60 else claim[:60].rstrip() + "…")
+        return key or "recurring pattern"
+    if f.kind == "breach":
+        return "ground-truth breach"
+    if f.kind == "det_violation":
+        return "deterministic violation"
+    if f.kind == "bleed":
+        return "scenario bleed"
+    return f.kind.replace("_", " ")
+
+
+def cited_turns(analysis: RunAnalysis) -> dict[tuple[str, int], tuple[str, ...]]:
+    """(persona_id, turn) -> the markers to print, built from the SAME Finding sources the
+    body of the report cites. Nothing is asserted here that §6 cannot resolve."""
+    hits: dict[tuple[str, int], dict[str, str]] = {}
+    for f in analysis.findings_index:
+        label = _finding_label(f)
+        for s in f.sources:
+            if s.kind != "transcript" or s.turn is None or not s.persona_id:
+                continue
+            hits.setdefault((s.persona_id, int(s.turn)), {})[f.id] = label
+    return {k: tuple(f"{lbl} [{fid}]" for fid, lbl in sorted(v.items()))
+            for k, v in hits.items()}
+
+
+def _blockquote(text: str, label: str = "") -> list[str]:
+    """A verbatim blockquote. Multi-line agent turns keep their line breaks (a `>` per line,
+    `>` alone for blank ones) — the alternative, flattening to one line or to `<br>`, edits
+    the transcript, and the whole point of this section is that it is not edited."""
+    head = f"**{label}** " if label else ""
+    lines = text.split("\n") if text else []
+    if not lines:
+        return [f"> {head}*(no text recorded in the artifact)*"]
+    out = [f"> {head}{lines[0]}".rstrip()]
+    for ln in lines[1:]:
+        out.append(f"> {ln}".rstrip() if ln.strip() else ">")
+    return out
+
+
+def _turn_facts(t: TurnView, audio: bool) -> str:
+    """The measured per-turn facts, and only the ones the artifact actually carries."""
+    bits: list[str] = []
+    if t.provenance:
+        bits.append(f"provenance `{t.provenance}`")
+    if audio and t.speech_s is not None:
+        bits.append(f"speech {t.speech_s:g}s")
+    if audio and t.peak is not None:
+        bits.append(f"peak {t.peak:g}")
+    if t.sent is False:
+        bits.append("**never delivered** (`meta.sent: false`) — generated, then the "
+                    "conversation ended before it was spoken")
+    return " · ".join(bits)
+
+
+def _render_turn(L: list[str], t: TurnView, audio: bool, marks: tuple[str, ...]) -> None:
+    head = f"**turn {t.idx} · {t.speaker}**"
+    facts = _turn_facts(t, audio)
+    if facts:
+        head += f" · {facts}"
+    if marks:
+        head += f"  ←  cited: {', '.join(marks)}"
+    L.append(head)
+    L.append("")
+    if audio and t.has_heard and t.heard_differs:
+        # The pair, adjacent, both in full. This is the product.
+        L += _blockquote(t.text, "we said:")
+        L.append(">")
+        if t.heard_text:
+            L += _blockquote(t.heard_text, "Tara heard:")
+        else:
+            L.append("> **Tara heard:** *(empty — `meta.tara_heard.text` is a blank string: "
+                     "the target's ASR returned nothing for this turn)*")
+        # Only when the lengths actually differ: "heard 111 chars vs 111 spoken" on a line the
+        # ASR rewrote without shortening reads like a contradiction of the diff above it.
+        note: list[str] = []
+        if len(t.heard_text or "") != len(t.text):
+            note.append(f"heard {len(t.heard_text or '')} chars vs {len(t.text)} spoken")
+        if t.truncation_suspect:
+            note.append("`truncation_suspect: true` (the artifact's own heuristic — heard "
+                        "shorter than 60% of intended, LEVEL1_SPEC §3.2)")
+        if t.heard_event_id is not None:
+            note.append(f"event_id {t.heard_event_id}")
+        L.append(">")
+        L.append("> *ASR differs from the spoken line"
+                 + (f" — {'; '.join(note)}" if note else "") + ".*")
+    elif audio and t.has_heard:
+        L += _blockquote(t.text)
+        L.append(">")
+        L.append("> *Tara's ASR returned this line unchanged (whitespace aside).*")
+    elif audio and t.speaker == "persona" and t.sent is not False:
+        L += _blockquote(t.text)
+        L.append(">")
+        L.append("> *No `user_transcript` was recorded for this turn — what the target heard "
+                 "is unknown, not identical.*")
+    else:
+        L += _blockquote(t.text)
+    L.append("")
+
+
+def render_transcripts(transcripts: tuple[PersonaTranscript, ...],
+                       cited: dict[tuple[str, int], tuple[str, ...]],
+                       order: tuple[str, ...], *, section: str = "8") -> list[str]:
+    """The appendix, in the scorecard table's own persona order."""
+    L: list[str] = []
+    L.append(f"## {section}. Full transcripts")
+    L.append("")
+    if not transcripts:
+        L.append("No conversation artifacts were loaded for this report.")
+        L.append("")
+        return L
+
+    by_id = {t.persona_id: t for t in transcripts}
+    rows = [by_id[pid] for pid in order if pid in by_id]
+    rows += [t for t in transcripts if t.persona_id not in set(order)]
+
+    L.append("Every turn of every conversation above, verbatim and uncut. The quotes in §2-§4 "
+             "are the spans the judge's evidence audit kept; this is the conversation they "
+             "were taken from, so a reader can check the judge's work instead of trusting it. "
+             "Turns cited anywhere above carry a `←  cited: … [Fxx]` marker; every id "
+             f"resolves in §{int(section) - 2 if section.isdigit() else '6'}.")
+    L.append("")
+    if any(t.audio for t in rows):
+        L.append(f"Audio conversations show two streams per persona turn: **we said** — the "
+                 f"persona's intended line, which is what was synthesised and what the judge "
+                 f"scored (`text_provenance: persona_intended`) — and **Tara heard**. "
+                 f"{_ASR_NOTE}")
+        L.append("")
+    for i, tr in enumerate(rows, 1):
+        tag = " *(control — excluded from aggregates)*" if tr.is_control else ""
+        lvl = f"level {tr.level}" if tr.level is not None else "level not recorded"
+        mode = tr.mode or ("audio" if tr.audio else "not recorded")
+        n_agent, n_persona, n_total = tr.counts
+        L.append(f"### {section}.{i} {tr.persona_id}{tag} — {mode}, {lvl}")
+        L.append("")
+        L.append(f"{n_total} turns ({n_agent} agent / {n_persona} persona) · "
+                 f"ended `{tr.end_reason}`")
+        if tr.audio:
+            n_p, n_heard, n_diff, n_trunc = tr.heard_stats
+            L.append("")
+            L.append(f"Target ASR: `user_transcript` recorded on {n_heard} of {n_p} persona "
+                     f"turns; it differs from the spoken line on {n_diff} of those, and "
+                     f"{n_trunc} carry the artifact's `truncation_suspect` flag.")
+        L.append("")
+        if not tr.turns:
+            L.append("*(the artifact records no turns)*")
+            L.append("")
+            continue
+        for t in tr.turns:
+            _render_turn(L, t, tr.audio, cited.get((tr.persona_id, t.idx), ()))
+    return L
+
+
 def render_report(analysis: RunAnalysis, narrative: Narrative | None,
                   manifest: dict, *, generated_at: str = "",
-                  llm_note: str = "") -> str:
+                  llm_note: str = "",
+                  transcripts: tuple[PersonaTranscript, ...] = ()) -> str:
     a = analysis
     gate = a.control_gate
     valid = gate.valid
@@ -733,7 +1086,8 @@ def render_report(analysis: RunAnalysis, narrative: Narrative | None,
     L.append("")
     L.append("There is deliberately no run-level average: these personas are adversarial "
              "probes, not a traffic sample, and the control is excluded from every aggregate. "
-             "The run ships at its weakest behaviour above.")
+             "The run ships at its weakest behaviour above. Every conversation behind these "
+             "rows is reproduced in full, turn by turn, in §8.")
     L.append("")
 
     # ── 3. confirmed defects ─────────────────────────────────────────────────────────────
@@ -981,6 +1335,13 @@ def render_report(analysis: RunAnalysis, narrative: Narrative | None,
     for w in manifest.get("warnings") or []:
         L.append(f"- run.json warning (verbatim): {w}")
     L.append("")
+
+    # ── 9. transcripts ───────────────────────────────────────────────────────────────────
+    # LAST, deliberately. It is the longest section by far and it is an appendix: the verdict,
+    # the defects and the fix list are what a reader acts on, and none of them may be pushed
+    # down the page by the evidence they rest on.
+    L += render_transcripts(transcripts, cited_turns(a),
+                            tuple(p.persona_id for p in a.report_personas))
     return "\n".join(L)
 
 
@@ -1045,11 +1406,23 @@ async def generate_report(run_dir: Path, cfg: Config, *,
 
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     llm_note = "" if use_llm else " (--no-llm: deterministic narrative only, zero LLM calls)"
+    # Built from the conversation artifacts already in memory — no LLM, no second read, so
+    # `--no-llm` and a total LLM outage both still produce the appendix in full.
+    report_ids = set(analysis.report_ids) or {p.persona_id for p in inputs.personas}
+    transcripts = build_transcripts(
+        [p for p in inputs.personas if p.persona_id in report_ids])
     report_md = render_report(analysis, narrative, manifest,
-                              generated_at=generated_at, llm_note=llm_note)
+                              generated_at=generated_at, llm_note=llm_note,
+                              transcripts=transcripts)
 
     synthesis = {
         "analysis": analysis.to_json(),
+        # Additive: every pre-existing key keeps its exact shape and meaning. A consumer that
+        # does not know about transcripts is unaffected; one that does gets the same turns the
+        # appendix rendered, with the same citation markers.
+        "transcripts": [t.to_json() for t in transcripts],
+        "cited_turns": [{"persona_id": pid, "turn": turn, "markers": list(marks)}
+                        for (pid, turn), marks in sorted(cited_turns(analysis).items())],
         "narrative": narrative.to_json() if narrative else None,
         # `llm_audit` is None whenever the call ladder was exhausted, and `llm_errors` is
         # exactly then non-empty — so the old `(llm_audit or llm_errors)` guard was TRUE with
@@ -1090,4 +1463,97 @@ __all__ = [
     "ReportError", "LLMSentence", "Narrative", "LLMAudit", "ClusterTiers",
     "audit_llm_sentences", "cluster_tiers_from", "allowed_numbers_from", "build_digest",
     "render_report", "generate_report",
+    "TurnView", "PersonaTranscript", "build_transcripts", "is_audio_conversation",
+    "cited_turns", "render_transcripts",
 ]
+
+
+# ═════════════════════════════════════════════════════════════════════════════════════════
+# Selftest for the transcript appendix — no API key, no network, no writes, no run dir.
+#   PYTHONPATH=. uv run --python 3.12 python -m synth.report
+# ═════════════════════════════════════════════════════════════════════════════════════════
+
+def _selftest() -> int:  # pragma: no cover - developer tool
+    ok = True
+
+    def check(label: str, cond: bool, detail: str = "") -> None:
+        nonlocal ok
+        ok = ok and cond
+        print(f"  [{'PASS' if cond else 'FAIL'}] {label}" + (f" — {detail}" if detail else ""))
+
+    class _Doc:
+        def __init__(self, pid, conv, ctrl=False):
+            self.persona_id, self.conversation, self.is_control = pid, conv, ctrl
+
+    long_line = "Arre, maine socha tha ki abhi series nahi aa rahi, toh thoda save kar loon."
+    heard_line = "अरे, मैंने सथोड़ा save कर लूँ।"
+    l0 = {"level": 0, "target": {"mode": "text"}, "end_reason": {"code": "goal_reached"},
+          "turns": [{"idx": 0, "speaker": "agent", "text": "line one\n\nline two",
+                     "meta": {"is_opening": True}},
+                    {"idx": 1, "speaker": "persona", "text": long_line,
+                     "meta": {"attempts": 1, "sent": True}}]}
+    l1 = {"level": 1, "target": {"mode": "audio"}, "end_reason": {"code": "seconds_over",
+                                                                  "kind": "hard"},
+          "turns": [{"idx": 0, "speaker": "agent", "text": "opening", "meta": {}},
+                    {"idx": 1, "speaker": "persona", "text": long_line,
+                     "meta": {"text_provenance": "persona_intended",
+                              "tara_heard": {"text": heard_line, "event_id": 40,
+                                             "provenance": "asr",
+                                             "truncation_suspect": True}}},
+                    {"idx": 2, "speaker": "agent", "text": "reply",
+                     "meta": {"text_provenance": "agent_emitted", "speech_s": 12.0,
+                              "peak": 22161}},
+                    {"idx": 3, "speaker": "persona", "text": "never spoken",
+                     "meta": {"sent": False}}]}
+
+    print("LEVEL DETECTION (from the artifact, never from config)")
+    check("text/level 0 artifact is not audio", not is_audio_conversation(l0))
+    check("audio/level 1 artifact is audio", is_audio_conversation(l1))
+    check("mode 'audio' alone is enough", is_audio_conversation({"target": {"mode": "audio"}}))
+    check("level 1 alone is enough", is_audio_conversation({"level": 1}))
+    check("an empty artifact is Level 0, not audio", not is_audio_conversation({}))
+
+    t0 = build_transcripts([_Doc("p0", l0)])[0]
+    t1 = build_transcripts([_Doc("p1", l1)])[0]
+    md0 = "\n".join(render_transcripts((t0,), {}, ("p0",)))
+    md1 = "\n".join(render_transcripts((t1,), {("p1", 2): ("hallucination [F01]",)}, ("p1",)))
+
+    print("LEVEL 0 — a plain transcript, no empty audio columns, no apology")
+    check("no 'heard' anywhere", "heard" not in md0.lower())
+    check("no ASR note", "ASR" not in md0 and "asr" not in md0)
+    check("no audio meta printed", "speech " not in md0 and "peak " not in md0)
+    check("multi-line turn keeps its break", "> line one\n>\n> line two" in md0)
+    check("the persona line is uncut", long_line in md0)
+
+    print("LEVEL 1 — the spoken/heard pair, adjacent and complete")
+    check("both streams present", "we said:" in md1 and "Tara heard:" in md1)
+    check("spoken line in full", long_line in md1)
+    check("heard line in full", heard_line in md1)
+    check("they are adjacent", md1.index(long_line) < md1.index(heard_line)
+          < md1.index(long_line) + 400)
+    check("difference is flagged", "ASR differs from the spoken line" in md1)
+    check("truncation flag surfaced", "truncation_suspect: true" in md1)
+    check("provenance surfaced", "`persona_intended`" in md1 and "`agent_emitted`" in md1)
+    check("agent audio facts surfaced", "speech 12s" in md1 and "peak 22161" in md1)
+    check("citation marker lands on the cited turn",
+          "←  cited: hallucination [F01]" in md1.split("**turn 2")[1].split("**turn 3")[0])
+    check("an undelivered persona line says so, and is still printed",
+          "never delivered" in md1 and "never spoken" in md1)
+
+    print("MULTI-PERSONA — sections follow the scorecard order, and none is dropped")
+    many = build_transcripts([_Doc("b", l1), _Doc("a", l0), _Doc("c", l1, ctrl=True)])
+    md = "\n".join(render_transcripts(many, {}, ("a", "b", "c")))
+    heads = [ln for ln in md.split("\n") if ln.startswith("### ")]
+    check("one section per persona, in the given order", len(heads) == 3
+          and " a " in heads[0] and " b " in heads[1] and " c " in heads[2], str(heads))
+    check("the control is labelled", "control — excluded from aggregates" in heads[2])
+    check("a persona absent from the order is still rendered",
+          len([ln for ln in "\n".join(
+              render_transcripts(many, {}, ("a",))).split("\n") if ln.startswith("### ")]) == 3)
+
+    print("ALL CHECKS PASSED" if ok else "FAILURES ABOVE")
+    return 0 if ok else 1
+
+
+if __name__ == "__main__":  # pragma: no cover
+    raise SystemExit(_selftest())

@@ -1283,7 +1283,12 @@ class ElevenLabsAudioTarget:
             self.audio_dir.mkdir(parents=True, exist_ok=True)
             path = self.audio_dir / f"turn_{idx}_{who}.pcm"
             path.write_bytes(pcm)
-            return str(path)
+            # RELATIVE to the run directory — "audio/<persona>/turn_N_who.pcm", the form
+            # LEVEL1_SPEC §3.2 specifies. It was returning an ABSOLUTE path, which bakes one
+            # machine's filesystem layout into a portable artifact: move the run directory,
+            # or read it from a web server with a different cwd, and every path is dead.
+            # Artifacts are the contract between stages; they must not know where they live.
+            return f"audio/{self.audio_dir.name}/{path.name}"
         except OSError as e:
             self.warnings.append(f"could not write turn audio: {e}")
             return None

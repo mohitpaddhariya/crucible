@@ -304,7 +304,11 @@ async def execute_run(cfg: Config, *, only: list[str] | None = None,
     manifest = {
         "schema_version": "1.0",
         "run_id": run_id,
-        "level": 0,
+        # Derived, not hardcoded. This said 0 on every audio run while the conversation
+        # artifacts beside it correctly said 1 — so anything reading the run manifest to
+        # decide "is this an audio run" got the wrong answer, and had to fall back to
+        # sniffing the conversations or the audio directory.
+        "level": 1 if getattr(cfg.target, "mode", "text") == "audio" else 0,
         "started_at": started_at,
         "ended_at": ended_at,
         "duration_s": duration_s,
