@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# spar — voice-spar entrypoint.
+#
+#   ./spar run                          # every persona in config.yaml run.personas
+#   ./spar run --personas price-haggler # one persona, to conserve API quota
+#   ./spar config                       # validate config + personas, no API call
+#
+# Level 0 is text only. Nothing here touches audio, and nothing anywhere in this repo
+# touches ElevenLabs' simulate-conversation endpoint.
+set -euo pipefail
+cd "$(dirname "$0")"
+exec uv run --python 3.12 python -m runner.run "$@"

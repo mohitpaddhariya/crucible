@@ -1,0 +1,53 @@
+# voice-spar config — copy to config.yaml and fill in. config.yaml is gitignored.
+
+target:
+  adapter: elevenlabs
+  # agent_id and the API key come from .env — never put secrets in this file.
+  #   ELEVENLABS_AGENT_ID, ELEVENLABS_API_KEY
+  # Level 0 sends textOnly as a RUNTIME override, so the live agent config is never modified.
+  mode: text                            # text | audio
+
+# Sarvam models are REASONING models and reasoning cannot be disabled.
+# It eats max_tokens before `content` is written. Below ~1200 you get content: None.
+# See docs/PREFLIGHT.md §5 for the measurements.
+persona_brain:
+  provider: sarvam
+  model: sarvam-30b                     # 105b is ~12s/turn — too slow for a 12-turn loop
+  temperature: 0.9                      # high — personas should be a bit unpredictable
+  max_tokens: 2000                      # DO NOT lower. <1200 returns content: None.
+
+judge:
+  provider: sarvam
+  model: sarvam-105b                    # different model from persona_brain, and from Tara's Qwen
+  temperature: 0.0
+  max_tokens: 2000
+  require_evidence: true                # no score without a verbatim quote — do not turn off
+
+synthesizer:
+  provider: sarvam
+  model: sarvam-105b
+  temperature: 0.2
+  max_tokens: 2000
+
+# Level 1 only
+speech:
+  stt: saaras:v3
+  tts: bulbul:v3
+  input_sample_rate: 16000              # what we send to X
+  output_sample_rate: 16000             # what X sends back
+
+run:
+  personas: all                         # all | [price-haggler, happy-path]
+  max_parallel: 4                       # both APIs rate limit — do not raise blindly
+  budget_inr: 200                       # abort the run before overspending
+  out_dir: runs/
+
+# Weights must sum to 100. Edit freely.
+rubric:
+  goal_outcome: 25
+  hallucination: 20
+  instruction_adherence: 15
+  language_handling: 15
+  objection_handling: 10
+  escalation_safety: 10
+  conversation_flow: 5

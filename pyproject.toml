@@ -1,0 +1,39 @@
+[project]
+name = "voice-spar"
+version = "0.1.0"
+description = "Synthetic Sarvam personas hold real conversations with a live ElevenLabs agent, then a judge scores them."
+requires-python = ">=3.12"
+
+# Level 0 is TEXT ONLY. Nothing here may pull in numpy/scipy/soundfile.
+# If `uv sync` starts compiling a wheel, something has leaked in from Level 1.
+dependencies = [
+    "openai>=1.40,<2",          # OpenAI-compatible client surface for Sarvam chat completions
+    "websockets>=14,<16",       # PINNED: v14 renamed extra_headers -> additional_headers (INTERFACES.md 3.3)
+    "httpx>=0.27,<1",           # the one shared async HTTP client (INTERFACES.md 4.5)
+    "pydantic>=2.7,<3",         # persona YAML validation
+    "pyyaml>=6,<7",
+    "python-dotenv>=1,<2",      # .env -> dict; os.environ still wins (INTERFACES.md 9.1)
+    "rich>=13,<15",             # human-readable run + config output
+]
+
+[project.optional-dependencies]
+# LEVEL 1 ONLY. Level 0 must install and run without any of this.
+#   uv sync --extra audio
+audio = [
+    "numpy>=2,<3",
+    "scipy>=1.13,<2",
+    "soundfile>=0.12,<1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8,<9",
+    "pytest-asyncio>=0.23,<2",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
