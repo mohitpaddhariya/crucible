@@ -181,6 +181,14 @@ function pickRun(runs: any[]): string | null {
   return (audio ?? anyConversation ?? runs[0])?.id ?? null;
 }
 
+/**
+ * The shell carries `dashboard-*` classes so the light theme in globals.css can restyle
+ * this app WITHOUT any component being edited. Those rules map our dark Tailwind
+ * utilities onto the palette by attribute selector, e.g.
+ *     .dashboard-shell [class~="bg-neutral-950"] { background: var(--dashboard-paper) }
+ * which is why the structure below still reads as the dark original. Keep the utility
+ * classes: they are the hooks the theme selects on, not leftovers.
+ */
 export default function App() {
   const [step, setStep] = useState<Step>(0);
   const [runId, setRunId] = useState<string | null>(null);
@@ -312,8 +320,8 @@ export default function App() {
   const recordedAt = detail?.startedAt ? formatDate(detail.startedAt) : null;
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-100">
-      <header className="border-b border-neutral-800/80 px-8 py-5">
+    <main className="dashboard-shell min-h-screen bg-neutral-950 text-neutral-100">
+      <header className="dashboard-header border-b border-neutral-800/80 px-8 py-5">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6">
           <div>
             <h1 className="text-lg font-semibold tracking-tight">voice-spar</h1>
@@ -327,7 +335,7 @@ export default function App() {
         </div>
       </header>
 
-      <nav className="border-b border-neutral-800/80 px-8">
+      <nav className="dashboard-steps border-b border-neutral-800/80 px-8">
         <div className="mx-auto flex max-w-6xl gap-1">
           {STEPS.map((s) => (
             <button
@@ -346,7 +354,7 @@ export default function App() {
         </div>
       </nav>
 
-      <div className="mx-auto max-w-6xl px-8 py-8">
+      <div className="dashboard-content mx-auto max-w-6xl px-8 py-8">
         {err ? <EmptyState title="Could not read the conversations" detail={err} /> : null}
 
         {/* ── 0. Connect ────────────────────────────────────────────────────── */}

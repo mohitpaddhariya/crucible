@@ -38,7 +38,7 @@ function App() {
           <a href="#product">Product</a>
           <a href="#dimensions">Evals</a>
           <a href="#benchmark">Benchmark</a>
-          <a className="dashboard-link" href="#dashboard">
+          <a className="dashboard-link" href="/dashboard">
             Go to dashboard
             <ArrowRight size={15} />
           </a>
@@ -123,7 +123,7 @@ function App() {
           </div>
         </section>
 
-        <section className="demo-section" id="dashboard" aria-labelledby="demo-title">
+        <section className="demo-section" id="eval-demo" aria-labelledby="demo-title">
           <div className="section demo-heading">
             <h2 id="demo-title">A failure you can replay.</h2>
             <p>
@@ -221,12 +221,10 @@ function App() {
             </div>
             <a
               className="button button-light"
-              href="https://github.com/mohitpaddhariya/crucible"
-              target="_blank"
-              rel="noreferrer"
+              href="/dashboard"
             >
-              <Github size={18} />
-              Follow the build
+              Open dashboard
+              <ArrowRight size={18} />
             </a>
           </div>
         </section>

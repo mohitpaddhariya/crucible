@@ -63,17 +63,27 @@ cp config.example.yaml config.yaml
 # fill in agent_id + keys
 ```
 
-## Website
+## Web UI
 
-The product website lives in `website/` as a standalone Vite application.
+The product site lives in `website/` and the run dashboard lives in `web/`.
+Start both behind one local origin:
 
 ```bash
-cd website
-npm install
-npm run dev
+./scripts/dev_ui.sh
 ```
 
-Run `npm run build` for a production bundle.
+Open `http://localhost:4173` for the product site and
+`http://localhost:4173/dashboard` for the dashboard. Vite forwards
+`/dashboard`, `/_next`, and `/api` to the Next.js process on port 3000, so
+navigation and run data stay on one browser origin.
+
+Install dependencies with `npm ci` in both `website/` and `web/`. Their
+production builds remain independent:
+
+```bash
+npm --prefix website run build
+npm --prefix web run build
+```
 
 The landing animation is rendered live by `website/src/components/AsciiVideo.tsx`.
 Add another WebM/MP4 source to `heroAnimations` in `website/src/App.tsx`; when
