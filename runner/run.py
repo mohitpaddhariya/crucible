@@ -392,6 +392,22 @@ def build_parser() -> argparse.ArgumentParser:
     judge_cmd.add_argument("--env", default=None, type=Path)
     judge_cmd.add_argument("--verbose", "-v", action="store_true")
 
+    # `report` is the third and last stage, and it is the cheapest: it reads scorecards,
+    # transcripts and run.json off disk and writes report.md + synthesis.json. No socket is
+    # opened to the target, no ElevenLabs client is constructed on this path, and with
+    # --no-llm it makes no network call at all (SYNTH_SPEC §0.1, §5).
+    rep_cmd = sub.add_parser(
+        "report", help="synthesise all scorecards of a run into report.md (reads files only)")
+    rep_cmd.add_argument("run_id", nargs="?", default=None,
+                         help="run id or path; defaults to the newest run")
+    rep_cmd.add_argument("--personas", default=None,
+                         help="comma-separated persona ids to include in the report")
+    rep_cmd.add_argument("--no-llm", action="store_true",
+                         help="skip the narrative LLM call; deterministic report only")
+    rep_cmd.add_argument("--config", default=None, type=Path)
+    rep_cmd.add_argument("--env", default=None, type=Path)
+    rep_cmd.add_argument("--verbose", "-v", action="store_true")
+
     cfg_cmd = sub.add_parser("config", help="validate config + personas, make no API call")
     cfg_cmd.add_argument("--config", default=None, type=Path)
     cfg_cmd.add_argument("--env", default=None, type=Path)
@@ -471,6 +487,78 @@ def main(argv: list[str] | None = None) -> int:
         for f in summary["failed"]:
             log.error("  %s: %s", f["file"], f["error"])
         return 0 if summary["judged"] else 1
+
+    if args.command == "report":
+        # Inputs are checked before the import, so a mistyped run id is reported as a
+        # mistyped run id rather than as whatever the import happened to hit first.
+        try:
+            run_dir = _resolve_run_dir(cfg, args.run_id)
+        except FileNotFoundError as exc:
+            print(exc, file=sys.stderr)
+            return 1
+        # A run with no scorecards is not an empty report, it is a missing stage. Say which
+        # stage, rather than letting the synthesizer report "0 personas" as if that were data.
+        if not sorted((run_dir / "scorecards").glob("*.json")):
+            print(f"no scorecards in {run_dir} — run 'spar judge' first", file=sys.stderr)
+            return 1
+        only = [s.strip() for s in args.personas.split(",") if s.strip()] if args.personas else None
+
+        # Lazy, and inside the handler: importing synth pulls in agent.sarvam/httpx, and a
+        # `spar run` has no business paying for that. The guard is narrow on purpose — only
+        # "synth.report itself is absent" gets the friendly message; a ModuleNotFoundError
+        # raised from INSIDE synth.report is a real broken dependency and must not be
+        # disguised as "not installed yet".
+        try:
+            from synth.report import ReportError, generate_report
+        except ModuleNotFoundError as exc:
+            if exc.name not in ("synth", "synth.report"):
+                raise
+            print("the synthesizer is not installed yet — synth/report.py is missing",
+                  file=sys.stderr)
+            return 1
+        log.info("=" * 78)
+        log.info("voice-spar report  %s", run_dir.name)
+        log.info("  reads       : scorecards/ + conversations/ + run.json — no target, no socket")
+        log.info("  narrative   : %s", "OFF (--no-llm, deterministic only)" if args.no_llm
+                 else f"{cfg.synthesizer.model}  t={cfg.synthesizer.temperature}")
+        if only:
+            # Stated out loud because it is a narrowing a reader could otherwise miss: the
+            # filter trims the report's rows, it never trims the control gate or the
+            # cross-persona uniqueness the bleed scan is computed from (SYNTH_SPEC §2.1).
+            log.info("  personas    : %s  (report rows only — gate and bleed still span the run)",
+                     ", ".join(only))
+        log.info("=" * 78)
+        try:
+            summary = asyncio.run(
+                generate_report(run_dir, cfg, only=only, use_llm=not args.no_llm))
+        except ReportError as exc:
+            print(f"report failed: {exc}", file=sys.stderr)
+            return 1
+        except KeyboardInterrupt:
+            print("\ninterrupted", file=sys.stderr)
+            return 130
+        # The gate is the one thing worth reading off the summary line: a run whose control
+        # failed is not a weaker run, it is an uninterpretable one, and the reader must see
+        # that before they see the path. (SYNTH_SPEC §2.8 / §4.3.)
+        gate = summary["control_gate"]
+        gate_status = gate["status"] if isinstance(gate, dict) else gate
+        log.info("-" * 78)
+        if gate_status == "pass":
+            log.info("control gate: PASS")
+        else:
+            # "no control persona" is unanchored, not disproven — the distinction matters to
+            # whoever reads this line, so it is not flattened into a single word (§2.8).
+            log.error("control gate: %s — run %s; no cross-persona finding below is promoted "
+                      "to a defect", str(gate_status).upper(),
+                      "UNANCHORED" if gate_status == "no_control" else "INVALID")
+        log.info("  findings    : %s", summary["n_findings"])
+        for w in summary["warnings"] or ():
+            log.warning("  ! %s", w)
+        log.info("  report      : %s", summary["report_path"])
+        log.info("  synthesis   : %s", summary["synthesis_path"])
+        # A failed gate is a reported fact, not a CLI error: report.md was written correctly
+        # and says so at the top. Exit 0 — the synthesizer did its job.
+        return 0
 
     # CLI overrides, applied to the frozen dataclasses by rebuilding them
     from dataclasses import replace as _replace

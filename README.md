@@ -2,7 +2,7 @@
 
 **Many synthetic customer personas spar with a live voice agent. One synthesizer turns every conversation into a single evaluation report.**
 
-> **Status: spec + scaffold only.** No implementation yet. Nothing here has been run.
+> **Status: Level 0 (text only) runs end to end.** `spar run` → `spar judge` → `spar report`.
 
 ---
 
@@ -10,13 +10,16 @@
 
 ```
 personas/*.yaml  ─►  RUNNER  ─►  n conversations with the target agent
-                                        │
+                                        │        runs/<id>/conversations/*.json
                                         ▼
                                      JUDGE  (each conversation, independently)
-                                        │
+                                        │        runs/<id>/scorecards/*.json
                                         ▼
-                                  SYNTHESIZER  ─►  one eval report
+                                  SYNTHESIZER  ─►  runs/<id>/report.md
 ```
+
+The three stages talk to each other **only through files**. Nothing is held in memory
+between them, which is why the last two are re-runnable for free.
 
 - **X** — the target. Currently `jiohotstar-tara-winback-recovery`, an ElevenLabs hosted agent. We don't modify it.
 - **Y₁…Yₙ** — the personas. Built on Sarvam. Each one is a YAML file.
@@ -60,7 +63,44 @@ cp config.example.yaml config.yaml
 # fill in agent_id + keys
 ```
 
+## The three stages
+
+```bash
+./spar run                       # hold the conversations, write the transcripts
+./spar judge                     # score the newest run's transcripts
+./spar report                    # synthesise every scorecard into one report.md
+./spar report --no-llm           # ...deterministic narrative only, zero LLM calls
+```
+
+`judge` and `report` default to the newest run and take an explicit run id when you want an
+older one (`./spar judge 20260725-185028-f99e33`). All three accept
+`--personas price-haggler,angry-churner` — but note what it means on `report`: it narrows the
+**rows of the report**, never the analysis. The control gate and the cross-conversation bleed
+scan are always computed over every persona in the run, because uniqueness measured over a
+subset is a different and wrong question, and a filtered report that quietly skipped the gate
+would launder an invalid run.
+
+| Stage | Talks to the target? | Reads | Writes |
+|---|---|---|---|
+| `run` | **yes** — the only stage that does | `personas/*.yaml`, `config.yaml` | `conversations/`, `raw/`, `prompts/`, `run.json` |
+| `judge` | no | `conversations/*.json` | `scorecards/*.json` |
+| `report` | no | `scorecards/*.json`, `conversations/*.json`, `run.json` | `report.md`, `synthesis.json` |
+
+Because only `run` opens a socket, **`judge` and `report` cost zero ElevenLabs quota** and
+can be re-run as often as you like against byte-identical input — which is what makes the
+scoring and the report reproducible rather than merely repeatable.
+
+`report` is the only stage that sees across conversations, so it is the only one that can
+say what no single scorecard contains: values that bled between personas, failures that
+recur, dimensions that never discriminated, and whether the control persona held (if it
+didn't, the run is reported as invalid instead of being averaged away). Its narrative
+sentences are LLM-written but citation-audited; `./spar report --no-llm` skips the model
+entirely and still writes a complete, deterministic report.
+
 ## Docs
 
 - **[docs/REQUIREMENTS.md](docs/REQUIREMENTS.md)** — full spec, data flow, judge rules, rubric
+- **[docs/INTERFACES.md](docs/INTERFACES.md)** — the artifact contracts between the stages
+- **[docs/SYNTH_SPEC.md](docs/SYNTH_SPEC.md)** — the synthesizer contract (`spar report`)
+- **[docs/CALIBRATION.md](docs/CALIBRATION.md)** — what the first real run actually showed
 - **[personas/_SCHEMA.md](personas/_SCHEMA.md)** — persona YAML schema and how to write a good one

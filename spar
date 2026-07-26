@@ -1,9 +1,24 @@
 #!/usr/bin/env bash
 # spar — voice-spar entrypoint.
 #
+# Three stages, each talking to the next through files in runs/<run_id>/:
+#
 #   ./spar run                          # every persona in config.yaml run.personas
 #   ./spar run --personas price-haggler # one persona, to conserve API quota
+#   ./spar judge                        # score the newest run's transcripts (no target)
+#   ./spar report                       # one report.md from all of that run's scorecards
+#   ./spar report --no-llm              # ...deterministic narrative only, zero LLM calls
 #   ./spar config                       # validate config + personas, no API call
+#
+# `judge` and `report` default to the newest run and take an explicit id when you want an
+# older one: ./spar report 20260725-185028-f99e33
+#
+# Only `run` talks to the target. `judge` and `report` read the artifacts off disk, so both
+# are free of ElevenLabs quota and reproducible against byte-identical input.
+#
+# One asymmetry worth knowing: `--personas` on `report` narrows the report's ROWS only. The
+# control gate and the cross-conversation bleed scan are always computed over every persona
+# in the run — uniqueness measured over a subset would be a different, wrong question.
 #
 # Level 0 is text only. Nothing here touches audio, and nothing anywhere in this repo
 # touches ElevenLabs' simulate-conversation endpoint.
