@@ -35,6 +35,14 @@ function App() {
     <div id="top">
       <header className="site-header">
         <Brand />
+        <nav className="hero-nav" aria-label="Primary navigation">
+          <a href="#product">Product</a>
+          <a href="#dimensions">Evals</a>
+          <a href="#benchmark">Benchmark</a>
+          <a href="https://github.com/mohitpaddhariya/crucible" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+        </nav>
       </header>
 
       <main>

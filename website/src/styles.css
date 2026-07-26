@@ -16,6 +16,10 @@
   --dark: #151513;
   --ascii-background: #f8f3f6;
   --ascii-grid: #d8ccd2;
+  --hero-type: #69234f;
+  --glass-surface: rgb(255 255 255 / 0.6);
+  --glass-border: rgb(255 255 255 / 0.78);
+  --glass-shadow: rgb(91 35 70 / 0.14);
 }
 
 * {
@@ -1412,27 +1416,81 @@ svg {
 
 /* Minimal video opening */
 .site-header {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
+  position: fixed;
+  top: 18px;
+  left: 50%;
   z-index: 30;
-  height: 72px;
-  padding: 0 24px;
-  border-bottom-color: rgb(18 18 16 / 0.12);
-  background: var(--surface);
+  width: min(1080px, calc(100% - 36px));
+  height: 64px;
+  padding: 0 14px 0 10px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  background: var(--glass-surface);
+  box-shadow:
+    0 14px 36px var(--glass-shadow),
+    inset 0 1px 0 rgb(255 255 255 / 0.88),
+    inset 0 -1px 0 rgb(99 45 78 / 0.08);
+  backdrop-filter: blur(22px) saturate(1.5);
+  transform: translateX(-50%);
+}
+
+#product,
+#dimensions,
+#benchmark {
+  scroll-margin-top: 96px;
+}
+
+.site-header::after {
+  position: absolute;
+  inset: 1px;
+  border: 1px solid rgb(255 255 255 / 0.34);
+  border-radius: 16px;
+  content: "";
+  pointer-events: none;
 }
 
 .site-header .brand {
-  width: 64px;
-  height: 64px;
+  position: relative;
+  z-index: 1;
+  width: 52px;
+  height: 52px;
 }
 
 .site-header .brand img {
   display: block;
-  width: 64px;
-  height: 64px;
+  width: 52px;
+  height: 52px;
   object-fit: contain;
+}
+
+.hero-nav {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  color: var(--hero-type);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.hero-nav a {
+  padding: 8px 0 6px;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.hero-nav a:hover {
+  color: #b23575;
+  border-bottom-color: currentColor;
+}
+
+.hero-nav a:focus-visible {
+  outline: 2px solid var(--hero-type);
+  outline-offset: 4px;
 }
 
 .site-footer .brand,
@@ -1518,26 +1576,39 @@ svg {
   z-index: 1;
   max-width: min(900px, calc(100% - 48px));
   margin: 0;
-  color: #0a0a0a;
-  font-size: clamp(42px, 5.2vw, 76px);
+  color: var(--hero-type);
+  font-family: "Space Grotesk", "Inter", Arial, sans-serif;
+  font-size: clamp(42px, 4.8vw, 70px);
   font-weight: 500;
-  line-height: 1.02;
+  line-height: 1;
   text-align: center;
   letter-spacing: 0;
-  -webkit-text-stroke: 6px rgb(255 255 255 / 0.92);
-  paint-order: stroke fill;
+  text-shadow: 0 2px 18px rgb(255 255 255 / 0.72);
+  text-wrap: balance;
 }
 
 @media (max-width: 700px) {
   .site-header {
-    height: 64px;
-    padding: 0 14px;
+    top: 12px;
+    width: calc(100% - 24px);
+    height: 56px;
+    padding: 0 10px 0 8px;
+    border-radius: 16px;
+  }
+
+  .site-header::after {
+    border-radius: 14px;
   }
 
   .site-header .brand,
   .site-header .brand img {
-    width: 56px;
-    height: 56px;
+    width: 42px;
+    height: 42px;
+  }
+
+  .hero-nav {
+    gap: 13px;
+    font-size: 10px;
   }
 
   .video-hero {
@@ -1546,8 +1617,8 @@ svg {
 
   .video-hero h1 {
     max-width: calc(100% - 32px);
-    font-size: clamp(34px, 9vw, 44px);
-    line-height: 1.06;
+    font-size: clamp(34px, 8.7vw, 42px);
+    line-height: 1.04;
     text-wrap: balance;
   }
 
