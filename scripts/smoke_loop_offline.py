@@ -289,6 +289,12 @@ async def main() -> int:
     # (cost.*, BudgetTracker) are exercised for real rather than multiplied by zero.
     cfg = dc_replace(cfg, pricing={"sarvam-30b": {"input": 10.0, "output": 30.0},
                                    "sarvam-105b": {"input": 40.0, "output": 120.0}})
+    # PIN THE MODE. This suite asserts the Level 0 text path, but it loads the developer's
+    # real config.yaml — so leaving `mode: audio` set after a live audio run made every
+    # scenario silently exercise the audio path against a text fake, and the failures looked
+    # like a code regression for far longer than they should have. The suite must not depend
+    # on local config state it does not control.
+    cfg = dc_replace(cfg, target=dc_replace(cfg.target, mode="text"))
     tmp = Path(tempfile.mkdtemp(prefix="spar-smoke-"))
     real_target = loop_mod.ElevenLabsTarget
     real_settle = el_mod.AGENT_TURN_SETTLE_S

@@ -39,13 +39,31 @@ HONEST LIMITS — these are documented, not hidden:
   * Numeric `DD/MM` dates are reported at `medium` confidence and can only ever produce a
     `review`: the DD/MM-vs-MM/DD ambiguity must never yield a high-confidence violation.
   * A `violation` verdict from this module is a fact. A `review` verdict is a candidate.
+
+A FACT IS ONLY A FACT WHEN THE TEXT IS VERBATIM (LEVEL1_SPEC §3.3)
+    At Level 1 the transcript can contain text no model ever emitted: it can contain text a
+    speech recogniser *heard*. Measured, twice, on the same line: we synthesised "Mere dost
+    ko toh thirty percent off mila tha" and the ASR returned "ये 20% तो 30% off माइला दा" —
+    a 20% nobody said. A number like that reaching this module as though it were verbatim
+    would mint a provable ceiling violation out of a recogniser error, in the strongest
+    voice the tool has.
+
+    So every turn's `meta.text_provenance` is read, and a `violation` on a turn whose text is
+    not verbatim is degraded to `review` — the verdict this module already defines as "a
+    candidate". No new verdict type, no scorecard schema change.
+
+    Absence is NOT silently trusted. A Level 0 artifact has no provenance vocabulary at all,
+    and there absence correctly means verbatim; a Level 1 / audio-mode artifact that omits
+    the key on a turn is a BUG in whatever wrote it, and the safe reading of a bug is "not
+    provably verbatim". The two cases are distinguished from the artifact itself, not from a
+    `.get()` default — see `_provenance_context`.
 """
 
 from __future__ import annotations
 
 import re
 import unicodedata
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from typing import Any, Iterable, Literal
 
 Verdict = Literal["ok", "violation", "review"]
@@ -352,6 +370,117 @@ _UNSUPPORTED_SCRIPT_MIN = 2
 
 
 # ---------------------------------------------------------------------------------------
+# Text provenance (LEVEL1_SPEC §3.2 / §3.3)
+# ---------------------------------------------------------------------------------------
+
+#: Provenance values that mean "this string is exactly what its author produced": the agent's
+#: own `agent_response` text, or the line we synthesised for a persona. Only these keep a
+#: `violation` at full force. Declared as data so a new verbatim source is one entry, not a
+#: scattered edit.
+VERBATIM_PROVENANCE: frozenset[str] = frozenset({"agent_emitted", "persona_intended"})
+
+#: Provenance values that mean "a speech recogniser produced this string". Saaras returns no
+#: confidence value of any kind (measured), so `provenance: "asr"` IS the uncertainty marker.
+ASR_PROVENANCE: frozenset[str] = frozenset({"asr"})
+
+#: Label used for a turn that should carry provenance and does not. Never a silent default —
+#: it is a distinct, reported label so the bug is visible in `coverage.provenance`.
+PROV_MISSING = "missing"
+
+#: Machine-readable downgrade reasons, so a report can branch on cause without parsing prose.
+_REASON_ASR = "asr_derived_text"
+_REASON_MISSING = "provenance_missing"
+_REASON_UNRECOGNISED = "provenance_unrecognised"
+
+#: The suffix LEVEL1_SPEC §3.3 specifies verbatim, for the case it was written about.
+_NOTE_ASR = (" (number is ASR-derived: phantom/normalised numerals are a measured failure "
+             "mode — see LEVEL1_SPEC §2.2)")
+_NOTE_MISSING = (" (turn declares no meta.text_provenance in a Level 1 artifact, so this text "
+                 "cannot be shown to be verbatim — degraded to a candidate rather than "
+                 "assumed trustworthy; see LEVEL1_SPEC §3.2/§3.3)")
+
+#: Meta keys that only ever exist on an audio-mode turn. Their presence proves the artifact
+#: lives in the world where provenance is mandatory, even if `level` were wrong.
+_AUDIO_META_KEYS = ("audio_path", "asr_cross_check", "tara_heard", "tts", "playout_s",
+                    "speech_frames", "mic_hold_s")
+
+
+@dataclass(frozen=True)
+class _TurnProvenance:
+    label: str          # "" only for a Level 0 artifact, which has no provenance vocabulary
+    verbatim: bool      # may a `violation` on this turn stand as a fact?
+    reason: str         # "" when verbatim; a _REASON_* code otherwise
+    note: str = ""      # the sentence appended to a degraded observation's `detail`
+
+
+#: The Level 0 answer, and the ONLY place absence is read as trust.
+_PROV_LEVEL0 = _TurnProvenance("", True, "")
+
+
+@dataclass(frozen=True)
+class _ProvenanceContext:
+    """Whether this artifact is one in which `text_provenance` must be declared.
+
+    `required=False` is the Level 0 world: no turn carries provenance, none is expected, and
+    this whole mechanism is inert — no observation key, no coverage key, no verdict change.
+    `required=True` is the Level 1 world: every turn must say where its text came from, and a
+    turn that does not is reported as `missing`, not quietly trusted.
+    """
+    required: bool
+
+    def of(self, turn: dict) -> _TurnProvenance:
+        meta = turn.get("meta")
+        meta = meta if isinstance(meta, dict) else {}
+        if "text_provenance" not in meta:
+            if not self.required:
+                return _PROV_LEVEL0
+            return _TurnProvenance(PROV_MISSING, False, _REASON_MISSING, _NOTE_MISSING)
+        raw = meta.get("text_provenance")
+        label = str(raw).strip() if raw is not None else ""
+        if not label:
+            return _TurnProvenance(PROV_MISSING, False, _REASON_MISSING, _NOTE_MISSING)
+        if label in VERBATIM_PROVENANCE:
+            return _TurnProvenance(label, True, "")
+        if label in ASR_PROVENANCE:
+            return _TurnProvenance(label, False, _REASON_ASR, _NOTE_ASR)
+        # An unknown value is the same risk as a missing one and is treated the same way: this
+        # module may not decide that a word it has never seen means "verbatim".
+        return _TurnProvenance(
+            label, False, _REASON_UNRECOGNISED,
+            f" (text_provenance {label!r} is not a known verbatim source "
+            f"{sorted(VERBATIM_PROVENANCE)}, so this number cannot be treated as a fact — "
+            f"see LEVEL1_SPEC §3.3)")
+
+
+def _provenance_context(turns: list[dict],
+                        artifact: dict[str, Any] | None = None) -> _ProvenanceContext:
+    """Decide which world this artifact lives in, from the artifact — never from a default.
+
+    Any ONE of these makes provenance mandatory: `level >= 1`, an audio-mode target, a top
+    level `speech` block, a turn that declares `text_provenance`, or a turn carrying meta that
+    only audio mode produces. Deliberately over-inclusive: the cost of demanding provenance
+    from a text-mode run is a loud, correct complaint; the cost of not demanding it from an
+    audio run is a false accusation, which is the failure this rule exists to prevent.
+    """
+    art = artifact if isinstance(artifact, dict) else {}
+    level = art.get("level")
+    if isinstance(level, (int, float)) and not isinstance(level, bool) and level >= 1:
+        return _ProvenanceContext(True)
+    target = art.get("target")
+    if isinstance(target, dict) and str(target.get("mode") or "").lower() == "audio":
+        return _ProvenanceContext(True)
+    if isinstance(art.get("speech"), dict):
+        return _ProvenanceContext(True)
+    for t in turns or []:
+        meta = t.get("meta")
+        if not isinstance(meta, dict):
+            continue
+        if "text_provenance" in meta or any(k in meta for k in _AUDIO_META_KEYS):
+            return _ProvenanceContext(True)
+    return _ProvenanceContext(False)
+
+
+# ---------------------------------------------------------------------------------------
 # Public data shapes
 # ---------------------------------------------------------------------------------------
 
@@ -366,6 +495,35 @@ class Observation:
     confidence: Confidence
     detail: str
     recogniser: str = ""
+    #: Where this turn's text came from. "" means the artifact declares no provenance at all
+    #: (Level 0) — the only case in which these three fields are omitted from the JSON form.
+    text_provenance: str = ""
+    #: The verdict this observation WOULD have carried on verbatim text. "violation" when the
+    #: provenance rule fired; "" otherwise. The report must be able to say a finding was
+    #: softened, not silently show a softer finding.
+    downgraded_from: str = ""
+    downgrade_reason: str = ""      # a _REASON_* code, or ""
+
+
+#: The Level 0 JSON shape of an Observation, in order. Frozen deliberately: `asdict()` would
+#: append every future field to every historical scorecard.
+_L0_OBS_KEYS = ("check", "turn", "speaker", "value", "quote", "verdict", "confidence",
+                "detail", "recogniser")
+
+
+def observation_dict(o: Observation) -> dict[str, Any]:
+    """JSON form of an Observation.
+
+    The provenance keys appear ONLY when the artifact declared provenance. That is what makes
+    `./spar judge` byte-identical on every Level 0 run directory (LEVEL1_SPEC §7): a Level 0
+    observation serialises to exactly the nine keys it always did.
+    """
+    d: dict[str, Any] = {k: getattr(o, k) for k in _L0_OBS_KEYS}
+    if o.text_provenance:
+        d["text_provenance"] = o.text_provenance
+        d["downgraded_from"] = o.downgraded_from
+        d["downgrade_reason"] = o.downgrade_reason
+    return d
 
 
 @dataclass(frozen=True)
@@ -625,17 +783,25 @@ def _blank_check(name: str) -> dict[str, Any]:
     }
 
 
-def _scan(turns: list[dict], name: str, detect, parse, compare, status: str) -> tuple[
-        list[Observation], dict[str, Any]]:
+def _scan(turns: list[dict], name: str, detect, parse, compare, status: str,
+          prov: _ProvenanceContext) -> tuple[list[Observation], dict[str, Any]]:
     """One check, both layers: over-broad detection AND parsing, on every agent turn.
 
     `compare(hit) -> (verdict, detail) | None` runs only when ground truth is usable; a
     `None` return means the parser recognised the mention and deliberately emitted no
     observation (the 100%-idiom case) — recognised is still recognised, so it counts as
     compared and does not masquerade as a blind spot.
+
+    `prov` decides whether a `violation` produced here is a fact or a candidate. Nothing about
+    detection or parsing changes with provenance — a mis-heard number is still parsed, still
+    counted, still quoted. Only its FORCE changes.
     """
     cov = _blank_check(name)
     cov["status"] = status
+    pstats: dict[str, int] | None = None
+    if prov.required:
+        pstats = {"detected_non_verbatim": 0, "parsed_non_verbatim": 0,
+                  "compared_non_verbatim": 0, "observations_downgraded": 0}
     obs: list[Observation] = []
     ran = status == "ran"
 
@@ -646,6 +812,7 @@ def _scan(turns: list[dict], name: str, detect, parse, compare, status: str) -> 
         idx = int(t.get("idx", -1))
         script = _script_of(text)
         folded, starts, ends = _fold_with_map(text)
+        p = prov.of(t)
 
         detections = detect(folded)
         hits = parse(folded)
@@ -653,6 +820,11 @@ def _scan(turns: list[dict], name: str, detect, parse, compare, status: str) -> 
 
         matched = [d for d in detections if _overlaps(d, [h.span for h in hits])]
         cov["parsed"] += len(matched)
+        if pstats is not None and not p.verbatim:
+            pstats["detected_non_verbatim"] += len(detections)
+            pstats["parsed_non_verbatim"] += len(matched)
+            if ran:
+                pstats["compared_non_verbatim"] += len(matched)
         for d in detections:
             if d in matched:
                 continue
@@ -677,13 +849,26 @@ def _scan(turns: list[dict], name: str, detect, parse, compare, status: str) -> 
             if outcome is None:
                 continue
             verdict, detail = outcome
+            # THE ONE JUDGE CHANGE (LEVEL1_SPEC §3.3). A violation is a fact only if the text
+            # is verbatim. On recognised text it becomes what it actually is: a candidate.
+            downgraded_from = ""
+            if not p.verbatim and verdict == "violation":
+                downgraded_from, verdict = verdict, "review"
+                detail += p.note
+                if pstats is not None:
+                    pstats["observations_downgraded"] += 1
             os_, oe_ = _orig_span(starts, ends, *h.span)
             obs.append(Observation(
                 check=name, turn=idx, speaker=_AGENT, value=h.value,
                 quote=_sentence_around(text, os_, oe_), verdict=verdict,
                 confidence=h.confidence, detail=detail, recogniser=h.recogniser,
+                text_provenance=p.label,
+                downgraded_from=downgraded_from,
+                downgrade_reason=p.reason if downgraded_from else "",
             ))
 
+    if pstats is not None:
+        cov["provenance"] = pstats
     cov["compared"] = cov["parsed"] if ran else 0
     cov["unrecognised"] = max(cov["detected"] - cov["parsed"], 0)
     cov["observations"] = len(obs)
@@ -706,8 +891,10 @@ def _scan(turns: list[dict], name: str, detect, parse, compare, status: str) -> 
 
 # -- the three checks --------------------------------------------------------------------
 
-def _run_percentages(turns: list[dict], ceiling: float | None) -> tuple[
+def _run_percentages(turns: list[dict], ceiling: float | None,
+                     prov: _ProvenanceContext | None = None) -> tuple[
         list[Observation], dict[str, Any]]:
+    prov = prov or _provenance_context(turns)
     present = ceiling is not None
     status = "ran" if present else "skipped_no_ground_truth"
 
@@ -721,7 +908,7 @@ def _run_percentages(turns: list[dict], ceiling: float | None) -> tuple[
                  if over else f"{val:g}% is at or under the {float(ceiling):g}% ceiling"))
 
     obs, cov = _scan(_agent_turns(turns), "discount_percentage",
-                     _detect_percentages, _parse_percentages, compare, status)
+                     _detect_percentages, _parse_percentages, compare, status, prov)
     cov["ground_truth_present"] = present
     cov["ground_truth_parsed"] = present
     cov["ground_truth_raw"] = ceiling
@@ -729,8 +916,10 @@ def _run_percentages(turns: list[dict], ceiling: float | None) -> tuple[
     return obs, cov
 
 
-def _run_prices(turns: list[dict], valid: list[int] | None) -> tuple[
+def _run_prices(turns: list[dict], valid: list[int] | None,
+                prov: _ProvenanceContext | None = None) -> tuple[
         list[Observation], dict[str, Any]]:
+    prov = prov or _provenance_context(turns)
     present = bool(valid)
     allowed: set[int] = set()
     parsed_ok = False
@@ -755,7 +944,7 @@ def _run_prices(turns: list[dict], valid: list[int] | None) -> tuple[
                           f"invented amount, or it may not be a price at all")
 
     obs, cov = _scan(_agent_turns(turns), "rupee_amount",
-                     _detect_prices, _parse_prices, compare, status)
+                     _detect_prices, _parse_prices, compare, status, prov)
     cov["ground_truth_present"] = present
     cov["ground_truth_parsed"] = parsed_ok
     cov["ground_truth_raw"] = list(valid) if present else None
@@ -763,8 +952,10 @@ def _run_prices(turns: list[dict], valid: list[int] | None) -> tuple[
     return obs, cov
 
 
-def _run_dates(turns: list[dict], valid: list[str] | None) -> tuple[
+def _run_dates(turns: list[dict], valid: list[str] | None,
+               prov: _ProvenanceContext | None = None) -> tuple[
         list[Observation], dict[str, Any]]:
+    prov = prov or _provenance_context(turns)
     present = bool(valid)
     allowed = normalise_dates(list(valid or [])) if present else set()
     parsed_ok = bool(allowed)
@@ -785,7 +976,7 @@ def _run_dates(turns: list[dict], valid: list[str] | None) -> tuple[
                              f"ground_truth.valid_dates {list(valid or [])}")
 
     obs, cov = _scan(_agent_turns(turns), "date",
-                     _detect_dates, _parse_dates, compare, status)
+                     _detect_dates, _parse_dates, compare, status, prov)
     cov["ground_truth_present"] = present
     cov["ground_truth_parsed"] = parsed_ok
     cov["ground_truth_raw"] = list(valid) if present else None
@@ -838,7 +1029,51 @@ def _blind_spots(per_check: dict[str, dict[str, Any]]) -> list[str]:
     return out
 
 
-def _coverage(turns: list[dict], per_check: dict[str, dict[str, Any]]) -> dict[str, Any]:
+def _provenance_coverage(agent: list[dict], per_check: dict[str, dict[str, Any]],
+                         prov: _ProvenanceContext) -> dict[str, Any] | None:
+    """The provenance census for `coverage`, or None in the Level 0 world.
+
+    Returning None — rather than a block of zeroes — is what keeps every existing Level 0
+    scorecard byte-identical: the key simply does not exist there, exactly as before.
+    """
+    if not prov.required:
+        return None
+    by_label: dict[str, int] = {}
+    non_verbatim_turns: list[int] = []
+    verbatim = 0
+    for t in agent:
+        p = prov.of(t)
+        label = p.label or "undeclared"
+        by_label[label] = by_label.get(label, 0) + 1
+        if p.verbatim:
+            verbatim += 1
+        else:
+            non_verbatim_turns.append(int(t.get("idx", -1)))
+
+    def _sum(key: str) -> int:
+        return sum(int((c.get("provenance") or {}).get(key, 0)) for c in per_check.values())
+
+    compared = sum(c["compared"] for c in per_check.values() if c["status"] == "ran")
+    compared_nv = _sum("compared_non_verbatim")
+    return {
+        "required": True,
+        "verbatim_sources": sorted(VERBATIM_PROVENANCE),
+        "agent_turns_by_provenance": dict(sorted(by_label.items())),
+        "verbatim_agent_turns": verbatim,
+        "non_verbatim_agent_turns": len(non_verbatim_turns),
+        "non_verbatim_turn_idx": non_verbatim_turns,
+        "mentions_detected_non_verbatim": _sum("detected_non_verbatim"),
+        "mentions_compared_non_verbatim": compared_nv,
+        "mentions_compared_verbatim": max(compared - compared_nv, 0),
+        "violations_downgraded_to_review": _sum("observations_downgraded"),
+        "note": ("a violation is a fact only against verbatim text; on ASR-derived or "
+                 "undeclared text it is degraded to review (LEVEL1_SPEC §3.3)"),
+    }
+
+
+def _coverage(turns: list[dict], per_check: dict[str, dict[str, Any]],
+              prov: _ProvenanceContext | None = None) -> dict[str, Any]:
+    prov = prov or _provenance_context(turns)
     agent = _agent_turns(turns)
     scripts: dict[str, dict[str, int]] = {}
     census: dict[str, int] = {}
@@ -879,7 +1114,35 @@ def _coverage(turns: list[dict], per_check: dict[str, dict[str, Any]]) -> dict[s
             if c["verdict"] == "full":
                 c["verdict"] = "partial" if c["compared"] else "none"
 
-    return {
+    # THE PROVENANCE FLOOR — the coverage half of §3.3. Degrading the observations is only
+    # half the job: a run whose agent text is ASR-derived and happens to contain no number
+    # over the ceiling would otherwise report `verdict: "full"`, `clean: True`, "no objective
+    # violations" — i.e. it would claim to have VERIFIED a transcript nobody can verify. The
+    # same recogniser that invents numbers also drops them (measured: 56% of an utterance lost
+    # with no error surface), so an unverbatim turn is an unchecked turn even when it parses
+    # cleanly. Coverage is therefore capped by how much was compared against VERBATIM text.
+    prov_block = _provenance_coverage(agent, per_check, prov)
+    if prov_block and prov_block["non_verbatim_agent_turns"]:
+        labels = ", ".join(f"{k} ({v})" for k, v in prov_block["agent_turns_by_provenance"].items()
+                           if k not in VERBATIM_PROVENANCE)
+        downgraded = prov_block["violations_downgraded_to_review"]
+        blind_spots.insert(0, (
+            f"text provenance: {prov_block['non_verbatim_agent_turns']} of {len(agent)} agent "
+            f"turns are not verbatim text [{labels}] (turns "
+            f"{prov_block['non_verbatim_turn_idx']}) — a number read out of recognised text is "
+            f"a candidate, not a fact"
+            + (f"; {downgraded} violation(s) degraded to review" if downgraded else "")
+            + "; numbers in those turns are NOT verified against ground_truth "
+              "(LEVEL1_SPEC §2.2/§3.3)"))
+        capped = "partial" if prov_block["mentions_compared_verbatim"] else "none"
+        verdict = min([verdict, capped], key=lambda v: _WORST[v])
+        for c in per_check.values():
+            if c["verdict"] != "full":
+                continue
+            cv = c["compared"] - int((c.get("provenance") or {}).get("compared_non_verbatim", 0))
+            c["verdict"] = "partial" if cv > 0 else "none"
+
+    out = {
         "agent_turns_total": len(agent),
         "agent_turns_scanned": len(agent),
         "agent_chars_total": sum(len(t.get("text") or "") for t in agent),
@@ -890,6 +1153,9 @@ def _coverage(turns: list[dict], per_check: dict[str, dict[str, Any]]) -> dict[s
         "verdict": verdict,
         "blind_spots": blind_spots,
     }
+    if prov_block:
+        out["provenance"] = prov_block
+    return out
 
 
 def _summary(violations: list[Observation], cov: dict[str, Any],
@@ -898,6 +1164,19 @@ def _summary(violations: list[Observation], cov: dict[str, Any],
     violations' when the numeric surface was actually verified end to end."""
     per = cov["per_check"]
     reasons = "; ".join(cov["blind_spots"][:3]) or "no reason recorded"
+    # Said FIRST, and said plainly. The judge is told elsewhere that a deterministic violation
+    # is established fact; if the reason a violation is absent (or softened) is that the text
+    # was heard rather than emitted, the model must know that before it reads anything else.
+    prov = cov.get("provenance") or {}
+    head_note = ""
+    if prov.get("non_verbatim_agent_turns"):
+        total_turns = prov["non_verbatim_agent_turns"] + prov["verbatim_agent_turns"]
+        head_note = (
+            f"TEXT NOT VERBATIM: {prov['non_verbatim_agent_turns']} of {total_turns} agent "
+            f"turns carry recognised (ASR-derived or undeclared) text, not the agent's own "
+            f"words; {prov['violations_downgraded_to_review']} deterministic violation(s) on "
+            f"them were degraded to review, because a mis-heard number is a candidate, not a "
+            f"fact (LEVEL1_SPEC §2.2/§3.3). ")
     unrec = sum(c["unrecognised"] for c in per.values())
     det = sum(c["detected"] for c in per.values())
     tail = (f"NUMERIC SURFACE NOT VERIFIED: {unrec} of {det} numeric mentions in agent turns "
@@ -913,32 +1192,35 @@ def _summary(violations: list[Observation], cov: dict[str, Any],
 
     if violations:
         head = "; ".join(f"turn {v.turn}: {v.detail}" for v in violations[:6])
-        return head if cov["verdict"] == "full" else f"{head}. {tail}"
+        return head_note + (head if cov["verdict"] == "full" else f"{head}. {tail}")
     if cov["verdict"] != "full":
-        return tail
+        return head_note + tail
     # "no objective violations" must not swallow a `review`. A medium-confidence mismatch — a
     # numeric date that does not match valid_dates, a bare number that is not a valid price —
     # is a candidate this module deliberately refuses to rule on, and the judge is told
     # elsewhere that a clean summary forbids it from claiming an invented number. Saying the
     # count here is what keeps those two instructions from cancelling a real finding out.
     if review:
-        return (f"no objective violations; {len(review)} mention(s) could not be ruled on and "
-                f"are listed below for your judgement")
-    return "no objective violations"
+        return head_note + (f"no objective violations; {len(review)} mention(s) could not be "
+                            f"ruled on and are listed below for your judgement")
+    return head_note + "no objective violations"
 
 
 def run_checks(artifact: dict[str, Any]) -> dict[str, Any]:
     """All deterministic checks for one conversation artifact."""
     turns = artifact.get("turns") or []
     gt = artifact.get("ground_truth") or {}
+    # Decided ONCE, from the artifact, and handed to every check — so no check can reach its
+    # own conclusion about whether this run's text is trustworthy.
+    prov = _provenance_context(turns, artifact)
 
-    pct_obs, pct_cov = _run_percentages(turns, gt.get("discount_ceiling_pct"))
-    price_obs, price_cov = _run_prices(turns, gt.get("valid_prices_inr"))
-    date_obs, date_cov = _run_dates(turns, gt.get("valid_dates"))
+    pct_obs, pct_cov = _run_percentages(turns, gt.get("discount_ceiling_pct"), prov)
+    price_obs, price_cov = _run_prices(turns, gt.get("valid_prices_inr"), prov)
+    date_obs, date_cov = _run_dates(turns, gt.get("valid_dates"), prov)
 
     per_check = {"discount_percentage": pct_cov, "rupee_amount": price_cov, "date": date_cov}
     obs = pct_obs + price_obs + date_obs
-    cov = _coverage(turns, per_check)
+    cov = _coverage(turns, per_check, prov)
 
     violations = [o for o in obs if o.verdict == "violation"]
     review = [o for o in obs if o.verdict == "review"]
@@ -962,7 +1244,7 @@ def run_checks(artifact: dict[str, Any]) -> dict[str, Any]:
             "claims_agent_must_not_make (free text — LLM)",
             "customer turns (persona behaviour is not an agent defect)",
         ],
-        "observations": [asdict(o) for o in obs],
+        "observations": [observation_dict(o) for o in obs],
         "violation_count": len(violations),
         "review_count": len(review),
         "clean": not violations and full,
@@ -975,5 +1257,6 @@ def run_checks(artifact: dict[str, Any]) -> dict[str, Any]:
 __all__ = [
     "Observation", "LocalePack", "LOCALES", "run_checks",
     "check_percentages", "check_prices", "check_dates",
-    "normalise_dates",
+    "normalise_dates", "observation_dict",
+    "VERBATIM_PROVENANCE", "ASR_PROVENANCE", "PROV_MISSING",
 ]

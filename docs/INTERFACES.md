@@ -9,6 +9,8 @@ Do not "improve" it. If reality disagrees with this file, stop and report.
 
 Scope: **Level 0 only — text everywhere, no audio, ever.**
 
+> **§3.3/§3.5 event semantics are TEXT MODE ONLY; voice mode is specified in LEVEL1_SPEC.md.**
+
 ---
 
 ## 0. Ground rules (restated, because violating one is a build failure)

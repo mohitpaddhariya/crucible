@@ -35,6 +35,11 @@ from targets.elevenlabs import ElevenLabsTarget
 log = logging.getLogger("voice_spar.loop")
 
 OPENING_TIMEOUT_S = 25.0   # measured: the opening lands in ~1-2 s (spike §3)
+#: Text mode keeps the wall-clock bound (agent/persona.py explains why it is not a
+#: timeout on the model but a defence against an unread socket). Audio mode passes None.
+_DEADLINE_TEXT = 40.0
+#: Overwritten per-run from config `speech.persona_char_cap`.
+_CHAR_CAP = 200
 TURN_TIMEOUT_S = 90.0      # measured: ~1 s/turn from Tara (spike §6). Deliberately generous.
 
 
@@ -202,13 +207,38 @@ async def run_conversation(
     prompt_path.parent.mkdir(parents=True, exist_ok=True)
     prompt_path.write_text(persona.system_prompt(), encoding="utf-8")
 
-    target = ElevenLabsTarget(
-        api_key=cfg.secrets.elevenlabs_api_key,
-        agent_id=cfg.target.agent_id,
-        raw_log_path=raw_log,
-        text_only=True,            # RUNTIME override only. The live agent is never modified.
-        auth=cfg.target.auth,
-    )
+    # MODE SELECTION. `text` is byte-for-byte the Level 0 path — the audio module is not even
+    # imported, so a Level 0 run cannot be broken by Level 1 code that fails to load.
+    audio_mode = getattr(cfg.target, "mode", "text") == "audio"
+    speech_cfg = getattr(cfg, "speech", {}) or {}
+    audio_dir = run_dir / "audio" / persona.id if audio_mode else None
+
+    if audio_mode:
+        from targets.elevenlabs_audio import ElevenLabsAudioTarget
+
+        det = speech_cfg.get("turn_detector", {}) or {}
+        target = ElevenLabsAudioTarget(
+            api_key=cfg.secrets.elevenlabs_api_key,
+            agent_id=cfg.target.agent_id,
+            sarvam_api_key=cfg.secrets.sarvam_api_key,
+            raw_log_path=raw_log,
+            audio_dir=audio_dir,
+            auth=cfg.target.auth,
+            voice=dict(getattr(persona, "voice", None) or {}),
+            speech_peak_min=det.get("speech_peak_min", 3000),
+            quiet_frames=det.get("quiet_frames", 5),
+            quiet_wall_s=det.get("quiet_wall_s", 1.5),
+            mic_hold_bound_s=speech_cfg.get("mic_hold_bound_s", 8.0),
+            stt_cross_check=bool(speech_cfg.get("stt_cross_check", False)),
+        )
+    else:
+        target = ElevenLabsTarget(
+            api_key=cfg.secrets.elevenlabs_api_key,
+            agent_id=cfg.target.agent_id,
+            raw_log_path=raw_log,
+            text_only=True,        # RUNTIME override only. The live agent is never modified.
+            auth=cfg.target.auth,
+        )
 
     referee = Referee(
         persona,
@@ -279,7 +309,31 @@ async def run_conversation(
                 break
 
             # ── persona speaks
-            reply = await persona.reply(turns)
+            #
+            # THE 40s BOUND IS OFF IN AUDIO MODE, and that is a deliberate inversion.
+            # It exists because Level 0's text target stops reading the socket while the
+            # caller is inside Sarvam, so no pong goes out and the server drops us. The
+            # audio target runs a permanently-live reader task, so compute never owns the
+            # socket and a slow turn is simply a slow turn — 112 s of idle survived when
+            # pongs kept flowing. Leaving the bound on here would truncate good replies to
+            # defend against a failure this target cannot have.
+            reply = await persona.reply(turns,
+                                        turn_deadline_s=None if audio_mode else _DEADLINE_TEXT)
+            if audio_mode and _CHAR_CAP and len(reply.text) > _CHAR_CAP:
+                # ~17 chars/s of speech, and playout runs at wall-clock speed: an unclamped
+                # 600-char reply is 35 s of audio the agent has to sit through. Cut on a
+                # sentence boundary where possible so the line still ends like speech.
+                cut = reply.text[:_CHAR_CAP]
+                for mark in (". ", "! ", "? ", ", "):
+                    idx = cut.rfind(mark)
+                    if idx > _CHAR_CAP * 0.6:
+                        cut = cut[:idx + 1]
+                        break
+                record_error("persona_brain", "persona_line_clamped",
+                             f"persona line clamped {len(reply.text)} -> {len(cut.rstrip())} chars "
+                             f"(cap {_CHAR_CAP}); playout is realtime so characters are seconds",
+                             turn_idx=len(turns), retryable=False, fatal=False)
+                reply = replace(reply, text=cut.rstrip())
             errors.extend(persona.drain_errors())
             persona_usage = persona_usage + reply.usage
             await budget.charge(cfg.persona_brain.model, reply.usage)
@@ -317,19 +371,54 @@ async def run_conversation(
                 break
 
             # ── agent replies
-            await target.send_user_turn(reply.text)
+            sent_meta: dict[str, Any] = {}
+            if audio_mode:
+                # send_persona_turn does TTS + paced stream + mic hold internally, so the
+                # call shape barely moves. It returns the §3.2 per-turn meta, including
+                # `tara_heard` — what HER recogniser made of us. That is a finding in its
+                # own right, not a diagnostic: it is the only direct measurement of how the
+                # agent under test handles code-switched speech.
+                result = await target.send_persona_turn(reply.text)
+                sent_meta = dict(result.meta or {})
+            else:
+                await target.send_user_turn(reply.text)
             state.exchange_count += 1
-            turns[-1] = replace(turns[-1], meta={**turns[-1].meta, "sent": True})
+            turns[-1] = replace(turns[-1], meta={
+                **turns[-1].meta, "sent": True, **sent_meta,
+                # AUDIO ONLY. checks.py treats the mere presence of `text_provenance` on any
+                # turn as "this artifact speaks provenance, so demand it everywhere" — adding
+                # it in text mode makes every Level 0 artifact look like a Level 1 one.
+                **({"text_provenance": "persona_intended"} if audio_mode else {}),
+            })
             before = target.event_id_regressions
             agent_turn = await target.recv_agent_turn(TURN_TIMEOUT_S)
+            a_meta = {**_parts_meta(agent_turn),
+                      **(getattr(agent_turn, "audio_meta", None) or {})}
+            if audio_mode:
+                # Her own words, verbatim off the wire. We never transcribe her — ASR error
+                # can therefore never reach a score (LEVEL1_SPEC §2.1).
+                a_meta["text_provenance"] = "agent_emitted"
             turns.append(Turn(idx=len(turns), speaker="agent", text=agent_turn.text,
                               latency_ms=agent_turn.latency_ms, ts=utc_now(),
-                              event_id=agent_turn.event_id, meta=_parts_meta(agent_turn)))
+                              event_id=agent_turn.event_id, meta=a_meta))
             state.agent_turn_count += 1
-            if target.event_id_regressions > before:
+            # event_id is a GLOBAL counter in voice mode, shared with pings (observed
+            # 1, 40, 96) — +1 semantics are a text-mode-only fact, so the regression check
+            # would fire on every healthy audio turn.
+            if not audio_mode and target.event_id_regressions > before:
                 record_error("target", "event_id_regression",
                              f"agent_response event_id {agent_turn.event_id} did not advance",
                              turn_idx=len(turns) - 1)
+
+            # The hangup signal text mode never had: an explicit ending, not a disconnect.
+            if audio_mode and getattr(target, "conversation_over", False):
+                end_reason = EndReason(
+                    code="agent_ended_call", kind="soft",
+                    detail="agent called the end_call tool and closed the conversation",
+                    at_turn=len(turns) - 1,
+                    evidence=str(getattr(target, "end_call_evidence", "") or "")[:400] or None,
+                )
+                break
             emit("agent", agent_turn.text)
 
     except TargetTimeout as exc:
@@ -352,22 +441,47 @@ async def run_conversation(
         # schema.EndCode is a closed Literal and inventing a member is a contract change,
         # not a runner decision. No contract change is proposed on this evidence.
         hung_up = exc.close_code == 1000
-        record_error("target", "target_closed",
-                     f"{'peer closed cleanly (close 1000, normal closure)' if hung_up else 'socket dropped'}"
-                     f" — {exc}",
-                     turn_idx=len(turns) - 1, fatal=True)
-        if hung_up:
-            warnings.append(
+
+        # THE OPEN QUESTION BELOW IS NOW ANSWERED — live, 26 Jul 2026, run
+        # 20260726-080445-cd5203. In AUDIO mode the agent invoked its `end_call` tool and
+        # the server then closed with 1000. That is a conversation ending the way a phone
+        # call ends, not a failure, and recording it as `target_disconnected/error` made a
+        # complete 10-turn conversation report as "0 ok, 1 failed".
+        #
+        # The reason it lands in an EXCEPTION handler at all: the end_call frame and the
+        # close arrive together, so `recv_agent_turn()` raises before the loop's own
+        # `conversation_over` check is ever reached. The check is not wrong, it is simply
+        # unreachable on this path — so the classification has to happen here too.
+        #
+        # Guarded on `conversation_over`: a clean 1000 with NO end_call is still an
+        # unexplained disconnect and must keep reporting as one.
+        if audio_mode and getattr(target, "conversation_over", False):
+            record_error("target", "agent_ended_call",
+                         f"agent invoked end_call and the server closed ({exc})",
+                         turn_idx=len(turns) - 1, fatal=False)
+            end_reason = EndReason(
+                code="agent_ended_call", kind="soft",
+                detail="the agent ended the call itself via its end_call tool",
+                at_turn=len(turns) - 1,
+                evidence=str(getattr(target, "end_call_evidence", "") or "")[:400] or None,
+            )
+        else:
+            record_error("target", "target_closed",
+                         f"{'peer closed cleanly (close 1000, normal closure)' if hung_up else 'socket dropped'}"
+                         f" — {exc}",
+                         turn_idx=len(turns) - 1, fatal=True)
+            if hung_up:
+                warnings.append(
                 "agent_closed_socket: the server closed the WebSocket cleanly (1000). "
                 "docs/INTERFACES.md §3.3 and the spike §8 both state the server never hangs "
                 "up, so read the last few turns before trusting either: the one prior "
                 "occurrence followed a corrupted customer turn that said goodbye in the "
                 "agent's own voice. The transcript up to this point is complete."
             )
-        end_reason = EndReason(code="target_disconnected", kind="error",
-                               detail=(f"peer closed the socket cleanly (1000) — {exc}"
-                                       if hung_up else f"target closed: {exc}"),
-                               at_turn=len(turns) - 1)
+            end_reason = EndReason(code="target_disconnected", kind="error",
+                                   detail=(f"peer closed the socket cleanly (1000) — {exc}"
+                                           if hung_up else f"target closed: {exc}"),
+                                   at_turn=len(turns) - 1)
     except TargetProtocolError as exc:
         record_error("target", "target_closed", str(exc), turn_idx=len(turns) - 1, fatal=True)
         end_reason = EndReason(code="error", kind="error",
@@ -425,6 +539,7 @@ async def run_conversation(
         )
 
     artifact = _build_artifact(
+        audio_mode=audio_mode, speech_cfg=speech_cfg, audio_dir=audio_dir,
         persona=persona, cfg=cfg, run_id=run_id, target=target, referee=referee,
         agent_info=agent_info, turns=turns, end_reason=end_reason,
         persona_usage=persona_usage, budget=budget, errors=errors, warnings=warnings,
@@ -453,11 +568,14 @@ async def run_conversation(
 # ======================================================================================
 
 
-def _build_artifact(*, persona: Persona, cfg: Config, run_id: str, target: ElevenLabsTarget,
+def _build_artifact(*, persona: Persona, cfg: Config, run_id: str, target: Any,
                     referee: Referee, agent_info: dict[str, Any], turns: list[Turn],
                     end_reason: EndReason, persona_usage: Usage, budget: BudgetTracker,
                     errors: list[RunError], warnings: list[str], started_at: str,
-                    ended_at: str, duration_s: float) -> dict[str, Any]:
+                    ended_at: str, duration_s: float,
+                    audio_mode: bool = False,
+                    speech_cfg: dict[str, Any] | None = None,
+                    audio_dir: Any = None) -> dict[str, Any]:
 
     persona_cost = budget.cost_of(cfg.persona_brain.model, persona_usage)
     referee_cost = budget.cost_of(cfg.referee.model, referee.usage)
@@ -472,7 +590,7 @@ def _build_artifact(*, persona: Persona, cfg: Config, run_id: str, target: Eleve
     return {
         "schema_version": SCHEMA_VERSION,
         "run_id": run_id,
-        "level": 0,
+        "level": 1 if audio_mode else 0,
 
         "persona_id": persona.id,
         "persona_name": persona.name,
@@ -486,12 +604,42 @@ def _build_artifact(*, persona: Persona, cfg: Config, run_id: str, target: Eleve
             "agent_name": agent_info.get("name"),
             "agent_llm": agent_info.get("llm"),
             "conversation_id": target.conversation_id,
-            "mode": "text",
-            "text_only_override_sent": target.text_only_override_sent,
+            "mode": "audio" if audio_mode else "text",
+            "text_only_override_sent": getattr(target, "text_only_override_sent", False),
             "auth_method": target.auth_method,
-            "audio_frames_discarded": target.audio_frames_discarded,
+            "audio_frames_discarded": getattr(target, "audio_frames_discarded", 0),
             "unknown_events": dict(target.unknown_events),
+            # Audio-only counters. A superset, never a rename (LEVEL1_SPEC §3.1/§7): the
+            # Level 0 keys above stay exactly where a Level 0 reader expects them.
+            **({
+                "user_input_audio_format": "pcm_16000",
+                "agent_output_audio_format": "pcm_16000",
+                "audio_frames_received": getattr(target, "audio_frames_received", 0),
+                "audio_chunks_sent": getattr(target, "audio_chunks_sent", 0),
+                "pings_received": getattr(target, "pings_received", 0),
+                "pongs_sent": getattr(target, "pongs_sent", 0),
+                "user_transcripts": getattr(target, "user_transcripts", 0),
+                "close_code": getattr(target, "close_code", None),
+                "carrier_peak_max": (getattr(target, "detector", None)
+                                     and getattr(target.detector, "carrier_peak_max", None)),
+            } if audio_mode else {}),
         },
+
+        # Present ONLY in audio mode, so a text run's artifact stays byte-identical to
+        # Level 0's and `judge`/`report` see nothing new to trip over.
+        **({
+            "speech": {
+                "tts": {"model": (persona.voice or {}).get("model"),
+                        "speaker": (persona.voice or {}).get("speaker"),
+                        "sample_rate": (speech_cfg or {}).get("speech_sample_rate", 16000)},
+                "stt": {"model": (speech_cfg or {}).get("stt"),
+                        "cross_check_enabled": bool((speech_cfg or {}).get("stt_cross_check"))},
+                "turn_detector": dict((speech_cfg or {}).get("turn_detector", {}) or {}),
+                "mic_hold_bound_s": (speech_cfg or {}).get("mic_hold_bound_s", 8.0),
+                "persona_char_cap": (speech_cfg or {}).get("persona_char_cap", _CHAR_CAP),
+            },
+            "audio_dir": f"audio/{persona.id}/",
+        } if audio_mode else {}),
 
         "models": {
             "persona_brain": {

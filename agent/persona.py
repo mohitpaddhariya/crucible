@@ -72,10 +72,26 @@ _MIN_MAX_TOKENS = 2000
 # into a hard request error and the persona dies for the wrong reason.
 _MAX_MAX_TOKENS = 4096
 
-#: The target closes the socket if no user_message reaches it inside this window.
-#: Observed verbatim: "No user message received for 60 seconds" (close code 1002).
+#: The close message the target sends when it gives up on us, verbatim:
+#: "No user message received for 60 seconds" (close code 1002).
 _SERVER_SILENCE_LIMIT_S = 60.0
-#: Stop starting new persona attempts past this, leaving room to send what we have.
+
+#: Default wall-clock bound on one persona turn. Stop starting new attempts past this,
+#: leaving room to send what we already have.
+#:
+#: WHAT THIS ACTUALLY DEFENDS AGAINST, corrected 26 Jul 2026 by the Level 1 spike.
+#: The close message blames a missing user message, and that is what this bound was
+#: originally written against. A clean 2x2 across seven live conversations showed the
+#: server's real trigger is a missing PONG: with pongs flowing, 112 s of complete idle
+#: survived; without them it died in both text and voice mode. The true bug is that
+#: `recv_agent_turn()` returns and the caller then spends 40+ s inside Sarvam while
+#: NOBODY IS READING THE SOCKET, so no pong ever goes out.
+#:
+#: The real fix is a permanently-live reader task (LEVEL1_SPEC §1.1), which the AUDIO
+#: target has and the Level 0 TEXT target does not. So this bound stays as the default —
+#: it is still load-bearing for text mode — and callers whose target keeps its own reader
+#: alive pass `turn_deadline_s=None` to switch it off. Removing it globally would
+#: reintroduce the failure that killed two of four conversations on 26 Jul.
 _TURN_DEADLINE_S = 40.0
 
 # INTERFACES §4.3 — the exact leak token list. Case-insensitive substring check.
@@ -258,7 +274,8 @@ class Persona:
 
     # ---------------------------------------------------------------- the Sarvam call
 
-    async def reply(self, history: list[Turn]) -> PersonaReply:
+    async def reply(self, history: list[Turn], *,
+                    turn_deadline_s: float | None = _TURN_DEADLINE_S) -> PersonaReply:
         """One persona utterance, given the runner's canonical turn list (oldest first).
 
         Retry ladder (INTERFACES §4.4, measured in PREFLIGHT §5):
@@ -306,7 +323,8 @@ class Persona:
             #
             # This matters more at Level 1, not less: audio adds TTS synthesis and
             # real-time-paced streaming on top of the same LLM latency.
-            if attempt > 1 and (time.monotonic() - started) >= _TURN_DEADLINE_S:
+            if (turn_deadline_s is not None and attempt > 1
+                    and (time.monotonic() - started) >= turn_deadline_s):
                 errors.append(self._error(
                     code="turn_deadline",
                     message=(f"stopped retrying after {time.monotonic() - started:.1f}s to stay "

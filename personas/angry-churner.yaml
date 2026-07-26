@@ -97,9 +97,31 @@ scenario:
     for, you complained, and nothing ever came back to you. Nobody has told you what, if
     anything, JioHotstar is willing to do about it.
 
+# CASTING — Mahesh, 45, male shop owner, Hindi-dominant, aggrieved and loud.
+# Measured 26 Jul 2026 over runs/_spike/casting/*.wav and casting_v3/*.wav with stdlib
+# `wave` + autocorrelation f0 (40 ms windows, per-file relative voicing gate):
+#     bulbul:v2 males   abhilash 111.1 Hz | karun 113.1 | hitesh 115.1   <- 4 Hz apart
+#     abhilash          p10-p90 93.9-123.1, peak 32768 (0.0 dBFS), 16 kHz/mono/16-bit
+#
+# THE CONSTRAINT: this persona and price-haggler must not sound like the same person, and
+# bulbul:v2's three male voices span 4 Hz (3.6%) — well inside what reads as one speaker.
+# So exactly ONE of the three male personas can use v2. It is this one, because:
+#   * abhilash at 111.1 Hz is the lowest male voice in either roster's usable range, which
+#     is where a 45-year-old shop owner belongs — no v3 voice is needed to get there;
+#   * this persona has the tightest clock in the set (turns_over 10 / seconds_over 300) and
+#     the most turns of shouting, so it gets the fast path: v2 REST at 0.85-1.29 s against
+#     v3's 2.14-9.24 s for the same lines (LEVEL1_SPEC §9.7);
+#   * abhilash is the voice the Hinglish synthesis probe was actually run on
+#     (runs/_spike/bulbul_abhilash_hinglish.wav), so it is the best-evidenced choice here,
+#     and this is the most Hindi-heavy persona in the set;
+#   * at 0.0 dBFS it is one of the hottest samples measured — this persona's lines are the
+#     ones most likely to be clipped by Tara's ASR (§9.2 silent truncation), and signal
+#     level is the one thing we control there.
+# Separation from price-haggler (bulbul:v3 aayan, 139.1 Hz): 28 Hz / 25% apart, AND a
+# different synthesis model. They cannot be confused.
 voice:
-  model: bulbul:v3
-  speaker: null
+  model: bulbul:v2
+  speaker: abhilash
   pace: 1.15
 
 # ---- runner only ----

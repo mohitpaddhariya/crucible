@@ -86,6 +86,84 @@ AGENT_SERVER_CAP_S = 600
 SUPPORTED_ADAPTERS: frozenset[str] = frozenset({"elevenlabs"})
 SUPPORTED_AUTH: frozenset[str] = frozenset({"header", "signed"})
 
+#: `text` is Level 0 and stays the default; `audio` is Level 1 half-duplex (LEVEL1_SPEC §6).
+#: Every line of audio code sits behind this switch — `mode: text` is byte-for-byte Level 0.
+SUPPORTED_MODES: frozenset[str] = frozenset({"text", "audio"})
+
+
+# --------------------------------------------------------------------------------------
+# Level 1 speech constants — every one of these is a MEASUREMENT from
+# `scripts/spike_sarvam_speech.py` against the live Sarvam key (26 July 2026), not a guess.
+# Raw evidence: runs/_spike/sarvam_speech_result{,_phase2,_phase3}.json.
+# --------------------------------------------------------------------------------------
+
+#: The only live `/speech-to-text` model. Probe G_stt: 200 with `saarika:v2.5`, and the
+#: model list has no other member that transcribes.
+STT_MODELS: frozenset[str] = frozenset({"saarika:v2.5"})
+
+#: `saaras` is a *different family on a different endpoint* (`/speech-to-text-translate`).
+#: It answers 200 — and TRANSLATES: "Arre yaar, 10% off..." came back "But man, 10% off...".
+#: Silently anglicising the Hinglish is the exact opposite of what the §2.1 fidelity
+#: cross-check exists to measure, so it is rejected here rather than quietly accepted.
+STT_TRANSLATE_MODELS: frozenset[str] = frozenset({"saaras:v2.5"})
+
+#: Live Bulbul TTS models. `bulbul:v1` resolves but is an alias with no separate roster.
+TTS_MODELS: frozenset[str] = frozenset({"bulbul:v2", "bulbul:v3"})
+
+#: Per-model speaker rosters. These are NOT interchangeable: asking bulbul:v2 for a v3
+#: speaker is an HTTP 400 ("Speaker 'aditya' is not compatible with model bulbul:v2"), and
+#: the generic "Available speakers are: ..." message the API returns on an unknown name
+#: lists all 44 regardless of model, which is how you end up debugging a 400 for an hour.
+BULBUL_SPEAKERS: dict[str, frozenset[str]] = {
+    "bulbul:v2": frozenset({"anushka", "abhilash", "manisha", "vidya", "arya", "karun", "hitesh"}),
+    "bulbul:v3": frozenset({
+        "aditya", "ritu", "ashutosh", "priya", "neha", "rahul", "pooja", "rohan", "simran",
+        "kavya", "amit", "dev", "ishita", "shreya", "ratan", "varun", "manan", "sumit", "roopa",
+        "kabir", "aayan", "shubh", "advait", "anand", "tanya", "tarun", "sunny", "mani", "gokul",
+        "vijay", "shruti", "suhani", "mohit", "kavitha", "rehan", "soham", "rupali", "niharika",
+    }),
+}
+
+#: The agent negotiates `pcm_16000` in both directions (`conversation_initiation_metadata`
+#: echoes `agent_output_audio_format == user_input_audio_format == "pcm_16000"`). Bulbul's
+#: `speech_sample_rate` DEFAULTS TO 22050 and happily returns 200 at any of
+#: 8000/16000/22050/24000/44100/48000 — so getting this wrong is not an error, it is
+#: wrong-speed audio that Tara transcribes into nonsense with nothing logged anywhere.
+REQUIRED_SAMPLE_RATE_HZ = 16000
+_SAMPLE_RATE_KEYS: tuple[str, ...] = ("speech_sample_rate", "input_sample_rate", "output_sample_rate")
+
+#: LEVEL1_SPEC §4.3. Safe window ~[3 s, 8 s]: below it the mic shuts before `user_transcript`
+#: and turn 2 deadlocks forever; above it Tara's ~10 s `turn_timeout` starts endpointing empty
+#: user turns, she nudges twice and hangs up at 59 s. 8.0 is the ceiling, not a suggestion.
+MIC_HOLD_MAX_S = 8.0
+MIC_HOLD_MIN_SAFE_S = 3.0
+
+#: LEVEL1_SPEC §0.2 / §9.4. Calibrated over 8 turns, confirmed over 11 more.
+TURN_DETECTOR_DEFAULTS: dict[str, float] = {
+    "speech_peak_min": 3000,
+    "quiet_frames": 5,
+    "quiet_wall_s": 1.5,
+}
+
+#: LEVEL1_SPEC §4.4: ~200 chars ≈ 12 s of playout at the measured 17 chars/s.
+PERSONA_CHAR_CAP_DEFAULT = 200
+
+#: LEVEL1_SPEC §1.2: worst measured turn-end-to-turn-end cycle in audio mode.
+AUDIO_CYCLE_WORST_S = 24.0
+
+SPEECH_DEFAULTS: dict[str, Any] = {
+    "stt": "saarika:v2.5",
+    "stt_cross_check": True,
+    "tts": "bulbul:v2",
+    "tts_speaker": "anushka",
+    "speech_sample_rate": REQUIRED_SAMPLE_RATE_HZ,
+    "input_sample_rate": REQUIRED_SAMPLE_RATE_HZ,
+    "output_sample_rate": REQUIRED_SAMPLE_RATE_HZ,
+    "mic_hold_bound_s": MIC_HOLD_MAX_S,
+    "persona_char_cap": PERSONA_CHAR_CAP_DEFAULT,
+}
+SPEECH_KNOWN_KEYS: frozenset[str] = frozenset(set(SPEECH_DEFAULTS) | {"turn_detector"})
+
 REQUIRED_ENV: tuple[str, ...] = ("ELEVENLABS_API_KEY", "ELEVENLABS_AGENT_ID", "SARVAM_API_KEY")
 
 KNOWN_TOP_LEVEL: frozenset[str] = frozenset(
@@ -253,7 +331,13 @@ class Config:
         return float(value) if float(value) != 0.0 else None
 
     def redacted(self) -> dict[str, Any]:
-        """The only form of this object allowed into `run.json`."""
+        """The only form of this object allowed into `run.json`.
+
+        `speech` appears only in audio mode. A text run's `run.json` is byte-identical to
+        Level 0's — the §7 backward-compatibility contract applies to what we WRITE, not
+        just to what we read.
+        """
+        extra: dict[str, Any] = {"speech": dict(self.speech)} if self.target.mode == "audio" else {}
         return {
             "config_path": str(self.config_path),
             "personas_dir": str(self.personas_dir),
@@ -289,6 +373,7 @@ class Config:
                 "sarvam_api_key": "***",
             },
             "warnings": list(self.warnings),
+            **extra,
         }
 
 
@@ -451,13 +536,20 @@ class PersonaFileModel(BaseModel):
         return v
 
 
-def validate_persona_file(path: Path) -> tuple[list[str], list[str]]:
+def validate_persona_file(
+    path: Path, *, audio_seconds_budget: int | None = None
+) -> tuple[list[str], list[str]]:
     """Validate one persona YAML. Returns `(errors, warnings)` — every problem, never just the first.
 
     Guarantees checked here that nothing downstream re-checks:
       * `end_when.hard_stop.turns` exists and is >= 1 (mandatory on EVERY persona)
       * `scenario.vars` is exactly the 11 declared keys, all strings
       * `scenario.customer_brief` does not leak `scenario.vars.offer_text`
+      * `voice.model` / `voice.speaker` are a live, *compatible* Bulbul pair
+
+    `audio_seconds_budget` is `run.max_conversation_seconds` in audio mode and `None`
+    everywhere else; passing None skips the audio turn-budget check entirely, which is how
+    text mode stays byte-identical (LEVEL1_SPEC §4.4, §7).
     """
     errors: list[str] = []
     warnings: list[str] = []
@@ -532,13 +624,102 @@ def validate_persona_file(path: Path) -> tuple[list[str], list[str]]:
                 f"hard_stop always wins, so turns_over can never fire"
             )
 
+    # ---- Level 1: casting (LEVEL1_SPEC §6). Absence is still not an error. ----
+    errors.extend(_voice_errors(persona.voice, where))
+    warnings.extend(_voice_warnings(persona.voice, where))
+
+    # ---- Level 1: turn budget, not second budget (LEVEL1_SPEC §4.4) ----
+    if audio_seconds_budget is not None:
+        turns_over = next(
+            (v for it in persona.end_when.any for k, v in it.items() if k == "turns_over"), None
+        )
+        budget_turns = turns_over if isinstance(turns_over, int) else hard_stop
+        needed = budget_turns * AUDIO_CYCLE_WORST_S
+        if needed > audio_seconds_budget:
+            warnings.append(
+                f"{where}: {budget_turns} turns x {AUDIO_CYCLE_WORST_S:.0f}s (worst measured audio "
+                f"cycle) = {needed:.0f}s, over run.max_conversation_seconds "
+                f"({audio_seconds_budget}s). ~22 s per cycle is irreducible realtime audio — "
+                f"listening and talking — so no LLM speed-up buys it back. This conversation "
+                f"will be cut off mid-argument. Budget turns, not seconds (LEVEL1_SPEC §4.4)."
+            )
+
     return (errors, warnings)
 
 
+def _voice_errors(voice: dict[str, Any] | None, where: str) -> list[str]:
+    """Hard problems in a persona's `voice:` block. An absent block is not one of them."""
+    errors: list[str] = []
+    if not voice:
+        return errors
+    if not isinstance(voice, dict):
+        return [f"{where}: voice: must be a mapping of {{model, speaker}}, got {type(voice).__name__}"]
+
+    model = voice.get("model")
+    if model is not None and (not isinstance(model, str) or model not in TTS_MODELS):
+        errors.append(
+            f"{where}: voice.model {model!r} is not a live Bulbul model. "
+            f"Allowed: {', '.join(sorted(TTS_MODELS))}"
+        )
+        model = None
+
+    speaker = voice.get("speaker")
+    if speaker is not None and not isinstance(speaker, str):
+        errors.append(f"{where}: voice.speaker must be a string or null, got {type(speaker).__name__}")
+    elif isinstance(speaker, str) and speaker.strip() and model is not None:
+        roster = BULBUL_SPEAKERS.get(model, frozenset())
+        if speaker not in roster:
+            other = sorted(m for m, names in BULBUL_SPEAKERS.items() if m != model and speaker in names)
+            hint = (
+                f" It is a {other[0]} speaker; the rosters are disjoint and Sarvam answers HTTP 400 "
+                f"'Speaker \\'{speaker}\\' is not compatible with model {model}'."
+                if other else ""
+            )
+            errors.append(
+                f"{where}: voice.speaker '{speaker}' is not in the {model} roster.{hint} "
+                f"{model} speakers: {', '.join(sorted(roster))}"
+            )
+
+    pace = voice.get("pace")
+    if pace is not None and (isinstance(pace, bool) or not isinstance(pace, (int, float)) or pace <= 0):
+        errors.append(f"{where}: voice.pace must be a positive number, got {pace!r}")
+    return errors
+
+
+def _voice_warnings(voice: dict[str, Any] | None, where: str) -> list[str]:
+    warnings: list[str] = []
+    if not isinstance(voice, dict):
+        return warnings
+
+    speaker = voice.get("speaker")
+    uncast = speaker is None or (isinstance(speaker, str) and not speaker.strip())
+    if voice.get("model") is not None and uncast:
+        warnings.append(
+            f"{where}: voice.model is set but voice.speaker is not — audio mode will fall back to "
+            f"speech.tts_speaker and every uncast persona will sound like the same person."
+        )
+
+    pace = voice.get("pace")
+    if isinstance(pace, (int, float)) and not isinstance(pace, bool) and not (0.3 <= float(pace) <= 3.0):
+        warnings.append(
+            f"{where}: voice.pace {pace} is outside Bulbul's documented 0.3-3.0 range "
+            f"(UNVERIFIED — our spike never probed the bounds, so this is a doc claim, not a "
+            f"measurement). Out-of-range values may 400 at synthesis time, mid-conversation."
+        )
+    return warnings
+
+
 def validate_persona_dir(
-    personas_dir: Path, ids: list[str] | Literal["all"]
+    personas_dir: Path,
+    ids: list[str] | Literal["all"],
+    *,
+    audio_seconds_budget: int | None = None,
 ) -> tuple[list[str], list[str]]:
-    """Validate every selected persona YAML. Returns `(errors, warnings)`."""
+    """Validate every selected persona YAML. Returns `(errors, warnings)`.
+
+    `audio_seconds_budget` is forwarded to `validate_persona_file`; None (the default, and
+    what text mode passes) disables the audio-only turn-budget check.
+    """
     errors: list[str] = []
     warnings: list[str] = []
 
@@ -559,7 +740,9 @@ def validate_persona_dir(
                 paths.append(path)
 
     for path in paths:
-        file_errors, file_warnings = validate_persona_file(path)
+        file_errors, file_warnings = validate_persona_file(
+            path, audio_seconds_budget=audio_seconds_budget
+        )
         errors.extend(file_errors)
         warnings.extend(file_warnings)
 
@@ -847,12 +1030,17 @@ def _target_section(raw: dict[str, Any], agent_id: str, problems: list[str]) -> 
             f"Available: {', '.join(sorted(SUPPORTED_ADAPTERS))}"
         )
 
-    mode = node.get("mode")
-    if mode != "text":
+    # Level 0 pinned this to 'text'. LEVEL1_SPEC §6 widens it to text | audio, default text —
+    # the one feature flag the whole of Level 1 hangs off. An absent key still means 'text',
+    # so a Level 0 config that never had the key keeps running the Level 0 path unchanged.
+    mode = node.get("mode", "text")
+    if mode not in SUPPORTED_MODES:
         problems.append(
-            f"config.yaml: target.mode must be 'text' at Level 0, got {mode!r}. "
-            f"Level 0 is text everywhere, no audio anywhere (docs/REQUIREMENTS.md §3)."
+            f"config.yaml: target.mode must be one of {', '.join(sorted(SUPPORTED_MODES))}, "
+            f"got {mode!r}. 'text' is Level 0 (text everywhere, no audio anywhere); "
+            f"'audio' is Level 1 half-duplex (docs/LEVEL1_SPEC.md §6)."
         )
+        mode = "text"
 
     auth = node.get("auth", "header")
     if auth not in SUPPORTED_AUTH:
@@ -860,8 +1048,233 @@ def _target_section(raw: dict[str, Any], agent_id: str, problems: list[str]) -> 
             f"config.yaml: target.auth must be one of {', '.join(sorted(SUPPORTED_AUTH))}, got {auth!r}"
         )
         auth = "header"
+    elif auth == "signed" and mode == "audio":
+        # LEVEL1_SPEC §9.9: only the header path was ever exercised in voice mode. The signed
+        # fallback stays text-mode-only until somebody probes it.
+        problems.append(
+            "config.yaml: target.auth 'signed' is not supported with target.mode 'audio'. "
+            "Only the header path has been exercised in voice mode (LEVEL1_SPEC §9.9); the "
+            "signed-URL flow is text-mode-only until it is probed. Use auth: header."
+        )
 
-    return TargetConfig(adapter=str(adapter), mode="text", agent_id=agent_id, auth=auth)  # type: ignore[arg-type]
+    return TargetConfig(adapter=str(adapter), mode=str(mode), agent_id=agent_id, auth=auth)  # type: ignore[arg-type]
+
+
+def _speech_section(
+    raw: dict[str, Any], mode: str, problems: list[str], warnings: list[str]
+) -> dict[str, Any]:
+    """Validate `speech:` (LEVEL1_SPEC §6) and return it with defaults filled in.
+
+    Level 0 read this block and threw it away. It is now validated in BOTH modes on purpose:
+    the shipped placeholder named two models that do not do what their names suggest
+    (`saaras:v3` does not exist; `bulbul:v3` is 7x slower than v2 on a long line), and a
+    wrong value here fails at the API, mid-conversation, one live turn at a time. Every key
+    is optional and defaulted, so a Level 0 config with no `speech:` block is untouched —
+    but a key that IS present and wrong is a startup error, in either mode.
+    """
+    node = raw.get("speech")
+    if node is None:
+        if mode == "audio":
+            problems.append(
+                "config.yaml: target.mode is 'audio' but there is no 'speech:' block. "
+                "Audio mode needs the STT/TTS models, the 16000 Hz sample rates, the turn-detector "
+                "thresholds and the mic-hold bound. Copy the block from config.example.yaml."
+            )
+        return {}
+    if not isinstance(node, dict):
+        problems.append(f"config.yaml: 'speech:' must be a mapping, got {type(node).__name__}")
+        return {}
+
+    for key in sorted(set(node) - SPEECH_KNOWN_KEYS):
+        warnings.append(f"config.yaml: unknown key 'speech.{key}' — ignored (typo?)")
+
+    speech: dict[str, Any] = {**SPEECH_DEFAULTS, "turn_detector": dict(TURN_DETECTOR_DEFAULTS)}
+
+    # -- STT ------------------------------------------------------------------------
+    stt = node.get("stt", SPEECH_DEFAULTS["stt"])
+    if not isinstance(stt, str):
+        problems.append(f"config.yaml: speech.stt must be a string, got {type(stt).__name__} ({stt!r})")
+    elif stt in STT_TRANSLATE_MODELS:
+        problems.append(
+            f"config.yaml: speech.stt '{stt}' is a speech-to-TRANSLATE model on a different "
+            f"endpoint (/speech-to-text-translate), not a transcriber. Measured: it turned "
+            f"\"Arre yaar, 10% off is not enough\" into \"But man, 10% off is not enough\". "
+            f"The cross-check exists to measure how a listener hears our Hinglish (§2.1); "
+            f"an English translation answers a different question. Use: {', '.join(sorted(STT_MODELS))}"
+        )
+    elif stt not in STT_MODELS:
+        extra = ""
+        if stt.startswith("saaras"):
+            extra = (
+                " The `saaras` family is speech-to-text-TRANSLATE and only `saaras:v2.5` exists; "
+                "there is no `saaras:v3` at all, in either family."
+            )
+        problems.append(
+            f"config.yaml: speech.stt '{stt}' is not a live Sarvam speech-to-text model. "
+            f"Allowed: {', '.join(sorted(STT_MODELS))} (the only one that answered 200 on "
+            f"/speech-to-text — scripts/spike_sarvam_speech.py probe G_stt).{extra}"
+        )
+    speech["stt"] = stt
+
+    cross_check = node.get("stt_cross_check", SPEECH_DEFAULTS["stt_cross_check"])
+    if not isinstance(cross_check, bool):
+        problems.append(
+            f"config.yaml: speech.stt_cross_check must be true or false, got {cross_check!r}"
+        )
+        cross_check = True
+    speech["stt_cross_check"] = cross_check
+
+    # -- TTS + casting ---------------------------------------------------------------
+    tts = node.get("tts", SPEECH_DEFAULTS["tts"])
+    if not isinstance(tts, str) or tts not in TTS_MODELS:
+        problems.append(
+            f"config.yaml: speech.tts '{tts!r}' is not a live Bulbul model. "
+            f"Allowed: {', '.join(sorted(TTS_MODELS))}. Default is bulbul:v2 over REST "
+            f"(0.85-1.29 s measured); bulbul:v3 is a casting escape hatch only (LEVEL1_SPEC §9.7)."
+        )
+        tts = SPEECH_DEFAULTS["tts"]
+    elif tts == "bulbul:v3":
+        warnings.append(
+            "config.yaml: speech.tts is bulbul:v3 — measured 2.14 s for a 49-char line and "
+            "9.24 s for a 288-char one, against 0.85 s / 1.29 s for bulbul:v2 REST. That is the "
+            "default voice for every persona that does not override it. LEVEL1_SPEC §9.7 says "
+            "v2 is the default and v3 is for casting needs only; set it per persona in "
+            "personas/*.yaml voice: instead of globally."
+        )
+    speech["tts"] = tts
+
+    speaker = node.get("tts_speaker", SPEECH_DEFAULTS["tts_speaker"])
+    roster = BULBUL_SPEAKERS.get(tts, frozenset())
+    if not isinstance(speaker, str) or not speaker.strip():
+        problems.append(
+            f"config.yaml: speech.tts_speaker must be a non-empty string, got {speaker!r}"
+        )
+    elif speaker not in roster:
+        other = sorted(m for m, names in BULBUL_SPEAKERS.items() if m != tts and speaker in names)
+        hint = (
+            f" '{speaker}' IS a {other[0]} speaker — the rosters are disjoint and the wrong "
+            f"pairing is an HTTP 400 ('not compatible with model {tts}')."
+            if other else ""
+        )
+        problems.append(
+            f"config.yaml: speech.tts_speaker '{speaker}' is not in the {tts} roster.{hint} "
+            f"{tts} speakers: {', '.join(sorted(roster))}"
+        )
+    speech["tts_speaker"] = speaker
+
+    # -- sample rates ----------------------------------------------------------------
+    for key in _SAMPLE_RATE_KEYS:
+        value = node.get(key, REQUIRED_SAMPLE_RATE_HZ)
+        if isinstance(value, bool) or not isinstance(value, int):
+            problems.append(
+                f"config.yaml: speech.{key} must be the integer {REQUIRED_SAMPLE_RATE_HZ}, "
+                f"got {type(value).__name__} ({value!r})"
+            )
+        elif value != REQUIRED_SAMPLE_RATE_HZ:
+            problems.append(
+                f"config.yaml: speech.{key} = {value} — must be exactly "
+                f"{REQUIRED_SAMPLE_RATE_HZ}. The agent negotiates pcm_16000 in both directions "
+                f"and there is no resampler anywhere in this pipeline. Bulbul's own default is "
+                f"22050 and it returns 200 at 8000/16000/22050/24000/44100/48000 alike, so a "
+                f"wrong rate is never an error — it is wrong-speed audio that Tara's ASR turns "
+                f"into nonsense with nothing logged (LEVEL1_SPEC §6)."
+            )
+        speech[key] = value
+
+    # -- turn detector ---------------------------------------------------------------
+    detector = node.get("turn_detector", {})
+    if not isinstance(detector, dict):
+        problems.append(
+            f"config.yaml: speech.turn_detector must be a mapping of "
+            f"{{{', '.join(TURN_DETECTOR_DEFAULTS)}}}, got {type(detector).__name__}"
+        )
+        detector = {}
+    for key in sorted(set(detector) - set(TURN_DETECTOR_DEFAULTS)):
+        warnings.append(f"config.yaml: unknown key 'speech.turn_detector.{key}' — ignored (typo?)")
+
+    peak_min = detector.get("speech_peak_min", TURN_DETECTOR_DEFAULTS["speech_peak_min"])
+    if isinstance(peak_min, bool) or not isinstance(peak_min, int) or peak_min < 1:
+        problems.append(
+            f"config.yaml: speech.turn_detector.speech_peak_min must be an int >= 1, got {peak_min!r}"
+        )
+        peak_min = TURN_DETECTOR_DEFAULTS["speech_peak_min"]
+    elif peak_min <= 2942 or peak_min >= 3266:
+        # The measured gap is thin at worst case: the office1 background carrier peaked at
+        # 2942 and the quietest real speech frame at 3266 (LEVEL1_SPEC §9.4).
+        warnings.append(
+            f"config.yaml: speech.turn_detector.speech_peak_min = {peak_min} is outside the "
+            f"measured safe band (2942, 3266) — worst-case carrier peak vs quietest speech frame. "
+            f"Below it the background_sound carrier reads as speech and turns never end; above it "
+            f"quiet speech reads as silence and turns split. 3000 is the calibrated value."
+        )
+    detector_out = {"speech_peak_min": int(peak_min)}
+
+    quiet_frames = detector.get("quiet_frames", TURN_DETECTOR_DEFAULTS["quiet_frames"])
+    if isinstance(quiet_frames, bool) or not isinstance(quiet_frames, int) or quiet_frames < 2:
+        problems.append(
+            f"config.yaml: speech.turn_detector.quiet_frames must be an int >= 2, got "
+            f"{quiet_frames!r}. A single-frame test is forbidden (LEVEL1_SPEC §9.4): the "
+            f"multi-frame hold is the only thing making a 2942-vs-3266 amplitude margin robust."
+        )
+        quiet_frames = TURN_DETECTOR_DEFAULTS["quiet_frames"]
+    detector_out["quiet_frames"] = int(quiet_frames)
+
+    quiet_wall = detector.get("quiet_wall_s", TURN_DETECTOR_DEFAULTS["quiet_wall_s"])
+    if isinstance(quiet_wall, bool) or not isinstance(quiet_wall, (int, float)) or quiet_wall <= 0:
+        problems.append(
+            f"config.yaml: speech.turn_detector.quiet_wall_s must be a positive number, got {quiet_wall!r}"
+        )
+        quiet_wall = TURN_DETECTOR_DEFAULTS["quiet_wall_s"]
+    elif float(quiet_wall) < 1.5:
+        problems.append(
+            f"config.yaml: speech.turn_detector.quiet_wall_s = {quiet_wall} — must be >= 1.5. "
+            f"0.9 s was measured too tight and split a real turn mid-sentence (el 28.876, "
+            f"LEVEL1_SPEC §0.2). A split turn is not an error anywhere; it silently becomes two "
+            f"agent turns in the transcript the judge scores."
+        )
+    detector_out["quiet_wall_s"] = float(quiet_wall)
+    speech["turn_detector"] = detector_out
+
+    # -- mic hold --------------------------------------------------------------------
+    hold = node.get("mic_hold_bound_s", SPEECH_DEFAULTS["mic_hold_bound_s"])
+    if isinstance(hold, bool) or not isinstance(hold, (int, float)) or hold <= 0:
+        problems.append(
+            f"config.yaml: speech.mic_hold_bound_s must be a positive number, got {hold!r}"
+        )
+        hold = MIC_HOLD_MAX_S
+    elif float(hold) > MIC_HOLD_MAX_S:
+        problems.append(
+            f"config.yaml: speech.mic_hold_bound_s = {hold} — must be <= {MIC_HOLD_MAX_S}. "
+            f"Past ~10 s the agent's own turn_timeout endpoints our silence as empty user turns; "
+            f"it nudges twice, calls end_call and closes at 59 s (measured). The bound is the "
+            f"ceiling on how long we wait for user_transcript, not a patience setting "
+            f"(LEVEL1_SPEC §4.3, §9.1)."
+        )
+    elif float(hold) < MIC_HOLD_MIN_SAFE_S:
+        warnings.append(
+            f"config.yaml: speech.mic_hold_bound_s = {hold} is below the measured safe floor of "
+            f"{MIC_HOLD_MIN_SAFE_S}s — user_transcript arrived 2.2-2.8 s after the last real chunk "
+            f"in every captured turn, so this will raise no_user_transcript on healthy turns."
+        )
+    speech["mic_hold_bound_s"] = float(hold)
+
+    # -- persona character cap --------------------------------------------------------
+    cap = node.get("persona_char_cap", SPEECH_DEFAULTS["persona_char_cap"])
+    if isinstance(cap, bool) or not isinstance(cap, int) or cap < 1:
+        problems.append(
+            f"config.yaml: speech.persona_char_cap must be an int >= 1, got {cap!r}"
+        )
+        cap = PERSONA_CHAR_CAP_DEFAULT
+    elif cap > 400:
+        warnings.append(
+            f"config.yaml: speech.persona_char_cap = {cap} — at the measured 17 chars/s of "
+            f"playout that is {cap / 17:.0f}s of talking per persona turn, and playout is "
+            f"realtime and cannot be fast-forwarded. 200 (~12 s) is the LEVEL1_SPEC §4.4 value; "
+            f"long lines are also the main driver of the silent-truncation failure (§9.2)."
+        )
+    speech["persona_char_cap"] = int(cap)
+
+    return speech
 
 
 def _rubric_section(raw: dict[str, Any], problems: list[str]) -> dict[str, int]:
@@ -1026,12 +1439,29 @@ def load_config(
             "Every dimension should cite a verbatim quote."
         )
 
-    speech = raw.get("speech") if isinstance(raw.get("speech"), dict) else {}
+    speech = _speech_section(raw, target.mode, problems, warnings)
+
+    # -- audio-mode-only cross checks (LEVEL1_SPEC) ---------------------------------
+    # Nothing below this comment can fire in text mode, by construction.
+    if target.mode == "audio" and run.max_parallel > 1:
+        warnings.append(
+            f"config.yaml: run.max_parallel = {run.max_parallel} with target.mode 'audio'. "
+            f"Parallel voice conversations are UNTESTED — rate limits and quota burn "
+            f"(~3.3 inbound frames/s per conversation) were never probed, and every audio turn "
+            f"is realtime wall clock that cannot be retried cheaply. LEVEL1_SPEC §9.10 ships "
+            f"audio at max_parallel: 1; raising it is a deliberate experiment, not a speed-up."
+        )
 
     # -- personas ------------------------------------------------------------------
     personas_dir = (base_dir / "personas").resolve()
     if validate_personas:
-        persona_errors, persona_warnings = validate_persona_dir(personas_dir, run.personas)
+        # LEVEL1_SPEC §4.4: audio budgets TURNS, not seconds. ~24 s per turn cycle is
+        # irreducible realtime audio, so a 20-turn conversation cannot fit 540 s no matter how
+        # fast the LLM is. None (text mode) skips the check entirely.
+        cycle_budget = run.max_conversation_seconds if target.mode == "audio" else None
+        persona_errors, persona_warnings = validate_persona_dir(
+            personas_dir, run.personas, audio_seconds_budget=cycle_budget
+        )
         problems.extend(persona_errors)
         warnings.extend(persona_warnings)
 
@@ -1122,6 +1552,20 @@ def _main() -> int:
     table.add_row("out_dir", str(cfg.run.out_dir))
     table.add_row("limits", f"parallel={cfg.run.max_parallel} · budget=₹{cfg.run.budget_inr} · cap={cfg.run.max_conversation_seconds}s")
     table.add_row("rubric", f"{len(cfg.rubric)} dimensions, sum={sum(cfg.rubric.values())}")
+    if cfg.target.mode == "audio":
+        sp = cfg.speech
+        det = sp.get("turn_detector", {})
+        table.add_row(
+            "speech",
+            f"tts={sp.get('tts')}/{sp.get('tts_speaker')} @ {sp.get('speech_sample_rate')}Hz · "
+            f"stt={sp.get('stt')} cross_check={sp.get('stt_cross_check')}",
+        )
+        table.add_row(
+            "audio limits",
+            f"mic_hold<={sp.get('mic_hold_bound_s')}s · persona_cap={sp.get('persona_char_cap')} chars · "
+            f"detector peak>={det.get('speech_peak_min')} quiet={det.get('quiet_frames')}f/"
+            f"{det.get('quiet_wall_s')}s",
+        )
     table.add_row("secrets", repr(cfg.secrets))
     table.add_row("LLMConfig from", LLMCONFIG_SOURCE)
     console.print(table)

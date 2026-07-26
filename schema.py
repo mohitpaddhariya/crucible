@@ -11,7 +11,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
-SCHEMA_VERSION = "1.0"
+SCHEMA_VERSION = "1.1"   # 1.1 adds the Level 1 audio superset (LEVEL1_SPEC §3)
 
 Speaker = Literal["agent", "persona"]
 # "agent"   = X, the ElevenLabs agent under test (Tara)
@@ -24,8 +24,13 @@ EndCode = Literal[
     "hard_stop_turns",                                                   # nuclear, always wins
     "wall_clock_cap",                                                    # runner-global safety cap
     "budget_exceeded",                                                   # run-level
+    "agent_ended_call",                                                  # audio: end_call tool
     "target_disconnected", "error",                                      # failure paths
 ]
+# `agent_ended_call` is the explicit end-of-conversation signal Level 0 never had. In voice
+# mode the server emits agent_tool_response with tool_name == "end_call" and then closes
+# cleanly with 1000 — a real ending, not the `target_disconnected` error it would otherwise
+# be recorded as. Text mode has no equivalent and never sets it.
 EndKind = Literal["hard", "soft", "error"]
 
 Stage = Literal["config", "target", "persona_brain", "referee", "runner"]

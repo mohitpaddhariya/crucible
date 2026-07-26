@@ -5,6 +5,8 @@ target:
   # agent_id and the API key come from .env — never put secrets in this file.
   #   ELEVENLABS_AGENT_ID, ELEVENLABS_API_KEY
   # Level 0 sends textOnly as a RUNTIME override, so the live agent config is never modified.
+  # text  = Level 0. No audio anywhere, zero Level 1 code paths.
+  # audio = Level 1 half-duplex (docs/LEVEL1_SPEC.md). Needs the speech: block below.
   mode: text                            # text | audio
 
 # Sarvam models are REASONING models and reasoning cannot be disabled.
@@ -29,12 +31,45 @@ synthesizer:
   temperature: 0.2
   max_tokens: 2000
 
-# Level 1 only
+# Level 1 only (target.mode: audio). Parsed and validated in both modes; unused in text mode.
+# Every value here is a MEASUREMENT from scripts/spike_sarvam_speech.py against the live key,
+# not a default someone liked the look of. See docs/LEVEL1_SPEC.md §0, §4, §6.
 speech:
-  stt: saaras:v3
-  tts: bulbul:v3
-  input_sample_rate: 16000              # what we send to X
-  output_sample_rate: 16000             # what X sends back
+  # The ONLY live /speech-to-text model. `saaras:*` is a different family on
+  # /speech-to-text-translate that TRANSLATES ("Arre yaar, 10% off" -> "But man, 10% off"),
+  # and there is no saaras:v3 in either family. Used for the listener-fidelity cross-check
+  # ONLY — never for anything the judge scores (LEVEL1_SPEC §2.1).
+  stt: saarika:v2.5
+  stt_cross_check: true                 # off = no fidelity finding; saves ~1.2s/turn
+
+  # bulbul:v2 over REST: 0.85s for 49 chars, 1.29s for 288. bulbul:v3 is 2.14s / 9.24s for
+  # the same two lines — a casting escape hatch, set per persona in personas/*.yaml, never
+  # here (LEVEL1_SPEC §9.7). v2 roster: anushka, abhilash, manisha, vidya, arya, karun, hitesh.
+  tts: bulbul:v2
+  tts_speaker: anushka                  # fallback only; each persona casts its own voice
+
+  # MANDATORY 16000, all three. Bulbul's own default is 22050 and it returns 200 at
+  # 8000/16000/22050/24000/44100/48000 alike — a wrong rate never errors, it just makes Tara
+  # hear wrong-speed audio and transcribe nonsense. There is no resampler in this pipeline.
+  speech_sample_rate: 16000             # what we ask Bulbul for
+  input_sample_rate: 16000              # what we send to X   (pcm_16000)
+  output_sample_rate: 16000             # what X sends back   (pcm_16000)
+
+  # There is no end-of-turn event. The signal is an amplitude floor, calibrated over 8 turns
+  # and confirmed over 11 more with zero false splits (LEVEL1_SPEC §0.2).
+  turn_detector:
+    speech_peak_min: 3000               # worst case: carrier peaked 2942, quietest speech 3266
+    quiet_frames: 5                     # ~1.5s. NEVER 1 — the multi-frame hold is the margin
+    quiet_wall_s: 1.5                   # 0.9 was too tight and split a real turn (el 28.876)
+
+  # Hold the mic with paced silence until user_transcript, then shut immediately. Stop early
+  # and turn 2 deadlocks silently forever; hold open-ended and Tara endpoints empty turns and
+  # hangs up at 59s. Measured need: 2.2-2.8s. Safe window ~[3, 8]. 8.0 is a ceiling.
+  mic_hold_bound_s: 8.0
+
+  # ~200 chars = ~12s of playout at the measured 17 chars/s, and playout is realtime. Also the
+  # main lever against silent truncation of persona lines (LEVEL1_SPEC §4.4, §9.2).
+  persona_char_cap: 200
 
 run:
   personas: all                         # all | [price-haggler, happy-path]

@@ -88,9 +88,23 @@ scenario:
     your card and the auto-pay stopped with it. You meant to sort it out weeks ago and forgot,
     and you are glad someone called. You do want it back.
 
+# CASTING — Divya, 29, female, warm and cooperative.
+# Measured 26 Jul 2026 over runs/_spike/casting/*.wav with stdlib `wave` + autocorrelation
+# f0 (40 ms windows, per-file relative voicing gate). anushka: f0 median 186.0 Hz,
+# p10-p90 128-229, peak 32767 (0.0 dBFS), 16 kHz/mono/16-bit.
+#
+# Chosen for two reasons beyond "sounds like a 29-year-old woman":
+#   1. bulbul:v2, not v3. This is the CONTROL persona — if it fails, every other result is
+#      noise — so it runs the default, fastest, best-measured synthesis path and nothing
+#      else. v2 REST is 0.85 s for a 49-char line against v3's 2.14 s (LEVEL1_SPEC §9.7),
+#      and a control that also carries the new-model risk is not a control.
+#   2. anushka is the §9.7 shipped default, so this persona's audio is the one arm of the
+#      run with zero casting novelty in it.
+# No male voice is in contention here, so the v2 male-collision problem (see angry-churner
+# and price-haggler) never arises.
 voice:
-  model: bulbul:v3
-  speaker: null
+  model: bulbul:v2
+  speaker: anushka
   pace: 1.0
 
 # ---- runner only ----

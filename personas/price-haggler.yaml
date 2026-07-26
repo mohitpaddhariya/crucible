@@ -105,9 +105,36 @@ scenario:
     the UPI AutoPay three weeks ago. You want it back for the cricket, but not at full price.
     You have no idea whether JioHotstar will do anything at all about the price.
 
+# CASTING — Kunal, 21, male engineering student, cheerful and relentless, Hinglish.
+# Measured 26 Jul 2026 over runs/_spike/casting_v3/*.wav with stdlib `wave` + autocorrelation
+# f0 (40 ms windows, per-file relative voicing gate):
+#     aayan     139.1 Hz, p10-p90 101-159, peak 30925 (-0.5 dBFS), 98 voiced windows
+#     ashutosh  124.0 Hz, p10-p90  99-165, peak 16498 (-6.0 dBFS), 95 voiced windows
+#
+# bulbul:v3 is forced here, and it is the ONE place the v3 latency cost (§9.7) is worth
+# paying: this persona must be audibly distinct from angry-churner (LEVEL1_SPEC §6), and
+# bulbul:v2's entire male roster is abhilash 111.1 / karun 113.1 / hitesh 115.1 Hz — a 4 Hz
+# span, i.e. one voice with three names. There is no v2 answer to "a 21-year-old and a
+# 45-year-old must not sound alike".
+#
+# aayan, NOT the ashutosh that LEVEL1_SPEC §6 suggests. §6 lists ashutosh as "~148 Hz young
+# male"; re-measured against the same WAV it is 124.0 Hz — mid-pack, tied with amit (125.0)
+# and varun (124.5), and NOT a distinctly young voice at all. The ~148 figure appears to come
+# from an absolute-energy voicing gate: ashutosh's sample is 6 dB quieter than every other
+# voice in the roster (peak 16498 vs a roster typical of ~31000), so a fixed gate admits only
+# its loudest, highest-pitched frames and biases the median upward. aayan measures 139.1 Hz
+# at full level, is unambiguously male (unlike manan 150.9 / rohan 177.8, which the spike
+# itself registered as "ambiguous"), and gives 28 Hz of headroom over abhilash.
+# Level is not cosmetic here: a 6 dB deficit feeds Tara's ASR a weaker signal, and this
+# persona's Hinglish is exactly the traffic that already truncates silently (§9.2).
+#
+# Separation from angry-churner (bulbul:v2 abhilash, 111.1 Hz): 28 Hz / 25%, plus a different
+# synthesis model. Against already-switched (bulbul:v3 rahul, 123.6 Hz): 15.5 Hz / 12.5%.
+# CAVEAT, stated rather than hidden: f0 is the only axis this casting was measured on.
+# Timbre and prosody were not quantified — nobody has A/B'd these two in a live conversation.
 voice:
   model: bulbul:v3
-  speaker: null      # TODO fill at Level 1
+  speaker: aayan
   pace: 1.05
 
 # ---- runner only — the model must never see this ----

@@ -88,7 +88,10 @@ def new_run_id() -> str:
 
 def make_run_dir(out_dir: Path, run_id: str) -> Path:
     run_dir = Path(out_dir) / run_id
-    for sub in ("conversations", "raw", "prompts", "scorecards"):
+    # "audio" holds raw pcm_16000 per turn in audio mode (LEVEL1_SPEC §3.1). Created
+    # unconditionally: an empty dir costs nothing, and a missing one is a mid-conversation
+    # failure at exactly the moment the socket must not be left waiting.
+    for sub in ("conversations", "raw", "prompts", "scorecards", "audio"):
         (run_dir / sub).mkdir(parents=True, exist_ok=True)
     return run_dir
 
