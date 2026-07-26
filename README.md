@@ -63,6 +63,18 @@ cp config.example.yaml config.yaml
 # fill in agent_id + keys
 ```
 
+## Website
+
+The product website lives in `website/` as a standalone Vite application.
+
+```bash
+cd website
+npm install
+npm run dev
+```
+
+Run `npm run build` for a production bundle.
+
 ## The three stages
 
 ```bash
