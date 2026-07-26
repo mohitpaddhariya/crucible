@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   ArrowRight,
   AudioLines,
@@ -6,105 +5,49 @@ import {
   Braces,
   Check,
   Github,
-  Menu,
   ShieldCheck,
-  X,
 } from "lucide-react";
+import { AsciiVideo, type AsciiVideoSource } from "./components/AsciiVideo";
 import { EvalDemo } from "./components/EvalDemo";
-import { HeroScene } from "./components/HeroScene";
 import { VoiceMatrix } from "./components/VoiceMatrix";
 import { treatments } from "./data";
+
+const heroAnimations: AsciiVideoSource[] = [
+  {
+    id: "lotus",
+    label: "Lotus",
+    src: "/landing-page-animation.webm",
+    fallbackSrc: "/landing-page-animation.mp4",
+    poster: "/landing-page-poster.webp",
+  },
+];
 
 function Brand() {
   return (
     <a className="brand" href="#top" aria-label="Crucible home">
-      <span className="brand-mark">
-        <i />
-        <i />
-        <i />
-      </span>
-      <span>Crucible</span>
+      <img src="/lotus-logo-transparent.svg" alt="" width="1254" height="1254" />
     </a>
   );
 }
 
 function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const close = () => setMenuOpen(false);
-    window.addEventListener("resize", close);
-    return () => window.removeEventListener("resize", close);
-  }, []);
-
   return (
     <div id="top">
       <header className="site-header">
         <Brand />
-        <nav className={menuOpen ? "site-nav open" : "site-nav"} aria-label="Primary navigation">
-          <a href="#product" onClick={() => setMenuOpen(false)}>
-            Product
-          </a>
-          <a href="#dimensions" onClick={() => setMenuOpen(false)}>
-            Test dimensions
-          </a>
-          <a href="#benchmark" onClick={() => setMenuOpen(false)}>
-            Benchmark
-          </a>
-          <a href="https://github.com/mohitpaddhariya/crucible" target="_blank" rel="noreferrer">
-            Docs
-          </a>
-          <a
-            className="nav-github"
-            href="https://github.com/mohitpaddhariya/crucible"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Github size={16} />
-            GitHub
-          </a>
-        </nav>
-        <button
-          className="menu-button"
-          type="button"
-          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X /> : <Menu />}
-        </button>
       </header>
 
       <main>
-        <section className="hero" aria-labelledby="hero-title">
-          <HeroScene />
-          <div className="hero-copy">
-            <h1 id="hero-title">Crucible</h1>
-            <p className="hero-line">Break your voice agent before your users do.</p>
-            <p className="hero-detail">
-              Adaptive callers pressure-test safety, persuasion, dialects, code-mixing, and the messy
-              reality of human speech.
-            </p>
-            <div className="hero-actions">
-              <a className="button button-primary" href="#product">
-                See it work
-                <ArrowRight size={17} />
-              </a>
-              <a
-                className="button button-secondary"
-                href="https://github.com/mohitpaddhariya/crucible"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Github size={17} />
-                View source
-              </a>
-            </div>
-          </div>
-          <div className="hero-meta">
-            <span>VOICE AGENT EVALUATION</span>
-            <span>TEXT · AUDIO · REAL TIME</span>
-          </div>
+        <section className="video-hero" aria-labelledby="hero-title">
+          <AsciiVideo
+            sources={heroAnimations}
+            ariaLabel="An animated lotus rendered as colored ASCII characters"
+          />
+          <h1 id="hero-title">
+            Break your voice agent
+            <br />
+            before your users do.
+          </h1>
         </section>
 
         <div className="signal-strip" aria-label="Evaluation dimensions">
