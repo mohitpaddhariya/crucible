@@ -3,6 +3,13 @@ config.yaml
 runs/*
 !runs/.gitkeep
 
+# Website
+website/node_modules/
+website/dist/
+website/*.tsbuildinfo
+website/vite.config.js
+website/vite.config.d.ts
+
 __pycache__/
 *.py[cod]
 .venv/

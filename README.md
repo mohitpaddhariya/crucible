@@ -63,6 +63,22 @@ cp config.example.yaml config.yaml
 # fill in agent_id + keys
 ```
 
+## Website
+
+The product website lives in `website/` as a standalone Vite application.
+
+```bash
+cd website
+npm install
+npm run dev
+```
+
+Run `npm run build` for a production bundle.
+
+The landing animation is rendered live by `website/src/components/AsciiVideo.tsx`.
+Add another WebM/MP4 source to `heroAnimations` in `website/src/App.tsx`; when
+more than one source is configured, the animation selector appears automatically.
+
 ## The three stages
 
 ```bash
