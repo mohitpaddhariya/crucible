@@ -426,42 +426,6 @@ svg {
   font-size: 14px;
 }
 
-.signal-strip {
-  width: 100%;
-  overflow: hidden;
-  border-bottom: 1px solid var(--ink);
-  color: white;
-  background: var(--ink);
-}
-
-.signal-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 38s linear infinite;
-}
-
-.signal-track span {
-  display: flex;
-  height: 46px;
-  align-items: center;
-  gap: 24px;
-  padding-left: 24px;
-  font-size: 12px;
-  white-space: nowrap;
-}
-
-.signal-track i {
-  width: 5px;
-  height: 5px;
-  background: var(--signal);
-}
-
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 .section {
   width: min(1240px, calc(100% - 64px));
   margin: 0 auto;
@@ -1412,7 +1376,6 @@ svg {
     scroll-behavior: auto;
   }
 
-  .signal-track,
   .signal-line span,
   .hero-wave i {
     animation: none;

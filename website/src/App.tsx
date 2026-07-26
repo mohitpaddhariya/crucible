@@ -10,7 +10,6 @@ import {
 import { AsciiVideo, type AsciiVideoSource } from "./components/AsciiVideo";
 import { EvalDemo } from "./components/EvalDemo";
 import { VoiceMatrix } from "./components/VoiceMatrix";
-import { treatments } from "./data";
 
 const heroAnimations: AsciiVideoSource[] = [
   {
@@ -21,8 +20,6 @@ const heroAnimations: AsciiVideoSource[] = [
     poster: "/landing-page-poster.webp",
   },
 ];
-
-const tickerTreatments = [...treatments, ...treatments];
 
 function Brand() {
   return (
@@ -82,20 +79,13 @@ function App() {
           </div>
         </section>
 
-        <div className="signal-strip" aria-label="Evaluation dimensions">
-          <div className="signal-track">
-            {[...tickerTreatments, ...tickerTreatments].map((treatment, index) => (
-              <span key={`${treatment}-${index}`}>
-                {treatment}
-                <i />
-              </span>
-            ))}
-          </div>
-        </div>
-
         <section className="section product-intro" id="product">
           <div className="section-heading">
-            <h2>One harness. Every hard call.</h2>
+            <h2>
+              One harness.
+              <br />
+              Every hard call.
+            </h2>
             <p>
               Connect an agent, define what must hold true, and let simulated callers search for the
               failures manual QA misses.

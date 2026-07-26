@@ -71,13 +71,3 @@ export const scenarios: Scenario[] = [
     ],
   },
 ];
-
-export const treatments = [
-  "Code-mixing",
-  "Pitch",
-  "Gender presentation",
-  "Pace",
-  "Emotion",
-  "Interruption",
-  "Phone codec",
-];
