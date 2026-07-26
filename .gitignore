@@ -3,6 +3,10 @@ config.yaml
 runs/*
 !runs/.gitkeep
 
+# Website
+website/node_modules/
+website/dist/
+
 __pycache__/
 *.py[cod]
 .venv/
