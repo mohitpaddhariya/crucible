@@ -120,9 +120,17 @@ scenario:
 # Separation from price-haggler (bulbul:v3 aayan, 139.1 Hz): 28 Hz / 25% apart, AND a
 # different synthesis model. They cannot be confused.
 voice:
-  model: bulbul:v2
-  speaker: abhilash
-  pace: 1.15
+  # bulbul:v3 ONLY — v2 is legacy and its entire male roster spans 4 Hz
+  # (abhilash 111.1 / karun 113.1 / hitesh 115.1): one voice with three names.
+  # Cast on MEASURED f0, not on the spec's numbers: shubh = 111.1 Hz @ -0.5 dBFS.
+  # lowest well-levelled male in the roster; 45-year-old shop owner.
+  # Quiet samples were excluded on purpose: a low level both biases the pitch estimate
+  # upward AND feeds a weak signal into the target's recogniser, which is the very
+  # failure this project measures.
+  # Spread across the four personas: 111.1 / 129.0 / 161.6 / 195.1 Hz.
+  model: bulbul:v3
+  speaker: shubh
+  pace: 1.0
 
 # ---- runner only ----
 end_when:

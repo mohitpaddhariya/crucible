@@ -1,16 +1,20 @@
 /**
  * Presentation surface for voice-spar.
  *
- *   import { RunPicker, ConversationView, ConversationPlayer, ScoreCard, DefectList }
+ *   import { PersonaTabs, ConversationView, ConversationPlayer, ScoreCard, DefectList }
  *     from '@/app/components';
  *
  * Every component takes typed props and assumes nothing about where it is
- * mounted. Only ConversationPlayer and RunPicker's optional `useRuns` hook touch
- * the network; everything else is pure rendering.
+ * mounted. Only ConversationPlayer touches the network; everything else is pure
+ * rendering.
+ *
+ * `RunPicker` is deliberately NOT exported here. It lists run ids, level badges and
+ * raw scores — the internals the demo is not allowed to show — so it is off the
+ * user-facing surface and out of the page bundle. The file is kept for developer use.
  */
 
-export { default as RunPicker, useRuns } from './RunPicker';
-export type { RunPickerProps, UseRunsResult } from './RunPicker';
+export { default as PersonaTabs } from './PersonaTabs';
+export type { PersonaTabsProps, PersonaTab } from './PersonaTabs';
 
 export { default as ConversationView } from './ConversationView';
 export type { ConversationViewProps } from './ConversationView';

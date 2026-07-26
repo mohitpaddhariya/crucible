@@ -133,9 +133,17 @@ scenario:
 # CAVEAT, stated rather than hidden: f0 is the only axis this casting was measured on.
 # Timbre and prosody were not quantified — nobody has A/B'd these two in a live conversation.
 voice:
+  # bulbul:v3 ONLY — v2 is legacy and its entire male roster spans 4 Hz
+  # (abhilash 111.1 / karun 113.1 / hitesh 115.1): one voice with three names.
+  # Cast on MEASURED f0, not on the spec's numbers: manan = 161.6 Hz @ -0.8 dBFS.
+  # highest LOUD male; 21-year-old student (ashutosh/advait sit higher but at -6.0/-8.6 dBFS).
+  # Quiet samples were excluded on purpose: a low level both biases the pitch estimate
+  # upward AND feeds a weak signal into the target's recogniser, which is the very
+  # failure this project measures.
+  # Spread across the four personas: 111.1 / 129.0 / 161.6 / 195.1 Hz.
   model: bulbul:v3
-  speaker: aayan
-  pace: 1.05
+  speaker: manan
+  pace: 1.0
 
 # ---- runner only — the model must never see this ----
 end_when:

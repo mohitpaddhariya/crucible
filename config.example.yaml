@@ -45,8 +45,8 @@ speech:
   # bulbul:v2 over REST: 0.85s for 49 chars, 1.29s for 288. bulbul:v3 is 2.14s / 9.24s for
   # the same two lines — a casting escape hatch, set per persona in personas/*.yaml, never
   # here (LEVEL1_SPEC §9.7). v2 roster: anushka, abhilash, manisha, vidya, arya, karun, hitesh.
-  tts: bulbul:v2
-  tts_speaker: anushka                  # fallback only; each persona casts its own voice
+  tts: bulbul:v3
+  tts_speaker: priya                  # fallback only; each persona casts its own voice
 
   # MANDATORY 16000, all three. Bulbul's own default is 22050 and it returns 200 at
   # 8000/16000/22050/24000/44100/48000 alike — a wrong rate never errors, it just makes Tara

@@ -126,9 +126,17 @@ scenario:
 # and short, and the 200-char cap (§4.4) keeps synthesis near the 2.1 s end of v3's range,
 # not the 9.2 s end.
 voice:
+  # bulbul:v3 ONLY — v2 is legacy and its entire male roster spans 4 Hz
+  # (abhilash 111.1 / karun 113.1 / hitesh 115.1): one voice with three names.
+  # Cast on MEASURED f0, not on the spec's numbers: rahul = 129.0 Hz @ -0.5 dBFS.
+  # mid male, best-supported estimate (34 voiced windows); calm 34-year-old.
+  # Quiet samples were excluded on purpose: a low level both biases the pitch estimate
+  # upward AND feeds a weak signal into the target's recogniser, which is the very
+  # failure this project measures.
+  # Spread across the four personas: 111.1 / 129.0 / 161.6 / 195.1 Hz.
   model: bulbul:v3
   speaker: rahul
-  pace: 0.95
+  pace: 1.0
 
 # ---- runner only ----
 end_when:

@@ -233,6 +233,13 @@ class Persona:
     voice: dict[str, Any] | None  # Level 1, ignored here
     source_path: Path
     file_sha256: str
+
+    #: Audio mode only. Persona is FROZEN, so the runner sets this with
+    #: dataclasses.replace() rather than assignment. It adds a fixed "you are being spoken
+    #: aloud" block to the system prompt — chiefly the script rule, because romanised Hindi
+    #: is pronounced as English and arrives at the target as noise. Default False keeps every
+    #: Level 0 prompt byte-identical.
+    tts_style: bool = False
     brain: "SarvamClient | None" = None
     warnings: tuple[str, ...] = ()
     errors: list[RunError] = field(default_factory=list)
@@ -251,6 +258,9 @@ class Persona:
             {
                 "who": _flat(self.identity.get("who", "")),
                 "situation": _flat(self.identity.get("situation", "")),
+                # Audio mode only. A BOOL, not content — it selects the fixed block in
+                # _render_prompt and cannot smuggle anything persona-specific into the prompt.
+                "tts_style": bool(getattr(self, "tts_style", False)),
                 "language_primary": _flat(self.language.get("primary", "")),
                 "language_rule": _flat(self.language.get("rule", "")),
                 "tone": _flat(self.behaviour.get("tone", "")),
@@ -601,6 +611,27 @@ def _render_prompt(w: dict[str, Any]) -> str:
         "agent. You are not an assistant and you are not helping anyone. Stay in character for "
         "the entire call.",
         "",
+        *([
+            "",
+            "# YOU ARE BEING SPOKEN ALOUD",
+            "Your reply goes to a speech synthesiser and is played down a phone line. "
+            "Write what a person SAYS, not what they type.",
+            "",
+            "SCRIPT — this one decides how you are PRONOUNCED, so it matters most:",
+            "  * Hindi words in DEVANAGARI, English words in Latin, in the same sentence.",
+            "  * RIGHT:  \u0939\u093e\u0901, plan \u0905\u092d\u0940 \u0924\u0915 active \u0939\u0948?",
+            "  * WRONG:  Haan, plan abhi tak active hai?",
+            "  Romanised Hindi is pronounced as though it were English and comes out as "
+            "noise. Never write Hindi in Latin letters, however natural it looks typed.",
+            "  * Language and brand names stay in English: Hindi, Tamil, JioHotstar, UPI.",
+            "",
+            "PAUSES are punctuation: ',' short, '.' medium, '\u2026' hesitation. End a Hindi "
+            "sentence with '\u0964' and an English one with '.'.",
+            "",
+            "SOUND HUMAN: an occasional filler — arre, um, hmm, matlab — used sparingly. "
+            "Keep sentences short: speech plays at real time, so a long reply is a long "
+            "silence for the person waiting on the line.",
+        ] if w.get("tts_style") else []),
         "# WHO YOU ARE",
         w["who"] or "(unspecified)",
         "",

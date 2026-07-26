@@ -205,11 +205,19 @@ async def run_conversation(
 
     # DEBUG ONLY — the judge must never read this file (§8.4).
     prompt_path.parent.mkdir(parents=True, exist_ok=True)
+    audio_mode = getattr(cfg.target, "mode", "text") == "audio"
+
+    # tts_style MUST be applied BEFORE the prompt is written, not after. It was set further
+    # down, so prompts/<persona>.system.txt recorded a prompt that was never sent — the
+    # artifact quietly disagreed with reality, which is the one thing a debug artifact may
+    # not do. Audio only: in text mode this is a no-op and the file is byte-identical.
+    if audio_mode:
+        persona = replace(persona, tts_style=True)   # Persona is frozen
+
     prompt_path.write_text(persona.system_prompt(), encoding="utf-8")
 
     # MODE SELECTION. `text` is byte-for-byte the Level 0 path — the audio module is not even
     # imported, so a Level 0 run cannot be broken by Level 1 code that fails to load.
-    audio_mode = getattr(cfg.target, "mode", "text") == "audio"
     speech_cfg = getattr(cfg, "speech", {}) or {}
     audio_dir = run_dir / "audio" / persona.id if audio_mode else None
 
@@ -239,6 +247,9 @@ async def run_conversation(
             text_only=True,        # RUNTIME override only. The live agent is never modified.
             auth=cfg.target.auth,
         )
+
+    # Tell the persona it will be SPOKEN, not typed. Audio only: adding it in text mode would
+    # change every Level 0 prompt and therefore every Level 0 result.
 
     referee = Referee(
         persona,

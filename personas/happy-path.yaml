@@ -103,8 +103,16 @@ scenario:
 # No male voice is in contention here, so the v2 male-collision problem (see angry-churner
 # and price-haggler) never arises.
 voice:
-  model: bulbul:v2
-  speaker: anushka
+  # bulbul:v3 ONLY — v2 is legacy and its entire male roster spans 4 Hz
+  # (abhilash 111.1 / karun 113.1 / hitesh 115.1): one voice with three names.
+  # Cast on MEASURED f0, not on the spec's numbers: priya = 195.1 Hz @ -0.4 dBFS.
+  # clear, well-levelled female; the control, so nothing exotic.
+  # Quiet samples were excluded on purpose: a low level both biases the pitch estimate
+  # upward AND feeds a weak signal into the target's recogniser, which is the very
+  # failure this project measures.
+  # Spread across the four personas: 111.1 / 129.0 / 161.6 / 195.1 Hz.
+  model: bulbul:v3
+  speaker: priya
   pace: 1.0
 
 # ---- runner only ----

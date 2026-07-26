@@ -436,7 +436,7 @@ function CustomerTurn({
               {truncated ? (
                 <p className="mt-3 text-xs leading-relaxed text-rose-200/80">
                   <strong className="font-semibold text-rose-300">
-                    truncation_suspect
+                    Cut off mid-sentence
                   </strong>{' '}
                   — the recogniser closed this utterance while the customer was
                   still speaking. Everything after the cut was never available to
