@@ -1,8 +1,570 @@
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/newsreader/500.css";
 @import "tailwindcss";
+
+:root {
+  --dashboard-paper: #f8f3f6;
+  --dashboard-surface: #fffafd;
+  --dashboard-ink: #4a1537;
+  --dashboard-copy: #654458;
+  --dashboard-muted: #7f6474;
+  --dashboard-faint: #a38c99;
+  --dashboard-line: #decfd7;
+  --dashboard-soft: #f2e8ee;
+  --dashboard-accent: #9d3d70;
+  --dashboard-accent-dark: #782652;
+  --dashboard-coral: #d84f59;
+  --dashboard-gold: #f2bd61;
+  --dashboard-good: #35745b;
+}
 
 html,
 body {
-  background: #08090b;
-  color: #e7e9ee;
+  min-height: 100%;
+  background: var(--dashboard-paper);
+  color: var(--dashboard-ink);
+  font-family: "Inter", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+button,
+a {
+  letter-spacing: 0;
+}
+
+.dashboard-shell {
+  min-height: 100vh;
+  color: var(--dashboard-ink);
+  background: var(--dashboard-paper);
+}
+
+.dashboard-shell * {
+  letter-spacing: 0;
+}
+
+.dashboard-shell h1,
+.dashboard-shell h2,
+.dashboard-shell h3 {
+  font-family: "Newsreader", Georgia, serif;
+  font-weight: 500;
+}
+
+.dashboard-header,
+.dashboard-steps {
+  background: rgb(255 250 253 / 0.94);
+  border-color: var(--dashboard-line);
+}
+
+.dashboard-header {
+  min-height: 92px;
+}
+
+.dashboard-header img {
+  object-fit: contain;
+}
+
+.dashboard-steps {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.dashboard-steps button {
+  min-height: 52px;
+}
+
+.dashboard-content {
+  min-height: calc(100vh - 145px);
+}
+
+.config-surface {
+  overflow: hidden;
+  border: 1px solid var(--dashboard-line);
+  border-radius: 6px;
+  background: var(--dashboard-surface);
+}
+
+.config-surface-header {
+  display: flex;
+  min-height: 108px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--dashboard-line);
+}
+
+.config-surface-header h2,
+.config-pane-heading h3 {
+  margin: 0;
+  color: var(--dashboard-ink);
+}
+
+.config-surface-header h2 {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.config-surface-header p,
+.config-pane-heading p {
+  margin: 8px 0 0;
+  color: var(--dashboard-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.config-provider {
+  flex: 0 0 auto;
+  padding: 8px 11px;
+  border: 1px solid var(--dashboard-line);
+  border-radius: 6px;
+  color: var(--dashboard-accent-dark);
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--dashboard-soft);
+}
+
+.config-surface-body {
+  display: grid;
+  min-height: 430px;
+  grid-template-columns: 230px minmax(0, 1fr);
+}
+
+.config-nav {
+  padding: 16px;
+  border-right: 1px solid var(--dashboard-line);
+  background: var(--dashboard-paper);
+}
+
+.config-nav button {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  border-left: 2px solid transparent;
+  color: var(--dashboard-muted);
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.config-nav button:hover {
+  color: var(--dashboard-ink);
+  background: var(--dashboard-soft);
+}
+
+.config-nav button.active {
+  border-left-color: var(--dashboard-accent);
+  color: var(--dashboard-ink);
+  background: var(--dashboard-soft);
+}
+
+.config-nav strong,
+.config-nav span {
+  display: block;
+}
+
+.config-nav strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.config-nav span {
+  margin-top: 4px;
+  color: var(--dashboard-faint);
+  font-size: 11px;
+}
+
+.config-pane {
+  padding: 36px 40px 32px;
+}
+
+.config-pane-heading {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--dashboard-line);
+}
+
+.config-pane-heading h3 {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.config-pane dl {
+  margin: 0;
+}
+
+.config-row {
+  display: grid;
+  min-height: 68px;
+  grid-template-columns: minmax(150px, 0.45fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+  border-bottom: 1px solid var(--dashboard-line);
+}
+
+.config-row dt {
+  color: var(--dashboard-muted);
+  font-size: 13px;
+}
+
+.config-row dd {
+  margin: 0;
+  color: var(--dashboard-ink);
+  font-size: 14px;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.config-note {
+  margin: 24px 0 0;
+  color: var(--dashboard-muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+/* Light-theme mappings for the data components. These stay scoped to the app shell. */
+.dashboard-shell [class~="bg-neutral-950"] {
+  background-color: var(--dashboard-paper);
+}
+
+.dashboard-shell [class~="bg-neutral-950/40"],
+.dashboard-shell [class~="bg-neutral-950/50"],
+.dashboard-shell [class~="bg-neutral-950/60"],
+.dashboard-shell [class~="bg-neutral-900/20"],
+.dashboard-shell [class~="bg-neutral-900/30"],
+.dashboard-shell [class~="bg-neutral-900/40"],
+.dashboard-shell [class~="bg-neutral-900/50"],
+.dashboard-shell [class~="bg-neutral-900/60"] {
+  background-color: var(--dashboard-surface);
+}
+
+.dashboard-shell [class~="bg-neutral-800"],
+.dashboard-shell [class~="bg-neutral-800/30"],
+.dashboard-shell [class~="bg-neutral-800/50"],
+.dashboard-shell [class~="bg-neutral-800/70"] {
+  background-color: var(--dashboard-soft);
+}
+
+.dashboard-shell [class~="bg-neutral-700"] {
+  background-color: #cdbbc5;
+}
+
+.dashboard-shell [class~="bg-neutral-400"] {
+  background-color: var(--dashboard-muted);
+}
+
+.dashboard-shell [class~="bg-neutral-100"],
+.dashboard-shell [class~="bg-neutral-100/90"] {
+  background-color: var(--dashboard-ink);
+}
+
+.dashboard-shell [class~="text-neutral-50"],
+.dashboard-shell [class~="text-neutral-100"] {
+  color: var(--dashboard-ink);
+}
+
+.dashboard-shell [class~="text-neutral-200"],
+.dashboard-shell [class~="text-neutral-300"] {
+  color: var(--dashboard-copy);
+}
+
+.dashboard-shell [class~="text-neutral-400"] {
+  color: var(--dashboard-muted);
+}
+
+.dashboard-shell [class~="text-neutral-500"] {
+  color: #8e7383;
+}
+
+.dashboard-shell [class~="text-neutral-600"] {
+  color: var(--dashboard-faint);
+}
+
+.dashboard-shell [class~="text-neutral-700"] {
+  color: #bba9b3;
+}
+
+.dashboard-shell [class~="text-neutral-900"],
+.dashboard-shell [class~="text-neutral-950"] {
+  color: var(--dashboard-surface);
+}
+
+.dashboard-shell [class~="border-neutral-500"],
+.dashboard-shell [class~="border-neutral-600"],
+.dashboard-shell [class~="border-neutral-700"],
+.dashboard-shell [class~="border-neutral-800"],
+.dashboard-shell [class~="border-neutral-800/60"],
+.dashboard-shell [class~="border-neutral-800/70"],
+.dashboard-shell [class~="border-neutral-800/80"] {
+  border-color: var(--dashboard-line);
+}
+
+.dashboard-shell [class~="divide-neutral-800/70"] > :not(:last-child) {
+  border-color: var(--dashboard-line);
+}
+
+.dashboard-shell [class~="border-neutral-100"] {
+  border-color: var(--dashboard-accent);
+}
+
+.dashboard-shell [class~="ring-emerald-400/70"] {
+  --tw-ring-color: rgb(53 116 91 / 0.62);
+}
+
+.dashboard-shell [class~="ring-amber-400/70"] {
+  --tw-ring-color: rgb(190 125 31 / 0.62);
+}
+
+.dashboard-shell .unscored-fill {
+  background: var(--dashboard-line);
+}
+
+.dashboard-shell [class~="hover:text-neutral-100"]:hover,
+.dashboard-shell [class~="hover:text-neutral-200"]:hover,
+.dashboard-shell [class~="hover:text-neutral-300"]:hover {
+  color: var(--dashboard-accent-dark);
+}
+
+.dashboard-shell [class~="hover:bg-neutral-900/60"]:hover,
+.dashboard-shell [class~="hover:bg-neutral-800/30"]:hover {
+  background-color: var(--dashboard-soft);
+}
+
+.dashboard-shell [class~="hover:bg-white"]:hover {
+  color: var(--dashboard-surface);
+  background-color: var(--dashboard-accent-dark);
+}
+
+.dashboard-shell [class~="text-emerald-300"],
+.dashboard-shell [class~="text-emerald-400"],
+.dashboard-shell [class~="text-emerald-400/70"],
+.dashboard-shell [class~="text-emerald-400/80"],
+.dashboard-shell [class~="text-lime-300"] {
+  color: var(--dashboard-good);
+}
+
+.dashboard-shell [class~="bg-emerald-500"],
+.dashboard-shell [class~="bg-emerald-400"] {
+  background-color: var(--dashboard-good);
+}
+
+.dashboard-shell [class~="bg-emerald-500/60"] {
+  background-color: #6d9b84;
+}
+
+.dashboard-shell [class~="bg-emerald-500/25"] {
+  background-color: #bdd7c8;
+}
+
+.dashboard-shell [class~="bg-emerald-500/15"],
+.dashboard-shell [class~="bg-emerald-500/10"],
+.dashboard-shell [class~="bg-emerald-500/[0.05]"],
+.dashboard-shell [class~="bg-emerald-500/[0.06]"],
+.dashboard-shell [class~="bg-emerald-500/[0.07]"],
+.dashboard-shell [class~="bg-emerald-950/15"],
+.dashboard-shell [class~="bg-lime-500/10"] {
+  background-color: #eaf4ee;
+}
+
+.dashboard-shell [class~="border-emerald-400"],
+.dashboard-shell [class~="border-emerald-500/20"],
+.dashboard-shell [class~="border-emerald-500/25"],
+.dashboard-shell [class~="border-emerald-500/30"],
+.dashboard-shell [class~="border-emerald-500/40"],
+.dashboard-shell [class~="border-emerald-500/50"],
+.dashboard-shell [class~="border-lime-500/40"] {
+  border-color: #a9cdbb;
+}
+
+.dashboard-shell [class~="text-sky-300"],
+.dashboard-shell [class~="text-sky-400"] {
+  color: var(--dashboard-accent);
+}
+
+.dashboard-shell [class~="bg-sky-400"],
+.dashboard-shell [class~="bg-sky-500/60"] {
+  background-color: var(--dashboard-accent);
+}
+
+.dashboard-shell [class~="bg-sky-500/25"] {
+  background-color: #d6a9c1;
+}
+
+.dashboard-shell [class~="bg-sky-500/10"],
+.dashboard-shell [class~="bg-sky-500/[0.07]"] {
+  background-color: #f6e9f0;
+}
+
+.dashboard-shell [class~="border-sky-500/30"],
+.dashboard-shell [class~="border-sky-500/40"] {
+  border-color: #d2a0ba;
+}
+
+.dashboard-shell [class~="text-amber-200"],
+.dashboard-shell [class~="text-amber-200/70"],
+.dashboard-shell [class~="text-amber-200/90"],
+.dashboard-shell [class~="text-amber-300"],
+.dashboard-shell [class~="text-amber-400"] {
+  color: #8c5a13;
+}
+
+.dashboard-shell [class~="bg-amber-400"],
+.dashboard-shell [class~="bg-amber-500"] {
+  background-color: var(--dashboard-gold);
+}
+
+.dashboard-shell [class~="bg-amber-500/20"] {
+  background-color: #f9dfad;
+}
+
+.dashboard-shell [class~="bg-amber-500/[0.06]"],
+.dashboard-shell [class~="bg-amber-500/[0.07]"],
+.dashboard-shell [class~="bg-amber-500/10"] {
+  background-color: #fff4df;
+}
+
+.dashboard-shell [class~="border-amber-500/25"],
+.dashboard-shell [class~="border-amber-500/30"],
+.dashboard-shell [class~="border-amber-500/40"] {
+  border-color: #e7c27b;
+}
+
+.dashboard-shell [class~="text-rose-100/90"],
+.dashboard-shell [class~="text-rose-200"],
+.dashboard-shell [class~="text-rose-200/80"],
+.dashboard-shell [class~="text-rose-300"],
+.dashboard-shell [class~="text-rose-300/70"],
+.dashboard-shell [class~="text-rose-300/80"],
+.dashboard-shell [class~="text-rose-300/90"],
+.dashboard-shell [class~="text-rose-400"],
+.dashboard-shell [class~="text-rose-400/70"],
+.dashboard-shell [class~="text-rose-400/80"] {
+  color: var(--dashboard-coral);
+}
+
+.dashboard-shell [class~="hover:text-rose-50"]:hover {
+  color: #9f2f3e;
+}
+
+.dashboard-shell [class~="bg-rose-500"] {
+  background-color: var(--dashboard-coral);
+}
+
+.dashboard-shell [class~="bg-rose-500/20"] {
+  background-color: #f3c0c7;
+}
+
+.dashboard-shell [class~="bg-rose-500/10"],
+.dashboard-shell [class~="bg-rose-500/[0.04]"],
+.dashboard-shell [class~="bg-rose-500/[0.05]"],
+.dashboard-shell [class~="bg-rose-500/[0.06]"],
+.dashboard-shell [class~="bg-rose-500/[0.07]"],
+.dashboard-shell [class~="bg-rose-950/25"] {
+  background-color: #fff0f3;
+}
+
+.dashboard-shell [class~="border-rose-400"],
+.dashboard-shell [class~="border-rose-500/20"],
+.dashboard-shell [class~="border-rose-500/25"],
+.dashboard-shell [class~="border-rose-500/30"],
+.dashboard-shell [class~="border-rose-500/40"],
+.dashboard-shell [class~="border-rose-500/50"] {
+  border-color: #e0a1aa;
+}
+
+.dashboard-shell [class~="rounded-xl"],
+.dashboard-shell [class~="rounded-2xl"] {
+  border-radius: 6px;
+}
+
+.dashboard-shell button:focus-visible,
+.dashboard-shell a:focus-visible {
+  outline: 2px solid var(--dashboard-accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .dashboard-header {
+    min-height: 84px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 22px;
+  }
+
+  .dashboard-header p {
+    font-size: 11px;
+  }
+
+  .config-surface-header {
+    min-height: 116px;
+    align-items: flex-start;
+    padding: 24px 20px;
+  }
+
+  .config-surface-header h2 {
+    font-size: 28px;
+  }
+
+  .config-surface-body {
+    min-height: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .config-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 12px;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--dashboard-line);
+  }
+
+  .config-nav button {
+    min-width: 0;
+    padding: 14px 6px;
+    border-bottom: 2px solid transparent;
+    border-left: 0;
+    text-align: center;
+  }
+
+  .config-nav button.active {
+    border-bottom-color: var(--dashboard-accent);
+    border-left-color: transparent;
+  }
+
+  .config-nav span {
+    display: none;
+  }
+
+  .config-pane {
+    padding: 28px 20px 24px;
+  }
+
+  .config-row {
+    min-height: 74px;
+    grid-template-columns: minmax(100px, 0.45fr) minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .config-row dd {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-shell *,
+  .dashboard-shell *::before,
+  .dashboard-shell *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

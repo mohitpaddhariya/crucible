@@ -16,7 +16,7 @@ export const TRANSCRIPT_TEXT: CSSProperties = {
     '"Noto Sans Devanagari", "Nirmala UI", "Kohinoor Devanagari", "Devanagari Sangam MN", "Mangal", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif',
   lineHeight: 1.85,
   fontSize: '1.0625rem',
-  letterSpacing: '0.005em',
+  letterSpacing: 0,
 };
 
 /** Same face, one step larger — for evidence quotes meant to read from a distance. */

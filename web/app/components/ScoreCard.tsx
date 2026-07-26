@@ -334,7 +334,7 @@ function DimensionRow({
               style={{ width: `${pct}%` }}
             />
           ) : (
-            <span className="block h-full w-full bg-[repeating-linear-gradient(45deg,#3f3f46_0,#3f3f46_4px,transparent_4px,transparent_8px)]" />
+            <span className="unscored-fill block h-full w-full" />
           )}
         </span>
 

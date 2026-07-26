@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "voice-spar",
-  description: "Synthetic Indian customer personas vs a live voice agent",
+  title: "Crucible",
+  description: "Voice-agent evaluation runs, conversations, evidence, and defects.",
 };
 
 export default function RootLayout({
