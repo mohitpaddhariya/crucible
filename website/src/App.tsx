@@ -51,11 +51,32 @@ function App() {
             sources={heroAnimations}
             ariaLabel="An animated lotus rendered as colored ASCII characters"
           />
-          <h1 id="hero-title">
-            Break your voice agent
-            <br />
-            {" before your users do."}
-          </h1>
+          <div className="hero-content">
+            <h1 id="hero-title">
+              Break your voice agent
+              <br />
+              {" before your users do."}
+            </h1>
+            <p>
+              Pressure-test every voice, dialect, edge case, and adversarial turn before your agent
+              reaches a real customer.
+            </p>
+            <div className="hero-cta">
+              <a className="hero-cta-primary" href="#product">
+                Explore Crucible
+                <ArrowRight size={17} />
+              </a>
+              <a
+                className="hero-cta-secondary"
+                href="https://github.com/mohitpaddhariya/crucible"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Github size={17} />
+                View on GitHub
+              </a>
+            </div>
+          </div>
         </section>
 
         <div className="signal-strip" aria-label="Evaluation dimensions">
