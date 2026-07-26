@@ -130,6 +130,34 @@ function endReasonText(code: unknown): string | null {
  * translated `end_reason` and the blanked `persona_id` below are what stop
  * ConversationView and ScoreCard printing a raw code and a raw slug.
  */
+/**
+ * CLIENT ANONYMISATION.
+ *
+ * The agent under test belongs to a real customer whose name cannot be shown. Every string
+ * that reaches the screen passes through here — transcripts, scorecard reasoning, evidence
+ * quotes, defect entries, scenario values, the agent's own name.
+ *
+ * LIMIT, and it is a hard one: this masks TEXT ONLY. The agent SAYS the brand out loud in
+ * the recorded audio (three times in the opening line alone), and that name lives in the
+ * agent's own prompt on the platform, which this project never modifies. Playing a
+ * conversation reveals the customer regardless of what the screen says.
+ */
+const CLIENT_PATTERN = /jio\s*[- ]?\s*hotstar/gi;
+const CLIENT_ALIAS = 'Retention Agent';
+
+function maskClient<T>(value: T): T {
+  if (typeof value === 'string') {
+    return value.replace(CLIENT_PATTERN, CLIENT_ALIAS) as unknown as T;
+  }
+  if (Array.isArray(value)) return value.map(maskClient) as unknown as T;
+  if (value && typeof value === 'object') {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) out[k] = maskClient(v);
+    return out as unknown as T;
+  }
+  return value;
+}
+
 function toArtifactShape(p: any) {
   const c = p?.conversation ?? null;
   const s = p?.scorecard ?? null;
@@ -162,7 +190,8 @@ function toArtifactShape(p: any) {
     conversation: ended ? { end_reason: ended } : undefined,
   };
 
-  return { ...p, conversation, scorecard };
+  // Mask last, so every derived field above is covered too.
+  return maskClient({ ...p, conversation, scorecard });
 }
 
 /**
@@ -362,7 +391,10 @@ export default function App() {
           <section className="space-y-6">
             <Panelish title="Agent under test">
               <dl className="grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2">
-                <Row k="Agent" v={detail?.agentName ?? (loading ? '…' : '—')} />
+                {/* The real value is a deployment slug carrying the customer's name.
+                    Masking it in place yields 'Retention Agent-tara-winback-recovery',
+                    which is worse than saying nothing. Show the product name instead. */}
+                <Row k="Agent" v={detail ? 'Retention Agent' : loading ? '…' : '—'} />
                 <Row k="Platform" v="ElevenLabs" />
                 <Row
                   k="Channel"
