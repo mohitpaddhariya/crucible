@@ -46,7 +46,7 @@ function App() {
           <h1 id="hero-title">
             Break your voice agent
             <br />
-            before your users do.
+            {" before your users do."}
           </h1>
         </section>
 

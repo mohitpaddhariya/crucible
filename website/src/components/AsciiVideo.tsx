@@ -16,12 +16,12 @@ type AsciiVideoProps = {
   frameRate?: number;
 };
 
-const DEFAULT_CHARACTERS = " .,:;irsXA253hMHGS#9B&@";
+const DEFAULT_CHARACTERS = ".`,:;irsXA253hMHGS#9B&@";
 
 export function AsciiVideo({
   sources,
   ariaLabel,
-  cellSize = 12,
+  cellSize = 10,
   characterSet = DEFAULT_CHARACTERS,
   frameRate = 18,
 }: AsciiVideoProps) {
@@ -50,6 +50,9 @@ export function AsciiVideo({
     if (!context || !sampleContext) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const hostStyles = window.getComputedStyle(host);
+    const canvasBackground = hostStyles.getPropertyValue("--ascii-background").trim();
+    const backgroundGlyph = hostStyles.getPropertyValue("--ascii-grid").trim();
     const frameInterval = 1000 / frameRate;
     let animationFrame = 0;
     let lastFrameAt = 0;
@@ -63,7 +66,7 @@ export function AsciiVideo({
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-      context.fillStyle = "#ffffff";
+      context.fillStyle = canvasBackground;
       context.fillRect(0, 0, width, height);
     };
 
@@ -72,7 +75,7 @@ export function AsciiVideo({
 
       const width = host.clientWidth;
       const height = host.clientHeight;
-      const responsiveCellSize = width < 700 ? Math.max(9, cellSize - 2) : cellSize;
+      const responsiveCellSize = width < 700 ? Math.max(7, cellSize - 2) : cellSize;
       const cellHeight = responsiveCellSize * 1.25;
       const columns = Math.max(1, Math.ceil(width / responsiveCellSize));
       const rows = Math.max(1, Math.ceil(height / cellHeight));
@@ -111,7 +114,7 @@ export function AsciiVideo({
       );
 
       const pixels = sampleContext.getImageData(0, 0, columns, rows).data;
-      context.fillStyle = "#ffffff";
+      context.fillStyle = canvasBackground;
       context.fillRect(0, 0, width, height);
       context.font = `${cellHeight}px "SFMono-Regular", Consolas, "Liberation Mono", monospace`;
       context.textBaseline = "top";
@@ -126,16 +129,29 @@ export function AsciiVideo({
           const minimum = Math.min(red, green, blue);
           const luminance = (0.2126 * red + 0.7152 * green + 0.0722 * blue) / 255;
           const saturation = (maximum - minimum) / 255;
-          const intensity = Math.min(1, (1 - luminance) * 0.7 + saturation * 0.95);
+          const intensity = Math.min(1, (1 - luminance) * 0.95 + saturation * 1.15);
           const characterIndex = Math.min(
             characterSet.length - 1,
-            Math.floor(intensity * characterSet.length),
+            Math.floor(intensity * (characterSet.length - 1)),
           );
           const character = characterSet[characterIndex];
 
-          if (!character || character === " ") continue;
+          if (!character) continue;
 
-          context.fillStyle = `rgb(${Math.max(0, red - 18)} ${Math.max(0, green - 24)} ${Math.max(0, blue - 18)})`;
+          if (saturation < 0.035 && luminance > 0.92) {
+            context.fillStyle = backgroundGlyph;
+          } else {
+            const average = (red + green + blue) / 3;
+            const enhance = (channel: number) =>
+              Math.max(
+                0,
+                Math.min(
+                  255,
+                  Math.round((average + (channel - average) * 1.45 - 128) * 1.1 + 128),
+                ),
+              );
+            context.fillStyle = `rgb(${enhance(red)} ${enhance(green)} ${enhance(blue)})`;
+          }
           context.fillText(character, column * responsiveCellSize, row * cellHeight);
         }
       }

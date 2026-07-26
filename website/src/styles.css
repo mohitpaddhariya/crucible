@@ -14,6 +14,8 @@
   --signal: #dfff38;
   --danger: #ef4b32;
   --dark: #151513;
+  --ascii-background: #f8f3f6;
+  --ascii-grid: #d8ccd2;
 }
 
 * {
@@ -1462,6 +1464,7 @@ svg {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background: var(--ascii-background);
 }
 
 .ascii-video-source {
