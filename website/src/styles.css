@@ -1,18 +1,18 @@
 :root {
   font-family: "Inter", Arial, sans-serif;
-  color: #121210;
-  background: #f7f7f4;
+  color: #4a1537;
+  background: #f8f3f6;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --paper: #f7f7f4;
-  --surface: #ffffff;
-  --ink: #121210;
-  --muted: #666660;
-  --line: #d7d7d0;
-  --blue: #3157e7;
-  --blue-dark: #2142bd;
-  --signal: #dfff38;
-  --danger: #ef4b32;
+  --paper: #f8f3f6;
+  --surface: #fffafd;
+  --ink: #4a1537;
+  --muted: #7f6474;
+  --line: #decfd7;
+  --blue: #9d3d70;
+  --blue-dark: #782652;
+  --signal: #f2bd61;
+  --danger: #d84f59;
   --dark: #151513;
   --ascii-background: #f8f3f6;
   --ascii-grid: #d8ccd2;
@@ -485,9 +485,10 @@ svg {
 .closing h2,
 .demo-heading h2 {
   margin: 0;
+  font-family: "Newsreader", Georgia, serif;
   font-size: clamp(38px, 5vw, 68px);
   font-weight: 500;
-  line-height: 1.02;
+  line-height: 0.98;
 }
 
 .section-heading p,
@@ -536,7 +537,8 @@ svg {
 
 .system-steps h3 {
   margin: 18px 0 8px;
-  font-size: 21px;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 25px;
   font-weight: 500;
 }
 
@@ -737,6 +739,7 @@ svg {
 }
 
 .score-total > strong {
+  font-family: "Newsreader", Georgia, serif;
   font-size: 56px;
   font-weight: 500;
   line-height: 1;
@@ -854,7 +857,7 @@ svg {
 
 .voice-matrix .matrix-alert {
   color: var(--danger);
-  background: #fff0ed;
+  background: #fff0f5;
 }
 
 .matrix-note {
@@ -871,6 +874,7 @@ svg {
   display: block;
   margin-top: 58px;
   color: var(--danger);
+  font-family: "Newsreader", Georgia, serif;
   font-size: 38px;
   font-weight: 500;
 }
@@ -905,7 +909,7 @@ svg {
 .benchmark-copy p {
   max-width: 480px;
   margin: 28px 0 0;
-  color: #dbe2ff;
+  color: #f6dbe9;
   line-height: 1.6;
 }
 
@@ -936,12 +940,13 @@ svg {
 }
 
 .frontier-list span {
-  color: #bac6ff;
+  color: #efbfd7;
   font-size: 11px;
 }
 
 .frontier-list strong {
-  font-size: 19px;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 22px;
   font-weight: 500;
 }
 
@@ -1023,7 +1028,7 @@ svg {
   gap: 40px;
   align-items: center;
   padding: 0 32px;
-  color: #d0d0ca;
+  color: #e6ccd9;
   background: var(--ink);
 }
 
@@ -1437,7 +1442,8 @@ svg {
 
 #product,
 #dimensions,
-#benchmark {
+#benchmark,
+#dashboard {
   scroll-margin-top: 96px;
 }
 
@@ -1475,7 +1481,7 @@ svg {
   font-weight: 500;
 }
 
-.hero-nav a {
+.hero-nav > a:not(.dashboard-link) {
   padding: 8px 0 6px;
   border-bottom: 1px solid transparent;
   transition:
@@ -1483,7 +1489,7 @@ svg {
     border-color 150ms ease;
 }
 
-.hero-nav a:hover {
+.hero-nav > a:not(.dashboard-link):hover {
   color: #b23575;
   border-bottom-color: currentColor;
 }
@@ -1491,6 +1497,23 @@ svg {
 .hero-nav a:focus-visible {
   outline: 2px solid var(--hero-type);
   outline-offset: 4px;
+}
+
+.hero-nav .dashboard-link {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 13px;
+  border-radius: 9px;
+  color: var(--surface);
+  background: var(--hero-type);
+  transition: background 150ms ease;
+}
+
+.hero-nav .dashboard-link:hover {
+  color: var(--surface);
+  background: #8d2c67;
 }
 
 .site-footer .brand,
@@ -1574,16 +1597,16 @@ svg {
 .hero-content {
   position: relative;
   z-index: 1;
-  width: min(940px, calc(100% - 48px));
+  width: min(1040px, calc(100% - 48px));
   text-align: center;
 }
 
 .video-hero h1 {
-  max-width: min(900px, calc(100% - 48px));
+  max-width: min(1000px, calc(100% - 32px));
   margin: 0 auto;
   color: var(--hero-type);
   font-family: "Newsreader", Georgia, serif;
-  font-size: clamp(48px, 5.5vw, 80px);
+  font-size: clamp(58px, 6.3vw, 94px);
   font-weight: 500;
   line-height: 0.96;
   text-align: center;
@@ -1593,12 +1616,12 @@ svg {
 }
 
 .hero-content > p {
-  max-width: 590px;
-  margin: 22px auto 0;
+  max-width: 660px;
+  margin: 24px auto 0;
   color: #50173b;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
-  line-height: 1.55;
+  line-height: 1.5;
   text-shadow:
     -2px -2px 2px var(--ascii-background),
     2px -2px 2px var(--ascii-background),
@@ -1678,8 +1701,19 @@ svg {
   }
 
   .hero-nav {
-    gap: 13px;
-    font-size: 10px;
+    gap: 10px;
+    font-size: 9px;
+  }
+
+  .hero-nav .dashboard-link {
+    min-height: 34px;
+    gap: 5px;
+    padding: 0 9px;
+    font-size: 9px;
+  }
+
+  .hero-nav .dashboard-link svg {
+    width: 13px;
   }
 
   .video-hero {
@@ -1688,7 +1722,7 @@ svg {
 
   .video-hero h1 {
     max-width: 100%;
-    font-size: clamp(42px, 12vw, 54px);
+    font-size: clamp(48px, 13.5vw, 60px);
     line-height: 0.98;
     text-wrap: balance;
   }
@@ -1702,9 +1736,9 @@ svg {
   }
 
   .hero-content > p {
-    max-width: 340px;
-    margin-top: 18px;
-    font-size: 14px;
+    max-width: 350px;
+    margin-top: 20px;
+    font-size: 15px;
     line-height: 1.5;
   }
 

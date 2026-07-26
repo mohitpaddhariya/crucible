@@ -22,6 +22,8 @@ const heroAnimations: AsciiVideoSource[] = [
   },
 ];
 
+const tickerTreatments = [...treatments, ...treatments];
+
 function Brand() {
   return (
     <a className="brand" href="#top" aria-label="Crucible home">
@@ -39,8 +41,9 @@ function App() {
           <a href="#product">Product</a>
           <a href="#dimensions">Evals</a>
           <a href="#benchmark">Benchmark</a>
-          <a href="https://github.com/mohitpaddhariya/crucible" target="_blank" rel="noreferrer">
-            GitHub
+          <a className="dashboard-link" href="#dashboard">
+            Go to dashboard
+            <ArrowRight size={15} />
           </a>
         </nav>
       </header>
@@ -81,7 +84,7 @@ function App() {
 
         <div className="signal-strip" aria-label="Evaluation dimensions">
           <div className="signal-track">
-            {[...treatments, ...treatments].map((treatment, index) => (
+            {[...tickerTreatments, ...tickerTreatments].map((treatment, index) => (
               <span key={`${treatment}-${index}`}>
                 {treatment}
                 <i />
@@ -130,7 +133,7 @@ function App() {
           </div>
         </section>
 
-        <section className="demo-section" aria-labelledby="demo-title">
+        <section className="demo-section" id="dashboard" aria-labelledby="demo-title">
           <div className="section demo-heading">
             <h2 id="demo-title">A failure you can replay.</h2>
             <p>
