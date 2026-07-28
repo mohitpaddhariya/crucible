@@ -1,0 +1,1 @@
+{"runId":"20260728-181702-5838ca","personaId":"already-switched","sampleRate":16000,"gapS":0.5,"totalDurationS":22.374,"byteLength":716018,"turns":[{"turnIdx":0,"speaker":"agent","startS":0,"durationS":13.768},{"turnIdx":1,"speaker":"persona","startS":14.268,"durationS":8.107}]}
