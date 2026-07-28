@@ -47,8 +47,12 @@
 
   /* video */
   .video{margin:34px auto 8px;max-width:760px}
-  .video .frame{position:relative;padding-top:56.25%;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 12px 40px rgba(30,32,51,.14)}
-  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video .frame{position:relative;display:block;padding-top:56.25%;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 12px 40px rgba(30,32,51,.14)}
+  .video .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92;transition:opacity .15s}
+  .video .frame:hover img{opacity:1}
+  .video .btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:54px;background:var(--green);border-radius:14px}
+  .video .btn::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-42%,-50%);border-left:20px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent}
+  .video .frame:hover .btn{background:var(--green-bright)}
   .video .cap{text-align:center;font-size:14px;color:var(--muted);margin-top:10px}
 
   /* toc */
@@ -146,6 +150,7 @@
   .depth{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
   .depth h4{font-size:15px;margin-bottom:5px}
   .depth p{font-size:13.5px;color:var(--muted);margin:0}
+  .depth .take{font-size:13.5px;color:var(--green);font-weight:600;margin:0 0 5px}
 
   @media (max-width:720px){
     .hero h1{font-size:40px}
@@ -175,10 +180,11 @@
   </header>
 
   <div class="video">
-    <div class="frame">
-      <iframe src="https://www.youtube.com/embed/W1nolOkbIxg" title="Crucible demo video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-    <p class="cap">2 minute demo: a Sarvam voiced customer haggling with a live production agent, and the report that follows. <a href="https://youtu.be/W1nolOkbIxg">Open on YouTube</a></p>
+    <a class="frame play" href="https://youtu.be/W1nolOkbIxg" aria-label="Watch the 2 minute Crucible demo on YouTube">
+      <img src="https://img.youtube.com/vi/W1nolOkbIxg/maxresdefault.jpg" alt="Crucible demo video thumbnail" onerror="this.src='https://img.youtube.com/vi/W1nolOkbIxg/hqdefault.jpg'">
+      <span class="btn" aria-hidden="true"></span>
+    </a>
+    <p class="cap">2 minute demo: a Sarvam voiced customer haggling with a live production agent, and the report that follows. <a href="https://youtu.be/W1nolOkbIxg">Watch on YouTube</a></p>
   </div>
 
   <nav class="toc" aria-label="Contents">
@@ -224,26 +230,38 @@
       </div>
     </div>
 
-    <p><strong>Proof, not description.</strong> In one call against that production agent, the judge cited 4 rule breaches, each with a verbatim quote:</p>
+    <p><strong>Proof, not description.</strong> In one call against that production agent, the judge cited 4 rule breaches, each pinned to a quote (identifying titles and prices genericised here; the originals are in the scorecards):</p>
     <table>
       <thead><tr><th>The agent said</th><th>The rule it broke</th></tr></thead>
       <tbody>
-        <tr><td class="said">"Yes, we have all IPL matches live."</td><td class="rule">May not name any title beyond the one licensed hook</td></tr>
-        <tr><td class="said">"[The platform] is the only place for Special Ops and year-round live cricket"</td><td class="rule">May not claim exclusivity it does not have</td></tr>
-        <tr><td class="said">"Yes, Special Ops streams exclusively on [the platform]."</td><td class="rule">Same rule, second occurrence</td></tr>
-        <tr><td class="said">"The standard price is 899 rupees per quarter after the discount."</td><td class="rule">May not state a computed or post discount price</td></tr>
+        <tr><td class="said">"Yes, we have all [a marquee cricket league] matches live."</td><td class="rule">May not name any title beyond the one licensed hook</td></tr>
+        <tr><td class="said">"[The platform] is the only place for [a licensed drama] and year-round live cricket"</td><td class="rule">May not claim exclusivity it does not have</td></tr>
+        <tr><td class="said">"Yes, [the drama] streams exclusively on [the platform]."</td><td class="rule">Same rule, second occurrence</td></tr>
+        <tr><td class="said">"The standard price is [a computed quarterly price] after the discount."</td><td class="rule">May not state a computed or post discount price</td></tr>
       </tbody>
     </table>
 
     <div class="callout green">
-      <p><strong>Sarvam is structural, not swappable.</strong> The judge's Indic competence is load bearing: it reads "thoda discount de do na yaar" as a bargaining move and matches Devanagari quotes to Devanagari turns. Replace Sarvam with an American stack and the product stops being able to test the failures it exists to find.</p>
+      <p><strong>No substitute exists.</strong> A persona prompt on a US model produces an American actor doing an Indian accent. Sarvam has Indian context in the weights, so persona and model compound: the prompt supplies who the customer is, the model supplies how an Indian customer actually behaves. The judge side is the same competence in reverse: it reads "thoda discount de do na yaar" as a bargaining move and matches Devanagari quotes to Devanagari turns.</p>
+      <p style="margin-top:10px"><strong>The swap boundary, in one line:</strong> the harness can run any model. The Indian customer and the Indian judge cannot be anyone but Sarvam today.</p>
     </div>
+
+    <p><strong>One concrete example of the compounding.</strong> In a live voice call, our 21 year old haggler said, unscripted:</p>
+    <div class="callout" style="background:var(--card);border:1px solid var(--line)">
+      <p class="said" style="font-size:17px;margin:0">"Arre, itna mehnat karke baat kar rahe ho aur bas 10% hi de rahe ho?"</p>
+      <p class="small" style="margin:8px 0 0">(all this effort talking to me, and you offer just 10%?)</p>
+    </div>
+    <p>Nobody wrote that line or that tactic. The persona file says "cheerful but relentless"; Sarvam-30B supplied the mock offended, respectful but pushy register that Indian bargaining actually uses. The same persona prompt on a non Indian model negotiates politely in translated Hindi, and the test loses exactly the behaviour it exists to apply.</p>
   </section>
 
   <section id="product">
     <p class="kicker">Criterion 2</p>
     <h2>A live, production-ready product</h2>
-    <p class="lede">Three surfaces, one pipeline, all running on <strong>real recorded conversations</strong> with a live production agent.</p>
+    <p class="lede">Three surfaces, one pipeline, all running on <strong>real recorded conversations</strong> with a live production agent. Public deployment of the dashboard and API ships <strong>by 29 July, before Epoch</strong>; it is the one part of this criterion not met today, so it is first in the build order.</p>
+
+    <div class="callout green">
+      <p><strong>Anyone can verify the whole pipeline without spending a rupee.</strong> 557 offline checks run with zero network and zero credentials, straight from the repo.</p>
+    </div>
 
     <div class="shots">
       <figure class="wide"><img src="submission-assets/dashboard-conversation.png" alt="Dashboard: a voice conversation replayed turn by turn, with what the customer said beside what the agent's recogniser heard" onerror="this.closest('figure').style.display='none'"><figcaption>The conversation view: every turn playable, with what our customer said beside what the agent's recogniser heard.</figcaption></figure>
@@ -251,6 +269,7 @@
       <figure><img src="submission-assets/persona-studio.png" alt="Persona studio: a recorded call turned into an evaluation persona" onerror="this.closest('figure').style.display='none'"><figcaption>Persona studio: a recorded call in, an evaluation persona out.</figcaption></figure>
     </div>
 
+    <p class="small">Naming, once: <strong>Crucible</strong> is the product; <code>spar</code> is its CLI verb. <code>spar run</code>, <code>spar judge</code>, <code>spar report</code>.</p>
     <div class="pipe" role="img" aria-label="Pipeline: spar run holds live conversations and writes transcripts with audio. spar judge scores them and writes scorecards. spar report finds patterns across calls and writes the report. Stages talk only through files.">
       <div class="stage"><div class="cmd">spar run</div><div class="d">live conversations, voice or text</div></div>
       <span class="arr">→</span>
@@ -271,21 +290,20 @@
       <div class="stat"><div class="n">557</div><div class="l">offline checks, zero network</div></div>
       <div class="stat"><div class="n">₹5</div><div class="l">speech cost per voice run</div></div>
     </div>
-
-    <div class="callout amber">
-      <p><strong>Hosting status, stated plainly.</strong> The product runs on our hardware today. Public deployment of the dashboard and API is the first task before the checkpoint call, because it is the one part of this criterion not yet met.</p>
-    </div>
+    <p>₹5 of speech per certification is the product argument in one number: <strong>"run it on every prompt change" is a credible sentence</strong>, the way CI is credible because a build is nearly free.</p>
   </section>
 
   <section id="traction">
     <p class="kicker">Criterion 3</p>
     <h2>Real traction</h2>
-    <p class="lede">We will not claim users we do not have. Today: <strong>1 production agent certified</strong>, used by our own team. The path to 25 starts at Epoch and uses the product's own design: it works on agents we did not build.</p>
+    <p class="lede"><strong>1 design partner, 1 production agent certified.</strong> dinodial.ai is our first design partner, and the production retention agent we certified is live with real customers today. We will not claim users we do not have; everything below is the mechanism, not the count.</p>
+
+    <p>We are voice agent builders ourselves, and Crucible is going into our own day to day agent workflow at Razorpay. That is personal use by this team, not a company endorsement, and it is the strongest signal a dev tool can have: the builders are the first users.</p>
 
     <div class="path">
-      <div class="step"><div class="num">1</div><h4>Certify other builders' agents</h4><p>Dozens of Epoch teams built voice agents. Each team that submits an endpoint gets a report holding its own defects, with quotes. Target: 10 to 15 certifications on 30 July.</p></div>
+      <div class="step"><div class="num">1</div><h4>Certify Epoch teams' agents</h4><p>Mechanism: a team submits an endpoint, gets a report the same day. Conversion: the report contains their own agent's defects, with quotes, so re running after every prompt change is the natural next step. Target: 10 to 15 teams on 30 July.</p></div>
       <div class="step"><div class="num">2</div><h4>Persona studio as the self serve door</h4><p>Upload one recorded call, get a persona, run it against your agent. A 2 minute floor conversation becomes a signup.</p></div>
-      <div class="step"><div class="num">3</div><h4>Design partners</h4><p>The streaming service whose agent we certified, and 2 voice agent platforms, are the first paying conversations.</p></div>
+      <div class="step"><div class="num">3</div><h4>Design partners past 25</h4><p>dinodial.ai first, then the streaming service whose agent we certified, then 2 more voice agent platforms in conversation.</p></div>
     </div>
 
     <p>The report is the growth loop. Agents change weekly, and a team that has seen its own defects re certifies after every prompt change. That turns 25 users into recurring usage rather than 25 signups.</p>
@@ -294,12 +312,12 @@
   <section id="business">
     <p class="kicker">Criterion 4</p>
     <h2>Business impact</h2>
-    <p class="lede">Indian enterprises are moving retention, collections and support to voice agents in 11 languages. Every deployment is QA tested with <strong>about 10 polite calls in clean English</strong>.</p>
+    <p class="lede"><strong>82.5 → 15.0.</strong> The same production agent, the same scenario, two draws: 4 hallucinations in one call, 0 in the other. Ten polite calls sample one draw and ship on it. That is the QA method Indian enterprises are using while they move retention, collections and support to voice agents in 11 languages.</p>
 
     <div class="grid2">
-      <div class="fact"><div class="big">82.5 → 15.0</div><p>Same agent, same scenario, two runs. It hallucinated 4 times in one call and 0 in the other. Manual QA lands on one number and ships on it.</p></div>
+      <div class="fact"><div class="big">4 vs 0</div><p>Hallucinations across two identical runs. Consistency is invisible to any test that samples once, and it is the first thing Crucible measures.</p></div>
       <div class="fact"><div class="big">The worst moment</div><p>Retention and collections calls are exactly where an invented discount or a dropped Hinglish sentence costs a customer directly.</p></div>
-      <div class="fact"><div class="big">No one else can follow</div><p>Coval, Cekura and Hamming AI simulate American English callers. None can produce code switched speech, so none can test how an agent survives it.</p></div>
+      <div class="fact"><div class="big">No one can follow today</div><p>Not without Indic speech models. Coval, Cekura and Hamming AI simulate American English callers; none can produce code switched speech, so none can test how an agent survives it.</p></div>
       <div class="fact"><div class="big">Under ₹100 a run</div><p>A certification replaces days of manual QA. Per run pricing for teams, monthly certification for enterprises. Every prompt change needs a re run, the way every code change needs CI.</p></div>
     </div>
   </section>
@@ -325,14 +343,14 @@
     </div>
 
     <div class="depthgrid">
-      <div class="depth"><h4>The socket dies from a missing pong, not missing speech</h4><p>A 7 conversation controlled experiment: 112s of silence survives if pongs flow, any arm without them dies. A permanently live reader owns the socket; model calls never block it.</p></div>
-      <div class="depth"><h4>Turn detection with no event, audio that never stops</h4><p>The platform streams continuous background noise. Speech peaks near 10% of full scale, the floor near 9%; 1.5s of quiet closes the turn. Calibrated over 8 captured turns, reproduces every boundary.</p></div>
-      <div class="depth"><h4>Streaming silence as keepalive is harmful</h4><p>Zero filled audio reads as a live mic: the agent endpoints empty turns, asks "are you still there", and hangs up at 59s. Between turns we send nothing.</p></div>
-      <div class="depth"><h4>The judge is effectively deterministic</h4><p>27 of 28 dimension scores identical across 3 independent passes on the same transcripts. Score movement between runs is the agent moving, not the judge.</p></div>
-      <div class="depth"><h4>Speech derived text can never convict</h4><p>We measured the recogniser inventing "20%". A number that arrived through ASR can only flag a review, never prove a violation. A fact is only a fact when the text is verbatim.</p></div>
-      <div class="depth"><h4>Cross call analysis</h4><p>Personas carry distinct discount ceilings (5, 10, 15, 25%), so a number bleeding between conversations is a provable invention. 3 of 3 calls is a defect; 1 is an anecdote.</p></div>
-      <div class="depth"><h4>The control persona is a validity gate</h4><p>If the agent fails the deliberately easy customer, the run refuses to promote any finding to a defect: the harness cannot tell agent failure from its own.</p></div>
-      <div class="depth"><h4>Script aware diffing</h4><p>Said versus heard aligns romanised Hindi with Devanagari by consonant skeleton ("maine" and "मैंने" both reduce to "mn"), then renders the verbatim originals with losses marked.</p></div>
+      <div class="depth"><h4>The socket dies from a missing pong, not missing speech</h4><p class="take">A slow model can never kill a call.</p><p>A 7 conversation controlled experiment: 112s of silence survives if pongs flow, any arm without them dies. A permanently live reader owns the socket; model calls never block it.</p></div>
+      <div class="depth"><h4>Turn detection with no event, audio that never stops</h4><p class="take">We know when she has finished speaking, even though the line never goes silent.</p><p>The platform streams continuous background noise. Speech peaks near 10% of full scale, the floor near 9%; 1.5s of quiet closes the turn. Calibrated over 8 captured turns, reproduces every boundary.</p></div>
+      <div class="depth"><h4>Streaming silence as keepalive is harmful</h4><p class="take">Between turns, saying nothing is the only safe thing to say.</p><p>Zero filled audio reads as a live mic: the agent endpoints empty turns, asks "are you still there", and hangs up at 59s. Between turns we send nothing.</p></div>
+      <div class="depth"><h4>The judge is effectively deterministic</h4><p class="take">When a score moves, the agent moved.</p><p>27 of 28 dimension scores identical across 3 independent passes on the same transcripts. Score movement between runs is the agent moving, not the judge.</p></div>
+      <div class="depth"><h4>Speech derived text can never convict</h4><p class="take">A mishearing can never become an accusation.</p><p>We measured the recogniser inventing "20%". A number that arrived through ASR can only flag a review, never prove a violation. A fact is only a fact when the text is verbatim.</p></div>
+      <div class="depth"><h4>Cross call analysis</h4><p class="take">Lies that span calls get caught, though no single call can see them.</p><p>Personas carry distinct discount ceilings (5, 10, 15, 25%), so a number bleeding between conversations is a provable invention. 3 of 3 calls is a defect; 1 is an anecdote.</p></div>
+      <div class="depth"><h4>The control persona is a validity gate</h4><p class="take">If the easy customer fails, we blame ourselves, not the agent.</p><p>If the agent fails the deliberately easy customer, the run refuses to promote any finding to a defect: the harness cannot tell agent failure from its own.</p></div>
+      <div class="depth"><h4>Script aware diffing</h4><p class="take">Roman and Devanagari spellings of the same word count as the same word.</p><p>Said versus heard aligns romanised Hindi with Devanagari by consonant skeleton ("maine" and "मैंने" both reduce to "mn"), then renders the verbatim originals with losses marked.</p></div>
     </div>
 
     <h3 style="font-family:var(--serif);font-weight:500;font-size:23px;color:var(--brown);margin:26px 0 8px">The trust chain: 3 audits before a finding reaches a reader</h3>
