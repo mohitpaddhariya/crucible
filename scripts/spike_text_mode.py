@@ -3,7 +3,7 @@
 spike_text_mode.py — LEVEL 0 HARD GATE.
 
 Prove (or disprove) that a plain Python WebSocket can hold a text-only
-conversation with the live ElevenLabs agent X (jiohotstar-tara-winback-recovery),
+conversation with the live ElevenLabs agent X (retention-agent-winback-recovery),
 with dynamic_variables applied and text_only sent as a RUNTIME override.
 
 NO Sarvam here. Persona lines are hardcoded — this spike isolates the
@@ -59,10 +59,10 @@ DYNAMIC_VARIABLES = {
     "subscriber_name": "Aravinth",
     "call_reason": "win_back",
     "call_intro": (
-        "I'm calling because your JioHotstar Super annual plan lapsed on 20 June "
+        "I'm calling because your NovaPlay Super annual plan lapsed on 20 June "
         "and I'd love to get you back before the cricket ends."
     ),
-    "plan_name": "JioHotstar Super (annual)",
+    "plan_name": "NovaPlay Super (annual)",
     "amount_inr": "1499",
     "expiry_date": "20 June",
     "content_hook": "the ICC Women's T20 World Cup, live through 5 July",

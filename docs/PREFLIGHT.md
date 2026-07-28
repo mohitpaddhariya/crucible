@@ -17,7 +17,7 @@ Run 25 July 2026 against live credentials. Everything below was **observed from 
 | Field | Value |
 |---|---|
 | `agent_id` | `agent_9801kv9rahs8fzaa0dj6x85aq6dc` |
-| name | `jiohotstar-tara-winback-recovery` |
+| name | `retention-agent-winback-recovery` |
 | language | `en` |
 | LLM | `qwen35-397b-a17b` |
 | system prompt | 14,924 chars |
@@ -47,7 +47,7 @@ That's exactly what we want. We can change *how we talk to Tara*, never *who Tar
 `first_message` is a template:
 
 ```
-Hi {{subscriber_name}}, this is Tara from JioHotstar. {{call_intro}} Would you prefer English or Hindi?
+Hi {{subscriber_name}}, this is Tara from NovaPlay. {{call_intro}} Would you prefer English or Hindi?
 ```
 
 Declared placeholders:
@@ -56,7 +56,7 @@ Declared placeholders:
 |---|---|
 | `subscriber_name` | Aravinth |
 | `call_reason` | win_back |
-| `plan_name` | JioHotstar Super (annual) |
+| `plan_name` | NovaPlay Super (annual) |
 | `amount_inr` | 1499 |
 | `expiry_date` | 20 June |
 | `content_hook` | the ICC Women's T20 World Cup, live through 5 July |
@@ -133,7 +133,7 @@ Target: `5468d2009f4843248f137247f5cbe21a`
 ```
 agent_2801kx5hwew0ezp8kd8mjq7cjd31   Edelweiss MF Payment Failure Recovery (Meera)
 agent_4101kw8kd6wwft3v3y8s78fd9pd1   nicobar-cart-recovery-maya
-agent_9801kv9rahs8fzaa0dj6x85aq6dc   jiohotstar-tara-winback-recovery   ← target
+agent_9801kv9rahs8fzaa0dj6x85aq6dc   retention-agent-winback-recovery   ← target
 ```
 
 ElevenLabs keys are workspace-scoped, so if those three are the agents in `5468d200…`, we are in the right workspace. **Needs human confirmation** — do not treat as verified.

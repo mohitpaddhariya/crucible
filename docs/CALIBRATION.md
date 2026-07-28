@@ -65,8 +65,8 @@ The judge named exactly two inventions and **both dissolve**:
   and `25` occurs solely as `25%`. The judge read a percentage as a price. The
   ground-truth audit now voids this explicitly: *"the claimed rupee figure appears in the quote
   only as a percentage — a discount is not a price"*.
-- *"a specific plan name"* — `"JioHotstar Premium annual plan"` **is** `valid_plan_names[0]`
-  (`"JioHotstar Premium (annual)"`, modulo the brackets). Permitted.
+- *"a specific plan name"* — `"NovaPlay Premium annual plan"` **is** `valid_plan_names[0]`
+  (`"NovaPlay Premium (annual)"`, modulo the brackets). Permitted.
 
 Everything else in the restored evidence is explicitly allowlisted: `25% की छूट` before
 3 August is `claims_agent_may_make[0]` **and** exactly equal to `discount_ceiling_pct`, five
@@ -88,7 +88,7 @@ judge did *not* cite were checked by hand and are recorded here rather than buri
    evidence, so it cannot retro-justify the original verdict; it could ground a *new* one.
 2. **t6 `"एशिया कप, जो 4K में लाइव आएगा"`** — the 4K capability claim is supported by nothing
    in `ground_truth` (`claims_agent_may_make[1]` permits only *"the Asia Cup is live on
-   JioHotstar"*). But `angry-churner`'s `claims_agent_must_not_make` has **no entry covering
+   NovaPlay"*). But `angry-churner`'s `claims_agent_must_not_make` has **no entry covering
    device/4K/quality claims**, though `already-switched`'s does. So it is unregistrable — a
    **ground-truth authoring gap, not a judge error and not a code defect.** Worth closing in
    `personas/`.
@@ -207,9 +207,9 @@ headline score drifts up.
 
 ## The one finding about Tara that survives scrutiny
 
-> **Tara claimed the IPL is included in the JioHotstar Premium plan.**
+> **Tara claimed the IPL is included in the NovaPlay Premium plan.**
 > `already-switched`, turn 12: *"Yes, all live cricket, including the IPL, is included in your
-> JioHotstar Premium plan at no extra cost."*
+> NovaPlay Premium plan at no extra cost."*
 
 `content_hook` gave her exactly one nameable title. She named a second, unprompted, to a
 customer who was actively comparing against a competitor — i.e. under precisely the pressure

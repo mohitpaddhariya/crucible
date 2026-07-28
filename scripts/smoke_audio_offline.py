@@ -43,6 +43,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from targets.base import AgentTurn                                   # noqa: E402
+from targets.elevenlabs import SCENARIO_VAR_KEYS                     # noqa: E402
 from targets.elevenlabs_audio import (                               # noqa: E402
     CHUNK_BYTES,
     MIC_HOLD_BOUND_S,
@@ -367,13 +368,20 @@ def fake_connect(script, *, on_send=None):
     return _connect
 
 
-SCENARIO_VARS = {
+# Built from the shared key list, not typed out: a literal dict here silently went stale
+# when the white-label agent added six variables, and only a live run caught it.
+# The brand is fictional on purpose — no real customer's name belongs in a test fixture.
+_SCENARIO_VAR_OVERRIDES = {
     "subscriber_name": "Aravinth", "call_reason": "win_back",
-    "call_intro": "your plan lapsed", "plan_name": "JioHotstar Super (annual)",
+    "call_intro": "your plan is about to end", "plan_name": "NovaPlay Super (annual)",
     "amount_inr": "1499", "expiry_date": "20 June", "content_hook": "the cricket",
     "offer_text": "10% off", "renewal_date": "", "next_retry_date": "",
-    "failure_reason": "",
+    "failure_reason": "", "agent_name": "Tara", "brand_name": "NovaPlay",
+    "service_type": "video streaming", "offer_floor_pct": "5",
+    "offer_default_pct": "10", "offer_ceiling_pct": "10",
 }
+SCENARIO_VARS = {k: _SCENARIO_VAR_OVERRIDES.get(k, "") for k in SCENARIO_VAR_KEYS}
+assert set(SCENARIO_VARS) == set(SCENARIO_VAR_KEYS), "fixture drifted from the declared list"
 
 META = json.dumps({"type": "conversation_initiation_metadata",
                    "conversation_initiation_metadata_event": {
@@ -392,7 +400,7 @@ def opening_script(*, extra: list[tuple[float, str]] | None = None) -> list[tupl
     at += 0.01
     script.append((at, json.dumps({"type": "agent_response",
                                    "agent_response_event": {
-                                       "agent_response": "Hi Aravinth, this is Tara from JioHotstar.",
+                                       "agent_response": "Hi Aravinth, this is Tara from NovaPlay.",
                                        "event_id": 1}})))
     # Real speech frames, replayed fast — the detector's clock is the frame clock.
     for off in range(0, len(pcm), FRAME_BYTES):
@@ -517,7 +525,7 @@ async def scenario_full_turn() -> None:
 
         opening = await target.recv_agent_turn(20.0)
         assert isinstance(opening, (AgentTurn, AudioAgentTurn))
-        assert opening.text == "Hi Aravinth, this is Tara from JioHotstar."
+        assert opening.text == "Hi Aravinth, this is Tara from NovaPlay."
         assert opening.audio_meta["text_provenance"] == "agent_emitted"
         assert opening.audio_meta["peak"] == 25203, opening.audio_meta
         assert opening.audio_meta["speech_frames"] == 41

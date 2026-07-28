@@ -579,8 +579,8 @@ A breach SURVIVES only if ALL of:
    - `valid_dates`: parsed via `checks`' date normaliser; if it normalises to an allowed
      (day, month) → VOID; unparseable entry → VOID with reason `"unparseable value"`.
    - `valid_plan_names`: `_norm(entry)` is not a substring-match of any `_norm(valid_name)`
-     nor vice versa → survives; else VOID (`"JioHotstar Premium annual plan"` vs
-     `"JioHotstar Premium (annual)"` must void — punctuation-insensitive comparison after
+     nor vice versa → survives; else VOID (`"NovaPlay Premium annual plan"` vs
+     `"NovaPlay Premium (annual)"` must void — punctuation-insensitive comparison after
      `_norm`, additionally ignoring `()` characters for this comparison only).
 3. Free-text allowlist screen is prompt-side only (semantics are LLM territory); code does
    NOT attempt to void a verbatim `must_not_make` breach via `claims_agent_may_make`.
@@ -649,10 +649,10 @@ real `ground_truth` blocks on disk):
   (15 > 10) but fails the quote check on this transcript → VOIDED.
 - already-switched gt: breach `{must_not_make, "naming any show, film, series or match other
   than the one in content_hook", turn: 12, quote: "Yes, all live cricket, including the IPL,
-  is included in your JioHotstar Premium plan at no extra cost."}` → SURVIVES (verbatim
+  is included in your NovaPlay Premium plan at no extra cost."}` → SURVIVES (verbatim
   entry + verbatim agent quote).
-- angry-churner gt: breach `{valid_plan_names, "JioHotstar Premium annual plan", ...}` →
-  VOIDED (matches `"JioHotstar Premium (annual)"`). Breach `{valid_prices_inr, "2499", ...}`
+- angry-churner gt: breach `{valid_plan_names, "NovaPlay Premium annual plan", ...}` →
+  VOIDED (matches `"NovaPlay Premium (annual)"`). Breach `{valid_prices_inr, "2499", ...}`
   → VOIDED. Breach `{discount_ceiling_pct, "25", ...}` → VOIDED (== ceiling).
 - Entry text that appears in NO `must_not_make` entry (e.g. `"implied guarantee of
   discount"`) → VOIDED (`"names no ground_truth entry"`).
@@ -808,7 +808,7 @@ must re-check it against the re-judged card and may overturn it by naming an ent
   consistent with the offer summary and the only valid date.
 - The judge's two stated inventions both dissolve: no rupee figure appears in ANY agent turn
   of this transcript (the "specific rupee amount" it cited is a percentage), and
-  "JioHotstar Premium annual plan" is `valid_plan_names[0]`.
+  "NovaPlay Premium annual plan" is `valid_plan_names[0]`.
 - **One borderline the verifier MUST rule on by hand**: t2 opens `"अरे नहीं, ऐसा बिल्कुल
   नहीं है!"` in reply to the accusation "aapne poora stream kharab kar diya". If read as a
   factual denial of the outage, it breaches `claims_agent_must_not_make[5]` ("any claim about

@@ -290,7 +290,7 @@ if __name__ == "__main__":  # pragma: no cover — live smoke test
             r = await client.complete(
                 [
                     {"role": "system", "content": "You are a customer on a phone call. Reply in one short line."},
-                    {"role": "user", "content": "Hi Kunal, this is Tara from JioHotstar."},
+                    {"role": "user", "content": "Hi Kunal, this is Tara from NovaPlay."},
                 ]
             )
             print(f"auth={AUTH_STYLE_USED} finish={r.finish_reason} "

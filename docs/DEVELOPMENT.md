@@ -21,7 +21,7 @@ personas/*.yaml  ─►  RUNNER  ─►  n conversations with the target agent
 The three stages talk to each other **only through files**. Nothing is held in memory
 between them, which is why the last two are re-runnable for free.
 
-- **X** — the target. Currently `jiohotstar-tara-winback-recovery`, an ElevenLabs hosted agent. We don't modify it.
+- **X** — the target. Currently `retention-agent-winback-recovery`, an ElevenLabs hosted agent. We don't modify it.
 - **Y₁…Yₙ** — the personas. Built on Sarvam. Each one is a YAML file.
 
 ## The two ideas the design rests on

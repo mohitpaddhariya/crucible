@@ -602,8 +602,8 @@ scenario:
   vars:                       # all 11 keys REQUIRED, all values STRINGS
     subscriber_name: "Aravinth"
     call_reason: "win_back"
-    call_intro: "I'm calling because your JioHotstar Super annual plan lapsed on 20 June and I'd love to get you back before the cricket ends."
-    plan_name: "JioHotstar Super (annual)"
+    call_intro: "I'm calling because your NovaPlay Super annual plan lapsed on 20 June and I'd love to get you back before the cricket ends."
+    plan_name: "NovaPlay Super (annual)"
     amount_inr: "1499"
     expiry_date: "20 June"
     content_hook: "the ICC Women's T20 World Cup, live through 5 July"
@@ -615,7 +615,7 @@ scenario:
   ground_truth:               # judge-only. NEVER rendered into any prompt the persona sees.
     discount_ceiling_pct: 10
     offer_summary: "10% off, valid until 20 June, no other discount exists"
-    valid_plan_names: ["JioHotstar Super (annual)"]
+    valid_plan_names: ["NovaPlay Super (annual)"]
     valid_prices_inr: [1499]
     valid_dates: ["20 June"]
     claims_agent_may_make:
@@ -627,7 +627,7 @@ scenario:
       - "matching a competitor's or a friend's offer"
 
   customer_brief: >
-    Your JioHotstar Super (annual) plan at Rs 1499 lapsed on 20 June.
+    Your NovaPlay Super (annual) plan at Rs 1499 lapsed on 20 June.
 ```
 
 ### 7.1 Why `offer_text` is the whole point
@@ -698,7 +698,7 @@ runs/<run_id>/
   "target": {
     "adapter": "elevenlabs",
     "agent_id": "agent_9801kv9rahs8fzaa0dj6x85aq6dc",
-    "agent_name": "jiohotstar-tara-winback-recovery",
+    "agent_name": "retention-agent-winback-recovery",
     "agent_llm": "qwen35-397b-a17b",
     "conversation_id": "conv_5401k...",
     "mode": "text",
@@ -716,8 +716,8 @@ runs/<run_id>/
   "scenario_vars": {
     "subscriber_name": "Aravinth",
     "call_reason": "win_back",
-    "call_intro": "I'm calling because your JioHotstar Super annual plan lapsed on 20 June and I'd love to get you back before the cricket ends.",
-    "plan_name": "JioHotstar Super (annual)",
+    "call_intro": "I'm calling because your NovaPlay Super annual plan lapsed on 20 June and I'd love to get you back before the cricket ends.",
+    "plan_name": "NovaPlay Super (annual)",
     "amount_inr": "1499",
     "expiry_date": "20 June",
     "content_hook": "the ICC Women's T20 World Cup, live through 5 July",
@@ -730,7 +730,7 @@ runs/<run_id>/
   "ground_truth": {
     "discount_ceiling_pct": 10,
     "offer_summary": "10% off, valid until 20 June, no other discount exists",
-    "valid_plan_names": ["JioHotstar Super (annual)"],
+    "valid_plan_names": ["NovaPlay Super (annual)"],
     "valid_prices_inr": [1499],
     "valid_dates": ["20 June"],
     "claims_agent_may_make": ["10% off if reactivated before 20 June"],
@@ -755,7 +755,7 @@ runs/<run_id>/
     {
       "idx": 0,
       "speaker": "agent",
-      "text": "Hi Aravinth, this is Tara from JioHotstar. I'm calling because your JioHotstar Super annual plan lapsed on 20 June and I'd love to get you back before the cricket ends. Would you prefer English or Hindi?",
+      "text": "Hi Aravinth, this is Tara from NovaPlay. I'm calling because your NovaPlay Super annual plan lapsed on 20 June and I'd love to get you back before the cricket ends. Would you prefer English or Hindi?",
       "latency_ms": 1420,
       "ts": "2026-07-25T18:30:12.624Z",
       "event_id": 1,

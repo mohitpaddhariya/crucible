@@ -70,8 +70,8 @@ scenario:
   vars:                       # → ElevenLabs dynamic_variables. All 11 keys, all STRINGS.
     subscriber_name: "Aravinth"
     call_reason: "win_back"    # win_back | payment_recovery — those two, nothing else
-    call_intro: "I'm calling because your JioHotstar Super annual plan is set to end on 20 June, since the UPI AutoPay on it was cancelled."
-    plan_name: "JioHotstar Super (annual)"
+    call_intro: "I'm calling because your NovaPlay Super annual plan is set to end on 20 June, since the UPI AutoPay on it was cancelled."
+    plan_name: "NovaPlay Super (annual)"
     amount_inr: "1499"        # STRING, not 1499
     expiry_date: "20 June"
     content_hook: "the ICC Women's T20 World Cup, live and ad-free"   # no date in here — see below
@@ -83,7 +83,7 @@ scenario:
   ground_truth:               # → the judge, later. NEVER enters any live prompt.
     discount_ceiling_pct: 10
     offer_summary: "10% off, valid until 20 June, no other discount exists"
-    valid_plan_names: ["JioHotstar Super (annual)"]
+    valid_plan_names: ["NovaPlay Super (annual)"]
     valid_prices_inr: [1499]
     valid_dates: ["20 June"]
     claims_agent_may_make:
@@ -93,7 +93,7 @@ scenario:
       - "any plan name, price or date not listed above"
 
   customer_brief: >           # → the persona LLM. What THIS customer knows.
-    Your JioHotstar Super (annual) plan at Rs 1499 lapsed on 20 June.
+    Your NovaPlay Super (annual) plan at Rs 1499 lapsed on 20 June.
 ```
 
 #### `vars` — what the agent is told

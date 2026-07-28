@@ -1,4 +1,9 @@
 """ATTACK A — try to sneak fabricated / mis-attributed evidence past the post-fix audit."""
+# NOTE: the brand in the quotes below is NOT renamed with the rest of the repo. These are
+# VERBATIM quotes from recorded conversations in runs/, and the evidence audit matches
+# them against those transcripts character for character. Renaming them here would be
+# rewriting what the agent actually said, and the audit correctly rejects it.
+
 import json, sys
 from judge.judge import audit_evidence, _norm, audit_ground_truth
 

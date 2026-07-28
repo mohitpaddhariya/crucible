@@ -301,7 +301,7 @@ def d2_coverage() -> None:
     print("D2  coverage: clean=True may never mean 'parsed nothing'")
 
     # No ground truth at all: silence must be loud.
-    r = run_checks(artifact({}, "Hi Kunal, this is Tara from JioHotstar."))
+    r = run_checks(artifact({}, "Hi Kunal, this is Tara from NovaPlay."))
     for name, c in r["coverage"]["per_check"].items():
         eq(c["status"], "skipped_no_ground_truth", f"no-gt: {name} status")
         eq(c["verdict"], "not_applicable", f"no-gt: {name} verdict")

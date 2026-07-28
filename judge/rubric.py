@@ -171,7 +171,7 @@ For every claim you are failing the agent for, add one object to `breaches`:
     bound; a quote whose only figure is within the bound is thrown away.
   - entry_kind "discount_ceiling_pct" | "valid_prices_inr" | "valid_dates" |
     "valid_plan_names" — put the OFFENDING VALUE THE AGENT STATED into `entry`, in ASCII
-    digits or plain English ("30", "3999", "5 September", "JioHotstar Gold"), even when the
+    digits or plain English ("30", "3999", "5 September", "NovaPlay Gold"), even when the
     agent said it in Devanagari or another script. Use these kinds whenever the breach is a
     wrong number, date or plan name: the value is then checkable in code, and a violation
     spoken in any script stays reportable.

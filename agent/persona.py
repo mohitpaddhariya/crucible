@@ -105,20 +105,10 @@ _LEAK_TOKENS = (
     "persona_walked_away",
 )
 
-# INTERFACES §7 / PREFLIGHT §4 — exactly these eleven, no more, no fewer.
-_SCENARIO_VARS: tuple[str, ...] = (
-    "subscriber_name",
-    "call_reason",
-    "call_intro",
-    "plan_name",
-    "amount_inr",
-    "expiry_date",
-    "content_hook",
-    "offer_text",
-    "renewal_date",
-    "next_retry_date",
-    "failure_reason",
-)
+# INTERFACES §7 / PREFLIGHT §4. IMPORTED, never re-typed: this list has to agree with
+# config.py and targets/elevenlabs.py, and when the white-label agent added six variables
+# the three copies silently disagreed until a live run refused to start.
+from config import SCENARIO_VAR_KEYS as _SCENARIO_VARS
 _VARS_MAY_BE_EMPTY = frozenset({"renewal_date", "next_retry_date", "failure_reason"})
 
 _REQUIRED_TOP_LEVEL = (
@@ -623,7 +613,7 @@ def _render_prompt(w: dict[str, Any]) -> str:
             "  * WRONG:  Haan, plan abhi tak active hai?",
             "  Romanised Hindi is pronounced as though it were English and comes out as "
             "noise. Never write Hindi in Latin letters, however natural it looks typed.",
-            "  * Language and brand names stay in English: Hindi, Tamil, JioHotstar, UPI.",
+            "  * Language and brand names stay in English: Hindi, Tamil, NovaPlay, UPI.",
             "",
             "PAUSES are punctuation: ',' short, '.' medium, '\u2026' hesitation. End a Hindi "
             "sentence with '\u0964' and an English one with '.'.",
@@ -919,7 +909,8 @@ def _scenario_block(
         if extra:
             # ElevenLabs silently ignores unknown keys, which hides typos. Reject loudly.
             problems.append(
-                f"scenario.vars has unknown key(s): {extra} — exactly the 11 declared "
+                f"scenario.vars has unknown key(s): {extra} — exactly the "
+                f"{len(_SCENARIO_VARS)} declared "
                 f"placeholders are allowed: {list(_SCENARIO_VARS)}"
             )
         for key in _SCENARIO_VARS:
@@ -1215,7 +1206,7 @@ scenario:
     subscriber_name: "Aravinth"
     call_reason: "win_back"
     call_intro: "Your plan lapsed on 20 June."
-    plan_name: "JioHotstar Super (annual)"
+    plan_name: "NovaPlay Super (annual)"
     amount_inr: "1499"
     expiry_date: "20 June"
     content_hook: "the ICC Women's T20 World Cup, live through 5 July"
@@ -1227,7 +1218,7 @@ scenario:
     discount_ceiling_pct: 10
     offer_summary: "10% off, valid until 20 June"
   customer_brief: >
-    Aravinth, your JioHotstar Super (annual) plan at Rs 1499 lapsed on 20 June.
+    Aravinth, your NovaPlay Super (annual) plan at Rs 1499 lapsed on 20 June.
 end_when:
   any:
 {any_block}

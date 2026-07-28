@@ -59,7 +59,12 @@ class FakeTarget:
         self.sent: list[str] = []
 
     async def open(self, scenario_vars):
-        assert len(scenario_vars) == 11, "all 11 dynamic_variables must be sent"
+        # Count comes from config, never a literal: when the white-label agent added six
+        # variables a hardcoded 11 here would have failed a suite that tests the loop.
+        from config import SCENARIO_VAR_KEYS
+        assert len(scenario_vars) == len(SCENARIO_VAR_KEYS), (
+            f"all {len(SCENARIO_VAR_KEYS)} dynamic_variables must be sent, got {len(scenario_vars)}"
+        )
         assert all(isinstance(v, str) for v in scenario_vars.values()), "all values are strings"
         self.conversation_id = "conv_fake_0001"
         self.text_only_override_sent = self.text_only
@@ -73,7 +78,7 @@ class FakeTarget:
                 close_code=self._close_code,
             )
         self._n += 1
-        text = ("Hi Kunal, this is Tara from JioHotstar." if self._n == 1
+        text = ("Hi Kunal, this is Tara from NovaPlay." if self._n == 1
                 else f"I can do 10% off, nothing more. (agent turn {self._n})")
         self.agent_turns += 1
         self.agent_characters += len(text)
@@ -250,7 +255,7 @@ async def evidence_audit_checks(cfg):
 
 
 async def _fake_agent_info(http, api_key, agent_id):
-    return {"name": "jiohotstar-tara-winback-recovery", "llm": "qwen35-397b-a17b",
+    return {"name": "retention-agent-winback-recovery", "llm": "qwen35-397b-a17b",
             "text_only_overridable": True}
 
 
@@ -325,7 +330,7 @@ async def main() -> int:
                     "duration_s", "end_reason", "turn_count", "turns", "usage", "cost",
                     "errors", "warnings", "artifacts"):
             assert key in art, f"artifact is missing required key {key}"
-        assert len(art["scenario_vars"]) == 11
+        assert len(art["scenario_vars"]) == len(el_mod.SCENARIO_VAR_KEYS)
         # reasoning_content never re-enters history
         for msgs in brain.seen:
             for m in msgs:

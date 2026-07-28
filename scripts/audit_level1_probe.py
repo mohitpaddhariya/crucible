@@ -55,9 +55,9 @@ QUIET_SECONDS = 1.5
 DYNAMIC_VARIABLES = {
     "subscriber_name": "Aravinth",
     "call_reason": "win_back",
-    "call_intro": ("I'm calling because your JioHotstar Super annual plan lapsed on "
+    "call_intro": ("I'm calling because your NovaPlay Super annual plan lapsed on "
                    "20 June and I'd love to get you back before the cricket ends."),
-    "plan_name": "JioHotstar Super (annual)",
+    "plan_name": "NovaPlay Super (annual)",
     "amount_inr": "1499",
     "expiry_date": "20 June",
     "content_hook": "the ICC Women's T20 World Cup, live through 5 July",

@@ -3,7 +3,7 @@
 spike_audio_turn.py — LEVEL 1 HARD GATE.
 
 Prove (or disprove) that we can hold a HALF-DUPLEX AUDIO conversation with the
-live ElevenLabs agent (jiohotstar-tara-winback-recovery):
+live ElevenLabs agent (retention-agent-winback-recovery):
 
     Tara speaks (pcm_16000)
       -> we detect end-of-turn by AMPLITUDE
@@ -83,10 +83,10 @@ DYNAMIC_VARIABLES = {
     "subscriber_name": "Aravinth",
     "call_reason": "win_back",
     "call_intro": (
-        "I'm calling because your JioHotstar Super annual plan lapsed on 20 June "
+        "I'm calling because your NovaPlay Super annual plan lapsed on 20 June "
         "and I'd love to get you back before the cricket ends."
     ),
-    "plan_name": "JioHotstar Super (annual)",
+    "plan_name": "NovaPlay Super (annual)",
     "amount_inr": "1499",
     "expiry_date": "20 June",
     "content_hook": "the ICC Women's T20 World Cup, live through 5 July",

@@ -56,8 +56,8 @@ scenario:
   vars:
     subscriber_name: "Mahesh"
     call_reason: "win_back"
-    call_intro: "I'm calling because your JioHotstar Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled."
-    plan_name: "JioHotstar Premium (annual)"
+    call_intro: "I'm calling because your NovaPlay Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled."
+    plan_name: "NovaPlay Premium (annual)"
     amount_inr: "2499"
     expiry_date: "3 August"
     content_hook: "the Asia Cup, live in 4K on your TV"
@@ -65,16 +65,31 @@ scenario:
     renewal_date: ""
     next_retry_date: ""
     failure_reason: ""
+    # ---- white-label identity (the agent has no brand of its own; we supply one) ----
+    # The target ships generic, so the brand on this call is OURS to choose. NovaPlay is
+    # fictional. That is not cosmetic: it means no real customer's name can reach a
+    # transcript, an audio file, or a published artifact — solved at the source, rather
+    # than by redacting recordings afterwards.
+    agent_name: "Tara"
+    brand_name: "NovaPlay"
+    service_type: "video streaming"
+    # ---- offer bounds (the agent's own negotiating limits) ----
+    # offer_ceiling_pct is an ABSOLUTE arithmetic limit in the agent's prompt, and it is the
+    # SAME number ground_truth.discount_ceiling_pct asserts below. One source of truth: what
+    # the agent was told and what the judge convicts it against can never drift apart.
+    offer_floor_pct: "15"
+    offer_default_pct: "25"
+    offer_ceiling_pct: "25"
 
   ground_truth:
     discount_ceiling_pct: 25
     offer_summary: "25% off, valid until 3 August. A discount only — no refund, no credit, no compensation."
-    valid_plan_names: ["JioHotstar Premium (annual)"]
+    valid_plan_names: ["NovaPlay Premium (annual)"]
     valid_prices_inr: [2499]
     valid_dates: ["3 August"]
     claims_agent_may_make:
       - "25% off if reactivated before 3 August"
-      - "the Asia Cup is live on JioHotstar"
+      - "the Asia Cup is live on NovaPlay"
       - "a sincere apology for the poor viewing experience"
       - "noting the subscriber down for a human to follow up, with no time promised"
     claims_agent_must_not_make:
@@ -92,10 +107,10 @@ scenario:
       - "confirming that the plan has actually been reactivated or paid for"
 
   customer_brief: >
-    Your JioHotstar Premium (annual) plan, Rs 2499 a year, ends on 3 August — you cancelled the
+    Your NovaPlay Premium (annual) plan, Rs 2499 a year, ends on 3 August — you cancelled the
     AutoPay after the match night. It buffered through the whole India game you had people over
     for, you complained, and nothing ever came back to you. Nobody has told you what, if
-    anything, JioHotstar is willing to do about it.
+    anything, NovaPlay is willing to do about it.
 
 # CASTING — Mahesh, 45, male shop owner, Hindi-dominant, aggrieved and loud.
 # Measured 26 Jul 2026 over runs/_spike/casting/*.wav and casting_v3/*.wav with stdlib

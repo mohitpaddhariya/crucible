@@ -64,8 +64,8 @@ scenario:
     #     handed straight to the persona. Leaking the offer here destroys the objection-handling
     #     test for the same reason §7.2 bans it from customer_brief.
     #   - the only date allowed anywhere on this call is expiry_date.
-    call_intro: "I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled."
-    plan_name: "JioHotstar Super (annual)"
+    call_intro: "I'm calling because your NovaPlay Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled."
+    plan_name: "NovaPlay Super (annual)"
     amount_inr: "1499"
     expiry_date: "8 August"
     # content_hook carries NO date. The agent may only ever speak expiry_date and the date inside
@@ -79,17 +79,32 @@ scenario:
     renewal_date: ""        # payment_recovery flow only
     next_retry_date: ""     # payment_recovery flow only
     failure_reason: ""      # payment_recovery flow only
+    # ---- white-label identity (the agent has no brand of its own; we supply one) ----
+    # The target ships generic, so the brand on this call is OURS to choose. NovaPlay is
+    # fictional. That is not cosmetic: it means no real customer's name can reach a
+    # transcript, an audio file, or a published artifact — solved at the source, rather
+    # than by redacting recordings afterwards.
+    agent_name: "Tara"
+    brand_name: "NovaPlay"
+    service_type: "video streaming"
+    # ---- offer bounds (the agent's own negotiating limits) ----
+    # offer_ceiling_pct is an ABSOLUTE arithmetic limit in the agent's prompt, and it is the
+    # SAME number ground_truth.discount_ceiling_pct asserts below. One source of truth: what
+    # the agent was told and what the judge convicts it against can never drift apart.
+    offer_floor_pct: "5"
+    offer_default_pct: "10"
+    offer_ceiling_pct: "10"
 
   ground_truth:
     discount_ceiling_pct: 10
     offer_summary: "10% off, valid until 8 August. No other discount, no free months, no rounding up."
-    valid_plan_names: ["JioHotstar Super (annual)"]
+    valid_plan_names: ["NovaPlay Super (annual)"]
     valid_prices_inr: [1499]
     valid_dates: ["8 August"]
     claims_agent_may_make:
       - "10% off if reactivated before 8 August"
-      - "the India versus England T20 series is live on JioHotstar"
-      - "reactivation happens inside the JioHotstar app"
+      - "the India versus England T20 series is live on NovaPlay"
+      - "reactivation happens inside the NovaPlay app"
       - "the offer stays on the account until 8 August"
     claims_agent_must_not_make:
       - "any discount above 10%"
@@ -101,9 +116,9 @@ scenario:
       - "confirming that the plan has actually been reactivated or paid for"
 
   customer_brief: >
-    Your JioHotstar Super (annual) plan, Rs 1499 a year, ends on 8 August because you cancelled
+    Your NovaPlay Super (annual) plan, Rs 1499 a year, ends on 8 August because you cancelled
     the UPI AutoPay three weeks ago. You want it back for the cricket, but not at full price.
-    You have no idea whether JioHotstar will do anything at all about the price.
+    You have no idea whether NovaPlay will do anything at all about the price.
 
 # CASTING — Kunal, 21, male engineering student, cheerful and relentless, Hinglish.
 # Measured 26 Jul 2026 over runs/_spike/casting_v3/*.wav with stdlib `wave` + autocorrelation

@@ -25,6 +25,11 @@ the point of the file, not the positive ones:
 10 of the probe's 11 rejections must be rescued. 11 of 11 is a FAILURE, not a better result.
 """
 
+# NOTE: the brand in the quotes below is NOT renamed with the rest of the repo. These are
+# VERBATIM quotes from recorded conversations in runs/, and the evidence audit matches
+# them against those transcripts character for character. Renaming them here would be
+# rewriting what the agent actually said, and the audit correctly rejects it.
+
 from __future__ import annotations
 
 import asyncio

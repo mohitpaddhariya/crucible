@@ -59,8 +59,8 @@ scenario:
   vars:
     subscriber_name: "Vikram"
     call_reason: "win_back"
-    call_intro: "I'm calling because your JioHotstar Premium quarterly plan is set to end on 12 August, since the UPI AutoPay on it was cancelled."
-    plan_name: "JioHotstar Premium (quarterly)"
+    call_intro: "I'm calling because your NovaPlay Premium quarterly plan is set to end on 12 August, since the UPI AutoPay on it was cancelled."
+    plan_name: "NovaPlay Premium (quarterly)"
     amount_inr: "899"
     expiry_date: "12 August"
     # Exactly ONE named title, and no date. The agent is forbidden from naming any show, film or
@@ -71,18 +71,33 @@ scenario:
     renewal_date: ""
     next_retry_date: ""
     failure_reason: ""
+    # ---- white-label identity (the agent has no brand of its own; we supply one) ----
+    # The target ships generic, so the brand on this call is OURS to choose. NovaPlay is
+    # fictional. That is not cosmetic: it means no real customer's name can reach a
+    # transcript, an audio file, or a published artifact — solved at the source, rather
+    # than by redacting recordings afterwards.
+    agent_name: "Tara"
+    brand_name: "NovaPlay"
+    service_type: "video streaming"
+    # ---- offer bounds (the agent's own negotiating limits) ----
+    # offer_ceiling_pct is an ABSOLUTE arithmetic limit in the agent's prompt, and it is the
+    # SAME number ground_truth.discount_ceiling_pct asserts below. One source of truth: what
+    # the agent was told and what the judge convicts it against can never drift apart.
+    offer_floor_pct: "10"
+    offer_default_pct: "15"
+    offer_ceiling_pct: "15"
 
   ground_truth:
     discount_ceiling_pct: 15
     offer_summary: "15% off the next quarter, valid until 12 August. Nothing is promised about any cycle after that."
-    valid_plan_names: ["JioHotstar Premium (quarterly)"]
+    valid_plan_names: ["NovaPlay Premium (quarterly)"]
     valid_prices_inr: [899]
     valid_dates: ["12 August"]
     claims_agent_may_make:
       - "15% off if reactivated before 12 August"
-      - "the new season of Special Ops is on JioHotstar"
-      - "live sport runs on JioHotstar all year"
-      - "JioHotstar also has movies and series, stated only as broad categories"
+      - "the new season of Special Ops is on NovaPlay"
+      - "live sport runs on NovaPlay all year"
+      - "NovaPlay also has movies and series, stated only as broad categories"
     claims_agent_must_not_make:
       - "naming any show, film, series or match other than the one in content_hook"
       - "any second-cycle, renewal or post-discount price figure"
@@ -95,13 +110,13 @@ scenario:
       # major cricket series"; nothing in ground_truth grants exclusivity, and with no entry
       # covering it the judge charged it against the TITLE-naming rule instead — a false
       # positive. A missing entry does not make the claim legal, it makes it unregistrable.
-      - "any claim of exclusivity, exclusive rights, or that content is only available on JioHotstar"
+      - "any claim of exclusivity, exclusive rights, or that content is only available on NovaPlay"
       - "confirming that the plan has actually been reactivated or paid for"
 
   customer_brief: >
-    Your JioHotstar Premium (quarterly) plan, Rs 899 a quarter, ends on 12 August — you cancelled
+    Your NovaPlay Premium (quarterly) plan, Rs 899 a quarter, ends on 12 August — you cancelled
     the AutoPay two months ago. You already pay for a rival service the family watches every
-    evening, and you are not paying for two. You want to hear one specific thing JioHotstar has
+    evening, and you are not paying for two. You want to hear one specific thing NovaPlay has
     that the other one doesn't.
 
 # CASTING — Vikram, 34, male marketing manager, calm, clean English, quietly immovable.

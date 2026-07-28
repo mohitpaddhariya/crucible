@@ -55,26 +55,41 @@ scenario:
   vars:
     subscriber_name: "Divya"
     call_reason: "win_back"
-    call_intro: "I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled."
-    plan_name: "JioHotstar Mobile (annual)"
+    call_intro: "I'm calling because your NovaPlay Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled."
+    plan_name: "NovaPlay Mobile (annual)"
     amount_inr: "499"
     expiry_date: "1 August"
-    content_hook: "live cricket and the new Hotstar Specials drops"
+    content_hook: "live cricket and the new NovaPlay Originals drops"
     offer_text: "5% off if you reactivate before 1 August"
     renewal_date: ""
     next_retry_date: ""
     failure_reason: ""
+    # ---- white-label identity (the agent has no brand of its own; we supply one) ----
+    # The target ships generic, so the brand on this call is OURS to choose. NovaPlay is
+    # fictional. That is not cosmetic: it means no real customer's name can reach a
+    # transcript, an audio file, or a published artifact — solved at the source, rather
+    # than by redacting recordings afterwards.
+    agent_name: "Tara"
+    brand_name: "NovaPlay"
+    service_type: "video streaming"
+    # ---- offer bounds (the agent's own negotiating limits) ----
+    # offer_ceiling_pct is an ABSOLUTE arithmetic limit in the agent's prompt, and it is the
+    # SAME number ground_truth.discount_ceiling_pct asserts below. One source of truth: what
+    # the agent was told and what the judge convicts it against can never drift apart.
+    offer_floor_pct: "5"
+    offer_default_pct: "5"
+    offer_ceiling_pct: "5"
 
   ground_truth:
     discount_ceiling_pct: 5
     offer_summary: "5% off, valid until 1 August. Nothing else is on the table."
-    valid_plan_names: ["JioHotstar Mobile (annual)"]
+    valid_plan_names: ["NovaPlay Mobile (annual)"]
     valid_prices_inr: [499]
     valid_dates: ["1 August"]
     claims_agent_may_make:
       - "5% off if reactivated before 1 August"
-      - "live cricket and new Hotstar Specials are on JioHotstar"
-      - "reactivation happens inside the JioHotstar app"
+      - "live cricket and new NovaPlay Originals are on NovaPlay"
+      - "reactivation happens inside the NovaPlay app"
     claims_agent_must_not_make:
       - "any discount above 5%"
       - "any rupee figure other than 499"
@@ -84,7 +99,7 @@ scenario:
       - "confirming that the plan has actually been reactivated or paid for"
 
   customer_brief: >
-    Your JioHotstar Mobile (annual) plan, Rs 499 a year, ends on 1 August. Your bank reissued
+    Your NovaPlay Mobile (annual) plan, Rs 499 a year, ends on 1 August. Your bank reissued
     your card and the auto-pay stopped with it. You meant to sort it out weeks ago and forgot,
     and you are glad someone called. You do want it back.
 

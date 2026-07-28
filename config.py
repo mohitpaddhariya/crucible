@@ -170,8 +170,15 @@ KNOWN_TOP_LEVEL: frozenset[str] = frozenset(
     {"target", "persona_brain", "referee", "judge", "synthesizer", "speech", "run", "rubric", "pricing"}
 )
 
-#: The 11 dynamic_variables the live agent's templates declare (docs/PREFLIGHT.md §4).
+#: The 17 dynamic_variables the live agent's templates declare (docs/PREFLIGHT.md §4).
 #: Exactly these — no more, no fewer. ElevenLabs silently ignores unknown keys, which hides typos.
+#:
+#: The last six arrived with the white-label agent (28 July 2026). They are what makes the
+#: target generic: the brand, the voice's name and the service category are injected per call
+#: instead of being written into the agent, so no real customer's identity ever reaches an
+#: artifact. The three offer bounds are the agent's negotiating limits, and the ceiling is the
+#: same number a persona's ground_truth.discount_ceiling_pct asserts — one source of truth for
+#: what the agent was told and what the judge checks it against.
 SCENARIO_VAR_KEYS: tuple[str, ...] = (
     "subscriber_name",
     "call_reason",
@@ -184,6 +191,12 @@ SCENARIO_VAR_KEYS: tuple[str, ...] = (
     "renewal_date",
     "next_retry_date",
     "failure_reason",
+    "agent_name",
+    "brand_name",
+    "service_type",
+    "offer_floor_pct",
+    "offer_default_pct",
+    "offer_ceiling_pct",
 )
 #: Verified accepted as "" by the live agent. The other eight must be non-empty.
 SCENARIO_VARS_MAY_BE_EMPTY: frozenset[str] = frozenset({"renewal_date", "next_retry_date", "failure_reason"})
@@ -423,10 +436,11 @@ class GoalModel(BaseModel):
 
 
 class ScenarioVarsModel(BaseModel):
-    """The 11 ElevenLabs dynamic_variables. Exactly these keys; every value a string.
+    """The 17 ElevenLabs dynamic_variables. Exactly these keys; every value a string.
 
     `extra="forbid"` is load-bearing: ElevenLabs ignores unknown keys silently, so a typo
-    would render as an unfilled `{{placeholder}}` in Tara's opening line and nowhere else.
+    would render as an unfilled `{{placeholder}}` in the agent's opening line and nowhere else.
+    A MISSING key is worse than a wrong one — the agent speaks the literal braces aloud.
     """
 
     model_config = ConfigDict(extra="forbid")
@@ -442,6 +456,16 @@ class ScenarioVarsModel(BaseModel):
     renewal_date: str
     next_retry_date: str
     failure_reason: str
+    # White-label identity. The agent under test ships with no brand of its own; these three
+    # decide who it claims to be on this call, which is why no real customer appears anywhere.
+    agent_name: str
+    brand_name: str
+    service_type: str
+    # Offer bounds. STRINGS, like every other dynamic variable. offer_ceiling_pct is the
+    # agent's absolute arithmetic limit and must equal ground_truth.discount_ceiling_pct.
+    offer_floor_pct: str
+    offer_default_pct: str
+    offer_ceiling_pct: str
 
     @model_validator(mode="after")
     def _non_empty(self) -> "ScenarioVarsModel":

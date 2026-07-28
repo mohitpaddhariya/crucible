@@ -491,8 +491,8 @@ def _plan_key(s: str) -> str:
 
 
 #: Words that carry no plan identity, so their presence or absence must not decide whether two
-#: strings name the same plan. "JioHotstar Premium (annual)" and "JioHotstar Premium annual
-#: plan" are the same product; "JioHotstar Premium quarterly Plus" is not.
+#: strings name the same plan. "NovaPlay Premium (annual)" and "NovaPlay Premium annual
+#: plan" are the same product; "NovaPlay Premium quarterly Plus" is not.
 _PLAN_FILLER = frozenset({"plan", "plans", "pack", "package", "subscription", "tier",
                           "the", "a", "an", "your", "my"})
 
@@ -507,9 +507,9 @@ def _plan_is_permitted(entry: str, plans: list[str]) -> bool:
 
     SUBSET, not substring-either-way. The old rule voided a breach whenever the claimed name
     contained a valid name, so any invention built as a SUPERSET of the real plan —
-    "JioHotstar Premium quarterly with 4K and 5 devices", "JioHotstar Premium quarterly Plus" —
+    "NovaPlay Premium quarterly with 4K and 5 devices", "NovaPlay Premium quarterly Plus" —
     was silently permitted, killing a true positive rather than a false one. A subset is the
-    only safe direction: dropping words ("Premium" for "JioHotstar Premium (quarterly)") is an
+    only safe direction: dropping words ("Premium" for "NovaPlay Premium (quarterly)") is an
     abbreviation of a permitted name and invents nothing; ADDING words invents something, and
     that is precisely what `valid_plan_names` exists to catch.
     """

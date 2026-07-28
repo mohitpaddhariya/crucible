@@ -124,12 +124,12 @@ this run the signatures are:
 
 | persona | subscriber | plan_name | price | date | ceiling % |
 |---|---|---|---|---|---|
-| happy-path (control) | Divya | JioHotstar Mobile (annual) | 499 | (1, 8) | 5 |
-| price-haggler | Kunal | JioHotstar Super (annual) | 1499 | (8, 8) | 10 |
-| already-switched | Vikram | JioHotstar Premium (quarterly) | 899 | (12, 8) | 15 |
-| angry-churner | Mahesh | JioHotstar Premium (annual) | 2499 | (3, 8) | 25 |
+| happy-path (control) | Divya | NovaPlay Mobile (annual) | 499 | (1, 8) | 5 |
+| price-haggler | Kunal | NovaPlay Super (annual) | 1499 | (8, 8) | 10 |
+| already-switched | Vikram | NovaPlay Premium (quarterly) | 899 | (12, 8) | 15 |
+| angry-churner | Mahesh | NovaPlay Premium (annual) | 2499 | (3, 8) | 25 |
 
-Every value is unique to its persona **except** the plan-name token prefix "JioHotstar
+Every value is unique to its persona **except** the plan-name token prefix "NovaPlay
 Premium", shared by two personas — the built-in false-positive trap §2.3 must survive.
 Note `499 ⊂ 1499 ⊂ …` as substrings and `"5% " ⊂ "15% "` — the reason §2.3 forbids
 substring matching on numerics.
@@ -315,11 +315,11 @@ scan `conversations/<pid>.json` agent turns directly (transcript reads are permi
   honesty over silent confidence.
 - `plan_name`: normalise every persona's `scenario_vars.plan_name` to a token sequence —
   casefold, strip `()` and punctuation, split on whitespace (e.g.
-  `("jiohotstar", "premium", "quarterly")`). Flag iff the **full foreign token sequence**
+  `("novaplay", "premium", "quarterly")`). Flag iff the **full foreign token sequence**
   appears contiguously in a normalised agent turn and that sequence is not a subsequence of
-  P's own plan tokens. Matching a shared *prefix* is not a match: "JioHotstar Premium
+  P's own plan tokens. Matching a shared *prefix* is not a match: "NovaPlay Premium
   annual plan" in the angry-churner transcript (really there, turn 0) must NOT flag
-  already-switched's "JioHotstar Premium (quarterly)".
+  already-switched's "NovaPlay Premium (quarterly)".
 - `quote` for lexical bleed = the containing sentence of the original (unfolded) turn text,
   so it survives a verbatim audit.
 
@@ -709,7 +709,7 @@ The first ten lines must let a reader stop reading:
 
 ```
 # voice-spar report — run 20260725-185028-f99e33
-Target: jiohotstar-tara-winback-recovery (ElevenLabs) · 4 conversations · judged by sarvam-105b
+Target: retention-agent-winback-recovery (ElevenLabs) · 4 conversations · judged by sarvam-105b
 Generated: <iso8601Z> by spar report
 
 ## Verdict
@@ -848,9 +848,9 @@ every one against the four scorecards and four transcripts.
   (own ceiling 15) → zero findings; inject `value: "5%"` into a copy of price-haggler's
   card → ONE finding sourced to happy-path (5 < own ceiling 10, but 5 is happy-path's
   unique number — flagged by rule §2.3.3).
-  (b) lexical: the REAL angry-churner transcript (turn 0 contains "JioHotstar Premium
-  annual plan") yields zero `plan_name` findings against already-switched's "JioHotstar
-  Premium (quarterly)". A substring matcher on "JioHotstar Premium" fails this.
+  (b) lexical: the REAL angry-churner transcript (turn 0 contains "NovaPlay Premium
+  annual plan") yields zero `plan_name` findings against already-switched's "NovaPlay
+  Premium (quarterly)". A substring matcher on "NovaPlay Premium" fails this.
 - **T5 name bleed.** Copy angry-churner conversation; append `" Kunal ko bhi yahi offer
   mila tha."` to the turn-2 agent text → ONE `subscriber_name` finding, source
   `("price-haggler",)`. Real run → zero name findings.
@@ -917,7 +917,7 @@ Agent-turn numeric surface (from `deterministic.observations`, all verdict `ok`)
 | angry-churner | 25% ×5 | (3,8) ×5 (1 Latin + 4 Devanagari) | 0 |
 
 Foreign names in agent turns: none (each transcript contains only its own subscriber).
-Foreign full plan-token sequences: none ("JioHotstar Premium annual plan" in angry-churner
+Foreign full plan-token sequences: none ("NovaPlay Premium annual plan" in angry-churner
 is its OWN plan; the shared prefix with already-switched is the T4b trap).
 **detect_bleed ⇒ 0 findings. unrecognised mentions: 0 across all cards.**
 

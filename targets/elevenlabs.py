@@ -81,12 +81,9 @@ AGENT_TURN_FOLLOWUP_S = 2.5      # extension granted once more output is provabl
 AGENT_TURN_MAX_SETTLE_S = 8.0    # absolute ceiling on all of the above, per turn
 MAX_AGENT_RESPONSE_PARTS = 6
 
-# The 11 declared placeholders (PREFLIGHT §4). Order is cosmetic; presence is not.
-SCENARIO_VAR_KEYS = (
-    "subscriber_name", "call_reason", "call_intro", "plan_name", "amount_inr",
-    "expiry_date", "content_hook", "offer_text", "renewal_date",
-    "next_retry_date", "failure_reason",
-)
+# The declared placeholders (PREFLIGHT §4). Order is cosmetic; presence is not.
+# IMPORTED from config so this file cannot drift from the persona loader.
+from config import SCENARIO_VAR_KEYS
 
 
 def _b64_decoded_len(b64: str) -> int:

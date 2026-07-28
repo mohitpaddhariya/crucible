@@ -10,7 +10,7 @@ Status: **spec only.** Nothing built yet.
 
 | | |
 |---|---|
-| **X** — the target | `jiohotstar-tara-winback-recovery`, an ElevenLabs hosted agent. We did not build it. We do not modify it. |
+| **X** — the target | `retention-agent-winback-recovery`, an ElevenLabs hosted agent. We did not build it. We do not modify it. |
 | **Y₁…Yₙ** — the personas | Synthetic customers we build on Sarvam. Each one is a YAML file. |
 | **The synthesizer** | Reads every conversation and produces one evaluation report. |
 

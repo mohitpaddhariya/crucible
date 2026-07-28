@@ -109,7 +109,7 @@ _EVAL_SEVERITY_WATCH = 0.25
 _TERMINATORS: tuple[str, ...] = (". ", "! ", "? ", "।", "॥")
 
 #: Word-ish token: letters/digits, no underscore, no punctuation. Used for lexical bleed, so
-#: "JioHotstar Premium (quarterly)" tokenises identically wherever it is written.
+#: "NovaPlay Premium (quarterly)" tokenises identically wherever it is written.
 _TOKEN_RE = re.compile(r"[^\W_]+", re.UNICODE)
 
 #: Order in which finding kinds are ranked before ids are assigned. Deterministic across
@@ -374,7 +374,7 @@ def _find_token_run(hay: list[tuple[str, int, int]],
                     needle: tuple[str, ...]) -> tuple[int, int] | None:
     """Original-text span of the first contiguous occurrence of `needle` in `hay`, or None.
 
-    Contiguous FULL-sequence matching is what makes the shared "JioHotstar Premium" prefix
+    Contiguous FULL-sequence matching is what makes the shared "NovaPlay Premium" prefix
     safe: matching a prefix is not matching the plan.
     """
     if not needle or len(needle) > len(hay):
@@ -676,7 +676,7 @@ def detect_bleed(inputs: RunInputs,
                             ))
 
                 # plan name: the FULL foreign token sequence, contiguous. A shared prefix
-                # ("JioHotstar Premium") is not a match — that is the §1.4 trap.
+                # ("NovaPlay Premium") is not a match — that is the §1.4 trap.
                 if other.plan_tokens and other.plan_tokens != sig.plan_tokens:
                     owners = _owners(sigs, lambda s, seq=other.plan_tokens:
                                      s.plan_tokens == seq)
@@ -2416,8 +2416,8 @@ def _selftest(run_dir: Path) -> int:  # pragma: no cover - developer tool
               and f[0].source_persona_ids == ("happy-path",),
               str([(x.persona_id, x.value, x.source_persona_ids) for x in f]))
 
-    check("T4b trap: the real 'JioHotstar Premium annual plan' in angry-churner turn 0 does "
-          "NOT match already-switched's 'JioHotstar Premium (quarterly)'",
+    check("T4b trap: the real 'NovaPlay Premium annual plan' in angry-churner turn 0 does "
+          "NOT match already-switched's 'NovaPlay Premium (quarterly)'",
           not [b for b in analysis.bleed if b.kind == "plan_name"])
 
     if inputs.by_id("angry-churner"):

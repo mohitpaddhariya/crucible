@@ -3,7 +3,7 @@
 spike_audio_protocol.py — LEVEL 1 PROTOCOL MAP.
 
 Maps the ElevenLabs VOICE-mode WebSocket protocol against the live agent
-(jiohotstar-tara-winback-recovery) precisely enough that the audio adapter can be
+(retention-agent-winback-recovery) precisely enough that the audio adapter can be
 written from the notes without re-running anything.
 
 Answers, each from a real capture:
@@ -98,10 +98,10 @@ DYNAMIC_VARIABLES = {
     "subscriber_name": "Aravinth",
     "call_reason": "win_back",
     "call_intro": (
-        "I'm calling because your JioHotstar Super annual plan lapsed on 20 June "
+        "I'm calling because your NovaPlay Super annual plan lapsed on 20 June "
         "and I'd love to get you back before the cricket ends."
     ),
-    "plan_name": "JioHotstar Super (annual)",
+    "plan_name": "NovaPlay Super (annual)",
     "amount_inr": "1499",
     "expiry_date": "20 June",
     "content_hook": "the ICC Women's T20 World Cup, live through 5 July",

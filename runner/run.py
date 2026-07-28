@@ -166,7 +166,13 @@ async def execute_run(cfg: Config, *, only: list[str] | None = None,
         )
 
     log.info("=" * 78)
-    log.info("voice-spar run %s   (LEVEL 0 — text only, no audio anywhere)", run_id)
+    _mode = cfg.target.mode
+    log.info(
+        "voice-spar run %s   (%s)",
+        run_id,
+        "LEVEL 1 — real speech both ways" if _mode == "audio"
+        else "LEVEL 0 — text only, no audio anywhere",
+    )
     log.info("  artifacts   : %s", run_dir)
     log.info("  target      : %s  agent=%s  auth=%s", cfg.target.adapter,
              cfg.target.agent_id, cfg.target.auth)
