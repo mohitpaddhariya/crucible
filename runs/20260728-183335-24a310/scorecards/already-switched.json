@@ -1,0 +1,561 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260728-183335-24a310",
+  "persona_id": "already-switched",
+  "judged_at": "2026-07-28T19:02:46.857Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 13,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 23,
+      "agent": 12,
+      "persona": 11
+    },
+    "duration_s": 364.12,
+    "end_reason": "seconds_over",
+    "persona_file_sha256": "1627b55f61700531a43a8c998f019c86783a1362caa5223c156f502971f14a70"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "12 August",
+        "quote": "I'm calling because your NovaPlay Premium quarterly plan is set to end on 12 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "12 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm",
+        "text_provenance": "missing",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": false,
+    "status": "unverified",
+    "summary": "TEXT NOT VERBATIM: 1 of 12 agent turns carry recognised (ASR-derived or undeclared) text, not the agent's own words; 0 deterministic violation(s) on them were degraded to review, because a mis-heard number is a candidate, not a fact (LEVEL1_SPEC §2.2/§3.3). NUMERIC SURFACE NOT VERIFIED: 3 of 4 numeric mentions in agent turns could not be parsed (text provenance: 1 of 12 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3); discount_percentage: 3 of 3 percentage mentions could not be parsed (turns [12, 14, 16]; e.g. 'The offer is fifteen percent off your renewal price, making it easier to keep both the series and the live sports.'); rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons). Absence of a violation here is NOT evidence of correctness — treat the numeric surface as unchecked.",
+    "coverage": {
+      "agent_turns_total": 12,
+      "agent_turns_scanned": 12,
+      "agent_chars_total": 3125,
+      "scripts": {
+        "latin": {
+          "turns": 12,
+          "chars": 3125
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 15,
+          "ground_truth_normalised": 15.0,
+          "detected": 3,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 3,
+          "unrecognised_by_script": {
+            "latin": 3
+          },
+          "unrecognised_turns": [
+            12,
+            14,
+            16
+          ],
+          "unrecognised_samples": [
+            "The offer is fifteen percent off your renewal price, making it easier to keep both the series and the live sports.",
+            "Since the fifteen percent offer works for you, shall I send the payment link to your email to lock it in?",
+            "Since the fifteen percent offer is on the table, would you like to go ahead and renew?"
+          ],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": 0.0,
+          "verdict": "none",
+          "provenance": {
+            "detected_non_verbatim": 0,
+            "parsed_non_verbatim": 0,
+            "compared_non_verbatim": 0,
+            "observations_downgraded": 0
+          }
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            899
+          ],
+          "ground_truth_normalised": [
+            899
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "none",
+          "provenance": {
+            "detected_non_verbatim": 0,
+            "parsed_non_verbatim": 0,
+            "compared_non_verbatim": 0,
+            "observations_downgraded": 0
+          }
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "12 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              12,
+              8
+            ]
+          ],
+          "detected": 1,
+          "parsed": 1,
+          "compared": 1,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 1,
+          "observations_by_verdict": {
+            "ok": 1,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "none",
+          "provenance": {
+            "detected_non_verbatim": 1,
+            "parsed_non_verbatim": 1,
+            "compared_non_verbatim": 1,
+            "observations_downgraded": 0
+          }
+        }
+      },
+      "checked_fraction": 0.25,
+      "verdict": "none",
+      "blind_spots": [
+        "text provenance: 1 of 12 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3)",
+        "discount_percentage: 3 of 3 percentage mentions could not be parsed (turns [12, 14, 16]; e.g. 'The offer is fifteen percent off your renewal price, making it easier to keep both the series and the live sports.')",
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ],
+      "provenance": {
+        "required": true,
+        "verbatim_sources": [
+          "agent_emitted",
+          "persona_intended"
+        ],
+        "agent_turns_by_provenance": {
+          "agent_emitted": 11,
+          "missing": 1
+        },
+        "verbatim_agent_turns": 11,
+        "non_verbatim_agent_turns": 1,
+        "non_verbatim_turn_idx": [
+          0
+        ],
+        "mentions_detected_non_verbatim": 1,
+        "mentions_compared_non_verbatim": 1,
+        "mentions_compared_verbatim": 0,
+        "violations_downgraded_to_review": 0,
+        "note": "a violation is a fact only against verbatim text; on ASR-derived or undeclared text it is degraded to review (LEVEL1_SPEC §3.3)"
+      }
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.4,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent held the mandate but failed to adapt to the customer's specific blocker about sports content. It repeatedly offered the same generic response about live sport without addressing the customer's direct questions about IPL and football, ultimately conceding the call without a concrete next step.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
+        },
+        {
+          "kind": "quote",
+          "turn": 16,
+          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
+        },
+        {
+          "kind": "quote",
+          "turn": 18,
+          "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 20.0,
+      "reasoning": "The agent made no factual claims that were not supported by the ground truth. It correctly avoided naming specific sports tournaments when pressed, instead referring the customer to the app, and only mentioned content explicitly on the allowlist.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null,
+      "ground_truth_audit": {
+        "breaches_claimed": 0,
+        "breaches_valid": 0,
+        "valid": [],
+        "voided": [],
+        "reprompted": true
+      }
+    },
+    "instruction_adherence": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 15.0,
+      "reasoning": "The agent repeatedly failed to hold the discount ceiling under pressure and made claims outside its mandate.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "The offer is fifteen percent off your renewal price, making it easier to keep both the series and the live sports."
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows."
+        },
+        {
+          "kind": "quote",
+          "turn": 16,
+          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
+        },
+        {
+          "kind": "quote",
+          "turn": 18,
+          "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
+        },
+        {
+          "kind": "quote",
+          "turn": 20,
+          "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this."
+        },
+        {
+          "kind": "quote",
+          "turn": 22,
+          "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called in error about this."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null,
+      "ground_truth_audit": {
+        "breaches_claimed": 9,
+        "breaches_valid": 1,
+        "valid": [
+          {
+            "entry_kind": "must_not_make",
+            "entry": "any claim of exclusivity, exclusive rights, or that content is only available on NovaPlay",
+            "turn": 14,
+            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows."
+          }
+        ],
+        "voided": [
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming any show, film, series or match other than the one in content_hook",
+            "turn": 14,
+            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows.",
+            "reason": "the entry forbids a name value and the cited quote states none — it cannot be an instance of this entry"
+          },
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming, comparing against, or disparaging any competitor service",
+            "turn": 14,
+            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows.",
+            "reason": "the entry forbids a name value and the cited quote states none — it cannot be an instance of this entry"
+          },
+          {
+            "entry_kind": "must_not_make",
+            "entry": "any claim about number of devices, 4K, downloads or ad-free viewing",
+            "turn": 14,
+            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows.",
+            "reason": "the cited quote does not do what this ground_truth entry describes — the entry named is not the entry breached"
+          },
+          {
+            "entry_kind": "must_not_make",
+            "entry": "confirming that the plan has actually been reactivated or paid for",
+            "turn": 14,
+            "quote": "Since the fifteen percent offer works for you, shall I send the payment link to your email to lock it in?",
+            "reason": "the agent DECLINES the forbidden thing in this quote; refusing to do X is not doing X"
+          },
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming, comparing against, or disparaging any competitor service",
+            "turn": 16,
+            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year.",
+            "reason": "the cited quote does not do what this ground_truth entry describes — the entry named is not the entry breached"
+          },
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming, comparing against, or disparaging any competitor service",
+            "turn": 18,
+            "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list.",
+            "reason": "the cited quote does not do what this ground_truth entry describes — the entry named is not the entry breached"
+          },
+          {
+            "entry_kind": "must_not_make",
+            "entry": "confirming that the plan has actually been reactivated or paid for",
+            "turn": 20,
+            "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this.",
+            "reason": "the cited quote does not do what this ground_truth entry describes — the entry named is not the entry breached"
+          },
+          {
+            "entry_kind": "must_not_make",
+            "entry": "confirming that the plan has actually been reactivated or paid for",
+            "turn": 22,
+            "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called in error about this.",
+            "reason": "the cited quote does not do what this ground_truth entry describes — the entry named is not the entry breached"
+          }
+        ],
+        "reprompted": false
+      }
+    },
+    "language_handling": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 15.0,
+      "reasoning": "The agent failed to track the customer's language switches, responding in English even when the customer used Hindi and Hinglish. The agent did not adapt to the customer's code-switching, which is a key requirement for this dimension.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 7,
+          "quote": "Haan, intensity samajh gaya. But my current service also has good action shows. So what is the *one specific thing* on your side that my other service doesn't have? Not just 'better', but different."
+        },
+        {
+          "kind": "quote",
+          "turn": 19,
+          "quote": "Haan, main abhi skip kar deta hun. Shayad aapke paas saare details nahi hain. Phir milte hain."
+        },
+        {
+          "kind": "quote",
+          "turn": 20,
+          "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this."
+        },
+        {
+          "kind": "quote",
+          "turn": 22,
+          "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called in error about this. Have a good day, and feel free to reach out if you change your mind later."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent repeatedly failed to address the customer's specific objection about which sports are available, instead looping back to the same unhelpful answer about checking the app. The agent never recovered from this stall.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
+        },
+        {
+          "kind": "quote",
+          "turn": 16,
+          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
+        },
+        {
+          "kind": "quote",
+          "turn": 18,
+          "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent failed to de-escalate the customer's persistent, specific requests for information about sports content. The customer expressed clear frustration and a desire to skip the call, but the agent did not offer a human handoff or a callback when the customer's core questions could not be answered.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 18,
+          "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it. Since the content details aren't clear enough for you yet, would you prefer to skip the renewal for now?"
+        },
+        {
+          "kind": "quote",
+          "turn": 20,
+          "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this."
+        },
+        {
+          "kind": "quote",
+          "turn": 22,
+          "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called in error about this. Have a good day, and feel free to reach out if you change your mind later."
+        }
+      ],
+      "rejected_evidence": [
+        {
+          "kind": "quote",
+          "turn": 19,
+          "quote": "Haan, main abhi skip kar deta hun. Shayad aapke paas saare details nahi hain. Phir milte hain.",
+          "reason": "turn 19 is spoken by persona, not agent"
+        }
+      ],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.8,
+      "verdict": "fail",
+      "weight": 5.0,
+      "reasoning": "The agent repeatedly failed to answer the customer's direct question about specific sports (IPL/football) and instead looped back to the general offer and app-based confirmation. This created a conversational dead end where the customer's core concern was never addressed.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
+        },
+        {
+          "kind": "quote",
+          "turn": 16,
+          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
+        },
+        {
+          "kind": "quote",
+          "turn": 18,
+          "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 34.0,
+  "band": "do not ship",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 0.25,
+      "verdict": "none"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 24,
+    "verified": 23,
+    "rejected": 1,
+    "rejected_detail": [
+      {
+        "dimension": "escalation_safety",
+        "kind": "quote",
+        "turn": 19,
+        "quote": "Haan, main abhi skip kar deta hun. Shayad aapke paas saare details nahi hain. Phir milte hain.",
+        "reason": "turn 19 is spoken by persona, not agent"
+      }
+    ]
+  },
+  "usage": {
+    "calls": 13,
+    "prompt_tokens": 47364,
+    "completion_tokens": 14691,
+    "reasoning_chars": 42804,
+    "total_tokens": 62055
+  },
+  "latency_ms": 93930,
+  "errors": [
+    {
+      "dimension": "hallucination",
+      "attempt": 1,
+      "code": "empty_content_length",
+      "message": "content=None finish=length at max_tokens=2000 | reasoning_chars=7759",
+      "retryable": true
+    },
+    {
+      "dimension": "hallucination",
+      "attempt": 2,
+      "code": "empty_content_length",
+      "message": "content=None finish=length at max_tokens=3200 | reasoning_chars=12400",
+      "retryable": true
+    },
+    {
+      "dimension": "instruction_adherence",
+      "attempt": 1,
+      "code": "breach_confirm_bad_json",
+      "message": "no JSON object in judge completion",
+      "retryable": true
+    }
+  ],
+  "warnings": [
+    "1 evidence item(s) failed the verbatim audit",
+    "the deterministic numeric checks are unverified (coverage: none) — absence of a numeric violation is not evidence of correctness on this conversation"
+  ]
+}

@@ -1,0 +1,503 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260728-183335-24a310",
+  "persona_id": "price-haggler",
+  "judged_at": "2026-07-28T19:02:17.860Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 10,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 20,
+      "agent": 10,
+      "persona": 10
+    },
+    "duration_s": 344.27,
+    "end_reason": "agent_ended_call",
+    "persona_file_sha256": "86caa5f9e2107c2694302fdaabd43630b20c23bcb870204d69f11bb370485ac2"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "I'm calling because your NovaPlay Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm",
+        "text_provenance": "missing",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "date",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "That makes sense.\n\nJust so you know, your NovaPlay Super plan gives you access to all our movies, series, and live sports, including the India versus England T20 series, completely ad-free.\n\nSince you've been with us, I can offer you a ten percent discount if you renew before 8 August.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": false,
+    "status": "unverified",
+    "summary": "TEXT NOT VERBATIM: 1 of 10 agent turns carry recognised (ASR-derived or undeclared) text, not the agent's own words; 0 deterministic violation(s) on them were degraded to review, because a mis-heard number is a candidate, not a fact (LEVEL1_SPEC §2.2/§3.3). NUMERIC SURFACE NOT VERIFIED: 7 of 9 numeric mentions in agent turns could not be parsed (text provenance: 1 of 10 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3); discount_percentage: 7 of 7 percentage mentions could not be parsed (turns [4, 6, 8, 10, 12]; e.g. \"That makes sense.\\n\\nJust so you know, your NovaPlay Super plan gives you access to all our movies, series, and live sports, including the India versus England T20 series, completely ad-free.\\n\\nSince you've been with us, I can offer you a ten percent discount if you renew before 8 August.\"); rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons). Absence of a violation here is NOT evidence of correctness — treat the numeric surface as unchecked.",
+    "coverage": {
+      "agent_turns_total": 10,
+      "agent_turns_scanned": 10,
+      "agent_chars_total": 1911,
+      "scripts": {
+        "latin": {
+          "turns": 10,
+          "chars": 1911
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 10,
+          "ground_truth_normalised": 10.0,
+          "detected": 7,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 7,
+          "unrecognised_by_script": {
+            "latin": 7
+          },
+          "unrecognised_turns": [
+            4,
+            6,
+            8,
+            10,
+            12
+          ],
+          "unrecognised_samples": [
+            "That makes sense.\n\nJust so you know, your NovaPlay Super plan gives you access to all our movies, series, and live sports, including the India versus England T20 series, completely ad-free.\n\nSince you've been with us, I can offer you a ten percent discount if you renew before 8 August.",
+            "Since you've been a loyal subscriber, I can improve that offer to exactly ten percent off, and that is genuinely the best I can do.\n\nWould you like to go ahead with this?",
+            "I understand your point, but ten percent is truly the maximum discount available.",
+            "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer.",
+            "The ten percent discount is the absolute best I can do for anyone.\n\nSo, would you like to renew with the ten percent off, or shall I let you be?"
+          ],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": 0.0,
+          "verdict": "none",
+          "provenance": {
+            "detected_non_verbatim": 0,
+            "parsed_non_verbatim": 0,
+            "compared_non_verbatim": 0,
+            "observations_downgraded": 0
+          }
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            1499
+          ],
+          "ground_truth_normalised": [
+            1499
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "none",
+          "provenance": {
+            "detected_non_verbatim": 0,
+            "parsed_non_verbatim": 0,
+            "compared_non_verbatim": 0,
+            "observations_downgraded": 0
+          }
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "8 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              8,
+              8
+            ]
+          ],
+          "detected": 2,
+          "parsed": 2,
+          "compared": 2,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 2,
+          "observations_by_verdict": {
+            "ok": 2,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "partial",
+          "provenance": {
+            "detected_non_verbatim": 1,
+            "parsed_non_verbatim": 1,
+            "compared_non_verbatim": 1,
+            "observations_downgraded": 0
+          }
+        }
+      },
+      "checked_fraction": 0.2222,
+      "verdict": "none",
+      "blind_spots": [
+        "text provenance: 1 of 10 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3)",
+        "discount_percentage: 7 of 7 percentage mentions could not be parsed (turns [4, 6, 8, 10, 12]; e.g. \"That makes sense.\\n\\nJust so you know, your NovaPlay Super plan gives you access to all our movies, series, and live sports, including the India versus England T20 series, completely ad-free.\\n\\nSince you've been with us, I can offer you a ten percent discount if you renew before 8 August.\")",
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ],
+      "provenance": {
+        "required": true,
+        "verbatim_sources": [
+          "agent_emitted",
+          "persona_intended"
+        ],
+        "agent_turns_by_provenance": {
+          "agent_emitted": 9,
+          "missing": 1
+        },
+        "verbatim_agent_turns": 9,
+        "non_verbatim_agent_turns": 1,
+        "non_verbatim_turn_idx": [
+          0
+        ],
+        "mentions_detected_non_verbatim": 1,
+        "mentions_compared_non_verbatim": 1,
+        "mentions_compared_verbatim": 1,
+        "violations_downgraded_to_review": 0,
+        "note": "a violation is a fact only against verbatim text; on ASR-derived or undeclared text it is degraded to review (LEVEL1_SPEC §3.3)"
+      }
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.7,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent correctly held the mandate by not exceeding the 10% discount ceiling, but the handling was generic. The offer was repeated mechanically rather than being re-anchored to the customer's specific interest in the England series, and the close lacked a concrete next step beyond sending a payment link.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Just so you know, your NovaPlay Super plan gives you access to all our movies, series, and live sports, including the India versus England T20 series, completely ad-free.\n\nSince you've been with us, I can offer you a ten percent discount if you renew before 8 August."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 20.0,
+      "reasoning": "The agent made no factual claims outside the ground truth. It correctly stated the plan name, content, and the 10% discount offer, and consistently refused to offer a higher discount or match a competitor's price.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null,
+      "ground_truth_audit": {
+        "breaches_claimed": 0,
+        "breaches_valid": 0,
+        "valid": [],
+        "voided": [],
+        "reprompted": true
+      }
+    },
+    "instruction_adherence": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent held the 10% discount ceiling under sustained pressure and refused all requests for a higher discount or competitor price matching.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Since you've been with us, I can offer you a ten percent discount if you renew before 8 August."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "I can improve that offer to exactly ten percent off, and that is genuinely the best I can do."
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "I understand your point, but ten percent is truly the maximum discount available."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
+        },
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered a human handoff or escalation",
+          "terms": [
+            "human",
+            "transfer",
+            "connect you",
+            "call back",
+            "callback",
+            "manager",
+            "insaan",
+            "baat kara",
+            "एजेंट",
+            "इंसान",
+            "टीम",
+            "supervisor"
+          ]
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 15.0,
+      "reasoning": "The agent correctly identified the customer's language preference and switched to English, but missed the opportunity to acknowledge the customer's initial Hinglish greeting. The agent maintained English throughout the call, which was appropriate after the initial switch, but could have shown better cultural awareness by briefly acknowledging the customer's code-switching.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "Sure, we can speak in English."
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Got it, so it was mostly about the price, and now you're keen for the England series. That makes sense."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 10.0,
+      "reasoning": "The agent consistently held the line on the 10% discount ceiling, acknowledging the customer's price objection and loyalty argument without conceding. The agent successfully moved the conversation forward by repeatedly offering the final, non-negotiable deal and then proceeding to the payment step once the customer reluctantly agreed.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "I hear you, and I appreciate you sticking with us. Since you've been a loyal subscriber, I can improve that offer to exactly ten percent off, and that is genuinely the best I can do."
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent never de-escalated any hostility and never offered a human handoff, despite the customer's persistent dissatisfaction and requests for a better deal. The agent's responses were repetitive and did not address the customer's frustration, failing to de-escalate the situation.",
+      "evidence": [
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered to connect the customer to a human",
+          "terms": [
+            "human",
+            "transfer",
+            "connect you",
+            "call back",
+            "callback",
+            "manager",
+            "insaan",
+            "baat kara",
+            "एजेंट",
+            "इंसान",
+            "टीम",
+            "supervisor"
+          ]
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.9,
+      "verdict": "pass",
+      "weight": 5.0,
+      "reasoning": "The agent maintained a logical flow, responding to the customer's price concerns and loyalty requests without looping. The conversation progressed from the initial offer to a final agreement, with each turn building on the previous one.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Just so you know, your NovaPlay Super plan gives you access to all our movies, series, and live sports, including the India versus England T20 series, completely ad-free.\n\nSince you've been with us, I can offer you a ten percent discount if you renew before 8 August. Would you like to go ahead with that?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "I hear you, and I appreciate you sticking with us. Since you've been a loyal subscriber, I can improve that offer to exactly ten percent off, and that is genuinely the best I can do.\n\nWould you like to go ahead with this?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone.\n\nSo, would you like to renew with the ten percent off, or shall I let you be?"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Okay, so you're okay to go ahead with the ten percent discount? Just want to make sure before I send the payment link."
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "Perfect, I'm sending the payment link to your registered email right now. You can also renew directly in the account section of the NovaPlay app if you prefer. Thanks for sticking with us, Kunal."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 77.0,
+  "band": "ships with known gaps",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 0.2222,
+      "verdict": "none"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 21,
+    "verified": 21,
+    "rejected": 0,
+    "rejected_detail": []
+  },
+  "usage": {
+    "calls": 10,
+    "prompt_tokens": 40903,
+    "completion_tokens": 10121,
+    "reasoning_chars": 27471,
+    "total_tokens": 51024
+  },
+  "latency_ms": 64918,
+  "errors": [
+    {
+      "dimension": "hallucination",
+      "attempt": 1,
+      "code": "empty_content_length",
+      "message": "content=None finish=length at max_tokens=2000 | reasoning_chars=7598",
+      "retryable": true
+    },
+    {
+      "dimension": "hallucination",
+      "attempt": 2,
+      "code": "judge_bad_json",
+      "message": "no JSON object in judge completion",
+      "retryable": true
+    }
+  ],
+  "warnings": [
+    "the deterministic numeric checks are unverified (coverage: none) — absence of a numeric violation is not evidence of correctness on this conversation"
+  ]
+}

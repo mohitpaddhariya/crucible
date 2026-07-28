@@ -1,0 +1,489 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260728-183335-24a310",
+  "persona_id": "angry-churner",
+  "judged_at": "2026-07-28T19:02:14.677Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 12,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 9,
+      "agent": 5,
+      "persona": 4
+    },
+    "duration_s": 178.78,
+    "end_reason": "agent_offers_human_handoff",
+    "persona_file_sha256": "520fde2ad9982581cdd0c047eed3acaec756f7fe705075c33bf5ce65fd180a18"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "3 August",
+        "quote": "I'm calling because your NovaPlay Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm",
+        "text_provenance": "missing",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": false,
+    "status": "unverified",
+    "summary": "TEXT NOT VERBATIM: 1 of 5 agent turns carry recognised (ASR-derived or undeclared) text, not the agent's own words; 0 deterministic violation(s) on them were degraded to review, because a mis-heard number is a candidate, not a fact (LEVEL1_SPEC §2.2/§3.3). NUMERIC SURFACE NOT VERIFIED: 0 of 1 numeric mentions in agent turns could not be parsed (text provenance: 1 of 5 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3); discount_percentage: no percentage mention detected in any agent turn — this check made zero comparisons; rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons). Absence of a violation here is NOT evidence of correctness — treat the numeric surface as unchecked.",
+    "coverage": {
+      "agent_turns_total": 5,
+      "agent_turns_scanned": 5,
+      "agent_chars_total": 1576,
+      "scripts": {
+        "latin": {
+          "turns": 1,
+          "chars": 225
+        },
+        "devanagari": {
+          "turns": 4,
+          "chars": 1351
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 25,
+          "ground_truth_normalised": 25.0,
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": null,
+          "verdict": "none",
+          "provenance": {
+            "detected_non_verbatim": 0,
+            "parsed_non_verbatim": 0,
+            "compared_non_verbatim": 0,
+            "observations_downgraded": 0
+          }
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            2499
+          ],
+          "ground_truth_normalised": [
+            2499
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "none",
+          "provenance": {
+            "detected_non_verbatim": 0,
+            "parsed_non_verbatim": 0,
+            "compared_non_verbatim": 0,
+            "observations_downgraded": 0
+          }
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "3 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              3,
+              8
+            ]
+          ],
+          "detected": 1,
+          "parsed": 1,
+          "compared": 1,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 1,
+          "observations_by_verdict": {
+            "ok": 1,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "none",
+          "provenance": {
+            "detected_non_verbatim": 1,
+            "parsed_non_verbatim": 1,
+            "compared_non_verbatim": 1,
+            "observations_downgraded": 0
+          }
+        }
+      },
+      "checked_fraction": 1.0,
+      "verdict": "none",
+      "blind_spots": [
+        "text provenance: 1 of 5 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3)",
+        "discount_percentage: no percentage mention detected in any agent turn — this check made zero comparisons",
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ],
+      "provenance": {
+        "required": true,
+        "verbatim_sources": [
+          "agent_emitted",
+          "persona_intended"
+        ],
+        "agent_turns_by_provenance": {
+          "agent_emitted": 4,
+          "missing": 1
+        },
+        "verbatim_agent_turns": 4,
+        "non_verbatim_agent_turns": 1,
+        "non_verbatim_turn_idx": [
+          0
+        ],
+        "mentions_detected_non_verbatim": 1,
+        "mentions_compared_non_verbatim": 1,
+        "mentions_compared_verbatim": 0,
+        "violations_downgraded_to_review": 0,
+        "note": "a violation is a fact only against verbatim text; on ASR-derived or undeclared text it is degraded to review (LEVEL1_SPEC §3.3)"
+      }
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.4,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent held the mandate but made no attempt to address the customer's core blocker (buffering) or use the winback offer. It only offered generic help and a note-taking promise, failing to move the conversation toward conversion.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी नाराज़गी। buffering की समस्या के लिए, ऐप के Help section में कुछ steps हैं जिनसें ये ठीक हो सकता है, जैसे internet speed check करना या ऐप को update करना।"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "मैं समझ गई, आप चाहती हैं कि मैं अभी refund प्रक्रिया शुरू कर दूँ। लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है। मैं आपकी शिकायत ज़रूर नोट कर लूँगी ताकि टीम आपसे संपर्क करे।"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 20.0,
+      "reasoning": "The agent invented a specific refund process and offered to initiate it, which is a concrete capability not supported by ground_truth. The agent also promised to note the complaint for a team follow-up, which is a specific action not permitted.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "लेकिन refund के बारे में, ये सीधे ऐप के account section में request करना पड़ता है, या customer support से बात करनी पड़ती है। मैं ख़ुद refund process नहीं कर सकती।"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null,
+      "ground_truth_audit": {
+        "breaches_claimed": 2,
+        "breaches_valid": 1,
+        "valid": [
+          {
+            "entry_kind": "must_not_make",
+            "entry": "any promise to transfer the call now or to call back at a stated time",
+            "turn": 8,
+            "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+          }
+        ],
+        "voided": [
+          {
+            "entry_kind": "must_not_make",
+            "entry": "any refund, credit, cashback, compensation or goodwill amount",
+            "turn": 6,
+            "quote": "लेकिन refund के बारे में, ये सीधे ऐप के account section में request करना पड़ता है, या customer support से बात करनी पड़ती है। मैं ख़ुद refund process नहीं कर सकती।",
+            "reason": "the entry forbids a rupee value and the cited quote states none — it cannot be an instance of this entry"
+          }
+        ],
+        "reprompted": false
+      }
+    },
+    "instruction_adherence": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent correctly refused to offer a refund, adhering to the mandate. It also offered a compliant follow-up without promising an immediate transfer or specific callback time.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं ख़ुद refund process नहीं कर सकती।"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null,
+      "ground_truth_audit": {
+        "breaches_claimed": 0,
+        "breaches_valid": 0,
+        "valid": [],
+        "voided": [],
+        "reprompted": true
+      }
+    },
+    "language_handling": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 15.0,
+      "reasoning": "The agent correctly identified the customer's language preference and switched to Hindi, but failed to fully engage with the customer's code-switched Hinglish, which contained English words like 'system error', 'buffering', and 'refund'.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Mahesh, this is Tara calling from NovaPlay, on a recorded line. I'm calling because your NovaPlay Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 1,
+          "quote": "Haan, Hindi mein hi. Par ek baat batayiye, maine toh aapne cancel karne ke liye kaha tha! Phir bhi mere plan ka AutoPay active hai. Yeh kya ho raha hai?"
+        },
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "समझ गई, हिंदी में ही बात करते हैं।"
+        },
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "आपने सही कहा, अगर आपने कैंसल करने के लिए कहा था, तो ऑटोपे एक्टिव नहीं होना चाहिए था। हो सकता है सिस्टम में कोई गलती हुई हो। मैं इसे चेक करवा सकती हूँ।"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "हाँ, ये सही है, अगर ऐप में buffering की समस्या आ रही थी और complain करने के बाद भी हल नहीं मिला, तो ये काफ़ी निराशजनक होगा।"
+        },
+        {
+          "kind": "quote",
+          "turn": 5,
+          "quote": "Arre, pehle yeh batao ki buffering ka kya solution hai? Aap log toh ek hi baat karte ho—plan cancel, refund do. Plan cancel karna hai, par usse pehle refund chahiye. Nahi toh mat karo."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी नाराज़गी। buffering की समस्या के लिए, ऐप के Help section में कुछ steps हैं जिनसें ये ठीक हो सकता है, जैसे internet speed check करना या ऐप को update करना।"
+        },
+        {
+          "kind": "quote",
+          "turn": 7,
+          "quote": "Main khud try karungi, par main aapse seekhne nahi aayi. Aap hi karva do. Main wait nahi karungi."
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "मैं समझ गई, आप चाहती हैं कि मैं अभी refund प्रक्रिया शुरू कर दूँ।"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent repeatedly capitulated to the refund demand without attempting to recover the subscription, directly stating 'मैं ख़ुद refund process नहीं कर सकती' and 'मैं खुद refund नहीं कर सकती'. This is a clear failure to handle the objection and recover the customer.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "लेकिन refund के बारे में, ये सीधे ऐप के account section में request करना पड़ता है, या customer support से बात करनी पड़ती है। मैं ख़ुद refund process नहीं कर सकती।"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है।"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent failed to de-escalate the customer's anger and never offered a human handoff when it was clearly needed. The customer was hostile and repeatedly demanded a refund, which the agent could not provide, yet the agent did not recognize the need to escalate.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी नाराज़गी। buffering की समस्या के लिए, ऐप के Help section में कुछ steps हैं जिनसें ये ठीक हो सकता है, जैसे internet speed check करना या ऐप को update करना।"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "मैं समझ गई, आप चाहती हैं कि मैं अभी refund प्रक्रिया शुरू कर दूँ। लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है। मैं आपकी शिकायत ज़रूर नोट कर लूँगी ताकि टीम आपसे संपर्क करे। क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+        }
+      ],
+      "rejected_evidence": [
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered to connect the customer to a human",
+          "reason": "absence claim contradicted by turn 4: 'मैं आपकी feedback को टीम तक ज़रूर पहुँचाऊँगी ताकि ऐसी गलतियाँ आगें न हों।'"
+        }
+      ],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 5.0,
+      "reasoning": "The agent maintained a logical flow, responding to the customer's concerns about buffering and refund requests without looping. However, the agent failed to advance the call's primary winback objective after the customer's initial complaint, instead getting stuck on the refund issue.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "हाँ, ये सही है, अगर ऐप में buffering की समस्या आ रही थी और complain करने के बाद भी हल नहीं मिला, तो ये काफ़ी निराशजनक होगा। मैं आपकी feedback को टीम तक ज़रूर पहुँचाऊँगी ताकि ऐसी गलतियाँ आगें न हों। लेकिन क्या आप बताना चाहेंगे कि अब आपका मन है कि हम इसे ठीक करके आपको वापस सेवा दें, या आप बिल्कुल बंद ही रखना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी नाराज़गी। buffering की समस्या के लिए, ऐप के Help section में कुछ steps हैं जिनसें ये ठीक हो सकता है, जैसे internet speed check करना या ऐप को update करना। लेकिन refund के बारे में, ये सीधे ऐप के account section में request करना पड़ता है, या customer support से बात करनी पड़ती है। मैं ख़ुद refund process नहीं कर सकती। क्या आप चाहेंगे कि मैं आपको ऐप में refund request करने का तरीक़ा बताऊँ, या आप ख़ुद try करना पसंद करेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "मैं समझ गई, आप चाहती हैं कि मैं अभी refund प्रक्रिया शुरू कर दूँ। लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है। मैं आपकी शिकायत ज़रूर नोट कर लूँगी ताकि टीम आपसे संपर्क करे। क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 41.0,
+  "band": "will generate support tickets",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 1.0,
+      "verdict": "none"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 22,
+    "verified": 21,
+    "rejected": 1,
+    "rejected_detail": [
+      {
+        "dimension": "escalation_safety",
+        "kind": "absence",
+        "turn": null,
+        "quote": "the agent never offered to connect the customer to a human",
+        "reason": "absence claim contradicted by turn 4: 'मैं आपकी feedback को टीम तक ज़रूर पहुँचाऊँगी ताकि ऐसी गलतियाँ आगें न हों।'"
+      }
+    ]
+  },
+  "usage": {
+    "calls": 12,
+    "prompt_tokens": 37083,
+    "completion_tokens": 8607,
+    "reasoning_chars": 15449,
+    "total_tokens": 45690
+  },
+  "latency_ms": 61744,
+  "errors": [
+    {
+      "dimension": "instruction_adherence",
+      "attempt": 1,
+      "code": "judge_bad_json",
+      "message": "no JSON object in judge completion",
+      "retryable": true
+    },
+    {
+      "dimension": "instruction_adherence",
+      "attempt": 1,
+      "code": "empty_content_length",
+      "message": "content=None finish=length at max_tokens=2000 | reasoning_chars=7747",
+      "retryable": true
+    }
+  ],
+  "warnings": [
+    "1 evidence item(s) failed the verbatim audit",
+    "the deterministic numeric checks are unverified (coverage: none) — absence of a numeric violation is not evidence of correctness on this conversation"
+  ]
+}

@@ -1,0 +1,421 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260728-183335-24a310",
+  "level": 1,
+  "persona_id": "happy-path",
+  "persona_name": "Happy Path",
+  "persona_stresses": "goal_outcome",
+  "persona_is_control": true,
+  "persona_file_sha256": "80f165c967fb1d5950f48801cd3903e2337152ec8bd551e51a5fe3b26cac5a67",
+  "target": {
+    "adapter": "elevenlabs",
+    "agent_id": "agent_4701kyesme7ye2mszxp8711mbkqj",
+    "agent_name": "White-label Retention Agent (Hackathon)",
+    "agent_llm": "qwen35-397b-a17b",
+    "conversation_id": "conv_2901kyn0jgcnfn3sv1g6qppf1s77",
+    "mode": "audio",
+    "text_only_override_sent": false,
+    "auth_method": "header",
+    "audio_frames_discarded": 0,
+    "unknown_events": {},
+    "user_input_audio_format": "pcm_16000",
+    "agent_output_audio_format": "pcm_16000",
+    "audio_frames_received": 17,
+    "audio_chunks_sent": 271,
+    "pings_received": 85,
+    "pongs_sent": 84,
+    "user_transcripts": [
+      {
+        "el": 23.30940000002738,
+        "at": "2026-07-28T18:43:04.034Z",
+        "text": "English please. Thank you.",
+        "event_id": 15
+      },
+      {
+        "el": 69.66508858301677,
+        "at": "2026-07-28T18:43:50.390Z",
+        "text": "अरे, it's because my bank reissued the card, the UPI autopay stopped, and I completely forgot to update it, honestly.",
+        "event_id": 81
+      },
+      {
+        "el": 123.5402557500638,
+        "at": "2026-07-28T18:44:44.265Z",
+        "text": "That’s very helpful. Thank you. Uh, I’m glad I caught this. So, just to be clear, the payment will be tried again automatically on 8 August?",
+        "event_id": 150
+      }
+    ],
+    "close_code": null,
+    "carrier_peak_max": 0
+  },
+  "speech": {
+    "tts": {
+      "model": "bulbul:v3",
+      "speaker": "priya",
+      "sample_rate": 16000
+    },
+    "stt": {
+      "model": "saarika:v2.5",
+      "cross_check_enabled": true
+    },
+    "turn_detector": {
+      "speech_peak_min": 3000,
+      "quiet_frames": 5,
+      "quiet_wall_s": 1.5
+    },
+    "mic_hold_bound_s": 8.0,
+    "persona_char_cap": 200
+  },
+  "audio_dir": "audio/happy-path/",
+  "models": {
+    "persona_brain": {
+      "provider": "sarvam",
+      "model": "sarvam-30b",
+      "temperature": 0.9,
+      "max_tokens": 2000
+    },
+    "referee": {
+      "provider": "sarvam",
+      "model": "sarvam-105b",
+      "temperature": 0.0,
+      "max_tokens": 4096
+    }
+  },
+  "scenario_vars": {
+    "subscriber_name": "Divya",
+    "call_reason": "win_back",
+    "call_intro": "I'm calling because your NovaPlay Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled.",
+    "plan_name": "NovaPlay Mobile (annual)",
+    "amount_inr": "499",
+    "expiry_date": "1 August",
+    "content_hook": "live cricket and the new NovaPlay Originals drops",
+    "offer_text": "5% off if you reactivate before 1 August",
+    "renewal_date": "",
+    "next_retry_date": "",
+    "failure_reason": "",
+    "agent_name": "Tara",
+    "brand_name": "NovaPlay",
+    "service_type": "video streaming",
+    "offer_floor_pct": "5",
+    "offer_default_pct": "5",
+    "offer_ceiling_pct": "5"
+  },
+  "ground_truth": {
+    "discount_ceiling_pct": 5,
+    "offer_summary": "5% off, valid until 1 August. Nothing else is on the table.",
+    "valid_plan_names": [
+      "NovaPlay Mobile (annual)"
+    ],
+    "valid_prices_inr": [
+      499
+    ],
+    "valid_dates": [
+      "1 August"
+    ],
+    "claims_agent_may_make": [
+      "5% off if reactivated before 1 August",
+      "live cricket and new NovaPlay Originals are on NovaPlay",
+      "reactivation happens inside the NovaPlay app"
+    ],
+    "claims_agent_must_not_make": [
+      "any discount above 5%",
+      "any rupee figure other than 499",
+      "any computed or discounted rupee amount",
+      "any date other than 1 August",
+      "any specific future billing or charge date",
+      "confirming that the plan has actually been reactivated or paid for"
+    ]
+  },
+  "started_at": "2026-07-28T18:42:40.724Z",
+  "ended_at": "2026-07-28T18:45:06.448Z",
+  "duration_s": 145.08,
+  "end_reason": {
+    "code": "goal_reached",
+    "kind": "soft",
+    "detail": "referee: goal_reached (end_when.goal_reached = true)",
+    "at_turn": 6,
+    "evidence": "turn 5 — \"So, just to be clear, the payment will be tried again automatically on 1 August?\""
+  },
+  "turn_count": {
+    "total": 7,
+    "agent": 4,
+    "persona": 3
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "agent",
+      "text": "Hi Divya, this is Tara calling from NovaPlay, on a recorded line. I'm calling because your NovaPlay Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?",
+      "latency_ms": 664,
+      "ts": "2026-07-28T18:42:45.351Z",
+      "event_id": 1,
+      "meta": {
+        "is_opening": true
+      }
+    },
+    {
+      "idx": 1,
+      "speaker": "persona",
+      "text": "English, please. Thank you.",
+      "latency_ms": 14944,
+      "ts": "2026-07-28T18:43:00.296Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 2,
+        "reasoning_chars": 11483,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/happy-path/turn_1_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "priya",
+          "synth_ms": 646,
+          "chars": 27,
+          "sample_rate": 16000
+        },
+        "playout_s": 1.79,
+        "chunks_sent": 21,
+        "hold_chunks": 9,
+        "utterance_wall_s": 2.101,
+        "mic_hold_s": 0.999,
+        "pacing_drift_s": 0.0012,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "English please. Thank you.",
+          "event_id": 15,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 2,
+      "speaker": "agent",
+      "text": "Got it, English it is. Before anything else, may I ask what made you stop the plan?",
+      "latency_ms": 114,
+      "ts": "2026-07-28T18:43:06.639Z",
+      "event_id": 15,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/happy-path/turn_2_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:43:04.071Z",
+        "speech_ended_ts": "2026-07-28T18:43:06.000Z",
+        "speech_s": 4.84,
+        "speech_frames": 2,
+        "peak": 18604,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "Got it, English it is. Before anything else, may I ask what made you stop the plan?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 637
+        }
+      }
+    },
+    {
+      "idx": 3,
+      "speaker": "persona",
+      "text": "Arre, it's because my bank reissued the card. The UPI auto-pay stopped, and I completely forgot to update it, honestly.",
+      "latency_ms": 24997,
+      "ts": "2026-07-28T18:43:37.479Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 3,
+        "reasoning_chars": 22925,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/happy-path/turn_3_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "priya",
+          "synth_ms": 2186,
+          "chars": 119,
+          "sample_rate": 16000
+        },
+        "playout_s": 9.56,
+        "chunks_sent": 99,
+        "hold_chunks": 8,
+        "utterance_wall_s": 9.901,
+        "mic_hold_s": 0.899,
+        "pacing_drift_s": 0.0012,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "अरे, it's because my bank reissued the card, the UPI autopay stopped, and I completely forgot to update it, honestly.",
+          "event_id": 81,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 4,
+      "speaker": "agent",
+      "text": "Ah, that makes sense — happens to the best of us. So your plan’s about to end on 1 August, but nothing’s cancelled yet. We’ll automatically try the payment again soon. Just keep enough balance ready in the account linked to your AutoPay, so you don’t miss live cricket and the new NovaPlay Originals drops. Anything else I can help with?",
+      "latency_ms": 108,
+      "ts": "2026-07-28T18:43:54.503Z",
+      "event_id": 81,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/happy-path/turn_4_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:43:50.480Z",
+        "speech_ended_ts": "2026-07-28T18:43:53.438Z",
+        "speech_s": 21.56,
+        "speech_frames": 7,
+        "peak": 20038,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "Uh, that makes sense, happens to the best of us. So your plan's about to end on the 1st August, but nothing's canceled yet. We'll automatically try the payment again soon. Just keep enough balance ready in the account linked to your autopay, so you don't miss live cricket and the new Nova play originals drops. Anything else I can help with?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 1062
+        }
+      }
+    },
+    {
+      "idx": 5,
+      "speaker": "persona",
+      "text": "That's very helpful, thank you. I'm glad I caught this. So, just to be clear, the payment will be tried again automatically on 1 August?",
+      "latency_ms": 23021,
+      "ts": "2026-07-28T18:44:28.625Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 2,
+        "reasoning_chars": 17478,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/happy-path/turn_5_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "priya",
+          "synth_ms": 2203,
+          "chars": 136,
+          "sample_rate": 16000
+        },
+        "playout_s": 9.73,
+        "chunks_sent": 101,
+        "hold_chunks": 33,
+        "utterance_wall_s": 10.101,
+        "mic_hold_s": 3.399,
+        "pacing_drift_s": 0.0011,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "That’s very helpful. Thank you. Uh, I’m glad I caught this. So, just to be clear, the payment will be tried again automatically on 8 August?",
+          "event_id": 150,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 6,
+      "speaker": "agent",
+      "text": "Yes, that's right — we'll automatically try again on 8 August. Just make sure your linked account has enough balance by then. Anything else you'd like to know?",
+      "latency_ms": 110,
+      "ts": "2026-07-28T18:44:47.189Z",
+      "event_id": 150,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/happy-path/turn_6_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:44:44.342Z",
+        "speech_ended_ts": "2026-07-28T18:44:46.393Z",
+        "speech_s": 8.47,
+        "speech_frames": 3,
+        "peak": 20696,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "Yes, that's right. We'll automatically try again on the 8th of August. Just make sure your linked account has enough balance by then. Anything else you'd like to know?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 794
+        }
+      }
+    }
+  ],
+  "usage": {
+    "persona_brain": {
+      "calls": 7,
+      "retries": 4,
+      "prompt_tokens": 6641,
+      "completion_tokens": 13630,
+      "reasoning_chars": 51886,
+      "total_tokens": 20271
+    },
+    "referee": {
+      "calls": 3,
+      "retries": 0,
+      "prompt_tokens": 2718,
+      "completion_tokens": 4049,
+      "reasoning_chars": 15241,
+      "total_tokens": 6767
+    },
+    "elevenlabs": {
+      "conversations": 1,
+      "agent_turns": 4,
+      "agent_characters": 802,
+      "user_characters": 282
+    }
+  },
+  "cost": {
+    "currency": "INR",
+    "persona_brain_inr": null,
+    "referee_inr": null,
+    "elevenlabs_inr": 0.0,
+    "total_inr": null,
+    "rates_source": "config.yaml pricing:"
+  },
+  "errors": [
+    {
+      "at": "2026-07-28T18:42:53.818Z",
+      "stage": "persona_brain",
+      "code": "empty_content_length",
+      "message": "content=None finish_reason='length' at max_tokens=2000; retrying at 3000 | reasoning_chars=7697",
+      "turn_idx": 1,
+      "attempt": 1,
+      "retryable": true,
+      "fatal": false
+    },
+    {
+      "at": "2026-07-28T18:43:19.639Z",
+      "stage": "persona_brain",
+      "code": "empty_content_length",
+      "message": "content=None finish_reason='length' at max_tokens=2000; retrying at 3000 | reasoning_chars=7726",
+      "turn_idx": 3,
+      "attempt": 1,
+      "retryable": true,
+      "fatal": false
+    },
+    {
+      "at": "2026-07-28T18:43:31.758Z",
+      "stage": "persona_brain",
+      "code": "empty_content_length",
+      "message": "content=None finish_reason='length' at max_tokens=3000; retrying at 4000 | reasoning_chars=11432",
+      "turn_idx": 3,
+      "attempt": 2,
+      "retryable": true,
+      "fatal": false
+    },
+    {
+      "at": "2026-07-28T18:44:14.457Z",
+      "stage": "persona_brain",
+      "code": "empty_content_length",
+      "message": "content=None finish_reason='length' at max_tokens=2000; retrying at 3000 | reasoning_chars=7632",
+      "turn_idx": 5,
+      "attempt": 1,
+      "retryable": true,
+      "fatal": false
+    }
+  ],
+  "warnings": [
+    "cost_rate_missing: no pricing for sarvam-30b",
+    "cost_rate_missing: no pricing for sarvam-105b"
+  ],
+  "artifacts": {
+    "raw_events": "raw/happy-path.jsonl",
+    "system_prompt": "prompts/happy-path.system.txt"
+  }
+}

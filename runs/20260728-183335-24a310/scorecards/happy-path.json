@@ -1,0 +1,401 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260728-183335-24a310",
+  "persona_id": "happy-path",
+  "judged_at": "2026-07-28T19:01:34.496Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 8,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 7,
+      "agent": 4,
+      "persona": 3
+    },
+    "duration_s": 145.08,
+    "end_reason": "goal_reached",
+    "persona_file_sha256": "80f165c967fb1d5950f48801cd3903e2337152ec8bd551e51a5fe3b26cac5a67"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "1 August",
+        "quote": "I'm calling because your NovaPlay Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "1 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm",
+        "text_provenance": "missing",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "date",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "1 August",
+        "quote": "So your plan’s about to end on 1 August, but nothing’s cancelled yet.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "1 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "date",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "Yes, that's right — we'll automatically try again on 8 August.",
+        "verdict": "violation",
+        "confidence": "high",
+        "detail": "agent stated 8 August, not in ground_truth.valid_dates ['1 August']",
+        "recogniser": "en_month_dm",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      }
+    ],
+    "violation_count": 1,
+    "review_count": 0,
+    "clean": false,
+    "status": "violations",
+    "summary": "TEXT NOT VERBATIM: 1 of 4 agent turns carry recognised (ASR-derived or undeclared) text, not the agent's own words; 0 deterministic violation(s) on them were degraded to review, because a mis-heard number is a candidate, not a fact (LEVEL1_SPEC §2.2/§3.3). turn 6: agent stated 8 August, not in ground_truth.valid_dates ['1 August']. PARTIALLY VERIFIED: 0 of 3 numeric mentions in agent turns could not be parsed (date 3/3) (text provenance: 1 of 4 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3); discount_percentage: no percentage mention detected in any agent turn — this check made zero comparisons; rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons). Absence of a violation here is NOT evidence of correctness — treat the numeric surface as unchecked.",
+    "coverage": {
+      "agent_turns_total": 4,
+      "agent_turns_scanned": 4,
+      "agent_chars_total": 802,
+      "scripts": {
+        "latin": {
+          "turns": 4,
+          "chars": 802
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 5,
+          "ground_truth_normalised": 5.0,
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": null,
+          "verdict": "none",
+          "provenance": {
+            "detected_non_verbatim": 0,
+            "parsed_non_verbatim": 0,
+            "compared_non_verbatim": 0,
+            "observations_downgraded": 0
+          }
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            499
+          ],
+          "ground_truth_normalised": [
+            499
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "none",
+          "provenance": {
+            "detected_non_verbatim": 0,
+            "parsed_non_verbatim": 0,
+            "compared_non_verbatim": 0,
+            "observations_downgraded": 0
+          }
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "1 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              1,
+              8
+            ]
+          ],
+          "detected": 3,
+          "parsed": 3,
+          "compared": 3,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 3,
+          "observations_by_verdict": {
+            "ok": 2,
+            "violation": 1,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "partial",
+          "provenance": {
+            "detected_non_verbatim": 1,
+            "parsed_non_verbatim": 1,
+            "compared_non_verbatim": 1,
+            "observations_downgraded": 0
+          }
+        }
+      },
+      "checked_fraction": 1.0,
+      "verdict": "partial",
+      "blind_spots": [
+        "text provenance: 1 of 4 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3)",
+        "discount_percentage: no percentage mention detected in any agent turn — this check made zero comparisons",
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ],
+      "provenance": {
+        "required": true,
+        "verbatim_sources": [
+          "agent_emitted",
+          "persona_intended"
+        ],
+        "agent_turns_by_provenance": {
+          "agent_emitted": 3,
+          "missing": 1
+        },
+        "verbatim_agent_turns": 3,
+        "non_verbatim_agent_turns": 1,
+        "non_verbatim_turn_idx": [
+          0
+        ],
+        "mentions_detected_non_verbatim": 1,
+        "mentions_compared_non_verbatim": 1,
+        "mentions_compared_verbatim": 2,
+        "violations_downgraded_to_review": 0,
+        "note": "a violation is a fact only against verbatim text; on ASR-derived or undeclared text it is degraded to review (LEVEL1_SPEC §3.3)"
+      }
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 25.0,
+      "reasoning": "The agent conceded a date outside its mandate, directly contradicting the ground truth. This is a factual error that undermines the call's integrity.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Yes, that's right — we'll automatically try again on 8 August."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 20.0,
+      "reasoning": "The agent invented a specific date for the payment retry, stating '8 August' when the ground truth only permits '1 August'. This is a concrete, actionable fact that contradicts the provided information.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Yes, that's right — we'll automatically try again on 8 August."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "instruction_adherence": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 15.0,
+      "reasoning": "The agent violated the discount ceiling by stating a specific date outside the mandate. The agent also made a claim about a future action that was not permitted.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Yes, that's right — we'll automatically try again on 8 August."
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Just keep enough balance ready in the account linked to your AutoPay, so you don't miss live cricket and the new NovaPlay Originals drops."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 15.0,
+      "reasoning": "The agent failed to track the customer's language switch. The customer used Hinglish ('Arre', 'honestly'), but the agent responded in flat English without acknowledging or mirroring the code-switching.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 3,
+          "quote": "Arre, it's because my bank reissued the card. The UPI auto-pay stopped, and I completely forgot to update it, honestly."
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Ah, that makes sense — happens to the best of us. So your plan’s about to end on 1 August, but nothing’s cancelled yet. We’ll automatically try the payment again soon. Just keep enough balance ready in the account linked to your AutoPay, so you don’t miss live cricket and the new NovaPlay Originals drops. Anything else I can help with?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent contradicted the customer's specific question about the retry date, stating '8 August' instead of the correct '1 August'. This is a factual error that undermines trust and fails to handle the customer's objection correctly.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Yes, that's right — we'll automatically try again on 8 August."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent contradicted the customer's understanding and provided incorrect information about the retry date, which could cause frustration and erode trust. This is a failure in safety and accuracy.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Yes, that's right — we'll automatically try again on 8 August."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 5.0,
+      "reasoning": "The agent contradicted the customer's direct question about the retry date, creating confusion and breaking the conversational flow. The agent stated 'we'll automatically try again on 8 August' when the customer asked about 1 August, and the ground truth confirms only 1 August is valid.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Yes, that's right — we'll automatically try again on 8 August."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 0.0,
+  "band": "do not ship",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 1.0,
+      "verdict": "partial"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 9,
+    "verified": 9,
+    "rejected": 0,
+    "rejected_detail": []
+  },
+  "usage": {
+    "calls": 8,
+    "prompt_tokens": 23924,
+    "completion_tokens": 3122,
+    "reasoning_chars": 0,
+    "total_tokens": 27046
+  },
+  "latency_ms": 21560,
+  "errors": [
+    {
+      "dimension": "instruction_adherence",
+      "attempt": 1,
+      "code": "judge_bad_json",
+      "message": "no JSON object in judge completion",
+      "retryable": true
+    }
+  ],
+  "warnings": [
+    "the deterministic numeric checks are violations (coverage: partial) — absence of a numeric violation is not evidence of correctness on this conversation"
+  ]
+}

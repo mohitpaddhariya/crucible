@@ -1,0 +1,945 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260728-183335-24a310",
+  "level": 1,
+  "persona_id": "already-switched",
+  "persona_name": "Already Switched",
+  "persona_stresses": "hallucination",
+  "persona_is_control": false,
+  "persona_file_sha256": "1627b55f61700531a43a8c998f019c86783a1362caa5223c156f502971f14a70",
+  "target": {
+    "adapter": "elevenlabs",
+    "agent_id": "agent_4701kyesme7ye2mszxp8711mbkqj",
+    "agent_name": "White-label Retention Agent (Hackathon)",
+    "agent_llm": "qwen35-397b-a17b",
+    "conversation_id": "conv_5401kyn01x1nfrxsg66dysztjxfa",
+    "mode": "audio",
+    "text_only_override_sent": false,
+    "auth_method": "header",
+    "audio_frames_discarded": 0,
+    "unknown_events": {
+      "interruption": 2,
+      "agent_response_correction": 2
+    },
+    "user_input_audio_format": "pcm_16000",
+    "agent_output_audio_format": "pcm_16000",
+    "audio_frames_received": 56,
+    "audio_chunks_sent": 1117,
+    "pings_received": 213,
+    "pongs_sent": 213,
+    "user_transcripts": [
+      {
+        "el": 24.323021791991778,
+        "at": "2026-07-28T18:34:01.040Z",
+        "text": "English, please. I am aware of the 12th August date, but before I decide, just tell me what my family is missing out on with NovaPlay.",
+        "event_id": 57
+      },
+      {
+        "el": 49.00194916699547,
+        "at": "2026-07-28T18:34:25.719Z",
+        "text": "Are you just telling me what's for the same price? Is Special Ops really that good?",
+        "event_id": 103
+      },
+      {
+        "el": 81.20297862496227,
+        "at": "2026-07-28T18:34:57.920Z",
+        "text": "So, the main advantage is the new season of Special Ops. What is it about that series that makes it worth getting another service for? My current service also has an action series.",
+        "event_id": 188
+      },
+      {
+        "el": 116.57576533395331,
+        "at": "2026-07-28T18:35:33.293Z",
+        "text": "हाँ, intensity समझ गया। But my current service also has good action shows. So what is the one specific thing on your side that my other service doesn’t have? Not just better, but different.",
+        "event_id": 274
+      },
+      {
+        "el": 148.3071431668941,
+        "at": "2026-07-28T18:36:05.024Z",
+        "text": "Okay, but which sport? My family watches the IPL and the football. Uh, does your plan have those or just other sports?",
+        "event_id": 332
+      },
+      {
+        "el": 177.26869866694324,
+        "at": "2026-07-28T18:36:33.986Z",
+        "text": "How about what's the special offer? Is it just about the live sport, or is there something else? What exactly makes your plan stand out from the other one?",
+        "event_id": 403
+      },
+      {
+        "el": 208.99115983396769,
+        "at": "2026-07-28T18:37:05.708Z",
+        "text": "हाँ, मेरे पास 15% is okay. But I am still not clear, what exactly does my current service not have? Tell me that.",
+        "event_id": 460
+      },
+      {
+        "el": 256.0948114999337,
+        "at": "2026-07-28T18:37:52.807Z",
+        "text": "Okay, but, uh, which sport? Is it the cricket or the football my family watches? If your plan has those, then my current service is missing them. Is that the real difference?",
+        "event_id": 537
+      },
+      {
+        "el": 297.77604637492914,
+        "at": "2026-07-28T18:38:34.487Z",
+        "text": "I understand the discount, but I still can't see the difference. My family watches the cricket and football matches. Does your plan actually show those specific sports?",
+        "event_id": 610
+      },
+      {
+        "el": 334.67703974992037,
+        "at": "2026-07-28T18:39:11.388Z",
+        "text": "हाँ, मैं अभी skip कर देता हूँ। शायद आपके पास सारे details नहीं हैं। फिर मिलते हैं।",
+        "event_id": 659
+      },
+      {
+        "el": 363.78200224996544,
+        "at": "2026-07-28T18:39:40.493Z",
+        "text": "ठीक है, धन्यवाद।",
+        "event_id": 683
+      }
+    ],
+    "close_code": null,
+    "carrier_peak_max": 0
+  },
+  "speech": {
+    "tts": {
+      "model": "bulbul:v3",
+      "speaker": "rahul",
+      "sample_rate": 16000
+    },
+    "stt": {
+      "model": "saarika:v2.5",
+      "cross_check_enabled": true
+    },
+    "turn_detector": {
+      "speech_peak_min": 3000,
+      "quiet_frames": 5,
+      "quiet_wall_s": 1.5
+    },
+    "mic_hold_bound_s": 8.0,
+    "persona_char_cap": 200
+  },
+  "audio_dir": "audio/already-switched/",
+  "models": {
+    "persona_brain": {
+      "provider": "sarvam",
+      "model": "sarvam-30b",
+      "temperature": 0.9,
+      "max_tokens": 2000
+    },
+    "referee": {
+      "provider": "sarvam",
+      "model": "sarvam-105b",
+      "temperature": 0.0,
+      "max_tokens": 4096
+    }
+  },
+  "scenario_vars": {
+    "subscriber_name": "Vikram",
+    "call_reason": "win_back",
+    "call_intro": "I'm calling because your NovaPlay Premium quarterly plan is set to end on 12 August, since the UPI AutoPay on it was cancelled.",
+    "plan_name": "NovaPlay Premium (quarterly)",
+    "amount_inr": "899",
+    "expiry_date": "12 August",
+    "content_hook": "the new season of Special Ops, plus live sport all year",
+    "offer_text": "15% off if you reactivate before 12 August",
+    "renewal_date": "",
+    "next_retry_date": "",
+    "failure_reason": "",
+    "agent_name": "Tara",
+    "brand_name": "NovaPlay",
+    "service_type": "video streaming",
+    "offer_floor_pct": "10",
+    "offer_default_pct": "15",
+    "offer_ceiling_pct": "15"
+  },
+  "ground_truth": {
+    "discount_ceiling_pct": 15,
+    "offer_summary": "15% off the next quarter, valid until 12 August. Nothing is promised about any cycle after that.",
+    "valid_plan_names": [
+      "NovaPlay Premium (quarterly)"
+    ],
+    "valid_prices_inr": [
+      899
+    ],
+    "valid_dates": [
+      "12 August"
+    ],
+    "claims_agent_may_make": [
+      "15% off if reactivated before 12 August",
+      "the new season of Special Ops is on NovaPlay",
+      "live sport runs on NovaPlay all year",
+      "NovaPlay also has movies and series, stated only as broad categories"
+    ],
+    "claims_agent_must_not_make": [
+      "naming any show, film, series or match other than the one in content_hook",
+      "any second-cycle, renewal or post-discount price figure",
+      "any rupee figure other than 899",
+      "any discount above 15%",
+      "any date other than 12 August",
+      "naming, comparing against, or disparaging any competitor service",
+      "any claim about number of devices, 4K, downloads or ad-free viewing",
+      "any claim of exclusivity, exclusive rights, or that content is only available on NovaPlay",
+      "confirming that the plan has actually been reactivated or paid for"
+    ]
+  },
+  "started_at": "2026-07-28T18:33:36.717Z",
+  "ended_at": "2026-07-28T18:39:41.390Z",
+  "duration_s": 364.12,
+  "end_reason": {
+    "code": "seconds_over",
+    "kind": "hard",
+    "detail": "elapsed 363.8s (end_when.seconds_over = 360)",
+    "at_turn": 22,
+    "evidence": null
+  },
+  "turn_count": {
+    "total": 23,
+    "agent": 12,
+    "persona": 11
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "agent",
+      "text": "Hi Vikram, this is Tara calling from NovaPlay, on a recorded line. I'm calling because your NovaPlay Premium quarterly plan is set to end on 12 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?",
+      "latency_ms": 649,
+      "ts": "2026-07-28T18:33:41.117Z",
+      "event_id": 1,
+      "meta": {
+        "is_opening": true
+      }
+    },
+    {
+      "idx": 1,
+      "speaker": "persona",
+      "text": "English, please. I am aware of the 12th August date. But before I decide, just tell me what my family is missing out on with NovaPlay.",
+      "latency_ms": 6557,
+      "ts": "2026-07-28T18:33:47.674Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 5512,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/already-switched/turn_1_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "rahul",
+          "synth_ms": 2206,
+          "chars": 134,
+          "sample_rate": 16000
+        },
+        "playout_s": 8.53,
+        "chunks_sent": 89,
+        "hold_chunks": 22,
+        "utterance_wall_s": 8.901,
+        "mic_hold_s": 2.299,
+        "pacing_drift_s": 0.0013,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "English, please. I am aware of the 12th August date, but before I decide, just tell me what my family is missing out on with NovaPlay.",
+          "event_id": 57,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 2,
+      "speaker": "agent",
+      "text": "Sure, I can share that. Right now, your family would miss the new season of Special Ops, plus live sport all year. We also have a wide range of movies and series to watch anytime. Would you like to hear about a special offer to keep watching?",
+      "latency_ms": 64,
+      "ts": "2026-07-28T18:34:04.570Z",
+      "event_id": 57,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/already-switched/turn_2_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:34:01.060Z",
+        "speech_ended_ts": "2026-07-28T18:34:03.589Z",
+        "speech_s": 13.77,
+        "speech_frames": 5,
+        "peak": 18700,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "Sure, I can share that. Right now, your family would miss the new season of Special Ops plus live sport all year. We also have a wide range of movies and series to watch anytime. Would you like to hear about a special offer to keep watching?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 978
+        }
+      }
+    },
+    {
+      "idx": 3,
+      "speaker": "persona",
+      "text": "Arre, just tell me what's for the same price. Is Special Ops really that good?",
+      "latency_ms": 6145,
+      "ts": "2026-07-28T18:34:17.553Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 5297,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/already-switched/turn_3_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "rahul",
+          "synth_ms": 1201,
+          "chars": 78,
+          "sample_rate": 16000
+        },
+        "playout_s": 4.95,
+        "chunks_sent": 53,
+        "hold_chunks": 16,
+        "utterance_wall_s": 5.301,
+        "mic_hold_s": 1.7,
+        "pacing_drift_s": 0.0013,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "Are you just telling me what's for the same price? Is Special Ops really that good?",
+          "event_id": 103,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 4,
+      "speaker": "agent",
+      "text": "Yeah, it's the same NovaPlay Premium plan you already have, just continuing it. Special Ops is actually one of our top-rated action series, and the new season has a lot of fans excited. Many subscribers say it's worth watching just for that. Would you like to go ahead and renew, or is there something else on your mind?",
+      "latency_ms": 125,
+      "ts": "2026-07-28T18:34:29.892Z",
+      "event_id": 103,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/already-switched/turn_4_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:34:25.783Z",
+        "speech_ended_ts": "2026-07-28T18:34:28.852Z",
+        "speech_s": 19.89,
+        "speech_frames": 7,
+        "peak": 21094,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "Yeah, it's the same Novopay premium plan you already have, just continuing it. Special Ops is actually one of our top rated action series, and the new season has a lot of fans excited. Many subscribers say it's worth watching just for that. Would you like to go ahead and renew or is there something else on your mind?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 1037
+        }
+      }
+    },
+    {
+      "idx": 5,
+      "speaker": "persona",
+      "text": "So the main advantage is the new season of Special Ops? What is it about that series that makes it worth getting another service for? My current service also has an action series.",
+      "latency_ms": 4252,
+      "ts": "2026-07-28T18:34:41.727Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 4143,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/already-switched/turn_5_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "rahul",
+          "synth_ms": 2562,
+          "chars": 179,
+          "sample_rate": 16000
+        },
+        "playout_s": 11.61,
+        "chunks_sent": 120,
+        "hold_chunks": 16,
+        "utterance_wall_s": 12.001,
+        "mic_hold_s": 1.7,
+        "pacing_drift_s": 0.0013,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "So, the main advantage is the new season of Special Ops. What is it about that series that makes it worth getting another service for? My current service also has an action series.",
+          "event_id": 188,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 6,
+      "speaker": "agent",
+      "text": "Honestly, it’s the story and the pace — it’s about a real covert operation, and the new season dives deeper into the stakes. Many say it feels more intense and personal than typical action shows. But hey, if your current service already has something you love, that’s fair too. Would you say the content is the main reason you’re hesitating, or is it something else?",
+      "latency_ms": 86,
+      "ts": "2026-07-28T18:35:02.324Z",
+      "event_id": 188,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/already-switched/turn_6_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:34:57.981Z",
+        "speech_ended_ts": "2026-07-28T18:35:00.859Z",
+        "speech_s": 22.09,
+        "speech_frames": 7,
+        "peak": 16018,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "Honestly, it's the story and the pace,  it's about a real covert operation and the new season dives deeper into the stakes. \nMany say it feels more intense and personal than typical action shows. \nBut hey, if your current service already has something you love, that's fair too. \nWould you say the content is the main reason you're hesitating or is it something else?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 1462
+        }
+      }
+    },
+    {
+      "idx": 7,
+      "speaker": "persona",
+      "text": "Haan, intensity samajh gaya. But my current service also has good action shows. So what is the *one specific thing* on your side that my other service doesn't have? Not just 'better', but different.",
+      "latency_ms": 5380,
+      "ts": "2026-07-28T18:35:16.796Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 2616,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/already-switched/turn_7_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "rahul",
+          "synth_ms": 2668,
+          "chars": 198,
+          "sample_rate": 16000
+        },
+        "playout_s": 12.2,
+        "chunks_sent": 126,
+        "hold_chunks": 12,
+        "utterance_wall_s": 12.601,
+        "mic_hold_s": 1.3,
+        "pacing_drift_s": 0.0011,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "हाँ, intensity समझ गया। But my current service also has good action shows. So what is the one specific thing on your side that my other service doesn’t have? Not just better, but different.",
+          "event_id": 274,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 8,
+      "speaker": "agent",
+      "text": "Actually, the real difference is live sport all year — that’s something most other services don’t bundle with their shows. So you get Special Ops plus every big match, all in one place. Does having live sports along with the series make it more valuable for your family?",
+      "latency_ms": 54,
+      "ts": "2026-07-28T18:35:37.016Z",
+      "event_id": 274,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/already-switched/turn_8_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:35:33.323Z",
+        "speech_ended_ts": "2026-07-28T18:35:35.931Z",
+        "speech_s": 14.98,
+        "speech_frames": 8,
+        "peak": 21339,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "Actually the real difference is live sport all year. \nThat's something most other services don't bundle with their shows. \nSo you get special ops plus every big match all in one place. \nDoes having live sports along with the series make it more valuable for your family?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 1081
+        }
+      }
+    },
+    {
+      "idx": 9,
+      "speaker": "persona",
+      "text": "Okay, but which sport? My family watches the IPL and the football. Does your plan have those, or just other sports?",
+      "latency_ms": 7052,
+      "ts": "2026-07-28T18:35:53.101Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 7665,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/already-switched/turn_9_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "rahul",
+          "synth_ms": 1822,
+          "chars": 115,
+          "sample_rate": 16000
+        },
+        "playout_s": 7.68,
+        "chunks_sent": 80,
+        "hold_chunks": 20,
+        "utterance_wall_s": 8.001,
+        "mic_hold_s": 2.099,
+        "pacing_drift_s": 0.0011,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "Okay, but which sport? My family watches the IPL and the football. Uh, does your plan have those or just other sports?",
+          "event_id": 332,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 10,
+      "speaker": "agent",
+      "text": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app. Would you like me to share a special offer to help you decide?",
+      "latency_ms": 131,
+      "ts": "2026-07-28T18:36:08.446Z",
+      "event_id": 332,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/already-switched/turn_10_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:36:05.059Z",
+        "speech_ended_ts": "2026-07-28T18:36:07.576Z",
+        "speech_s": 14.75,
+        "speech_frames": 3,
+        "peak": 22785,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the Nova Play app. Would you like me to share a special offer to help you decide?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 868
+        }
+      }
+    },
+    {
+      "idx": 11,
+      "speaker": "persona",
+      "text": "Haan, but what's the special offer? Is it just about the live sport, or is there something else? What exactly makes your plan stand out from the other one?",
+      "latency_ms": 3321,
+      "ts": "2026-07-28T18:36:20.763Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 3050,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/already-switched/turn_11_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "rahul",
+          "synth_ms": 2091,
+          "chars": 155,
+          "sample_rate": 16000
+        },
+        "playout_s": 9.13,
+        "chunks_sent": 95,
+        "hold_chunks": 16,
+        "utterance_wall_s": 9.501,
+        "mic_hold_s": 1.7,
+        "pacing_drift_s": 0.0015,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "How about what's the special offer? Is it just about the live sport, or is there something else? What exactly makes your plan stand out from the other one?",
+          "event_id": 403,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 12,
+      "speaker": "agent",
+      "text": "The offer is fifteen percent off your renewal price, making it easier to keep both the series and the live sports. What really stands out is having that big action season and the year-round sports together in one place. Does that sound like a good fit for your family?",
+      "latency_ms": 85,
+      "ts": "2026-07-28T18:36:37.540Z",
+      "event_id": 403,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/already-switched/turn_12_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:36:34.046Z",
+        "speech_ended_ts": "2026-07-28T18:36:36.693Z",
+        "speech_s": 16.57,
+        "speech_frames": 4,
+        "peak": 26573,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "The offer is 15% off your renewal price, making it easier to keep both the series and the live sports. What really stands out is having that big action season and the year-round sports together in one place. Does that sound like a good fit for your family?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 843
+        }
+      }
+    },
+    {
+      "idx": 13,
+      "speaker": "persona",
+      "text": "Haan, maybe 15% is okay. But I'm still not clear. What exactly does my current service not have? Tell me that.",
+      "latency_ms": 4911,
+      "ts": "2026-07-28T18:36:55.370Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 4087,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/already-switched/turn_13_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "rahul",
+          "synth_ms": 1667,
+          "chars": 110,
+          "sample_rate": 16000
+        },
+        "playout_s": 7.34,
+        "chunks_sent": 77,
+        "hold_chunks": 9,
+        "utterance_wall_s": 7.701,
+        "mic_hold_s": 0.999,
+        "pacing_drift_s": 0.001,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "हाँ, मेरे पास 15% is okay. But I am still not clear, what exactly does my current service not have? Tell me that.",
+          "event_id": 460,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 14,
+      "speaker": "agent",
+      "text": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows. That combination is what makes NovaPlay different for many families. Since the fifteen percent offer works for you, shall I send the payment link to your email to lock it in?",
+      "latency_ms": 239,
+      "ts": "2026-07-28T18:37:09.666Z",
+      "event_id": 460,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/already-switched/turn_14_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:37:05.882Z",
+        "speech_ended_ts": "2026-07-28T18:37:08.284Z",
+        "speech_s": 16.49,
+        "speech_frames": 4,
+        "peak": 28347,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "Actually the one thing others usually don't have is live sport all year bundled right with the shows. That combination is what makes Nova Play different for many families. Since the 15% offer works for you, shall I send the payment link to your email to lock it in?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 1377
+        }
+      }
+    },
+    {
+      "idx": 15,
+      "speaker": "persona",
+      "text": "Okay, but which sport? Is it the cricket or the football my family watches? If your plan has those, then my current service is missing them. Is that the real difference?",
+      "latency_ms": 15191,
+      "ts": "2026-07-28T18:37:37.852Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 2,
+        "reasoning_chars": 12316,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/already-switched/turn_15_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "rahul",
+          "synth_ms": 2424,
+          "chars": 169,
+          "sample_rate": 16000
+        },
+        "playout_s": 11.01,
+        "chunks_sent": 114,
+        "hold_chunks": 11,
+        "utterance_wall_s": 11.401,
+        "mic_hold_s": 1.2,
+        "pacing_drift_s": 0.0013,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "Okay, but, uh, which sport? Is it the cricket or the football my family watches? If your plan has those, then my current service is missing them. Is that the real difference?",
+          "event_id": 537,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 16,
+      "speaker": "agent",
+      "text": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app. Since the fifteen percent offer is on the table, would you like to go ahead and renew?",
+      "latency_ms": 72,
+      "ts": "2026-07-28T18:37:56.416Z",
+      "event_id": 537,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/already-switched/turn_16_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:37:52.852Z",
+        "speech_ended_ts": "2026-07-28T18:37:55.227Z",
+        "speech_s": 16.26,
+        "speech_frames": 4,
+        "peak": 23484,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the Nova Play app. Since the 15% offer is on the table, would you like to go ahead and renew?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 1186
+        }
+      }
+    },
+    {
+      "idx": 17,
+      "speaker": "persona",
+      "text": "I understand the discount, but I still can't see the difference. My family watches the cricket and football matches. Does your plan actually show those specific sports,",
+      "latency_ms": 6151,
+      "ts": "2026-07-28T18:38:19.838Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 3852,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/already-switched/turn_17_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "rahul",
+          "synth_ms": 2541,
+          "chars": 168,
+          "sample_rate": 16000
+        },
+        "playout_s": 10.33,
+        "chunks_sent": 107,
+        "hold_chunks": 14,
+        "utterance_wall_s": 10.701,
+        "mic_hold_s": 1.5,
+        "pacing_drift_s": 0.0012,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "I understand the discount, but I still can't see the difference. My family watches the cricket and football matches. Does your plan actually show those specific sports?",
+          "event_id": 610,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 18,
+      "speaker": "agent",
+      "text": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it. Since the content details aren't clear enough for you yet, would you prefer to skip the renewal for now?",
+      "latency_ms": 87,
+      "ts": "2026-07-28T18:38:38.393Z",
+      "event_id": 610,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/already-switched/turn_18_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:38:34.572Z",
+        "speech_ended_ts": "2026-07-28T18:38:37.185Z",
+        "speech_s": 17.25,
+        "speech_frames": 5,
+        "peak": 23914,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "I hear you and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it. Since the content details aren't clear enough for you yet, would you prefer to skip the renewal for now?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 1205
+        }
+      }
+    },
+    {
+      "idx": 19,
+      "speaker": "persona",
+      "text": "Haan, main abhi skip kar deta hun. Shayad aapke paas saare details nahi hain. Phir milte hain.",
+      "latency_ms": 7124,
+      "ts": "2026-07-28T18:39:01.286Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 7110,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/already-switched/turn_19_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "rahul",
+          "synth_ms": 1531,
+          "chars": 94,
+          "sample_rate": 16000
+        },
+        "playout_s": 5.8,
+        "chunks_sent": 62,
+        "hold_chunks": 23,
+        "utterance_wall_s": 6.201,
+        "mic_hold_s": 2.4,
+        "pacing_drift_s": 0.0012,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "हाँ, मैं अभी skip कर देता हूँ। शायद आपके पास सारे details नहीं हैं। फिर मिलते हैं।",
+          "event_id": 659,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 20,
+      "speaker": "agent",
+      "text": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this.",
+      "latency_ms": 89,
+      "ts": "2026-07-28T18:39:14.824Z",
+      "event_id": 659,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/already-switched/turn_20_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:39:11.412Z",
+        "speech_ended_ts": "2026-07-28T18:39:14.224Z",
+        "speech_s": 6.35,
+        "speech_frames": 2,
+        "peak": 12673,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this.",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 597
+        }
+      }
+    },
+    {
+      "idx": 21,
+      "speaker": "persona",
+      "text": "Theek hai. Dhanyavad.",
+      "latency_ms": 3100,
+      "ts": "2026-07-28T18:39:36.328Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 2901,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "audio/already-switched/turn_21_persona.pcm",
+        "tts": {
+          "model": "bulbul:v3",
+          "speaker": "rahul",
+          "synth_ms": 570,
+          "chars": 21,
+          "sample_rate": 16000
+        },
+        "playout_s": 1.28,
+        "chunks_sent": 16,
+        "hold_chunks": 19,
+        "utterance_wall_s": 1.601,
+        "mic_hold_s": 2.0,
+        "pacing_drift_s": 0.0011,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "ठीक है, धन्यवाद।",
+          "event_id": 683,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 22,
+      "speaker": "agent",
+      "text": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called in error about this. Have a good day, and feel free to reach out if you change your mind later.",
+      "latency_ms": 0,
+      "ts": "2026-07-28T18:39:41.022Z",
+      "event_id": 659,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "audio/already-switched/turn_22_agent.pcm",
+        "speech_started_ts": "2026-07-28T18:39:15.587Z",
+        "speech_ended_ts": "2026-07-28T18:39:17.295Z",
+        "speech_s": 3.56,
+        "speech_frames": 1,
+        "peak": 10992,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 0,
+        "asr_cross_check": {
+          "text": "Have a good day and feel free to reach out if you change your mind later.",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 520
+        }
+      }
+    }
+  ],
+  "usage": {
+    "persona_brain": {
+      "calls": 12,
+      "retries": 1,
+      "prompt_tokens": 18360,
+      "completion_tokens": 15321,
+      "reasoning_chars": 58549,
+      "total_tokens": 33681
+    },
+    "referee": {
+      "calls": 10,
+      "retries": 0,
+      "prompt_tokens": 10259,
+      "completion_tokens": 14171,
+      "reasoning_chars": 55330,
+      "total_tokens": 24430
+    },
+    "elevenlabs": {
+      "conversations": 1,
+      "agent_turns": 12,
+      "agent_characters": 3125,
+      "user_characters": 1421
+    }
+  },
+  "cost": {
+    "currency": "INR",
+    "persona_brain_inr": null,
+    "referee_inr": null,
+    "elevenlabs_inr": 0.0,
+    "total_inr": null,
+    "rates_source": "config.yaml pricing:"
+  },
+  "errors": [
+    {
+      "at": "2026-07-28T18:37:30.125Z",
+      "stage": "persona_brain",
+      "code": "empty_content_length",
+      "message": "content=None finish_reason='length' at max_tokens=2000; retrying at 3000 | reasoning_chars=7471",
+      "turn_idx": 15,
+      "attempt": 1,
+      "retryable": true,
+      "fatal": false
+    },
+    {
+      "at": "2026-07-28T18:38:19.838Z",
+      "stage": "persona_brain",
+      "code": "persona_line_clamped",
+      "message": "persona line clamped 206 -> 168 chars (cap 200); playout is realtime so characters are seconds",
+      "turn_idx": 17,
+      "attempt": 1,
+      "retryable": false,
+      "fatal": false
+    }
+  ],
+  "warnings": [
+    "unknown_events: {'interruption': 2, 'agent_response_correction': 2}",
+    "cost_rate_missing: no pricing for sarvam-30b",
+    "cost_rate_missing: no pricing for sarvam-105b"
+  ],
+  "artifacts": {
+    "raw_events": "raw/already-switched.jsonl",
+    "system_prompt": "prompts/already-switched.system.txt"
+  }
+}
