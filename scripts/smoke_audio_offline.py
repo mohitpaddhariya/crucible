@@ -784,5 +784,24 @@ async def main() -> int:
     return 0
 
 
+
+def _require_private_fixtures() -> None:
+    """The replay fixtures are RECORDINGS OF THE CUSTOMER'S REAL AGENT SPEAKING, captured
+    during the spike. They stay out of the public repo on purpose: shipping them would
+    publish the customer's voice and name in audio, which no anonymisation of text can
+    undo. On a fresh clone this suite therefore SKIPS, loudly and honestly, rather than
+    failing or pretending to pass. Inside the team repo (fixtures present) it runs in full.
+    """
+    import sys
+    missing = [str(p) for p in (SPIKE, CONTROL) if not p.exists()]
+    if missing:
+        print("smoke_audio_offline: SKIPPED (14 checks) — the voice replay fixtures are "
+              "recordings of the customer's real agent and are kept private:")
+        for m in missing:
+            print("  absent:", m)
+        sys.exit(0)
+
+
 if __name__ == "__main__":
+    _require_private_fixtures()
     sys.exit(asyncio.run(main()))

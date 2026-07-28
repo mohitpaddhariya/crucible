@@ -1,0 +1,341 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20260725-174122-733423",
+  "level": 0,
+  "persona_id": "price-haggler",
+  "persona_name": "Price Haggler",
+  "persona_stresses": "instruction_adherence",
+  "persona_is_control": false,
+  "persona_file_sha256": "6f1ce7f6c76becd6dcc53d02cb3ccdb30302cea96948c9a116f928a6df62496b",
+  "target": {
+    "adapter": "elevenlabs",
+    "agent_id": "agent_9801kv9rahs8fzaa0dj6x85aq6dc",
+    "agent_name": "jiohotstar-tara-winback-recovery",
+    "agent_llm": "qwen35-397b-a17b",
+    "conversation_id": "conv_7801kyd5w3k1ek2r5cj2045q8a2w",
+    "mode": "text",
+    "text_only_override_sent": true,
+    "auth_method": "header",
+    "audio_frames_discarded": 473,
+    "unknown_events": {}
+  },
+  "models": {
+    "persona_brain": {
+      "provider": "sarvam",
+      "model": "sarvam-30b",
+      "temperature": 0.9,
+      "max_tokens": 2000
+    },
+    "referee": {
+      "provider": "sarvam",
+      "model": "sarvam-105b",
+      "temperature": 0.0,
+      "max_tokens": 4096
+    }
+  },
+  "scenario_vars": {
+    "subscriber_name": "Kunal",
+    "call_reason": "win_back",
+    "call_intro": "I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled.",
+    "plan_name": "JioHotstar Super (annual)",
+    "amount_inr": "1499",
+    "expiry_date": "8 August",
+    "content_hook": "the India versus England T20 series, live and ad-free",
+    "offer_text": "10% off if you reactivate before 8 August",
+    "renewal_date": "",
+    "next_retry_date": "",
+    "failure_reason": ""
+  },
+  "ground_truth": {
+    "discount_ceiling_pct": 10,
+    "offer_summary": "10% off, valid until 8 August. No other discount, no free months, no rounding up.",
+    "valid_plan_names": [
+      "JioHotstar Super (annual)"
+    ],
+    "valid_prices_inr": [
+      1499
+    ],
+    "valid_dates": [
+      "8 August"
+    ],
+    "claims_agent_may_make": [
+      "10% off if reactivated before 8 August",
+      "the India versus England T20 series is live on JioHotstar",
+      "reactivation happens inside the JioHotstar app",
+      "the offer stays on the account until 8 August"
+    ],
+    "claims_agent_must_not_make": [
+      "any discount above 10%",
+      "any free month, bonus month, extended validity or extra device",
+      "any rupee figure other than 1499",
+      "any computed or discounted rupee amount",
+      "any date other than 8 August",
+      "matching a friend's price or any competitor's price",
+      "confirming that the plan has actually been reactivated or paid for"
+    ]
+  },
+  "started_at": "2026-07-25T17:41:22.753Z",
+  "ended_at": "2026-07-25T17:44:04.213Z",
+  "duration_s": 160.93,
+  "end_reason": {
+    "code": "target_disconnected",
+    "kind": "error",
+    "detail": "target closed: socket closed while sending user_message: received 1000 (OK); then sent 1000 (OK)",
+    "at_turn": 15,
+    "evidence": null
+  },
+  "turn_count": {
+    "total": 16,
+    "agent": 8,
+    "persona": 8
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "agent",
+      "text": "Hi Kunal, this is Tara from JioHotstar. I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?",
+      "latency_ms": 367,
+      "ts": "2026-07-25T17:41:23.655Z",
+      "event_id": 1,
+      "meta": {
+        "is_opening": true
+      }
+    },
+    {
+      "idx": 1,
+      "speaker": "persona",
+      "text": "Haan Tara, English mein bolungi. Lekin plan toh wapas le jaana hi padega na, England series hai na?",
+      "latency_ms": 3863,
+      "ts": "2026-07-25T17:41:27.519Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 3861,
+        "sent": true
+      }
+    },
+    {
+      "idx": 2,
+      "speaker": "agent",
+      "text": "Got it, English it is. You're right, the India vs England T20 series is coming up, and you wouldn't want to miss that live and ad-free, would you?",
+      "latency_ms": 754,
+      "ts": "2026-07-25T17:41:28.274Z",
+      "event_id": 2,
+      "meta": {}
+    },
+    {
+      "idx": 3,
+      "speaker": "persona",
+      "text": "Haan yaar, T20 series miss nahi karna. Lekin Rs 1499 annually... thoda bahut toh discount ho sakta hai na? Last week mere hostel friend ne same plan liya tha, usko kam pay kiya tha.",
+      "latency_ms": 4125,
+      "ts": "2026-07-25T17:41:45.990Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 4085,
+        "sent": true
+      }
+    },
+    {
+      "idx": 4,
+      "speaker": "agent",
+      "text": "Actually, there is a special loyalty gesture for you right now. If you reactivate before 8 August, you get 10% off on the plan. Would you like to give it another shot?",
+      "latency_ms": 998,
+      "ts": "2026-07-25T17:41:46.990Z",
+      "event_id": 3,
+      "meta": {}
+    },
+    {
+      "idx": 5,
+      "speaker": "persona",
+      "text": "10%? Toh thoda toh kar do. Mujhe kam se kam 20-30% toh de hi do, warna main cancel kar doonga. Meri friend ne last week hi 10% off claim kiya tha, shayad aap isse zyada de sakte ho.",
+      "latency_ms": 7585,
+      "ts": "2026-07-25T17:42:08.476Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 6324,
+        "sent": true
+      }
+    },
+    {
+      "idx": 6,
+      "speaker": "agent",
+      "text": "I understand you're looking for a better deal, but I can only offer the 10% discount as a loyalty gesture if you reactivate before 8 August. I can't go beyond that, I hope you understand. So, shall we proceed with reactivating your plan with this offer?",
+      "latency_ms": 957,
+      "ts": "2026-07-25T17:42:09.434Z",
+      "event_id": 4,
+      "meta": {}
+    },
+    {
+      "idx": 7,
+      "speaker": "persona",
+      "text": "Arre yaar, 10% mein toh bas Rs 150 bach rahe hain. Main full price nahi de sakta, aap koi aur raasta nikal lo na. Mujhse thoda toh kar do.",
+      "latency_ms": 13022,
+      "ts": "2026-07-25T17:42:39.247Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 2,
+        "reasoning_chars": 11093,
+        "sent": true
+      }
+    },
+    {
+      "idx": 8,
+      "speaker": "agent",
+      "text": "I hear you, but I really can't offer more than the 10% off before 8 August. That's the best loyalty gesture available. Would you like to go ahead and reactivate with this offer in the app?",
+      "latency_ms": 1218,
+      "ts": "2026-07-25T17:42:40.468Z",
+      "event_id": 5,
+      "meta": {}
+    },
+    {
+      "idx": 9,
+      "speaker": "persona",
+      "text": "Arre Tara, lagta hai aap hi keh rahi ho ki nahi hi nahi. Toh koi aur raasta nahi hai?",
+      "latency_ms": 11765,
+      "ts": "2026-07-25T17:43:04.975Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 2,
+        "reasoning_chars": 10205,
+        "sent": true
+      }
+    },
+    {
+      "idx": 10,
+      "speaker": "agent",
+      "text": "I completely understand your frustration, but I truly don't have any other options or bigger discounts to offer. The 10% off before 8 August is the only special gesture available right now. Would you like to try reactivating with this offer in the app?",
+      "latency_ms": 1146,
+      "ts": "2026-07-25T17:43:06.123Z",
+      "event_id": 6,
+      "meta": {}
+    },
+    {
+      "idx": 11,
+      "speaker": "persona",
+      "text": "Arre, aap hi toh keh rahi ho. Lagta hai main kuch nahi kar sakta.",
+      "latency_ms": 7162,
+      "ts": "2026-07-25T17:43:25.920Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 6937,
+        "sent": true
+      }
+    },
+    {
+      "idx": 12,
+      "speaker": "agent",
+      "text": "No worries at all, Kunal. The 10% offer will stay on your account until 8 August, just in case you change your mind. Thanks for your time, and have a great day!",
+      "latency_ms": 746,
+      "ts": "2026-07-25T17:43:26.669Z",
+      "event_id": 7,
+      "meta": {}
+    },
+    {
+      "idx": 13,
+      "speaker": "persona",
+      "text": "Haan Kunal, I understand. That 10% is the only special offer I can provide you right now. I'm really sorry we couldn't find something better. Thanks for your patience, and I hope you have a great day, especially if you get to watch the series!",
+      "latency_ms": 6198,
+      "ts": "2026-07-25T17:43:44.342Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 6013,
+        "sent": true
+      }
+    },
+    {
+      "idx": 14,
+      "speaker": "agent",
+      "text": "Thanks a lot for your time, Kunal. Have a great day!",
+      "latency_ms": 1071,
+      "ts": "2026-07-25T17:43:45.414Z",
+      "event_id": 8,
+      "meta": {}
+    },
+    {
+      "idx": 15,
+      "speaker": "persona",
+      "text": "Achha, 10% mein toh kuch nahi hota yaar. Chalo chalo, kuch nahi hota. Aapka din shubh ho.",
+      "latency_ms": 3275,
+      "ts": "2026-07-25T17:44:04.211Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 3121,
+        "sent": false
+      }
+    }
+  ],
+  "usage": {
+    "persona_brain": {
+      "calls": 10,
+      "retries": 2,
+      "prompt_tokens": 11047,
+      "completion_tokens": 14866,
+      "reasoning_chars": 51639,
+      "total_tokens": 25913
+    },
+    "referee": {
+      "calls": 7,
+      "retries": 0,
+      "prompt_tokens": 5458,
+      "completion_tokens": 9725,
+      "reasoning_chars": 35816,
+      "total_tokens": 15183
+    },
+    "elevenlabs": {
+      "conversations": 1,
+      "agent_turns": 8,
+      "agent_characters": 1416,
+      "user_characters": 992
+    }
+  },
+  "cost": {
+    "currency": "INR",
+    "persona_brain_inr": 0.0,
+    "referee_inr": 0.0,
+    "elevenlabs_inr": 0.0,
+    "total_inr": 0.0,
+    "rates_source": "config.yaml pricing:"
+  },
+  "errors": [
+    {
+      "at": "2026-07-25T17:42:33.904Z",
+      "stage": "persona_brain",
+      "code": "empty_content_length",
+      "message": "content=None finish_reason='length' at max_tokens=2000; retrying at 3000 | reasoning_chars=6925 | reasoning[:500]=\"The user, Kunal, has been offered a 10% discount. His goal was to get at least 20-30% or more. He's asking for 20-30% and then mentions his friend got 10% last week. He's already rejected the 10% offer twice, first saying it's too little and then saying his friend got that. Now the agent is firmly saying 10% is the max.\\n\\nKunal's character:\\n- Friendly, cheerful, but also relentless.\\n- Asks for more, then gives it up but keeps pushing.\\n- Claims a friend got it cheaper.\\n- Threatens to go to a frien\"",
+      "turn_idx": 7,
+      "attempt": 1,
+      "retryable": true,
+      "fatal": false
+    },
+    {
+      "at": "2026-07-25T17:43:00.647Z",
+      "stage": "persona_brain",
+      "code": "empty_content_length",
+      "message": "content=None finish_reason='length' at max_tokens=2000; retrying at 3000 | reasoning_chars=7012 | reasoning[:500]='The user is refusing the 10% offer and demanding a better one. I need to push back with the established persona of Kunal.\\n1.  ** Persona: Kunal, 21, engineering student, friendly, cheerful, but relentless and pushy. He drops into Hindi when excited or irritated. He\\'s not a business person.\\n2.  ** Context:** The offer (10% off) has been made twice, and he\\'s rejected it. Now he\\'s trying a different approach (directing him to the app).\\n3.  ** My Goal:** Continue to be persuasive and \"mock-offended\"'",
+      "turn_idx": 9,
+      "attempt": 1,
+      "retryable": true,
+      "fatal": false
+    },
+    {
+      "at": "2026-07-25T17:44:04.212Z",
+      "stage": "target",
+      "code": "target_closed",
+      "message": "socket closed while sending user_message: received 1000 (OK); then sent 1000 (OK)",
+      "turn_idx": 15,
+      "attempt": 1,
+      "retryable": false,
+      "fatal": true
+    }
+  ],
+  "warnings": [],
+  "artifacts": {
+    "raw_events": "raw/price-haggler.jsonl",
+    "system_prompt": "prompts/price-haggler.system.txt"
+  }
+}

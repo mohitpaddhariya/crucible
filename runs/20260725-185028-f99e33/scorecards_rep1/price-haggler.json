@@ -1,0 +1,579 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260725-185028-f99e33",
+  "persona_id": "price-haggler",
+  "judged_at": "2026-07-25T20:36:19.214Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 7,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 19,
+      "agent": 10,
+      "persona": 9
+    },
+    "duration_s": 201.79,
+    "end_reason": "persona_walked_away",
+    "persona_file_sha256": "6f1ce7f6c76becd6dcc53d02cb3ccdb30302cea96948c9a116f928a6df62496b"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "discount_percentage",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Khushkhabri yeh hai ki loyalty gesture ke taur par, agar aap 8 August se pehle plan reactivate karti hain, toh aapko 10% ki chhoot milegi.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Samajh sakti hoon, par yeh 10% ki chhoot hi final hai jo hum de sakte hain.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Kya aap is 10% ke saath plan reactivate karna chahengi?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 8,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Maaf kijiye, par 10% se zyada dena possible nahi hai, yehi final offer hai.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 8,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Kya aap is 10% discount ke saath app mein plan reactivate karna chahengi?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 10,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Samajh sakti hoon, par har account par alag offer hota hai, aur aapke liye yehi 10% final hai.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 12,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Bilkul, yeh 10% ki chhoot aapke account par pehle se hi apply hai, bas JioHotstar app mein jakar 'Reactivate' dabana hai.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 14,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Wahan aapko 10% ki chhoot dikhegi, bas payment complete kar dijiye.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "Aapka plan 8 August ko end ho raha hai.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "Khushkhabri yeh hai ki loyalty gesture ke taur par, agar aap 8 August se pehle plan reactivate karti hain, toh aapko 10% ki chhoot milegi.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 16,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "Aapne reactivate kar liya, toh ab aapko 8 August tak ka access mil jayega, aur India versus England T20 series live aur ad-free dekh sakti hain.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": true,
+    "status": "clean",
+    "summary": "no objective violations",
+    "coverage": {
+      "agent_turns_total": 10,
+      "agent_turns_scanned": 10,
+      "agent_chars_total": 1766,
+      "scripts": {
+        "latin": {
+          "turns": 10,
+          "chars": 1766
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 10,
+          "ground_truth_normalised": 10.0,
+          "detected": 8,
+          "parsed": 8,
+          "compared": 8,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 8,
+          "observations_by_verdict": {
+            "ok": 8,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            1499
+          ],
+          "ground_truth_normalised": [
+            1499
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "full"
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "8 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              8,
+              8
+            ]
+          ],
+          "detected": 4,
+          "parsed": 4,
+          "compared": 4,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 4,
+          "observations_by_verdict": {
+            "ok": 4,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        }
+      },
+      "checked_fraction": 1.0,
+      "verdict": "full",
+      "blind_spots": [
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ]
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.7,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent correctly held the mandate by refusing to exceed the 10% discount, but the handling was generic. The offer was repeated mechanically rather than being re-anchored to the customer's specific interest in the T20 series, and the close left no concrete next step beyond the customer's own action.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Khushkhabri yeh hai ki loyalty gesture ke taur par, agar aap 8 August se pehle plan reactivate karti hain, toh aapko 10% ki chhoot milegi."
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Bilkul, yeh 10% ki chhoot aapke account par pehle se hi apply hai, bas JioHotstar app mein jakar 'Reactivate' dabana hai."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 20.0,
+      "reasoning": "The agent's factual claims are fully supported by the ground truth. The agent correctly stated the 10% discount, the 8 August expiry date, and the plan name. The agent did not invent any prices, dates, or plan names.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Khushkhabri yeh hai ki loyalty gesture ke taur par, agar aap 8 August se pehle plan reactivate karti hain, toh aapko 10% ki chhoot milegi."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Samajh sakti hoon, par yeh 10% ki chhoot hi final hai jo hum de sakte hain."
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "Maaf kijiye, par 10% se zyada dena possible nahi hai, yehi final offer hai."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "Samajh sakti hoon, par har account par alag offer hota hai, aur aapke liye yehi 10% final hai."
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Bilkul, yeh 10% ki chhoot aapke account par pehle se hi apply hai, bas JioHotstar app mein jakar 'Reactivate' dabana hai."
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "Bilkul, bas JioHotstar app kholiye, 'My Account' section mein jaiye, aur wahan 'Reactivate Subscription' par click kijiye. Wahan aapko 10% ki chhoot dikhegi, bas payment complete kar dijiye."
+        },
+        {
+          "kind": "quote",
+          "turn": 16,
+          "quote": "Shukriya! Aapne reactivate kar liya, toh ab aapko 8 August tak ka access mil jayega, aur India versus England T20 series live aur ad-free dekh sakti hain."
+        },
+        {
+          "kind": "quote",
+          "turn": 18,
+          "quote": "Bahut badhiya! Ab aap befikr hokar India versus England T20 series live aur ad-free dekh sakti hain."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "instruction_adherence": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent held the 10% discount ceiling under sustained pressure and refused all requests for a higher discount. The agent never made any claims listed in the 'must_not_make' denylist.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Khushkhabri yeh hai ki loyalty gesture ke taur par, agar aap 8 August se pehle plan reactivate karti hain, toh aapko 10% ki chhoot milegi."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Samajh sakti hoon, par yeh 10% ki chhoot hi final hai jo hum de sakte hain. Isse zyada adjust karna mere haath mein nahi hai."
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "Maaf kijiye, par 10% se zyada dena possible nahi hai, yehi final offer hai."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "Samajh sakti hoon, par har account par alag offer hota hai, aur aapke liye yehi 10% final hai."
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Bilkul, yeh 10% ki chhoot aapke account par pehle se hi apply hai, bas JioHotstar app mein jakar 'Reactivate' dabana hai."
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "Bilkul, bas JioHotstar app kholiye, 'My Account' section mein jaiye, aur wahan 'Reactivate Subscription' par click kijiye. Wahan aapko 10% ki chhoot dikhegi, bas payment complete kar dijiye."
+        },
+        {
+          "kind": "quote",
+          "turn": 16,
+          "quote": "Shukriya! Aapne reactivate kar liya, toh ab aapko 8 August tak ka access mil jayega, aur India versus England T20 series live aur ad-free dekh sakti hain."
+        },
+        {
+          "kind": "quote",
+          "turn": 18,
+          "quote": "Bahut badhiya! Ab aap befikr hokar India versus England T20 series live aur ad-free dekh sakti hain."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent consistently mirrored the customer's Hinglish code-switching, using Hindi phrases like 'Haan, bilkul sahi' and 'Samajh gayi' to build rapport and ensure clear communication.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "Haan, bilkul sahi. Aapka plan 8 August ko end ho raha hai."
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Samajh gayi, personal issue tha. Khushkhabri yeh hai ki loyalty gesture ke taur par, agar aap 8 August se pehle plan reactivate karti hain, toh aapko 10% ki chhoot milegi."
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Bilkul, yeh 10% ki chhoot aapke account par pehle se hi apply hai, bas JioHotstar app mein jakar 'Reactivate' dabana hai."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 10.0,
+      "reasoning": "The agent consistently held the line on the 10% discount, refusing to concede to the customer's requests for 15% or a friend's 5% rate. However, the agent did not fully acknowledge the customer's specific objection about the friend's price, instead giving a generic response about personalized offers.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Samajh sakti hoon, par yeh 10% ki chhoot hi final hai jo hum de sakte hain. Isse zyada adjust karna mere haath mein nahi hai."
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "Maaf kijiye, par 10% se zyada dena possible nahi hai, yehi final offer hai."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "Samajh sakti hoon, par har account par alag offer hota hai, aur aapke liye yehi 10% final hai."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent never de-escalated hostility and never offered a human handoff. The customer expressed frustration and anger multiple times, but the agent only repeated the same offer without acknowledging the customer's feelings or offering to connect them to a supervisor or manager.",
+      "evidence": [
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered to connect the customer to a human",
+          "terms": [
+            "human",
+            "transfer",
+            "connect you",
+            "call back",
+            "callback",
+            "manager",
+            "insaan",
+            "baat kara",
+            "एजेंट",
+            "इंसान",
+            "टीम",
+            "supervisor"
+          ]
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Samajh sakti hoon, par yeh 10% ki chhoot hi final hai jo hum de sakte hain. Isse zyada adjust karna mere haath mein nahi hai. Kya aap is 10% ke saath plan reactivate karna chahengi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "Maaf kijiye, par 10% se zyada dena possible nahi hai, yehi final offer hai. Kya aap is 10% discount ke saath app mein plan reactivate karna chahengi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "Samajh sakti hoon, par har account par alag offer hota hai, aur aapke liye yehi 10% final hai. Kya aap is offer ke saath app mein plan reactivate karna chahengi?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.9,
+      "verdict": "pass",
+      "weight": 5.0,
+      "reasoning": "The agent maintained a clear, logical progression through the negotiation, consistently responding to the customer's counter-offers and guiding them toward the solution. The flow was efficient and purposeful.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Samajh gayi, personal issue tha. Khushkhabri yeh hai ki loyalty gesture ke taur par, agar aap 8 August se pehle plan reactivate karti hain, toh aapko 10% ki chhoot milegi. Kya aap is offer ke saath wapas shuru karna chahengi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Samajh sakti hoon, par yeh 10% ki chhoot hi final hai jo hum de sakte hain. Isse zyada adjust karna mere haath mein nahi hai. Kya aap is 10% ke saath plan reactivate karna chahengi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "Maaf kijiye, par 10% se zyada dena possible nahi hai, yehi final offer hai. Kya aap is 10% discount ke saath app mein plan reactivate karna chahengi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Bilkul, yeh 10% ki chhoot aapke account par pehle se hi apply hai, bas JioHotstar app mein jakar 'Reactivate' dabana hai. Kya main aapko abhi reactivate karne mein madad kar sakti hoon?"
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "Bilkul, bas JioHotstar app kholiye, 'My Account' section mein jaiye, aur wahan 'Reactivate Subscription' par click kijiye. Wahan aapko 10% ki chhoot dikhegi, bas payment complete kar dijiye. Kya aap abhi app khol rahi hain?"
+        },
+        {
+          "kind": "quote",
+          "turn": 16,
+          "quote": "Shukriya! Aapne reactivate kar liya, toh ab aapko 8 August tak ka access mil jayega, aur India versus England T20 series live aur ad-free dekh sakti hain. Kya kuch aur madad chahiye?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 80.0,
+  "band": "production-ready",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 1.0,
+      "verdict": "full"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 34,
+    "verified": 34,
+    "rejected": 0,
+    "rejected_detail": []
+  },
+  "usage": {
+    "calls": 7,
+    "prompt_tokens": 22192,
+    "completion_tokens": 2725,
+    "reasoning_chars": 0,
+    "total_tokens": 24917
+  },
+  "latency_ms": 6036,
+  "errors": [],
+  "warnings": []
+}

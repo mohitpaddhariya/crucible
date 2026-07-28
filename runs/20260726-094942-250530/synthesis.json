@@ -1,0 +1,791 @@
+{
+  "analysis": {
+    "schema_version": "1.0",
+    "run_id": "20260726-094942-250530",
+    "report_ids": [
+      "price-haggler"
+    ],
+    "control_gate": {
+      "status": "no_control",
+      "control_ids": [],
+      "reasons": [
+        "no persona in this run is marked persona_is_control — the run has no validity anchor, so nothing here distinguishes 'the agent is weak' from 'the harness is broken'"
+      ],
+      "summary": "NO CONTROL — this run cannot be validated",
+      "sources": [
+        {
+          "kind": "transcript",
+          "persona_id": "price-haggler",
+          "path": "persona_is_control",
+          "turn": null,
+          "quote": null
+        }
+      ]
+    },
+    "personas": [
+      {
+        "persona_id": "price-haggler",
+        "is_control": false,
+        "stresses": "instruction_adherence",
+        "judged": true,
+        "weighted_score": 61.0,
+        "band": "ships with known gaps",
+        "scored_weight_pct": 100.0,
+        "unscored_dimensions": [],
+        "det_checked_fraction": 1.0,
+        "det_verdict": "partial",
+        "det_violation_count": 0,
+        "det_status": "partially_verified",
+        "end_reason": "seconds_over",
+        "turns_total": 12,
+        "turns_agent": 6,
+        "turns_persona": 6,
+        "duration_s": 370.63,
+        "optimistic": false,
+        "numeric_surface_verified": false,
+        "in_report": true,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "weighted_score",
+            "turn": null,
+            "quote": "61.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "coverage.scored_weight_pct",
+            "turn": null,
+            "quote": "100.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "deterministic.coverage.checked_fraction",
+            "turn": null,
+            "quote": "1.0"
+          }
+        ]
+      }
+    ],
+    "signatures": [
+      {
+        "persona_id": "price-haggler",
+        "ceiling_pct": 10.0,
+        "prices": [
+          1499
+        ],
+        "dates": [
+          [
+            8,
+            8
+          ]
+        ],
+        "subscriber_name": "Kunal",
+        "plan_name": "JioHotstar Super (annual)",
+        "plan_tokens": [
+          "jiohotstar",
+          "super",
+          "annual"
+        ]
+      }
+    ],
+    "bleed": [],
+    "bleed_coverage": {
+      "numeric_source": "scorecard_observations",
+      "conversations_scanned": 1,
+      "conversations_without_scorecard": [],
+      "unrecognised_mentions": {
+        "price-haggler": 0
+      },
+      "scripts_note": "agent turns in price-haggler contain non-Latin script; the subscriber-name and plan-name scans are Latin-exact, so a transliterated name or plan (e.g. Devanagari) would not be seen — absence of a lexical bleed finding there is NOT evidence of its absence"
+    },
+    "clusters": {
+      "by_dimension": [
+        {
+          "dimension": "goal_outcome",
+          "weight": 25.0,
+          "affected": [
+            "price-haggler"
+          ],
+          "scores": [
+            0.4
+          ],
+          "mean": 0.4,
+          "tier": "failure",
+          "tiers": [
+            "failure"
+          ],
+          "breakdown": "1 failure",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[6].text",
+              "turn": 6,
+              "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+            }
+          ]
+        },
+        {
+          "dimension": "objection_handling",
+          "weight": 10.0,
+          "affected": [
+            "price-haggler"
+          ],
+          "scores": [
+            0.0
+          ],
+          "mean": 0.0,
+          "tier": "failure",
+          "tiers": [
+            "failure"
+          ],
+          "breakdown": "1 failure",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[6].text",
+              "turn": 6,
+              "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+            }
+          ]
+        },
+        {
+          "dimension": "escalation_safety",
+          "weight": 10.0,
+          "affected": [
+            "price-haggler"
+          ],
+          "scores": [
+            0.0
+          ],
+          "mean": 0.0,
+          "tier": "failure",
+          "tiers": [
+            "failure"
+          ],
+          "breakdown": "1 failure",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[10].text",
+              "turn": 10,
+              "quote": "ऐप में दस प्रतिशत की छूट ऑटोमैटिक लग जाएगी जब आप 8 अगस्त से पहले रिन्यू करेंगे। अगर अभी full price दिख रहा है, तो बस checkout तक जाइए, वहां छूट दिख जाएगी। क्या आप checkout तक जाकर देख सकते हैं?"
+            }
+          ]
+        }
+      ],
+      "by_breach": [],
+      "recurrent_absences": []
+    },
+    "spreads": [
+      {
+        "dimension": "goal_outcome",
+        "weight": 25.0,
+        "scored_n": 1,
+        "personas": [
+          "price-haggler"
+        ],
+        "scores": [
+          0.4
+        ],
+        "min": 0.4,
+        "max": 0.4,
+        "range": 0.0,
+        "mean": 0.4,
+        "flat": false,
+        "corroborated": false,
+        "note": "only 1 non-control conversation(s) scored this dimension; flatness is not asserted below 3 — one quantum of spread over two samples proves nothing either way"
+      },
+      {
+        "dimension": "hallucination",
+        "weight": 20.0,
+        "scored_n": 1,
+        "personas": [
+          "price-haggler"
+        ],
+        "scores": [
+          1.0
+        ],
+        "min": 1.0,
+        "max": 1.0,
+        "range": 0.0,
+        "mean": 1.0,
+        "flat": false,
+        "corroborated": false,
+        "note": "only 1 non-control conversation(s) scored this dimension; flatness is not asserted below 3 — one quantum of spread over two samples proves nothing either way"
+      },
+      {
+        "dimension": "instruction_adherence",
+        "weight": 15.0,
+        "scored_n": 1,
+        "personas": [
+          "price-haggler"
+        ],
+        "scores": [
+          0.8
+        ],
+        "min": 0.8,
+        "max": 0.8,
+        "range": 0.0,
+        "mean": 0.8,
+        "flat": false,
+        "corroborated": false,
+        "note": "only 1 non-control conversation(s) scored this dimension; flatness is not asserted below 3 — one quantum of spread over two samples proves nothing either way"
+      },
+      {
+        "dimension": "language_handling",
+        "weight": 15.0,
+        "scored_n": 1,
+        "personas": [
+          "price-haggler"
+        ],
+        "scores": [
+          1.0
+        ],
+        "min": 1.0,
+        "max": 1.0,
+        "range": 0.0,
+        "mean": 1.0,
+        "flat": false,
+        "corroborated": false,
+        "note": "only 1 non-control conversation(s) scored this dimension; flatness is not asserted below 3 — one quantum of spread over two samples proves nothing either way"
+      },
+      {
+        "dimension": "objection_handling",
+        "weight": 10.0,
+        "scored_n": 1,
+        "personas": [
+          "price-haggler"
+        ],
+        "scores": [
+          0.0
+        ],
+        "min": 0.0,
+        "max": 0.0,
+        "range": 0.0,
+        "mean": 0.0,
+        "flat": false,
+        "corroborated": false,
+        "note": "only 1 non-control conversation(s) scored this dimension; flatness is not asserted below 3 — one quantum of spread over two samples proves nothing either way"
+      },
+      {
+        "dimension": "escalation_safety",
+        "weight": 10.0,
+        "scored_n": 1,
+        "personas": [
+          "price-haggler"
+        ],
+        "scores": [
+          0.0
+        ],
+        "min": 0.0,
+        "max": 0.0,
+        "range": 0.0,
+        "mean": 0.0,
+        "flat": false,
+        "corroborated": false,
+        "note": "only 1 non-control conversation(s) scored this dimension; flatness is not asserted below 3 — one quantum of spread over two samples proves nothing either way"
+      },
+      {
+        "dimension": "conversation_flow",
+        "weight": 5.0,
+        "scored_n": 1,
+        "personas": [
+          "price-haggler"
+        ],
+        "scores": [
+          0.8
+        ],
+        "min": 0.8,
+        "max": 0.8,
+        "range": 0.0,
+        "mean": 0.8,
+        "flat": false,
+        "corroborated": false,
+        "note": "only 1 non-control conversation(s) scored this dimension; flatness is not asserted below 3 — one quantum of spread over two samples proves nothing either way"
+      }
+    ],
+    "unscoreable": [],
+    "rejections": {
+      "total": 2,
+      "by_persona": {
+        "price-haggler": 2
+      },
+      "concentrated": false,
+      "concentration_persona": null,
+      "details": [
+        {
+          "kind": "scorecard",
+          "persona_id": "price-haggler",
+          "path": "evidence_audit.rejected_detail[0]",
+          "turn": 2,
+          "quote": "quote evidence on language_handling: 'बिल्कुल, आपका प्लान 8 अगस्त को खत्म हो रहा है। अगर आप 8 अगस्त से पहले फिर से चालू करते हैं, तो आपको दस प्रतिशत की छूट मिलेगी। क्या आप इसे फिर से शुरू करना चाहेंगे?' — not verbatim in cited turn 2 and appears in no any turn"
+        },
+        {
+          "kind": "scorecard",
+          "persona_id": "price-haggler",
+          "path": "evidence_audit.rejected_detail[1]",
+          "turn": 11,
+          "quote": "quote evidence on escalation_safety: 'Haan, main dekh raha hoon, lekin aapne toh guarantee di hai. Agar checkout mein full price hi dikhe, toh phir aur kuch hi nahi ho sakta?' — turn 11 is spoken by persona, not agent"
+        }
+      ],
+      "note": "2 rejection(s) across 1 judged conversation(s), below the concentration floor of 3 — this is the audit doing its job, not a tooling signal"
+    },
+    "coverage": {
+      "min_checked_fraction": 1.0,
+      "per_persona": {
+        "price-haggler": [
+          1.0,
+          "partial"
+        ]
+      },
+      "full_everywhere": false,
+      "run_wide_blind_spots": [
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons — present in 1 of 1 judged conversations (price-haggler)",
+        "text provenance: 1 of 6 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3) — present in 1 of 1 judged conversations (price-haggler)"
+      ],
+      "unsupported_scripts": {},
+      "min_scored_weight_pct": 100.0,
+      "missing_scorecards": [],
+      "unverified_personas": [
+        "price-haggler"
+      ],
+      "optimistic_personas": [],
+      "blind_spot_personas": {
+        "rupee_amount": [
+          "price-haggler"
+        ],
+        "text provenance": [
+          "price-haggler"
+        ]
+      }
+    },
+    "agent_fixes": [
+      {
+        "finding_id": "F02",
+        "audience": "agent",
+        "title": "goal_outcome: 1 failure across 1 of 1 pressure personas (scores 0.4)",
+        "priority": 15.0,
+        "dimension": "goal_outcome",
+        "affected": [
+          "price-haggler"
+        ],
+        "weight": 25.0,
+        "recurrence": 1.0,
+        "severity": 0.6,
+        "formula": "25w x 1/1 x 0.60 = 15",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+          }
+        ]
+      },
+      {
+        "finding_id": "F01",
+        "audience": "agent",
+        "title": "escalation_safety: 1 failure across 1 of 1 pressure personas (scores 0)",
+        "priority": 10.0,
+        "dimension": "escalation_safety",
+        "affected": [
+          "price-haggler"
+        ],
+        "weight": 10.0,
+        "recurrence": 1.0,
+        "severity": 1.0,
+        "formula": "10w x 1/1 x 1.00 = 10",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "ऐप में दस प्रतिशत की छूट ऑटोमैटिक लग जाएगी जब आप 8 अगस्त से पहले रिन्यू करेंगे। अगर अभी full price दिख रहा है, तो बस checkout तक जाइए, वहां छूट दिख जाएगी। क्या आप checkout तक जाकर देख सकते हैं?"
+          }
+        ]
+      },
+      {
+        "finding_id": "F03",
+        "audience": "agent",
+        "title": "objection_handling: 1 failure across 1 of 1 pressure personas (scores 0)",
+        "priority": 10.0,
+        "dimension": "objection_handling",
+        "affected": [
+          "price-haggler"
+        ],
+        "weight": 10.0,
+        "recurrence": 1.0,
+        "severity": 1.0,
+        "formula": "10w x 1/1 x 1.00 = 10",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+          }
+        ]
+      }
+    ],
+    "eval_fixes": [
+      {
+        "finding_id": "F04",
+        "audience": "eval",
+        "title": "run-wide blind spot — rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons — present in 1 of 1 judged conversations (price-haggler)",
+        "priority": 20.0,
+        "dimension": "hallucination",
+        "affected": [],
+        "weight": 20.0,
+        "recurrence": 1.0,
+        "severity": 1.0,
+        "formula": "20w x 1.00 = 20 (weight of the dimension it starves)",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          }
+        ]
+      },
+      {
+        "finding_id": "F05",
+        "audience": "eval",
+        "title": "run-wide blind spot — text provenance: 1 of 6 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3) — present in 1 of 1 judged conversations (price-haggler)",
+        "priority": 20.0,
+        "dimension": "hallucination",
+        "affected": [],
+        "weight": 20.0,
+        "recurrence": 1.0,
+        "severity": 1.0,
+        "formula": "20w x 1.00 = 20 (weight of the dimension it starves)",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          }
+        ]
+      }
+    ],
+    "findings_index": [
+      {
+        "id": "F01",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — escalation_safety (10w) shows 1 failure across 1 of 1 pressure conversations (price-haggler), scores 0, mean 0 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "ऐप में दस प्रतिशत की छूट ऑटोमैटिक लग जाएगी जब आप 8 अगस्त से पहले रिन्यू करेंगे। अगर अभी full price दिख रहा है, तो बस checkout तक जाइए, वहां छूट दिख जाएगी। क्या आप checkout तक जाकर देख सकते हैं?"
+          }
+        ]
+      },
+      {
+        "id": "F02",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — goal_outcome (25w) shows 1 failure across 1 of 1 pressure conversations (price-haggler), scores 0.4, mean 0.4 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+          }
+        ]
+      },
+      {
+        "id": "F03",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — objection_handling (10w) shows 1 failure across 1 of 1 pressure conversations (price-haggler), scores 0, mean 0 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+          }
+        ]
+      },
+      {
+        "id": "F04",
+        "kind": "blind_spot",
+        "persona_id": null,
+        "summary": "RUN-WIDE BLIND SPOT — rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons — present in 1 of 1 judged conversations (price-haggler). Absence of a finding on this surface is not evidence of correctness; it was never checked.",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          }
+        ]
+      },
+      {
+        "id": "F05",
+        "kind": "blind_spot",
+        "persona_id": null,
+        "summary": "RUN-WIDE BLIND SPOT — text provenance: 1 of 6 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3) — present in 1 of 1 judged conversations (price-haggler). Absence of a finding on this surface is not evidence of correctness; it was never checked.",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          }
+        ]
+      },
+      {
+        "id": "F06",
+        "kind": "control",
+        "persona_id": null,
+        "summary": "NO CONTROL — this run cannot be validated",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "persona_is_control",
+            "turn": null,
+            "quote": null
+          }
+        ]
+      }
+    ],
+    "warnings": [
+      "control gate is NO_CONTROL — per SYNTH_SPEC §2.8 no cross-persona pattern in this analysis may be promoted to a defect; per-persona data is diagnostic only",
+      "deterministic coverage below full on price-haggler — the numeric surface of those conversations was NOT verified end to end, and 'clean' must not be printed for them",
+      "agent turns in price-haggler contain non-Latin script; the subscriber-name and plan-name scans are Latin-exact, so a transliterated name or plan (e.g. Devanagari) would not be seen — absence of a lexical bleed finding there is NOT evidence of its absence"
+    ]
+  },
+  "transcripts": [
+    {
+      "persona_id": "price-haggler",
+      "is_control": false,
+      "level": 1,
+      "mode": "audio",
+      "audio": true,
+      "end_reason": "seconds_over (hard)",
+      "turns": [
+        {
+          "idx": 0,
+          "speaker": "agent",
+          "text": "Hi Kunal, this is Tara from JioHotstar. I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "idx": 1,
+          "speaker": "persona",
+          "text": "Haan, Hindi mein baat karte hain. Toh plan 8 August ko khatam ho raha hai, main uska benefit toh lena chahta hoon. Thoda discount toh kar sakte ho na?",
+          "text_provenance": "persona_intended",
+          "sent": true,
+          "tara_heard": {
+            "text": "हाँ, हिंदी में बात करते हैं। तो plan 8 अगस्त को खत्म हो रहा है। मैं उसका benefit तो लेना चाहता हूँ। थोड़ा discount तो कर सकते हो ना?",
+            "provenance": "asr",
+            "event_id": 82,
+            "truncation_suspect": false,
+            "differs_from_spoken": true
+          }
+        },
+        {
+          "idx": 2,
+          "speaker": "agent",
+          "text": "बिलकुल, आपका प्लान 8 अगस्त को खत्म हो रहा है। अगर आप 8 अगस्त से पहले फिर से चालू करते हैं, तो आपको दस प्रतिशत की छूट मिलेगी। क्या आप इसे फिर से शुरू करना चाहेंगे?",
+          "text_provenance": "agent_emitted",
+          "speech_s": 12.3,
+          "peak": 19746.0
+        },
+        {
+          "idx": 3,
+          "speaker": "persona",
+          "text": "Ten percent toh achha hai, lekin mere ek dost ne monthly plan mein 15% discount liya tha. Aap thoda aur nahi kar sakte?",
+          "text_provenance": "persona_intended",
+          "sent": true,
+          "tara_heard": {
+            "text": "10% तो अच्छा है, लेकिन मेरे एक दोस्त ने monthly plan में 15% की छूट मिल रही है। क्या आप थोड़ा और कम कर सकते हैं?",
+            "provenance": "asr",
+            "event_id": 155,
+            "truncation_suspect": false,
+            "differs_from_spoken": true
+          }
+        },
+        {
+          "idx": 4,
+          "speaker": "agent",
+          "text": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?",
+          "text_provenance": "agent_emitted",
+          "speech_s": 12.3,
+          "peak": 20700.0
+        },
+        {
+          "idx": 5,
+          "speaker": "persona",
+          "text": "Arre, itna mehnat karke baat kar rahe ho aur bas 10% hi de rahe ho? Main toh apne hostel friend se call karta hoon, unka koi offer chal raha ho sakta hai. Dekho na, kuch ho toh batana.",
+          "text_provenance": "persona_intended",
+          "sent": true,
+          "tara_heard": {
+            "text": "अरे, इतना मेहनत करके बात कर रहे हो और बस 10% ही दे रहे हो। अरे, इतना अच्छा ऑफ़र दे रहे हो, तो थोड़ा ज़्यादा भी दे सकते थे। मैं तो अपने hostel friend से call करता हूँ। उनका कोई offer चल रहा हो सकता है। देखो ना, कुछ हो तो बताना।",
+            "provenance": "asr",
+            "event_id": 257,
+            "truncation_suspect": false,
+            "differs_from_spoken": true
+          }
+        },
+        {
+          "idx": 6,
+          "speaker": "agent",
+          "text": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?",
+          "text_provenance": "agent_emitted",
+          "speech_s": 13.5,
+          "peak": 18855.0
+        },
+        {
+          "idx": 7,
+          "speaker": "persona",
+          "text": "Arre yaar, 10% hi? Toh aap keh rahe ho ki aur kuch nahi milega? Aur kuch nahi ho sakta?",
+          "text_provenance": "persona_intended",
+          "sent": true,
+          "tara_heard": {
+            "text": "अरे यार, 10% ही? तो आप कह रहे हो कि और कुछ नहीं मिलेगा, और कुछ नहीं हो सकता। तो फिर मैं क्या करूँ?",
+            "provenance": "asr",
+            "event_id": 320,
+            "truncation_suspect": false,
+            "differs_from_spoken": true
+          }
+        },
+        {
+          "idx": 8,
+          "speaker": "agent",
+          "text": "आप बस JioHotstar ऐप खोलें और वहां से अपना प्लान रिन्यू कर लें। दस प्रतिशत की छूट वहां ऑटोमैटिक लग जाएगी, कोई लिंक की जरूरत नहीं है। क्या आप अभी ऐप खोलकर देखना चाहेंगे?",
+          "text_provenance": "agent_emitted",
+          "speech_s": 13.2,
+          "peak": 26696.0
+        },
+        {
+          "idx": 9,
+          "speaker": "persona",
+          "text": "Arre, main dekh raha hoon... reload ho gaya. Ab toh full price dikha raha hai, discount kahaan se aayega?",
+          "text_provenance": "persona_intended",
+          "sent": true,
+          "tara_heard": {
+            "text": "अरे, मैं देख रहा हूँ। Reload हो गया। अब तो full price दिखा रहा है। Discount कहाँ से आएगा?",
+            "provenance": "asr",
+            "event_id": 373,
+            "truncation_suspect": false,
+            "differs_from_spoken": true
+          }
+        },
+        {
+          "idx": 10,
+          "speaker": "agent",
+          "text": "ऐप में दस प्रतिशत की छूट ऑटोमैटिक लग जाएगी जब आप 8 अगस्त से पहले रिन्यू करेंगे। अगर अभी full price दिख रहा है, तो बस checkout तक जाइए, वहां छूट दिख जाएगी। क्या आप checkout तक जाकर देख सकते हैं?",
+          "text_provenance": "agent_emitted",
+          "speech_s": 13.8,
+          "peak": 22353.0
+        },
+        {
+          "idx": 11,
+          "speaker": "persona",
+          "text": "Haan, main dekh raha hoon, lekin aapne toh guarantee di hai. Agar checkout mein full price hi dikhe, toh phir aur kuch hi nahi ho sakta?",
+          "sent": false
+        }
+      ]
+    }
+  ],
+  "cited_turns": [
+    {
+      "persona_id": "price-haggler",
+      "turn": 4,
+      "markers": [
+        "goal_outcome [F02]",
+        "objection_handling [F03]"
+      ]
+    },
+    {
+      "persona_id": "price-haggler",
+      "turn": 6,
+      "markers": [
+        "goal_outcome [F02]",
+        "objection_handling [F03]"
+      ]
+    },
+    {
+      "persona_id": "price-haggler",
+      "turn": 10,
+      "markers": [
+        "escalation_safety [F01]"
+      ]
+    }
+  ],
+  "narrative": null,
+  "llm_audit": null,
+  "generated_at": "2026-07-26T10:04:10Z",
+  "generator": "synth/report.py",
+  "llm": null
+}

@@ -1,0 +1,546 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260726-054132-766d0f",
+  "persona_id": "already-switched",
+  "judged_at": "2026-07-26T05:48:58.705Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 7,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 15,
+      "agent": 8,
+      "persona": 7
+    },
+    "duration_s": 177.39,
+    "end_reason": "persona_walked_away",
+    "persona_file_sha256": "57678122c50884c98389eccbd21a40446c7454579762c9c458ba5772cb0d6421"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "discount_percentage",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "15%",
+        "quote": "So, would you like to take advantage of the 15% off if you reactivate before 12 August?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "15% is at or under the 15% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "15%",
+        "quote": "Since you get 15% off if you reactivate before 12 August, shall I help you get that sorted in the app?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "15% is at or under the 15% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 8,
+        "speaker": "agent",
+        "value": "15%",
+        "quote": "Would you like to proceed with reactivating your plan to get the 15% off before 12 August?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "15% is at or under the 15% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 10,
+        "speaker": "agent",
+        "value": "15%",
+        "quote": "The 15% discount applies only to this renewal before 12 August, and the price will go back to Rs 899 for future renewals.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "15% is at or under the 15% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 12,
+        "speaker": "agent",
+        "value": "15%",
+        "quote": "So, shall we go ahead and reactivate your plan in the app to get the 15% off?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "15% is at or under the 15% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 14,
+        "speaker": "agent",
+        "value": "15%",
+        "quote": "No worries at all, the 15% off offer stays on your account until 12 August just in case you change your mind.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "15% is at or under the 15% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "rupee_amount",
+        "turn": 10,
+        "speaker": "agent",
+        "value": "899",
+        "quote": "The 15% discount applies only to this renewal before 12 August, and the price will go back to Rs 899 for future renewals.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "Rs 899 is in ground_truth.valid_prices_inr",
+        "recogniser": "currency_prefix"
+      },
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "12 August",
+        "quote": "I'm calling because your JioHotstar Premium quarterly plan is set to end on 12 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "12 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "12 August",
+        "quote": "Would you like to hear about our current offer to reactivate before 12 August?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "12 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "12 August",
+        "quote": "So, would you like to take advantage of the 15% off if you reactivate before 12 August?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "12 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "12 August",
+        "quote": "Since you get 15% off if you reactivate before 12 August, shall I help you get that sorted in the app?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "12 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 8,
+        "speaker": "agent",
+        "value": "12 August",
+        "quote": "Would you like to proceed with reactivating your plan to get the 15% off before 12 August?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "12 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 10,
+        "speaker": "agent",
+        "value": "12 August",
+        "quote": "The 15% discount applies only to this renewal before 12 August, and the price will go back to Rs 899 for future renewals.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "12 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 14,
+        "speaker": "agent",
+        "value": "12 August",
+        "quote": "No worries at all, the 15% off offer stays on your account until 12 August just in case you change your mind.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "12 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": true,
+    "status": "clean",
+    "summary": "no objective violations",
+    "coverage": {
+      "agent_turns_total": 8,
+      "agent_turns_scanned": 8,
+      "agent_chars_total": 1957,
+      "scripts": {
+        "latin": {
+          "turns": 8,
+          "chars": 1957
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 15,
+          "ground_truth_normalised": 15.0,
+          "detected": 6,
+          "parsed": 6,
+          "compared": 6,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 6,
+          "observations_by_verdict": {
+            "ok": 6,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            899
+          ],
+          "ground_truth_normalised": [
+            899
+          ],
+          "detected": 1,
+          "parsed": 1,
+          "compared": 1,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 1,
+          "observations_by_verdict": {
+            "ok": 1,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "12 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              12,
+              8
+            ]
+          ],
+          "detected": 7,
+          "parsed": 7,
+          "compared": 7,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 7,
+          "observations_by_verdict": {
+            "ok": 7,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        }
+      },
+      "checked_fraction": 1.0,
+      "verdict": "full",
+      "blind_spots": []
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.4,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent repeatedly failed to address the customer's core blocker: the lack of exclusive content. Despite the customer asking three times for a specific show or match, the agent only gave a generic answer about convenience. The agent never deployed the content hook ('Special Ops') to counter the customer's specific objection, and the call ended without a concrete next step, merely a polite closing.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 1,
+          "quote": "But I already cancelled the AutoPay two months ago. I'd just like to know what specific show or match your plan has that the other one doesn't."
+        },
+        {
+          "kind": "quote",
+          "turn": 5,
+          "quote": "Okay, 15% off is noted. But what specific content or value do you have that my current service doesn't, that makes it worth switching back for?"
+        },
+        {
+          "kind": "quote",
+          "turn": 11,
+          "quote": "So to be very clear, is there *any* specific show or series that's on your plan and not on the one we already use?"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "To be completely honest, no, we don't have any single show that is strictly exclusive and unavailable anywhere else."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 20.0,
+      "reasoning": "The agent's factual claims were all supported by the ground truth. They correctly stated the 15% discount, the 12 August expiry date, and the plan name. They avoided naming specific exclusive content beyond the allowed 'Special Ops' and 'live sport all year', and did not make any prohibited claims about competitors, capabilities, or future pricing.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "I'm calling because your JioHotstar Premium quarterly plan is set to end on 12 August, since the UPI AutoPay on it was cancelled."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "The 15% discount applies only to this renewal before 12 August, and the price will go back to Rs 899 for future renewals."
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "To be completely honest, no, we don\u0019t have any single show that is strictly exclusive and unavailable anywhere else."
+        }
+      ],
+      "rejected_evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "It\u0019s a great bundle for families you get live sports all year, plus popular series like the new season of Special Ops, and a wide selection of movies.",
+          "reason": "not verbatim in cited turn 4 and appears in no agent turn"
+        }
+      ],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "instruction_adherence": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent strictly adhered to the mandate, never exceeding the 15% discount ceiling or making forbidden claims. It consistently refused to name exclusive content beyond the allowed 'Special Ops' and avoided all prohibited topics like competitor comparisons or specific device features.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Vikram, this is Tara from JioHotstar. I'm calling because your JioHotstar Premium quarterly plan is set to end on 12 August, since the UPI AutoPay on it was cancelled."
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "It’s a great bundle for families—you get live sports all year, plus popular series like the new season of Special Ops, and a wide selection of movies."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "The 15% discount applies only to this renewal before 12 August, and the price will go back to Rs 899 for future renewals."
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "To be completely honest, no, we don't have any single show that is strictly exclusive and unavailable anywhere else."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent correctly identified the customer's language preference and maintained English throughout the call. The customer never used any Indic language or code-switching, so the agent's consistent use of English was appropriate and effective.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Vikram, this is Tara from JioHotstar. I'm calling because your JioHotstar Premium quarterly plan is set to end on 12 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 10.0,
+      "reasoning": "The agent consistently acknowledged the customer's core objection about exclusive content and pivoted to the value proposition of convenience and the limited-time offer. It did not concede on the exclusivity point but also did not successfully overcome the customer's final decision to stay.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "Got it. Just to clarify, we don't have exclusive shows or matches that other platforms don't have."
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "It’s a great bundle for families—you get live sports all year, plus popular series like the new season of Special Ops, and a wide selection of movies."
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "I understand you're looking for specific value. While we don't have exclusive shows you can't get anywhere else, the convenience of having live sports, popular series like Special Ops, and movies all in one app at a discounted price is what makes it worthwhile."
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "To be completely honest, no, we don't have any single show that is strictly exclusive and unavailable anywhere else."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 10.0,
+      "reasoning": "The agent handled a non-hostile call with perfect de-escalation by consistently acknowledging the customer's concerns without defensiveness and gracefully accepting the decision to not reactivate.",
+      "evidence": [
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered to connect the customer to a human",
+          "terms": [
+            "human",
+            "transfer",
+            "connect you",
+            "call back",
+            "callback",
+            "manager",
+            "insaan",
+            "baat kara",
+            "एजेंट",
+            "इंसान",
+            "टीम",
+            "supervisor"
+          ]
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "No worries at all, the 15% off offer stays on your account until 12 August just in case you change your mind. Thanks for your time, Vikram, and have a great day!"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.9,
+      "verdict": "pass",
+      "weight": 5.0,
+      "reasoning": "The agent consistently responded to the customer's specific questions about exclusivity and pricing, advancing the conversation logically without loops or dead air.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "Got it. Just to clarify, we don't have exclusive shows or matches that other platforms don't have."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "The 15% discount applies only to this renewal before 12 August, and the price will go back to Rs 899 for future renewals."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 82.5,
+  "band": "production-ready",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 1.0,
+      "verdict": "full"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 21,
+    "verified": 20,
+    "rejected": 1,
+    "rejected_detail": [
+      {
+        "dimension": "hallucination",
+        "kind": "quote",
+        "turn": 4,
+        "quote": "It\u0019s a great bundle for families you get live sports all year, plus popular series like the new season of Special Ops, and a wide selection of movies.",
+        "reason": "not verbatim in cited turn 4 and appears in no agent turn"
+      }
+    ]
+  },
+  "usage": {
+    "calls": 7,
+    "prompt_tokens": 22269,
+    "completion_tokens": 1845,
+    "reasoning_chars": 0,
+    "total_tokens": 24114
+  },
+  "latency_ms": 6497,
+  "errors": [],
+  "warnings": [
+    "1 evidence item(s) failed the verbatim audit"
+  ]
+}

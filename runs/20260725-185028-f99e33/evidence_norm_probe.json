@@ -1,0 +1,222 @@
+[
+  {
+    "quote": "Okay, so the cricket is included. That's the part I wasn't sure about. That makes it more attractive. Yes, please. How do I reactivate.",
+    "cited_turn": 13,
+    "want_speaker": "any",
+    "technique": "strip all punctuation",
+    "found_in_cited_turn": true,
+    "found_in_right_speaker_turns": [
+      13
+    ],
+    "found_in_any_turn": [
+      13
+    ],
+    "speakers": [
+      "persona"
+    ],
+    "persona": "already-switched",
+    "dimension": "goal_outcome",
+    "audit_reason": "not verbatim in turn 13",
+    "truncated": false
+  },
+  {
+    "quote": "पहले बताइए, प्लान क्यों रद्द किया था? और हाँ, 3 अगस्त से पहले फिर से चालू करेंगे तो 25% की छूट मिलेगी, यह लॉयल्टी गेस्चर है.",
+    "cited_turn": 2,
+    "want_speaker": "agent",
+    "technique": "fold danda->period",
+    "found_in_cited_turn": true,
+    "found_in_right_speaker_turns": [
+      2
+    ],
+    "found_in_any_turn": [
+      2
+    ],
+    "speakers": [
+      "agent"
+    ],
+    "persona": "angry-churner",
+    "dimension": "hallucination",
+    "audit_reason": "not verbatim in turn 2",
+    "truncated": false
+  },
+  {
+    "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्",
+    "cited_turn": 4,
+    "want_speaker": "agent",
+    "technique": "raw substring",
+    "found_in_cited_turn": true,
+    "found_in_right_speaker_turns": [
+      4
+    ],
+    "found_in_any_turn": [
+      4
+    ],
+    "speakers": [
+      "agent"
+    ],
+    "persona": "angry-churner",
+    "dimension": "hallucination",
+    "audit_reason": "not verbatim in turn 4",
+    "truncated": true
+  },
+  {
+    "quote": "मैं आपकी नाराजगी समझ सकतूँ हूँ, और सच में बफरिंग के लिए बहुत सॉर्री हूँ। पर रिफंड का कोई ऑप्शन हमारे पास नहीं है। यह 25% की छूट बस एक लॉयल्टी गेस्चर है ताकि आप ",
+    "cited_turn": 6,
+    "want_speaker": "agent",
+    "technique": "raw substring",
+    "found_in_cited_turn": true,
+    "found_in_right_speaker_turns": [
+      6
+    ],
+    "found_in_any_turn": [
+      6
+    ],
+    "speakers": [
+      "agent"
+    ],
+    "persona": "angry-churner",
+    "dimension": "hallucination",
+    "audit_reason": "not verbatim in turn 6",
+    "truncated": true
+  },
+  {
+    "quote": "मैं समझ सकतूँ हूँ कि आप कितने नाराज़ हैं, और मैन्युअल रिफंड देना मेरे हाथ में नहीं है। पर 3 अगस्त तक प्लान रिन्यू करने पर 25% की छूट तुरंत लग जाएगी.",
+    "cited_turn": 8,
+    "want_speaker": "agent",
+    "technique": "fold danda->period",
+    "found_in_cited_turn": true,
+    "found_in_right_speaker_turns": [
+      8
+    ],
+    "found_in_any_turn": [
+      8
+    ],
+    "speakers": [
+      "agent"
+    ],
+    "persona": "angry-churner",
+    "dimension": "hallucination",
+    "audit_reason": "not verbatim in turn 8",
+    "truncated": false
+  },
+  {
+    "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ.",
+    "cited_turn": 10,
+    "want_speaker": "agent",
+    "technique": "fold danda->period",
+    "found_in_cited_turn": true,
+    "found_in_right_speaker_turns": [
+      10
+    ],
+    "found_in_any_turn": [
+      10
+    ],
+    "speakers": [
+      "agent"
+    ],
+    "persona": "angry-churner",
+    "dimension": "hallucination",
+    "audit_reason": "not verbatim in turn 10",
+    "truncated": false
+  },
+  {
+    "quote": "हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी।",
+    "cited_turn": 2,
+    "want_speaker": "agent",
+    "technique": "raw substring",
+    "found_in_cited_turn": false,
+    "found_in_right_speaker_turns": [
+      4
+    ],
+    "found_in_any_turn": [
+      4
+    ],
+    "speakers": [
+      "agent"
+    ],
+    "persona": "angry-churner",
+    "dimension": "instruction_adherence",
+    "audit_reason": "not verbatim in turn 2",
+    "truncated": false
+  },
+  {
+    "quote": "Hindi!",
+    "cited_turn": 0,
+    "want_speaker": "any",
+    "technique": "raw substring",
+    "found_in_cited_turn": false,
+    "found_in_right_speaker_turns": [
+      1
+    ],
+    "found_in_any_turn": [
+      1
+    ],
+    "speakers": [
+      "persona"
+    ],
+    "persona": "angry-churner",
+    "dimension": "language_handling",
+    "audit_reason": "not verbatim in turn 0",
+    "truncated": false
+  },
+  {
+    "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं",
+    "cited_turn": 10,
+    "want_speaker": "agent",
+    "technique": "raw substring",
+    "found_in_cited_turn": true,
+    "found_in_right_speaker_turns": [
+      10
+    ],
+    "found_in_any_turn": [
+      10
+    ],
+    "speakers": [
+      "agent"
+    ],
+    "persona": "angry-churner",
+    "dimension": "objection_handling",
+    "audit_reason": "not verbatim in turn 10",
+    "truncated": true
+  },
+  {
+    "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं",
+    "cited_turn": 10,
+    "want_speaker": "agent",
+    "technique": "raw substring",
+    "found_in_cited_turn": true,
+    "found_in_right_speaker_turns": [
+      10
+    ],
+    "found_in_any_turn": [
+      10
+    ],
+    "speakers": [
+      "agent"
+    ],
+    "persona": "angry-churner",
+    "dimension": "conversation_flow",
+    "audit_reason": "not verbatim in turn 10",
+    "truncated": true
+  },
+  {
+    "quote": "Haan, bilkul sahi. Aapka plan 8 August ko end ho raha hai.",
+    "cited_turn": 0,
+    "want_speaker": "any",
+    "technique": "raw substring",
+    "found_in_cited_turn": false,
+    "found_in_right_speaker_turns": [
+      2
+    ],
+    "found_in_any_turn": [
+      2
+    ],
+    "speakers": [
+      "agent"
+    ],
+    "persona": "price-haggler",
+    "dimension": "language_handling",
+    "audit_reason": "not verbatim in turn 0",
+    "truncated": false
+  }
+]

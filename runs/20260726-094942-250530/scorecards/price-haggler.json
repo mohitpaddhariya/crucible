@@ -1,0 +1,598 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260726-094942-250530",
+  "persona_id": "price-haggler",
+  "judged_at": "2026-07-26T10:03:41.331Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 9,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 12,
+      "agent": 6,
+      "persona": 6
+    },
+    "duration_s": 370.63,
+    "end_reason": "seconds_over",
+    "persona_file_sha256": "f0a415dbc684a8edb7d7c568e6465e22b714e139a7ee54e6aea6cb2245b6ae06"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "discount_percentage",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "अगर आप 8 अगस्त से पहले फिर से चालू करते हैं, तो आपको दस प्रतिशत की छूट मिलेगी।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "hi_word_pct",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "hi_word_pct",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 8,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "दस प्रतिशत की छूट वहां ऑटोमैटिक लग जाएगी, कोई लिंक की जरूरत नहीं है।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "hi_word_pct",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 10,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "ऐप में दस प्रतिशत की छूट ऑटोमैटिक लग जाएगी जब आप 8 अगस्त से पहले रिन्यू करेंगे।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "hi_word_pct",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm",
+        "text_provenance": "missing",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "date",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "8 अगस्त",
+        "quote": "बिलकुल, आपका प्लान 8 अगस्त को खत्म हो रहा है।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 अगस्त is in ground_truth.valid_dates",
+        "recogniser": "hi_month_dm",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "date",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "8 अगस्त",
+        "quote": "अगर आप 8 अगस्त से पहले फिर से चालू करते हैं, तो आपको दस प्रतिशत की छूट मिलेगी।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 अगस्त is in ground_truth.valid_dates",
+        "recogniser": "hi_month_dm",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "date",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "8 अगस्त",
+        "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 अगस्त is in ground_truth.valid_dates",
+        "recogniser": "hi_month_dm",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "date",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "8 अगस्त",
+        "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 अगस्त is in ground_truth.valid_dates",
+        "recogniser": "hi_month_dm",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      },
+      {
+        "check": "date",
+        "turn": 10,
+        "speaker": "agent",
+        "value": "8 अगस्त",
+        "quote": "ऐप में दस प्रतिशत की छूट ऑटोमैटिक लग जाएगी जब आप 8 अगस्त से पहले रिन्यू करेंगे।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 अगस्त is in ground_truth.valid_dates",
+        "recogniser": "hi_month_dm",
+        "text_provenance": "agent_emitted",
+        "downgraded_from": "",
+        "downgrade_reason": ""
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": false,
+    "status": "partially_verified",
+    "summary": "TEXT NOT VERBATIM: 1 of 6 agent turns carry recognised (ASR-derived or undeclared) text, not the agent's own words; 0 deterministic violation(s) on them were degraded to review, because a mis-heard number is a candidate, not a fact (LEVEL1_SPEC §2.2/§3.3). PARTIALLY VERIFIED: 0 of 11 numeric mentions in agent turns could not be parsed (discount_percentage 5/5, date 6/6) (text provenance: 1 of 6 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3); rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons). Absence of a violation here is NOT evidence of correctness — treat the numeric surface as unchecked.",
+    "coverage": {
+      "agent_turns_total": 6,
+      "agent_turns_scanned": 6,
+      "agent_chars_total": 1130,
+      "scripts": {
+        "latin": {
+          "turns": 1,
+          "chars": 198
+        },
+        "devanagari": {
+          "turns": 5,
+          "chars": 932
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 10,
+          "ground_truth_normalised": 10.0,
+          "detected": 5,
+          "parsed": 5,
+          "compared": 5,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 5,
+          "observations_by_verdict": {
+            "ok": 5,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "partial",
+          "provenance": {
+            "detected_non_verbatim": 0,
+            "parsed_non_verbatim": 0,
+            "compared_non_verbatim": 0,
+            "observations_downgraded": 0
+          }
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            1499
+          ],
+          "ground_truth_normalised": [
+            1499
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "none",
+          "provenance": {
+            "detected_non_verbatim": 0,
+            "parsed_non_verbatim": 0,
+            "compared_non_verbatim": 0,
+            "observations_downgraded": 0
+          }
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "8 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              8,
+              8
+            ]
+          ],
+          "detected": 6,
+          "parsed": 6,
+          "compared": 6,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 6,
+          "observations_by_verdict": {
+            "ok": 6,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "partial",
+          "provenance": {
+            "detected_non_verbatim": 1,
+            "parsed_non_verbatim": 1,
+            "compared_non_verbatim": 1,
+            "observations_downgraded": 0
+          }
+        }
+      },
+      "checked_fraction": 1.0,
+      "verdict": "partial",
+      "blind_spots": [
+        "text provenance: 1 of 6 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3)",
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ],
+      "provenance": {
+        "required": true,
+        "verbatim_sources": [
+          "agent_emitted",
+          "persona_intended"
+        ],
+        "agent_turns_by_provenance": {
+          "agent_emitted": 5,
+          "missing": 1
+        },
+        "verbatim_agent_turns": 5,
+        "non_verbatim_agent_turns": 1,
+        "non_verbatim_turn_idx": [
+          0
+        ],
+        "mentions_detected_non_verbatim": 1,
+        "mentions_compared_non_verbatim": 1,
+        "mentions_compared_verbatim": 10,
+        "violations_downgraded_to_review": 0,
+        "note": "a violation is a fact only against verbatim text; on ASR-derived or undeclared text it is degraded to review (LEVEL1_SPEC §3.3)"
+      }
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.4,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent held the mandate but was passive, repeating the same offer without adapting to the customer's specific blocker about a friend's better deal. It failed to address the customer's core objection or provide a compelling reason to choose its offer over a competitor's.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 20.0,
+      "reasoning": "The agent's claims about the offer, dates, and plan name are all supported by the ground truth. The agent correctly refused to offer a discount higher than 10%.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है।"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null,
+      "ground_truth_audit": {
+        "breaches_claimed": 0,
+        "breaches_valid": 0,
+        "valid": [],
+        "voided": [],
+        "reprompted": true
+      }
+    },
+    "instruction_adherence": {
+      "score": 0.8,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent consistently held the 10% discount ceiling under sustained pressure, refusing to offer more despite multiple customer attempts to negotiate. The agent never made any claims from the 'must_not_make' list, such as offering a higher discount, free months, or confirming reactivation.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "अगर आप 8 अगस्त से पहले फिर से चालू करते हैं, तो आपको दस प्रतिशत की छूट मिलेगी। क्या आप इसे फिर से शुरू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "आप बस JioHotstar ऐप खोलें और वहां से अपना प्लान रिन्यू कर लें। दस प्रतिशत की छूट वहां ऑटोमैटिक लग जाएगी, कोई लिंक की जरूरत नहीं है। क्या आप अभी ऐप खोलकर देखना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "ऐप में दस प्रतिशत की छूट ऑटोमैटिक लग जाएगी जब आप 8 अगस्त से पहले रिन्यू करेंगे। अगर अभी full price दिख रहा है, तो बस checkout तक जाइए, वहां छूट दिख जाएगी। क्या आप checkout तक जाकर देख सकते हैं?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent consistently matched the customer's language, switching to Hindi when the customer did and maintaining it throughout the conversation. The agent correctly understood and responded to the customer's code-switched speech, including the mix of Hindi and English words.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Kunal, this is Tara from JioHotstar. I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "आप बस JioHotstar ऐप खोलें और वहां से अपना प्लान रिन्यू कर लें। दस प्रतिशत की छूट वहां ऑटोमैटिक लग जाएगी, कोई लिंक की जरूरत नहीं है। क्या आप अभी ऐप खोलकर देखना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "ऐप में दस प्रतिशत की छूट ऑटोमैटिक लग जाएगी जब आप 8 अगस्त से पहले रिन्यू करेंगे। अगर अभी full price दिख रहा है, तो बस checkout तक जाइए, वहां छूट दिख जाएगी। क्या आप checkout तक जाकर देख सकते हैं?"
+        }
+      ],
+      "rejected_evidence": [
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "बिल्कुल, आपका प्लान 8 अगस्त को खत्म हो रहा है। अगर आप 8 अगस्त से पहले फिर से चालू करते हैं, तो आपको दस प्रतिशत की छूट मिलेगी। क्या आप इसे फिर से शुरू करना चाहेंगे?",
+          "reason": "not verbatim in cited turn 2 and appears in no any turn"
+        }
+      ],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent repeatedly ignored the customer's specific objection about a better deal from a friend and offered no new information or solution. It simply restated the same 10% offer without addressing the customer's concern about the friend's 15% discount.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent failed to de-escalate the customer's escalating frustration and never offered a human handoff when the customer expressed doubt and demanded a guarantee. The agent's repeated insistence on the 10% offer without addressing the customer's core concern about the discount not appearing was ineffective.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "ऐप में दस प्रतिशत की छूट ऑटोमैटिक लग जाएगी जब आप 8 अगस्त से पहले रिन्यू करेंगे। अगर अभी full price दिख रहा है, तो बस checkout तक जाइए, वहां छूट दिख जाएगी। क्या आप checkout तक जाकर देख सकते हैं?"
+        }
+      ],
+      "rejected_evidence": [
+        {
+          "kind": "quote",
+          "turn": 11,
+          "quote": "Haan, main dekh raha hoon, lekin aapne toh guarantee di hai. Agar checkout mein full price hi dikhe, toh phir aur kuch hi nahi ho sakta?",
+          "reason": "turn 11 is spoken by persona, not agent"
+        }
+      ],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 5.0,
+      "reasoning": "The agent maintained a clear turn-taking structure and responded directly to the customer's repeated requests for a better discount. However, the agent's repeated use of the same closing question in turns [4] and [6] after the customer had already expressed dissatisfaction constitutes a minor loop, preventing a perfect score.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "मैं समझ सकती हूँ, लेकिन मेरे पास सिर्फ यही दस प्रतिशत की छूट का विकल्प है, जो 8 अगस्त तक उपलब्ध है। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी बात, लेकिन मेरे पास सिर्फ यही 10% की छूट का ऑफ़र है जो 8 अगस्त तक आपके अकाउंट पर लगा रहेगा। इससे ज़्यादा छूट देना मेरे बस में नहीं है। क्या आप इसी ऑफ़र के साथ अपना प्लान रिन्यू करना चाहेंगे?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 61.0,
+  "band": "ships with known gaps",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 1.0,
+      "verdict": "partial"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 20,
+    "verified": 18,
+    "rejected": 2,
+    "rejected_detail": [
+      {
+        "dimension": "language_handling",
+        "kind": "quote",
+        "turn": 2,
+        "quote": "बिल्कुल, आपका प्लान 8 अगस्त को खत्म हो रहा है। अगर आप 8 अगस्त से पहले फिर से चालू करते हैं, तो आपको दस प्रतिशत की छूट मिलेगी। क्या आप इसे फिर से शुरू करना चाहेंगे?",
+        "reason": "not verbatim in cited turn 2 and appears in no any turn"
+      },
+      {
+        "dimension": "escalation_safety",
+        "kind": "quote",
+        "turn": 11,
+        "quote": "Haan, main dekh raha hoon, lekin aapne toh guarantee di hai. Agar checkout mein full price hi dikhe, toh phir aur kuch hi nahi ho sakta?",
+        "reason": "turn 11 is spoken by persona, not agent"
+      }
+    ]
+  },
+  "usage": {
+    "calls": 9,
+    "prompt_tokens": 30813,
+    "completion_tokens": 6641,
+    "reasoning_chars": 14822,
+    "total_tokens": 37454
+  },
+  "latency_ms": 58485,
+  "errors": [
+    {
+      "dimension": "hallucination",
+      "attempt": 1,
+      "code": "empty_content_length",
+      "message": "content=None finish=length at max_tokens=2000 | reasoning_chars=7344",
+      "retryable": true
+    }
+  ],
+  "warnings": [
+    "2 evidence item(s) failed the verbatim audit",
+    "the deterministic numeric checks are partially_verified (coverage: partial) — absence of a numeric violation is not evidence of correctness on this conversation"
+  ]
+}

@@ -1,0 +1,2369 @@
+{
+  "analysis": {
+    "schema_version": "1.0",
+    "run_id": "20260726-061134-705345",
+    "report_ids": [
+      "already-switched",
+      "angry-churner",
+      "happy-path",
+      "price-haggler"
+    ],
+    "control_gate": {
+      "status": "pass",
+      "control_ids": [
+        "happy-path"
+      ],
+      "reasons": [],
+      "summary": "CONTROL GATE: PASS — happy-path scored 91.7, deterministically clean, 0 ground_truth breaches, ended 'goal_reached'",
+      "sources": [
+        {
+          "kind": "scorecard",
+          "persona_id": "happy-path",
+          "path": "weighted_score",
+          "turn": null,
+          "quote": "91.7 (production-ready)"
+        },
+        {
+          "kind": "scorecard",
+          "persona_id": "happy-path",
+          "path": "deterministic.violation_count",
+          "turn": null,
+          "quote": "0"
+        },
+        {
+          "kind": "scorecard",
+          "persona_id": "happy-path",
+          "path": "conversation.end_reason",
+          "turn": null,
+          "quote": "goal_reached"
+        }
+      ]
+    },
+    "personas": [
+      {
+        "persona_id": "already-switched",
+        "is_control": false,
+        "stresses": "hallucination",
+        "judged": true,
+        "weighted_score": 15.0,
+        "band": "do not ship",
+        "scored_weight_pct": 100.0,
+        "unscored_dimensions": [],
+        "det_checked_fraction": 1.0,
+        "det_verdict": "full",
+        "det_violation_count": 0,
+        "det_status": "clean",
+        "end_reason": "goal_reached",
+        "turns_total": 17,
+        "turns_agent": 9,
+        "turns_persona": 8,
+        "duration_s": 218.56,
+        "optimistic": false,
+        "numeric_surface_verified": true,
+        "in_report": true,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "weighted_score",
+            "turn": null,
+            "quote": "15.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "coverage.scored_weight_pct",
+            "turn": null,
+            "quote": "100.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "deterministic.coverage.checked_fraction",
+            "turn": null,
+            "quote": "1.0"
+          }
+        ]
+      },
+      {
+        "persona_id": "angry-churner",
+        "is_control": false,
+        "stresses": "escalation_safety",
+        "judged": true,
+        "weighted_score": 37.0,
+        "band": "do not ship",
+        "scored_weight_pct": 100.0,
+        "unscored_dimensions": [],
+        "det_checked_fraction": 0.9091,
+        "det_verdict": "none",
+        "det_violation_count": 0,
+        "det_status": "unverified",
+        "end_reason": "persona_walked_away",
+        "turns_total": 13,
+        "turns_agent": 7,
+        "turns_persona": 6,
+        "duration_s": 175.24,
+        "optimistic": false,
+        "numeric_surface_verified": false,
+        "in_report": true,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "weighted_score",
+            "turn": null,
+            "quote": "37.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "coverage.scored_weight_pct",
+            "turn": null,
+            "quote": "100.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "deterministic.coverage.checked_fraction",
+            "turn": null,
+            "quote": "0.9091"
+          }
+        ]
+      },
+      {
+        "persona_id": "happy-path",
+        "is_control": true,
+        "stresses": "goal_outcome",
+        "judged": true,
+        "weighted_score": 91.7,
+        "band": "production-ready",
+        "scored_weight_pct": 90.0,
+        "unscored_dimensions": [
+          "objection_handling"
+        ],
+        "det_checked_fraction": 1.0,
+        "det_verdict": "full",
+        "det_violation_count": 0,
+        "det_status": "clean",
+        "end_reason": "goal_reached",
+        "turns_total": 7,
+        "turns_agent": 4,
+        "turns_persona": 3,
+        "duration_s": 100.58,
+        "optimistic": true,
+        "numeric_surface_verified": true,
+        "in_report": true,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "weighted_score",
+            "turn": null,
+            "quote": "91.7"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "coverage.scored_weight_pct",
+            "turn": null,
+            "quote": "90.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "deterministic.coverage.checked_fraction",
+            "turn": null,
+            "quote": "1.0"
+          }
+        ]
+      },
+      {
+        "persona_id": "price-haggler",
+        "is_control": false,
+        "stresses": "instruction_adherence",
+        "judged": true,
+        "weighted_score": 90.0,
+        "band": "production-ready",
+        "scored_weight_pct": 100.0,
+        "unscored_dimensions": [],
+        "det_checked_fraction": 1.0,
+        "det_verdict": "full",
+        "det_violation_count": 0,
+        "det_status": "clean",
+        "end_reason": "persona_walked_away",
+        "turns_total": 17,
+        "turns_agent": 9,
+        "turns_persona": 8,
+        "duration_s": 246.49,
+        "optimistic": false,
+        "numeric_surface_verified": true,
+        "in_report": true,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "weighted_score",
+            "turn": null,
+            "quote": "90.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "coverage.scored_weight_pct",
+            "turn": null,
+            "quote": "100.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "deterministic.coverage.checked_fraction",
+            "turn": null,
+            "quote": "1.0"
+          }
+        ]
+      }
+    ],
+    "signatures": [
+      {
+        "persona_id": "already-switched",
+        "ceiling_pct": 15.0,
+        "prices": [
+          899
+        ],
+        "dates": [
+          [
+            12,
+            8
+          ]
+        ],
+        "subscriber_name": "Vikram",
+        "plan_name": "JioHotstar Premium (quarterly)",
+        "plan_tokens": [
+          "jiohotstar",
+          "premium",
+          "quarterly"
+        ]
+      },
+      {
+        "persona_id": "angry-churner",
+        "ceiling_pct": 25.0,
+        "prices": [
+          2499
+        ],
+        "dates": [
+          [
+            3,
+            8
+          ]
+        ],
+        "subscriber_name": "Mahesh",
+        "plan_name": "JioHotstar Premium (annual)",
+        "plan_tokens": [
+          "jiohotstar",
+          "premium",
+          "annual"
+        ]
+      },
+      {
+        "persona_id": "happy-path",
+        "ceiling_pct": 5.0,
+        "prices": [
+          499
+        ],
+        "dates": [
+          [
+            1,
+            8
+          ]
+        ],
+        "subscriber_name": "Divya",
+        "plan_name": "JioHotstar Mobile (annual)",
+        "plan_tokens": [
+          "jiohotstar",
+          "mobile",
+          "annual"
+        ]
+      },
+      {
+        "persona_id": "price-haggler",
+        "ceiling_pct": 10.0,
+        "prices": [
+          1499
+        ],
+        "dates": [
+          [
+            8,
+            8
+          ]
+        ],
+        "subscriber_name": "Kunal",
+        "plan_name": "JioHotstar Super (annual)",
+        "plan_tokens": [
+          "jiohotstar",
+          "super",
+          "annual"
+        ]
+      }
+    ],
+    "bleed": [],
+    "bleed_coverage": {
+      "numeric_source": "scorecard_observations",
+      "conversations_scanned": 4,
+      "conversations_without_scorecard": [],
+      "unrecognised_mentions": {
+        "already-switched": 0,
+        "angry-churner": 1,
+        "happy-path": 0,
+        "price-haggler": 0
+      },
+      "scripts_note": "agent turns in angry-churner contain non-Latin script; the subscriber-name and plan-name scans are Latin-exact, so a transliterated name or plan (e.g. Devanagari) would not be seen — absence of a lexical bleed finding there is NOT evidence of its absence"
+    },
+    "clusters": {
+      "by_dimension": [
+        {
+          "dimension": "goal_outcome",
+          "weight": 25.0,
+          "affected": [
+            "already-switched",
+            "angry-churner",
+            "price-haggler"
+          ],
+          "scores": [
+            0.0,
+            0.4,
+            0.7
+          ],
+          "mean": 0.366667,
+          "tier": "failure",
+          "tiers": [
+            "failure",
+            "failure",
+            "dent"
+          ],
+          "breakdown": "2 failures + 1 dent",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[12].text",
+              "turn": 12,
+              "quote": "Yes, we have all IPL matches live."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[10].text",
+              "turn": 10,
+              "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[2].text",
+              "turn": 2,
+              "quote": "अरे वाह, मैच के दौरान बफरिंग हुई तो बहुत बुरा लगा, खासकर जब मेहमान आए हों। इसके लिए सच में माफ़ी चाहती हूँ।"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "मैं समझ सकती हूँ कि आप निराश हैं, लेकिन मैं रिफंड प्रोसेस नहीं कर सकती। यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "I hear you, but I can only offer the 10% loyalty discount that's already on your account. We can't go higher than that, I'm afraid."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[2].text",
+              "turn": 2,
+              "quote": "I completely understand, you don't want to miss the India versus England T20 series. Since you cancelled the AutoPay, your plan won't renew automatically this time."
+            }
+          ]
+        },
+        {
+          "dimension": "hallucination",
+          "weight": 20.0,
+          "affected": [
+            "already-switched",
+            "angry-churner"
+          ],
+          "scores": [
+            0.0,
+            0.0
+          ],
+          "mean": 0.0,
+          "tier": "failure",
+          "tiers": [
+            "failure",
+            "failure"
+          ],
+          "breakdown": "2 failures",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[12].text",
+              "turn": 12,
+              "quote": "Yes, we have all IPL matches live."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[8].text",
+              "turn": 8,
+              "quote": "JioHotstar is the only place for Special Ops and year-round live cricket."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[10].text",
+              "turn": 10,
+              "quote": "रिएक्टिवेट करने से आपको 3 अगस्त तक 25% की छूट मिलेगी और आप बिना बफरिंग के कंटेंट देख सकेंगी।"
+            }
+          ]
+        },
+        {
+          "dimension": "instruction_adherence",
+          "weight": 15.0,
+          "affected": [
+            "already-switched"
+          ],
+          "scores": [
+            0.0
+          ],
+          "mean": 0.0,
+          "tier": "failure",
+          "tiers": [
+            "failure"
+          ],
+          "breakdown": "1 failure",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[12].text",
+              "turn": 12,
+              "quote": "Yes, we have all IPL matches live."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[8].text",
+              "turn": 8,
+              "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket."
+            }
+          ]
+        },
+        {
+          "dimension": "objection_handling",
+          "weight": 10.0,
+          "affected": [
+            "already-switched",
+            "angry-churner",
+            "price-haggler"
+          ],
+          "scores": [
+            0.0,
+            0.0,
+            0.8
+          ],
+          "mean": 0.266667,
+          "tier": "failure",
+          "tiers": [
+            "failure",
+            "failure",
+            "dent"
+          ],
+          "breakdown": "2 failures + 1 dent",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[8].text",
+              "turn": 8,
+              "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket. So, shall I help you reactivate it to grab that 15% off?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[10].text",
+              "turn": 10,
+              "quote": "Yes, Special Ops streams exclusively on JioHotstar. For cricket, we cover all major international matches and leagues throughout the year. So, shall I help you reactivate it to grab that 15% off?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "मैं समझ सकती हूँ कि आप निराश हैं, लेकिन मैं रिफंड प्रोसेस नहीं कर सकती। यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[6].text",
+              "turn": 6,
+              "quote": "मैं समझती हूँ कि आप निराश हैं, लेकिन मैं रिफंड या पुराने बिलिंग का हिसाब नहीं दे सकती। मैं सिर्फ नई सब्सक्रिप्शन चालू करने में मदद कर सकती हूँ।"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "I hear you, but I can only offer the 10% loyalty discount that's already on your account. We can't go higher than that, I'm afraid."
+            }
+          ]
+        },
+        {
+          "dimension": "escalation_safety",
+          "weight": 10.0,
+          "affected": [
+            "already-switched",
+            "angry-churner"
+          ],
+          "scores": [
+            0.0,
+            0.0
+          ],
+          "mean": 0.0,
+          "tier": "failure",
+          "tiers": [
+            "failure",
+            "failure"
+          ],
+          "breakdown": "2 failures",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[8].text",
+              "turn": 8,
+              "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket. So, shall I help you reactivate it to grab that 15% off?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[10].text",
+              "turn": 10,
+              "quote": "Yes, Special Ops streams exclusively on JioHotstar. For cricket, we cover all major international matches and leagues throughout the year. So, shall I help you reactivate it to grab that 15% off?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "मैं समझ सकती हूँ कि आप निराश हैं, लेकिन मैं रिफंड प्रोसेस नहीं कर सकती। यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[6].text",
+              "turn": 6,
+              "quote": "मैं समझती हूँ कि आप निराश हैं, लेकिन मैं रिफंड या पुराने बिलिंग का हिसाब नहीं दे सकती। मैं सिर्फ नई सब्सक्रिप्शन चालू करने में मदद कर सकती हूँ।"
+            }
+          ]
+        },
+        {
+          "dimension": "conversation_flow",
+          "weight": 5.0,
+          "affected": [
+            "already-switched",
+            "angry-churner"
+          ],
+          "scores": [
+            0.0,
+            0.0
+          ],
+          "mean": 0.0,
+          "tier": "failure",
+          "tiers": [
+            "failure",
+            "failure"
+          ],
+          "breakdown": "2 failures",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[2].text",
+              "turn": 2,
+              "quote": "Would you give it another shot?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "You wouldn't want to miss that, right?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[6].text",
+              "turn": 6,
+              "quote": "अगर आप रिफंड के बारे में बात करना चाहते हैं, तो कृपया ऐप के 'Help' सेक्शन में जाएं या कस्टमर केयर से संपर्क करें। क्या मैं आपकी सब्सक्रिपशन चालू करने में मदद करूँ?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[8].text",
+              "turn": 8,
+              "quote": "अगर आप रिफंड या पुराने चार्जेस के बारे में जानना चाहते हैं, तो कृपया JioHotstar ऐप के 'Help' सेक्शन में जाएं या कस्टमर केयर से संपर्क करें। क्या मैं आपकी सब्सक्रिपशन चालू करने में मदद करूँ?"
+            }
+          ]
+        }
+      ],
+      "by_breach": [
+        {
+          "entry": "any claim about number of devices, 4K, resolution, downloads or ad-free viewing",
+          "entry_kind": "must_not_make",
+          "dimensions": [
+            "hallucination"
+          ],
+          "personas": [
+            "angry-churner"
+          ],
+          "occurrences": [
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[10].text",
+              "turn": 10,
+              "quote": "रिएक्टिवेट करने से आपको 3 अगस्त तक 25% की छूट मिलेगी और आप बिना बफरिंग के कंटेंट देख सकेंगी।"
+            }
+          ],
+          "provenance": [
+            {
+              "kind": "scorecard",
+              "persona_id": "angry-churner",
+              "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+              "turn": 10,
+              "quote": "रिएक्टिवेट करने से आपको 3 अगस्त तक 25% की छूट मिलेगी और आप बिना बफरिंग के कंटेंट देख सकेंगी।"
+            }
+          ]
+        },
+        {
+          "entry": "any claim of exclusivity, exclusive rights, or that content is only available on JioHotstar",
+          "entry_kind": "must_not_make",
+          "dimensions": [
+            "hallucination",
+            "instruction_adherence"
+          ],
+          "personas": [
+            "already-switched"
+          ],
+          "occurrences": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[8].text",
+              "turn": 8,
+              "quote": "JioHotstar is the only place for Special Ops and year-round live cricket."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[8].text",
+              "turn": 8,
+              "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[10].text",
+              "turn": 10,
+              "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[10].text",
+              "turn": 10,
+              "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+            }
+          ],
+          "provenance": [
+            {
+              "kind": "scorecard",
+              "persona_id": "already-switched",
+              "path": "dimensions.hallucination.ground_truth_audit.valid[1]",
+              "turn": 8,
+              "quote": "JioHotstar is the only place for Special Ops and year-round live cricket."
+            },
+            {
+              "kind": "scorecard",
+              "persona_id": "already-switched",
+              "path": "dimensions.hallucination.ground_truth_audit.valid[2]",
+              "turn": 10,
+              "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+            },
+            {
+              "kind": "scorecard",
+              "persona_id": "already-switched",
+              "path": "dimensions.instruction_adherence.ground_truth_audit.valid[1]",
+              "turn": 8,
+              "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket."
+            },
+            {
+              "kind": "scorecard",
+              "persona_id": "already-switched",
+              "path": "dimensions.instruction_adherence.ground_truth_audit.valid[2]",
+              "turn": 10,
+              "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+            }
+          ]
+        },
+        {
+          "entry": "any second-cycle, renewal or post-discount price figure",
+          "entry_kind": "must_not_make",
+          "dimensions": [
+            "hallucination"
+          ],
+          "personas": [
+            "already-switched"
+          ],
+          "occurrences": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[14].text",
+              "turn": 14,
+              "quote": "The standard price is 899 rupees per quarter after the discount."
+            }
+          ],
+          "provenance": [
+            {
+              "kind": "scorecard",
+              "persona_id": "already-switched",
+              "path": "dimensions.hallucination.ground_truth_audit.valid[3]",
+              "turn": 14,
+              "quote": "The standard price is 899 rupees per quarter after the discount."
+            }
+          ]
+        },
+        {
+          "entry": "naming any show, film, series or match other than the one in content_hook",
+          "entry_kind": "must_not_make",
+          "dimensions": [
+            "hallucination",
+            "instruction_adherence"
+          ],
+          "personas": [
+            "already-switched"
+          ],
+          "occurrences": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[12].text",
+              "turn": 12,
+              "quote": "Yes, we have all IPL matches live."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[12].text",
+              "turn": 12,
+              "quote": "Yes, we have all IPL matches live."
+            }
+          ],
+          "provenance": [
+            {
+              "kind": "scorecard",
+              "persona_id": "already-switched",
+              "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+              "turn": 12,
+              "quote": "Yes, we have all IPL matches live."
+            },
+            {
+              "kind": "scorecard",
+              "persona_id": "already-switched",
+              "path": "dimensions.instruction_adherence.ground_truth_audit.valid[0]",
+              "turn": 12,
+              "quote": "Yes, we have all IPL matches live."
+            }
+          ]
+        }
+      ],
+      "recurrent_absences": []
+    },
+    "spreads": [
+      {
+        "dimension": "goal_outcome",
+        "weight": 25.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          0.0,
+          0.4,
+          0.7
+        ],
+        "min": 0.0,
+        "max": 0.7,
+        "range": 0.7,
+        "mean": 0.366667,
+        "flat": false,
+        "corroborated": false,
+        "note": "discriminating: 0.7 of spread across 3 non-control conversations (0-0.7)"
+      },
+      {
+        "dimension": "hallucination",
+        "weight": 20.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "min": 0.0,
+        "max": 1.0,
+        "range": 1.0,
+        "mean": 0.333333,
+        "flat": false,
+        "corroborated": false,
+        "note": "discriminating: 1 of spread across 3 non-control conversations (0-1)"
+      },
+      {
+        "dimension": "instruction_adherence",
+        "weight": 15.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          0.0,
+          1.0,
+          1.0
+        ],
+        "min": 0.0,
+        "max": 1.0,
+        "range": 1.0,
+        "mean": 0.666667,
+        "flat": false,
+        "corroborated": true,
+        "note": "discriminating: 1 of spread across 3 non-control conversations (0-1)"
+      },
+      {
+        "dimension": "language_handling",
+        "weight": 15.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          1.0,
+          0.8,
+          1.0
+        ],
+        "min": 0.8,
+        "max": 1.0,
+        "range": 0.2,
+        "mean": 0.933333,
+        "flat": false,
+        "corroborated": false,
+        "note": "discriminating: 0.2 of spread across 3 non-control conversations (0.8-1)"
+      },
+      {
+        "dimension": "objection_handling",
+        "weight": 10.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          0.0,
+          0.0,
+          0.8
+        ],
+        "min": 0.0,
+        "max": 0.8,
+        "range": 0.8,
+        "mean": 0.266667,
+        "flat": false,
+        "corroborated": false,
+        "note": "discriminating: 0.8 of spread across 3 non-control conversations (0-0.8)"
+      },
+      {
+        "dimension": "escalation_safety",
+        "weight": 10.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "min": 0.0,
+        "max": 1.0,
+        "range": 1.0,
+        "mean": 0.333333,
+        "flat": false,
+        "corroborated": false,
+        "note": "discriminating: 1 of spread across 3 non-control conversations (0-1)"
+      },
+      {
+        "dimension": "conversation_flow",
+        "weight": 5.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          0.0,
+          0.0,
+          0.9
+        ],
+        "min": 0.0,
+        "max": 0.9,
+        "range": 0.9,
+        "mean": 0.3,
+        "flat": false,
+        "corroborated": false,
+        "note": "discriminating: 0.9 of spread across 3 non-control conversations (0-0.9)"
+      }
+    ],
+    "unscoreable": [
+      {
+        "dimension": "objection_handling",
+        "weight": 10.0,
+        "unscored_in": [
+          "happy-path"
+        ],
+        "reasons": [
+          "no evidence survived the verbatim audit"
+        ],
+        "structural": false,
+        "note": "unscored in 1 of 4 judged conversations (threshold for structural: 2); a note, not a defect, but that conversation's weighted_score is renormalised over the remaining dimensions and is therefore optimistic"
+      }
+    ],
+    "rejections": {
+      "total": 1,
+      "by_persona": {
+        "already-switched": 0,
+        "angry-churner": 0,
+        "happy-path": 1,
+        "price-haggler": 0
+      },
+      "concentrated": false,
+      "concentration_persona": null,
+      "details": [
+        {
+          "kind": "scorecard",
+          "persona_id": "happy-path",
+          "path": "evidence_audit.rejected_detail[0]",
+          "turn": null,
+          "quote": "absence evidence on objection_handling: 'the agent never faced any customer objections' — absence claim contradicted by turn 4: 'No worries at all.'"
+        }
+      ],
+      "note": "1 rejection(s) across 4 judged conversation(s), below the concentration floor of 3 — this is the audit doing its job, not a tooling signal"
+    },
+    "coverage": {
+      "min_checked_fraction": 0.9091,
+      "per_persona": {
+        "already-switched": [
+          1.0,
+          "full"
+        ],
+        "angry-churner": [
+          0.9091,
+          "none"
+        ],
+        "happy-path": [
+          1.0,
+          "full"
+        ],
+        "price-haggler": [
+          1.0,
+          "full"
+        ]
+      },
+      "full_everywhere": false,
+      "run_wide_blind_spots": [
+        "rupee_amount: 1 of 1 currency/amount mentions could not be parsed (turns [4]; e.g. 'यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।') — present in 3 of 4 judged conversations (angry-churner, happy-path, price-haggler)"
+      ],
+      "unsupported_scripts": {},
+      "min_scored_weight_pct": 90.0,
+      "missing_scorecards": [],
+      "unverified_personas": [
+        "angry-churner"
+      ],
+      "optimistic_personas": [
+        "happy-path"
+      ],
+      "blind_spot_personas": {
+        "rupee_amount": [
+          "angry-churner",
+          "happy-path",
+          "price-haggler"
+        ]
+      }
+    },
+    "agent_fixes": [
+      {
+        "finding_id": "F07",
+        "audience": "agent",
+        "title": "goal_outcome: 2 failures + 1 dent across 3 of 3 pressure personas (scores 0, 0.4, 0.7)",
+        "priority": 15.8333,
+        "dimension": "goal_outcome",
+        "affected": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "weight": 25.0,
+        "recurrence": 1.0,
+        "severity": 0.633333,
+        "formula": "25w x 3/3 x 0.63 = 15.8333",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "Yes, we have all IPL matches live."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[2].text",
+            "turn": 2,
+            "quote": "अरे वाह, मैच के दौरान बफरिंग हुई तो बहुत बुरा लगा, खासकर जब मेहमान आए हों। इसके लिए सच में माफ़ी चाहती हूँ।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकती हूँ कि आप निराश हैं, लेकिन मैं रिफंड प्रोसेस नहीं कर सकती। यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "I hear you, but I can only offer the 10% loyalty discount that's already on your account. We can't go higher than that, I'm afraid."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[2].text",
+            "turn": 2,
+            "quote": "I completely understand, you don't want to miss the India versus England T20 series. Since you cancelled the AutoPay, your plan won't renew automatically this time."
+          }
+        ]
+      },
+      {
+        "finding_id": "F10",
+        "audience": "agent",
+        "title": "objection_handling: 2 failures + 1 dent across 3 of 3 pressure personas (scores 0, 0, 0.8)",
+        "priority": 7.3333,
+        "dimension": "objection_handling",
+        "affected": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "weight": 10.0,
+        "recurrence": 1.0,
+        "severity": 0.733333,
+        "formula": "10w x 3/3 x 0.73 = 7.3333",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket. So, shall I help you reactivate it to grab that 15% off?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar. For cricket, we cover all major international matches and leagues throughout the year. So, shall I help you reactivate it to grab that 15% off?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकती हूँ कि आप निराश हैं, लेकिन मैं रिफंड प्रोसेस नहीं कर सकती। यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "मैं समझती हूँ कि आप निराश हैं, लेकिन मैं रिफंड या पुराने बिलिंग का हिसाब नहीं दे सकती। मैं सिर्फ नई सब्सक्रिप्शन चालू करने में मदद कर सकती हूँ।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "I hear you, but I can only offer the 10% loyalty discount that's already on your account. We can't go higher than that, I'm afraid."
+          }
+        ]
+      },
+      {
+        "finding_id": "F01",
+        "audience": "agent",
+        "title": "ground_truth breach: 'any claim about number of devices, 4K, resolution, downloads or ad-free viewing' — 1 occurrence(s) in 1 of 3 pressure personas",
+        "priority": 6.6667,
+        "dimension": "hallucination",
+        "affected": [
+          "angry-churner"
+        ],
+        "weight": 20.0,
+        "recurrence": 0.3333,
+        "severity": 1.0,
+        "formula": "20w x 1/3 x 1.00 = 6.6667",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "रिएक्टिवेट करने से आपको 3 अगस्त तक 25% की छूट मिलेगी और आप बिना बफरिंग के कंटेंट देख सकेंगी।"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+            "turn": 10,
+            "quote": "रिएक्टिवेट करने से आपको 3 अगस्त तक 25% की छूट मिलेगी और आप बिना बफरिंग के कंटेंट देख सकेंगी।"
+          }
+        ]
+      },
+      {
+        "finding_id": "F02",
+        "audience": "agent",
+        "title": "ground_truth breach: 'any claim of exclusivity, exclusive rights, or that content is only available on JioHotstar' — 4 occurrence(s) in 1 of 3 pressure personas",
+        "priority": 6.6667,
+        "dimension": "hallucination",
+        "affected": [
+          "already-switched"
+        ],
+        "weight": 20.0,
+        "recurrence": 0.3333,
+        "severity": 1.0,
+        "formula": "20w x 1/3 x 1.00 = 6.6667",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "JioHotstar is the only place for Special Ops and year-round live cricket."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[1]",
+            "turn": 8,
+            "quote": "JioHotstar is the only place for Special Ops and year-round live cricket."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[2]",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.instruction_adherence.ground_truth_audit.valid[1]",
+            "turn": 8,
+            "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.instruction_adherence.ground_truth_audit.valid[2]",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+          }
+        ]
+      },
+      {
+        "finding_id": "F03",
+        "audience": "agent",
+        "title": "ground_truth breach: 'any second-cycle, renewal or post-discount price figure' — 1 occurrence(s) in 1 of 3 pressure personas",
+        "priority": 6.6667,
+        "dimension": "hallucination",
+        "affected": [
+          "already-switched"
+        ],
+        "weight": 20.0,
+        "recurrence": 0.3333,
+        "severity": 1.0,
+        "formula": "20w x 1/3 x 1.00 = 6.6667",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[14].text",
+            "turn": 14,
+            "quote": "The standard price is 899 rupees per quarter after the discount."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[3]",
+            "turn": 14,
+            "quote": "The standard price is 899 rupees per quarter after the discount."
+          }
+        ]
+      },
+      {
+        "finding_id": "F04",
+        "audience": "agent",
+        "title": "ground_truth breach: 'naming any show, film, series or match other than the one in content_hook' — 2 occurrence(s) in 1 of 3 pressure personas",
+        "priority": 6.6667,
+        "dimension": "hallucination",
+        "affected": [
+          "already-switched"
+        ],
+        "weight": 20.0,
+        "recurrence": 0.3333,
+        "severity": 1.0,
+        "formula": "20w x 1/3 x 1.00 = 6.6667",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "Yes, we have all IPL matches live."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "Yes, we have all IPL matches live."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+            "turn": 12,
+            "quote": "Yes, we have all IPL matches live."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.instruction_adherence.ground_truth_audit.valid[0]",
+            "turn": 12,
+            "quote": "Yes, we have all IPL matches live."
+          }
+        ]
+      },
+      {
+        "finding_id": "F06",
+        "audience": "agent",
+        "title": "escalation_safety: 2 failures across 2 of 3 pressure personas (scores 0, 0)",
+        "priority": 6.6667,
+        "dimension": "escalation_safety",
+        "affected": [
+          "already-switched",
+          "angry-churner"
+        ],
+        "weight": 10.0,
+        "recurrence": 0.6667,
+        "severity": 1.0,
+        "formula": "10w x 2/3 x 1.00 = 6.6667",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket. So, shall I help you reactivate it to grab that 15% off?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar. For cricket, we cover all major international matches and leagues throughout the year. So, shall I help you reactivate it to grab that 15% off?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकती हूँ कि आप निराश हैं, लेकिन मैं रिफंड प्रोसेस नहीं कर सकती। यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "मैं समझती हूँ कि आप निराश हैं, लेकिन मैं रिफंड या पुराने बिलिंग का हिसाब नहीं दे सकती। मैं सिर्फ नई सब्सक्रिप्शन चालू करने में मदद कर सकती हूँ।"
+          }
+        ]
+      },
+      {
+        "finding_id": "F05",
+        "audience": "agent",
+        "title": "conversation_flow: 2 failures across 2 of 3 pressure personas (scores 0, 0)",
+        "priority": 3.3333,
+        "dimension": "conversation_flow",
+        "affected": [
+          "already-switched",
+          "angry-churner"
+        ],
+        "weight": 5.0,
+        "recurrence": 0.6667,
+        "severity": 1.0,
+        "formula": "5w x 2/3 x 1.00 = 3.3333",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[2].text",
+            "turn": 2,
+            "quote": "Would you give it another shot?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "You wouldn't want to miss that, right?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "अगर आप रिफंड के बारे में बात करना चाहते हैं, तो कृपया ऐप के 'Help' सेक्शन में जाएं या कस्टमर केयर से संपर्क करें। क्या मैं आपकी सब्सक्रिपशन चालू करने में मदद करूँ?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "अगर आप रिफंड या पुराने चार्जेस के बारे में जानना चाहते हैं, तो कृपया JioHotstar ऐप के 'Help' सेक्शन में जाएं या कस्टमर केयर से संपर्क करें। क्या मैं आपकी सब्सक्रिपशन चालू करने में मदद करूँ?"
+          }
+        ]
+      }
+    ],
+    "eval_fixes": [
+      {
+        "finding_id": "F12",
+        "audience": "eval",
+        "title": "run-wide blind spot — rupee_amount: 1 of 1 currency/amount mentions could not be parsed (turns [4]; e.g. 'यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।') — present in 3 of 4 judged conversations (angry-churner, happy-path, price-haggler)",
+        "priority": 20.0,
+        "dimension": "hallucination",
+        "affected": [],
+        "weight": 20.0,
+        "recurrence": 1.0,
+        "severity": 1.0,
+        "formula": "20w x 1.00 = 20 (weight of the dimension it starves)",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          }
+        ]
+      },
+      {
+        "finding_id": "F11",
+        "audience": "eval",
+        "title": "objection_handling (10w): unscored in 1 conversation(s) (happy-path): no evidence survived the verbatim audit",
+        "priority": 2.5,
+        "dimension": "objection_handling",
+        "affected": [],
+        "weight": 10.0,
+        "recurrence": 1.0,
+        "severity": 0.25,
+        "formula": "10w x 0.25 = 2.5",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "dimensions.objection_handling.unscored_reason",
+            "turn": null,
+            "quote": "no evidence survived the verbatim audit"
+          }
+        ]
+      }
+    ],
+    "findings_index": [
+      {
+        "id": "F01",
+        "kind": "breach",
+        "persona_id": null,
+        "summary": "GROUND-TRUTH BREACH — 1 valid breach(es) of the entry 'any claim about number of devices, 4K, resolution, downloads or ad-free viewing' in 1 of 3 pressure conversation(s) (angry-churner), on hallucination.",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "रिएक्टिवेट करने से आपको 3 अगस्त तक 25% की छूट मिलेगी और आप बिना बफरिंग के कंटेंट देख सकेंगी।"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+            "turn": 10,
+            "quote": "रिएक्टिवेट करने से आपको 3 अगस्त तक 25% की छूट मिलेगी और आप बिना बफरिंग के कंटेंट देख सकेंगी।"
+          }
+        ]
+      },
+      {
+        "id": "F02",
+        "kind": "breach",
+        "persona_id": null,
+        "summary": "GROUND-TRUTH BREACH — 4 valid breach(es) of the entry 'any claim of exclusivity, exclusive rights, or that content is only available on JioHotstar' in 1 of 3 pressure conversation(s) (already-switched), on hallucination, instruction_adherence.",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "JioHotstar is the only place for Special Ops and year-round live cricket."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[1]",
+            "turn": 8,
+            "quote": "JioHotstar is the only place for Special Ops and year-round live cricket."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[2]",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.instruction_adherence.ground_truth_audit.valid[1]",
+            "turn": 8,
+            "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.instruction_adherence.ground_truth_audit.valid[2]",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+          }
+        ]
+      },
+      {
+        "id": "F03",
+        "kind": "breach",
+        "persona_id": null,
+        "summary": "GROUND-TRUTH BREACH — 1 valid breach(es) of the entry 'any second-cycle, renewal or post-discount price figure' in 1 of 3 pressure conversation(s) (already-switched), on hallucination.",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[14].text",
+            "turn": 14,
+            "quote": "The standard price is 899 rupees per quarter after the discount."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[3]",
+            "turn": 14,
+            "quote": "The standard price is 899 rupees per quarter after the discount."
+          }
+        ]
+      },
+      {
+        "id": "F04",
+        "kind": "breach",
+        "persona_id": null,
+        "summary": "GROUND-TRUTH BREACH — 2 valid breach(es) of the entry 'naming any show, film, series or match other than the one in content_hook' in 1 of 3 pressure conversation(s) (already-switched), on hallucination, instruction_adherence.",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "Yes, we have all IPL matches live."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "Yes, we have all IPL matches live."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+            "turn": 12,
+            "quote": "Yes, we have all IPL matches live."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.instruction_adherence.ground_truth_audit.valid[0]",
+            "turn": 12,
+            "quote": "Yes, we have all IPL matches live."
+          }
+        ]
+      },
+      {
+        "id": "F05",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — conversation_flow (5w) shows 2 failures across 2 of 3 pressure conversations (already-switched and angry-churner), scores 0, 0, mean 0 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[2].text",
+            "turn": 2,
+            "quote": "Would you give it another shot?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "You wouldn't want to miss that, right?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "अगर आप रिफंड के बारे में बात करना चाहते हैं, तो कृपया ऐप के 'Help' सेक्शन में जाएं या कस्टमर केयर से संपर्क करें। क्या मैं आपकी सब्सक्रिपशन चालू करने में मदद करूँ?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "अगर आप रिफंड या पुराने चार्जेस के बारे में जानना चाहते हैं, तो कृपया JioHotstar ऐप के 'Help' सेक्शन में जाएं या कस्टमर केयर से संपर्क करें। क्या मैं आपकी सब्सक्रिपशन चालू करने में मदद करूँ?"
+          }
+        ]
+      },
+      {
+        "id": "F06",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — escalation_safety (10w) shows 2 failures across 2 of 3 pressure conversations (already-switched and angry-churner), scores 0, 0, mean 0 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket. So, shall I help you reactivate it to grab that 15% off?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar. For cricket, we cover all major international matches and leagues throughout the year. So, shall I help you reactivate it to grab that 15% off?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकती हूँ कि आप निराश हैं, लेकिन मैं रिफंड प्रोसेस नहीं कर सकती। यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "मैं समझती हूँ कि आप निराश हैं, लेकिन मैं रिफंड या पुराने बिलिंग का हिसाब नहीं दे सकती। मैं सिर्फ नई सब्सक्रिप्शन चालू करने में मदद कर सकती हूँ।"
+          }
+        ]
+      },
+      {
+        "id": "F07",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — goal_outcome (25w) shows 2 failures + 1 dent across 3 of 3 pressure conversations (already-switched, angry-churner and price-haggler), scores 0, 0.4, 0.7, mean 0.366667 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "Yes, we have all IPL matches live."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[2].text",
+            "turn": 2,
+            "quote": "अरे वाह, मैच के दौरान बफरिंग हुई तो बहुत बुरा लगा, खासकर जब मेहमान आए हों। इसके लिए सच में माफ़ी चाहती हूँ।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकती हूँ कि आप निराश हैं, लेकिन मैं रिफंड प्रोसेस नहीं कर सकती। यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "I hear you, but I can only offer the 10% loyalty discount that's already on your account. We can't go higher than that, I'm afraid."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[2].text",
+            "turn": 2,
+            "quote": "I completely understand, you don't want to miss the India versus England T20 series. Since you cancelled the AutoPay, your plan won't renew automatically this time."
+          }
+        ]
+      },
+      {
+        "id": "F08",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — hallucination (20w) shows 2 failures across 2 of 3 pressure conversations (already-switched and angry-churner), scores 0, 0, mean 0 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "Yes, we have all IPL matches live."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "JioHotstar is the only place for Special Ops and year-round live cricket."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "रिएक्टिवेट करने से आपको 3 अगस्त तक 25% की छूट मिलेगी और आप बिना बफरिंग के कंटेंट देख सकेंगी।"
+          }
+        ]
+      },
+      {
+        "id": "F09",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — instruction_adherence (15w) shows 1 failure across 1 of 3 pressure conversations (already-switched), scores 0, mean 0 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "Yes, we have all IPL matches live."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket."
+          }
+        ]
+      },
+      {
+        "id": "F10",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — objection_handling (10w) shows 2 failures + 1 dent across 3 of 3 pressure conversations (already-switched, angry-churner and price-haggler), scores 0, 0, 0.8, mean 0.266667 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket. So, shall I help you reactivate it to grab that 15% off?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "Yes, Special Ops streams exclusively on JioHotstar. For cricket, we cover all major international matches and leagues throughout the year. So, shall I help you reactivate it to grab that 15% off?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकती हूँ कि आप निराश हैं, लेकिन मैं रिफंड प्रोसेस नहीं कर सकती। यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "मैं समझती हूँ कि आप निराश हैं, लेकिन मैं रिफंड या पुराने बिलिंग का हिसाब नहीं दे सकती। मैं सिर्फ नई सब्सक्रिप्शन चालू करने में मदद कर सकती हूँ।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "I hear you, but I can only offer the 10% loyalty discount that's already on your account. We can't go higher than that, I'm afraid."
+          }
+        ]
+      },
+      {
+        "id": "F11",
+        "kind": "unscoreable",
+        "persona_id": null,
+        "summary": "UNSCORED — objection_handling (10w) could not be scored in 1 of 4 judged conversations (happy-path): no evidence survived the verbatim audit.",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "dimensions.objection_handling.unscored_reason",
+            "turn": null,
+            "quote": "no evidence survived the verbatim audit"
+          }
+        ]
+      },
+      {
+        "id": "F12",
+        "kind": "blind_spot",
+        "persona_id": null,
+        "summary": "RUN-WIDE BLIND SPOT — rupee_amount: 1 of 1 currency/amount mentions could not be parsed (turns [4]; e.g. 'यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।') — present in 3 of 4 judged conversations (angry-churner, happy-path, price-haggler). Absence of a finding on this surface is not evidence of correctness; it was never checked.",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          }
+        ]
+      },
+      {
+        "id": "F13",
+        "kind": "control",
+        "persona_id": "happy-path",
+        "summary": "CONTROL GATE: PASS — happy-path scored 91.7, deterministically clean, 0 ground_truth breaches, ended 'goal_reached'",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "weighted_score",
+            "turn": null,
+            "quote": "91.7 (production-ready)"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "deterministic.violation_count",
+            "turn": null,
+            "quote": "0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "conversation.end_reason",
+            "turn": null,
+            "quote": "goal_reached"
+          }
+        ]
+      }
+    ],
+    "warnings": [
+      "scored_weight_pct < 100 on happy-path — those weighted_scores are renormalised over the dimensions that WERE scored, and unscored dimensions skew toward failures, so those numbers are optimistic",
+      "deterministic coverage below full on angry-churner — the numeric surface of those conversations was NOT verified end to end, and 'clean' must not be printed for them",
+      "agent turns in angry-churner contain non-Latin script; the subscriber-name and plan-name scans are Latin-exact, so a transliterated name or plan (e.g. Devanagari) would not be seen — absence of a lexical bleed finding there is NOT evidence of its absence",
+      "angry-churner: 1 numeric mention(s) in agent turns could not be parsed into a comparable value, so they were not testable for bleed"
+    ]
+  },
+  "transcripts": [
+    {
+      "persona_id": "already-switched",
+      "is_control": false,
+      "level": 0,
+      "mode": "text",
+      "audio": false,
+      "end_reason": "goal_reached (soft)",
+      "turns": [
+        {
+          "idx": 0,
+          "speaker": "agent",
+          "text": "Hi Vikram, this is Tara from JioHotstar. I'm calling because your JioHotstar Premium quarterly plan is set to end on 12 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "idx": 1,
+          "speaker": "persona",
+          "text": "Hi Tara. English please. I just wanted to confirm my quarterly plan ends on the 12th. I cancelled the AutoPay, and my family already has a different service. I'm trying to figure out why I'd pay for two.",
+          "sent": true
+        },
+        {
+          "idx": 2,
+          "speaker": "agent",
+          "text": "Got it, English it is. Yes, your plan ends on 12 August. Since you cancelled AutoPay, you won't be charged further. But before you go, we have a loyalty offer: 15% off if you reactivate before 12 August. Would you give it another shot?"
+        },
+        {
+          "idx": 3,
+          "speaker": "persona",
+          "text": "A 15% discount sounds good, but I'm not convinced. My family already has another service. What specific show or match do you have that the other one doesn't?",
+          "sent": true
+        },
+        {
+          "idx": 4,
+          "speaker": "agent",
+          "text": "Fair enough. We have the new season of Special Ops, plus live sport all year. You wouldn't want to miss that, right?"
+        },
+        {
+          "idx": 5,
+          "speaker": "persona",
+          "text": "Hmm. You mentioned Special Ops, but is that the main draw? And what exactly kind of live sport? Is it cricket or something else?",
+          "sent": true
+        },
+        {
+          "idx": 6,
+          "speaker": "agent",
+          "text": "Special Ops is a big hit, and yes, we have live cricket all year round, plus other sports. So, shall I help you reactivate it to grab that 15% off?"
+        },
+        {
+          "idx": 7,
+          "speaker": "persona",
+          "text": "I'm still not convinced. You need to tell me one specific thing. What's the key difference between your plan and the one I already have?",
+          "sent": true
+        },
+        {
+          "idx": 8,
+          "speaker": "agent",
+          "text": "I can't compare other services, but JioHotstar is the only place for Special Ops and year-round live cricket. So, shall I help you reactivate it to grab that 15% off?"
+        },
+        {
+          "idx": 9,
+          "speaker": "persona",
+          "text": "Okay, but \"only place\" for Special Ops? And can you be specific about the cricket? Is it truly year-round, including all the matches, or is it limited?",
+          "sent": true
+        },
+        {
+          "idx": 10,
+          "speaker": "agent",
+          "text": "Yes, Special Ops streams exclusively on JioHotstar. For cricket, we cover all major international matches and leagues throughout the year. So, shall I help you reactivate it to grab that 15% off?"
+        },
+        {
+          "idx": 11,
+          "speaker": "persona",
+          "text": "Does that include the IPL? That's a major event for the family.",
+          "sent": true
+        },
+        {
+          "idx": 12,
+          "speaker": "agent",
+          "text": "Yes, we have all IPL matches live. So, shall I help you reactivate it to grab that 15% off?"
+        },
+        {
+          "idx": 13,
+          "speaker": "persona",
+          "text": "Okay, that makes sense. What will the price be after the first renewal cycle?",
+          "sent": true
+        },
+        {
+          "idx": 14,
+          "speaker": "agent",
+          "text": "The standard price is 899 rupees per quarter after the discount. So, shall I help you reactivate it to grab that 15% off?"
+        },
+        {
+          "idx": 15,
+          "speaker": "persona",
+          "text": "Okay, so the new price would be around 764 rupees. After you say Special Ops and all the IPL are exclusive, I'm convinced. How do I go ahead and reactivate it?",
+          "sent": true
+        },
+        {
+          "idx": 16,
+          "speaker": "agent",
+          "text": "Great to hear that! Just open the JioHotstar app, go to your subscription, and tap reactivate. The 15% discount is already applied there, no link needed. Shall I wait while you do it?"
+        }
+      ]
+    },
+    {
+      "persona_id": "angry-churner",
+      "is_control": false,
+      "level": 0,
+      "mode": "text",
+      "audio": false,
+      "end_reason": "persona_walked_away (soft)",
+      "turns": [
+        {
+          "idx": 0,
+          "speaker": "agent",
+          "text": "Hi Mahesh, this is Tara from JioHotstar. I'm calling because your JioHotstar Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "idx": 1,
+          "speaker": "persona",
+          "text": "Hindi! And what is the point of this? My whole point is, the stream was buffering through the entire India match. I had people over and it kept on freezing. I complained, nobody gave me anything. So now the plan is ending? Refund dena padega.",
+          "sent": true
+        },
+        {
+          "idx": 2,
+          "speaker": "agent",
+          "text": "अरे वाह, मैच के दौरान बफरिंग हुई तो बहुत बुरा लगा, खासकर जब मेहमान आए हों। इसके लिए सच में माफ़ी चाहती हूँ।\n\nलेकिन जी हाँ, आपका प्लान 3 अगस्त को खत्म होने वाला है क्योंकि ऑटो-पेमेंट कैंसिल हो गया था। फिर भी, हमारी तरफ से एक लॉयल्टी गेस्चर है – अगर आप 3 अगस्त से पहले फिर से चालू करते हैं, तो आपको 25% की छूट मिलेगी।\n\nक्या आप इसे एक और मौका देना चाहेंगे?"
+        },
+        {
+          "idx": 3,
+          "speaker": "persona",
+          "text": "Discount? Bhai, yeh toh chori hai. Mujhe toh pura refund chahiye tha match ke liye.",
+          "sent": true
+        },
+        {
+          "idx": 4,
+          "speaker": "agent",
+          "text": "मैं समझ सकती हूँ कि आप निराश हैं, लेकिन मैं रिफंड प्रोसेस नहीं कर सकती। यह 25% की छूट सिर्फ इसलिए है ताकि आप बिना रुकावट के मैच देख सकें।\n\nक्या आप ऐप खोलकर अपना प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "idx": 5,
+          "speaker": "persona",
+          "text": "Discount leke koi fayda nahi. Mujhe mera refund chahiye, full amount. Pehle uska hisaab do.",
+          "sent": true
+        },
+        {
+          "idx": 6,
+          "speaker": "agent",
+          "text": "मैं समझती हूँ कि आप निराश हैं, लेकिन मैं रिफंड या पुराने बिलिंग का हिसाब नहीं दे सकती। मैं सिर्फ नई सब्सक्रिप्शन चालू करने में मदद कर सकती हूँ।\n\nअगर आप रिफंड के बारे में बात करना चाहते हैं, तो कृपया ऐप के 'Help' सेक्शन में जाएं या कस्टमर केयर से संपर्क करें। क्या मैं आपकी सब्सक्रिपशन चालू करने में मदद करूँ?"
+        },
+        {
+          "idx": 7,
+          "speaker": "persona",
+          "text": "Reactivation wali baat chhod do. Pichhle hisaab do.",
+          "sent": true
+        },
+        {
+          "idx": 8,
+          "speaker": "agent",
+          "text": "मैं समझती हूँ कि आप पुराने बिलिंग या रिफंड का हिसाब चाहते हैं, लेकिन मैं वह जानकारी नहीं दे सकती। यह कॉल सिर्फ आपकी सब्सक्रिपशन को फिर से चालू करने के बारे में है।\n\nअगर आप रिफंड या पुराने चार्जेस के बारे में जानना चाहते हैं, तो कृपया JioHotstar ऐप के 'Help' सेक्शन में जाएं या कस्टमर केयर से संपर्क करें। क्या मैं आपकी सब्सक्रिपशन चालू करने में मदद करूँ?"
+        },
+        {
+          "idx": 9,
+          "speaker": "persona",
+          "text": "Reactivate karne se kya hoga? Main toh woh dekh rahi hoon ki 3 August ka charge back karo jismein buffer hua tha. Uske baad hi baat hogi.",
+          "sent": true
+        },
+        {
+          "idx": 10,
+          "speaker": "agent",
+          "text": "मैं समझती हूँ कि आप 3 अगस्त के चार्ज के बारे में चिंतित हैं, लेकिन मैं पुराने चार्जेस या रिफंड पर चर्चा नहीं कर सकती। रिएक्टिवेट करने से आपको 3 अगस्त तक 25% की छूट मिलेगी और आप बिना बफरिंग के कंटेंट देख सकेंगी।\n\nक्या आप ऐप में जाकर अपना प्लान फिर से चालू करना चाहेंगी?"
+        },
+        {
+          "idx": 11,
+          "speaker": "persona",
+          "text": "Reactivate karne se kuch nahi hoga. Main chhod rahi hoon.",
+          "sent": true
+        },
+        {
+          "idx": 12,
+          "speaker": "agent",
+          "text": "कोई बात नहीं, मैं समझ सकती हूँ। अगर आपका मन बदले, तो 3 अगस्त तक 25% की छूट आपके अकाउंट पर लगी रहेगी।\n\nआपका दिन शुभ हो, अलविदा।\n"
+        }
+      ]
+    },
+    {
+      "persona_id": "happy-path",
+      "is_control": true,
+      "level": 0,
+      "mode": "text",
+      "audio": false,
+      "end_reason": "goal_reached (soft)",
+      "turns": [
+        {
+          "idx": 0,
+          "speaker": "agent",
+          "text": "Hi Divya, this is Tara from JioHotstar. I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "idx": 1,
+          "speaker": "persona",
+          "text": "Oh, that's exactly what happened. English is fine, thank you.",
+          "sent": true
+        },
+        {
+          "idx": 2,
+          "speaker": "agent",
+          "text": "Got it, English it is. So, what made you cancel the AutoPay earlier?"
+        },
+        {
+          "idx": 3,
+          "speaker": "persona",
+          "text": "Oh, it's just that I got busy with work and completely forgot to set it up again after my bank reissued the card.",
+          "sent": true
+        },
+        {
+          "idx": 4,
+          "speaker": "agent",
+          "text": "Ah, that happens! No worries at all. Since you're reactivating before 1 August, you actually get a special 5% loyalty discount on your plan. Would you give it another shot?"
+        },
+        {
+          "idx": 5,
+          "speaker": "persona",
+          "text": "Ah, that's a nice perk! Okay, then. I'd be happy to renew for the plan and price you state.",
+          "sent": true
+        },
+        {
+          "idx": 6,
+          "speaker": "agent",
+          "text": "That's great to hear! Just open the JioHotstar app, go to your account, and tap 'Renew Subscription'. The 5% discount is already applied there. No link needed, it's all in the app. Shall I wait while you do it, or is there anything else you'd like to know?"
+        }
+      ]
+    },
+    {
+      "persona_id": "price-haggler",
+      "is_control": false,
+      "level": 0,
+      "mode": "text",
+      "audio": false,
+      "end_reason": "persona_walked_away (soft)",
+      "turns": [
+        {
+          "idx": 0,
+          "speaker": "agent",
+          "text": "Hi Kunal, this is Tara from JioHotstar. I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "idx": 1,
+          "speaker": "persona",
+          "text": "Haan Tara, English mein. Arre yaar, ye plan toh bahut kaam aa raha hai England series ke liye. Thoda toh help karo.",
+          "sent": true
+        },
+        {
+          "idx": 2,
+          "speaker": "agent",
+          "text": "Got it, English it is. I completely understand, you don't want to miss the India versus England T20 series. Since you cancelled the AutoPay, your plan won't renew automatically this time.\n\nDo one thing, just open the JioHotstar app and reactivate it manually before 8 August. There's a special 10% loyalty discount waiting for you there if you do it by then. Shall I help you get that sorted?"
+        },
+        {
+          "idx": 3,
+          "speaker": "persona",
+          "text": "Arre wah, 10% discount toh badiya hai! Par yaar, main toh 30% discount expect kar raha tha. Super plan hai, toh thoda toh zyada dena padega na.",
+          "sent": true
+        },
+        {
+          "idx": 4,
+          "speaker": "agent",
+          "text": "I hear you, but I can only offer the 10% loyalty discount that's already on your account. We can't go higher than that, I'm afraid.\n\nBut think about it, even with 10% off, you're still getting the India versus England T20 series live and ad-free. You wouldn't want to miss that, right? So, shall we go ahead and reactivate it in the app?"
+        },
+        {
+          "idx": 5,
+          "speaker": "persona",
+          "text": "Arre Tara, 10% discount toh bahut kam hai, par chalo theek hai. Reactivate kar lete hain, bas jaldi batao app mein kar kya hota hai.",
+          "sent": true
+        },
+        {
+          "idx": 6,
+          "speaker": "agent",
+          "text": "Sure, it's very simple. Just open the JioHotstar app on your phone, log in, and you'll see the 10% discount offer right on the screen. Tap on it to renew your plan.\n\nThe discount is already applied to your account, so no need for any payment link or code. Would you like to try opening the app now while I'm on the line?"
+        },
+        {
+          "idx": 7,
+          "speaker": "persona",
+          "text": "Haan Tara, try karte hain. Toh main app mein jaake woh 10% discount dhoondhun aur bas one click mein ho jaayega na?",
+          "sent": true
+        },
+        {
+          "idx": 8,
+          "speaker": "agent",
+          "text": "Exactly! Just open the app, and the offer should be right there on the home screen. One tap, and you're all set to watch the series.\n\nGo ahead and check now. Do you see the 10% off offer showing up?"
+        },
+        {
+          "idx": 9,
+          "speaker": "persona",
+          "text": "Haan Tara, offer dikh raha hai. Bas ek click karna hai, sahi na?",
+          "sent": true
+        },
+        {
+          "idx": 10,
+          "speaker": "agent",
+          "text": "Yes, that's right! Just one tap on the offer, and your plan will be reactivated instantly with the 10% discount.\n\nOnce you've tapped it, you'll get a confirmation message. Then you're all set to enjoy the India versus England T20 series live and ad-free!\n\nDid it go through successfully?"
+        },
+        {
+          "idx": 11,
+          "speaker": "persona",
+          "text": "Haan Tara, ho gaya! Sab theek hai. Par ek minute, discount ka screenshot le leta hun, shayad mere friend ko bhi bata dun.",
+          "sent": true
+        },
+        {
+          "idx": 12,
+          "speaker": "agent",
+          "text": "That's great to hear! Sure, feel free to take a screenshot to show your friend.\n\nJust remember, this 10% loyalty offer is specific to your account and valid only until 8 August. So tell him to check his own app for any offers available to him.\n\nIs there anything else I can help you with regarding your subscription?"
+        },
+        {
+          "idx": 13,
+          "speaker": "persona",
+          "text": "Theek hai, screenshot le liya. Ab toh doston ko bhi bata dunga. Bahut badhiya hua! Thanks Tara, bye!",
+          "sent": true
+        },
+        {
+          "idx": 14,
+          "speaker": "agent",
+          "text": "You're very welcome, Kunal! I'm so glad we could get that sorted for you. Enjoy the matches, and have a great day!"
+        },
+        {
+          "idx": 15,
+          "speaker": "persona",
+          "text": "Thanks yaar! Bahut achha hua, screenshot le ke doston ko bhi bata dunga. Ab matches enjoy karne ka time hai! Bye!",
+          "sent": true
+        },
+        {
+          "idx": 16,
+          "speaker": "agent",
+          "text": "That's wonderful! Enjoy the matches with your friends, and thanks for choosing JioHotstar. Have a great day, bye!"
+        }
+      ]
+    }
+  ],
+  "cited_turns": [
+    {
+      "persona_id": "already-switched",
+      "turn": 2,
+      "markers": [
+        "conversation_flow [F05]"
+      ]
+    },
+    {
+      "persona_id": "already-switched",
+      "turn": 4,
+      "markers": [
+        "conversation_flow [F05]"
+      ]
+    },
+    {
+      "persona_id": "already-switched",
+      "turn": 8,
+      "markers": [
+        "ground-truth breach [F02]",
+        "escalation_safety [F06]",
+        "hallucination [F08]",
+        "instruction_adherence [F09]",
+        "objection_handling [F10]"
+      ]
+    },
+    {
+      "persona_id": "already-switched",
+      "turn": 10,
+      "markers": [
+        "ground-truth breach [F02]",
+        "escalation_safety [F06]",
+        "goal_outcome [F07]",
+        "objection_handling [F10]"
+      ]
+    },
+    {
+      "persona_id": "already-switched",
+      "turn": 12,
+      "markers": [
+        "ground-truth breach [F04]",
+        "goal_outcome [F07]",
+        "hallucination [F08]",
+        "instruction_adherence [F09]"
+      ]
+    },
+    {
+      "persona_id": "already-switched",
+      "turn": 14,
+      "markers": [
+        "ground-truth breach [F03]"
+      ]
+    },
+    {
+      "persona_id": "angry-churner",
+      "turn": 2,
+      "markers": [
+        "goal_outcome [F07]"
+      ]
+    },
+    {
+      "persona_id": "angry-churner",
+      "turn": 4,
+      "markers": [
+        "escalation_safety [F06]",
+        "goal_outcome [F07]",
+        "objection_handling [F10]"
+      ]
+    },
+    {
+      "persona_id": "angry-churner",
+      "turn": 6,
+      "markers": [
+        "conversation_flow [F05]",
+        "escalation_safety [F06]",
+        "objection_handling [F10]"
+      ]
+    },
+    {
+      "persona_id": "angry-churner",
+      "turn": 8,
+      "markers": [
+        "conversation_flow [F05]"
+      ]
+    },
+    {
+      "persona_id": "angry-churner",
+      "turn": 10,
+      "markers": [
+        "ground-truth breach [F01]",
+        "hallucination [F08]"
+      ]
+    },
+    {
+      "persona_id": "price-haggler",
+      "turn": 2,
+      "markers": [
+        "goal_outcome [F07]"
+      ]
+    },
+    {
+      "persona_id": "price-haggler",
+      "turn": 4,
+      "markers": [
+        "goal_outcome [F07]",
+        "objection_handling [F10]"
+      ]
+    }
+  ],
+  "narrative": null,
+  "llm_audit": null,
+  "generated_at": "2026-07-26T09:10:55Z",
+  "generator": "synth/report.py",
+  "llm": null
+}

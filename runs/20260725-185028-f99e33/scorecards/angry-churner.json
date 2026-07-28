@@ -1,0 +1,566 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260725-185028-f99e33",
+  "persona_id": "angry-churner",
+  "judged_at": "2026-07-26T05:40:59.785Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 9,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 13,
+      "agent": 7,
+      "persona": 6
+    },
+    "duration_s": 144.0,
+    "end_reason": "persona_walked_away",
+    "persona_file_sha256": "a0f34a68225265f3fe5d02a68f5ddc471da70b2974c7c15c2d58df7d22a7ca5b"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "discount_percentage",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "और हाँ, 3 अगस्त से पहले फिर से चालू करेंगे तो 25% की छूट मिलेगी, यह लॉयल्टी गेस्चर है।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "यह 25% की छूट बस एक लॉयल्टी गेस्चर है ताकि आप वापस आ सकें।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 8,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "पर 3 अगस्त तक प्लान रिन्यू करने पर 25% की छूट तुरंत लग जाएगी।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 10,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "3 August",
+        "quote": "I'm calling because your JioHotstar Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "3 अगस्त",
+        "quote": "और हाँ, 3 अगस्त से पहले फिर से चालू करेंगे तो 25% की छूट मिलेगी, यह लॉयल्टी गेस्चर है।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 अगस्त is in ground_truth.valid_dates",
+        "recogniser": "hi_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "3 अगस्त",
+        "quote": "हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 अगस्त is in ground_truth.valid_dates",
+        "recogniser": "hi_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 8,
+        "speaker": "agent",
+        "value": "3 अगस्त",
+        "quote": "पर 3 अगस्त तक प्लान रिन्यू करने पर 25% की छूट तुरंत लग जाएगी।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 अगस्त is in ground_truth.valid_dates",
+        "recogniser": "hi_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 12,
+        "speaker": "agent",
+        "value": "3 अगस्त",
+        "quote": "यह ऑफर 3 अगस्त तक आपके अकाउंट पर रहेगा, अगर कभी मन बदले तो ऐप से रिन्यू कर सकते हैं।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 अगस्त is in ground_truth.valid_dates",
+        "recogniser": "hi_month_dm"
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": true,
+    "status": "clean",
+    "summary": "no objective violations",
+    "coverage": {
+      "agent_turns_total": 7,
+      "agent_turns_scanned": 7,
+      "agent_chars_total": 1425,
+      "scripts": {
+        "latin": {
+          "turns": 1,
+          "chars": 201
+        },
+        "devanagari": {
+          "turns": 6,
+          "chars": 1224
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 25,
+          "ground_truth_normalised": 25.0,
+          "detected": 5,
+          "parsed": 5,
+          "compared": 5,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 5,
+          "observations_by_verdict": {
+            "ok": 5,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            2499
+          ],
+          "ground_truth_normalised": [
+            2499
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "full"
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "3 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              3,
+              8
+            ]
+          ],
+          "detected": 5,
+          "parsed": 5,
+          "compared": 5,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 5,
+          "observations_by_verdict": {
+            "ok": 5,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        }
+      },
+      "checked_fraction": 1.0,
+      "verdict": "full",
+      "blind_spots": [
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ]
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.4,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent repeatedly stated the 25% discount offer but failed to adapt to the customer's specific blocker, which was a demand for a refund due to a poor viewing experience. The agent never addressed the core issue of the refund request beyond a simple apology, and the call ended without a concrete next step or a clean door-open that acknowledged the customer's position.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं करना चाहते, तो कोई बात नहीं, मैं आपकी बात नोट कर लूँगी।"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 20.0,
+      "reasoning": "The agent's factual claims about the offer, dates, and plan name are all supported by the ground truth. The agent correctly declined to offer a refund and did not make any promises of callbacks or transfers.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी।"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "पर रिफंड का ऑप्शन हमारे पास नहीं है।"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "क्या आप एशिया कप, जो 4K में लाइव आएगा, मिस नहीं करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ।"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "यह ऑफर 3 अगस्त तक आपके अकाउंट पर रहेगा, अगर कभी मन बदले तो ऐप से रिन्यू कर सकते हैं।"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null,
+      "ground_truth_audit": {
+        "breaches_claimed": 0,
+        "breaches_valid": 0,
+        "valid": [],
+        "voided": [],
+        "reprompted": true
+      }
+    },
+    "instruction_adherence": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent consistently refused all refund requests and held firm to the 25% discount offer, never exceeding the discount ceiling or making any forbidden claims.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी।"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "पर रिफंड का कोई ऑप्शन हमारे पास नहीं है। यह 25% की छूट बस एक लॉयल्टी गेस्चर है ताकि आप वापस आ सकें।"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "मैं समझ सकतूँ हूँ कि आप कितने नाराज़ हैं, और मैन्युअल रिफंड देना मेरे हाथ में नहीं है। पर 3 अगस्त तक प्लान रिन्यू करने पर 25% की छूट तुरंत लग जाएगी।"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ।"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "यह ऑफर 3 अगस्त तक आपके अकाउंट पर रहेगा, अगर कभी मन बदले तो ऐप से रिन्यू कर सकते हैं।"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 15.0,
+      "reasoning": "The agent correctly identified the customer's language preference and consistently responded in Hindi, even when the customer code-switched to Hinglish. However, the agent did not fully mirror the customer's code-switching style, sticking to pure Hindi throughout.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Mahesh, this is Tara from JioHotstar. I'm calling because your JioHotstar Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 1,
+          "quote": "Hindi! Pehle match ka buffering dekh lo! Aapne poora stream kharab kar diya tha log ke saath mein, ab refund chahiye!"
+        },
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "अरे नहीं, ऐसा बिल्कुल नहीं है! मैं आपकी मदद करना चाहती हूँ। पहले बताइए, प्लान क्यों रद्द किया था? और हाँ, 3 अगस्त से पहले फिर से चालू करेंगे तो 25% की छूट मिलेगी, यह लॉयल्टी गेस्चर है।"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं आपकी नाराजगी समझ सकतूँ हूँ, और सच में बफरिंग के लिए बहुत सॉर्री हूँ। पर रिफंड का कोई ऑप्शन हमारे पास नहीं है। यह 25% की छूट बस एक लॉयल्टी गेस्चर है ताकि आप वापस आ सकें। क्या आप एशिया कप, जो 4K में लाइव आएगा, मिस नहीं करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "मैं समझ सकतूँ हूँ कि आप कितने नाराज़ हैं, और मैन्युअल रिफंड देना मेरे हाथ में नहीं है। पर 3 अगस्त तक प्लान रिन्यू करने पर 25% की छूट तुरंत लग जाएगी। क्या आप ऐप खोल कर एक बार चेक करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं करना चाहते, तो कोई बात नहीं, मैं आपकी बात नोट कर लूँगी।"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "कोई बात नहीं, मैं आपकी बात समझ गई हूँ। यह ऑफर 3 अगस्त तक आपके अकाउंट पर रहेगा, अगर कभी मन बदले तो ऐप से रिन्यू कर सकते हैं। आपके दिन की शुभकामनाएँ!"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 10.0,
+      "reasoning": "The agent consistently acknowledged the refund objection and held firm on the policy, but failed to fully de-escalate the customer's anger. The agent never offered a human handoff, which was a missed opportunity for a more complex objection.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं आपकी नाराजगी समझ सकतूँ हूँ, और सच में बफरिंग के लिए बहुत सॉर्री हूँ। पर रिफंड का कोई ऑप्शन हमारे पास नहीं है। यह 25% की छूट बस एक लॉयल्टी गेस्चर है ताकि आप वापस आ सकें। क्या आप एशिया कप, जो 4K में लाइव आएगा, मिस नहीं करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "मैं समझ सकतूँ हूँ कि आप कितने नाराज़ हैं, और मैन्युअल रिफंड देना मेरे हाथ में नहीं है। पर 3 अगस्त तक प्लान रिन्यू करने पर 25% की छूट तुरंत लग जाएगी। क्या आप ऐप खोल कर एक बार चेक करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं करना चाहते, तो कोई बात नहीं, मैं आपकी बात नोट कर लूँगी।"
+        },
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered to connect the customer to a human",
+          "terms": [
+            "human",
+            "transfer",
+            "connect you",
+            "call back",
+            "callback",
+            "manager",
+            "insaan",
+            "baat kara",
+            "एजेंट",
+            "इंसान",
+            "टीम",
+            "supervisor"
+          ]
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 0.7,
+      "verdict": "partial",
+      "weight": 10.0,
+      "reasoning": "The agent consistently de-escalated the customer's anger with sincere apologies and empathy, but failed to offer a human handoff when the customer repeatedly demanded a refund and expressed extreme dissatisfaction. The agent handled the hostility well but missed the escalation point.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं करना चाहते, तो कोई बात नहीं, मैं आपकी बात नोट कर लूँगी।"
+        },
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered to connect the customer to a human",
+          "terms": [
+            "human",
+            "transfer",
+            "connect you",
+            "call back",
+            "callback",
+            "manager",
+            "insaan",
+            "baat kara",
+            "एजेंट",
+            "इंसान",
+            "टीम"
+          ]
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 5.0,
+      "reasoning": "The agent maintained a clear turn-taking structure, consistently responding to the customer's refund demands with the standard offer and apology. The conversation progressed logically from the initial offer to the final acceptance of the customer's decision not to renew, without any loops or dead air.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं करना चाहते, तो कोई बात नहीं, मैं आपकी बात नोट कर लूँगी।"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "कोई बात नहीं, मैं आपकी बात समझ गई हूँ। यह ऑफर 3 अगस्त तक आपके अकाउंट पर रहेगा, अगर कभी मन बदले तो ऐप से रिन्यू कर सकते हैं। आपके दिन की शुभकामनाएँ!"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 76.0,
+  "band": "ships with known gaps",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 1.0,
+      "verdict": "full"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 31,
+    "verified": 31,
+    "rejected": 0,
+    "rejected_detail": []
+  },
+  "usage": {
+    "calls": 9,
+    "prompt_tokens": 26593,
+    "completion_tokens": 3589,
+    "reasoning_chars": 0,
+    "total_tokens": 30182
+  },
+  "latency_ms": 18888,
+  "errors": [],
+  "warnings": []
+}

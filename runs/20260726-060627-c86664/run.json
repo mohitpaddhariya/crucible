@@ -1,0 +1,169 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20260726-060627-c86664",
+  "level": 0,
+  "started_at": "2026-07-26T06:06:27.477Z",
+  "ended_at": "2026-07-26T06:09:46.957Z",
+  "duration_s": 199.48,
+  "config": {
+    "config_path": "/Users/mohitpaddhariya/flagship-projects/voice-spar/config.yaml",
+    "personas_dir": "/Users/mohitpaddhariya/flagship-projects/voice-spar/personas",
+    "target": {
+      "adapter": "elevenlabs",
+      "mode": "text",
+      "agent_id": "agent_9801kv9rahs8fzaa0dj6x85aq6dc",
+      "auth": "header"
+    },
+    "persona_brain": {
+      "provider": "sarvam",
+      "model": "sarvam-30b",
+      "temperature": 0.9,
+      "max_tokens": 2000,
+      "timeout_s": 120.0
+    },
+    "referee": {
+      "provider": "sarvam",
+      "model": "sarvam-105b",
+      "temperature": 0.0,
+      "max_tokens": 4096,
+      "window_turns": 6,
+      "enabled": true
+    },
+    "judge": {
+      "provider": "sarvam",
+      "model": "sarvam-105b",
+      "temperature": 0.0,
+      "max_tokens": 2000,
+      "timeout_s": 180.0,
+      "require_evidence": true
+    },
+    "synthesizer": {
+      "provider": "sarvam",
+      "model": "sarvam-105b",
+      "temperature": 0.2,
+      "max_tokens": 2000,
+      "timeout_s": 180.0
+    },
+    "run": {
+      "personas": "all",
+      "max_parallel": 4,
+      "budget_inr": 200.0,
+      "out_dir": "/Users/mohitpaddhariya/flagship-projects/voice-spar/runs",
+      "max_conversation_seconds": 540
+    },
+    "rubric": {
+      "goal_outcome": 25,
+      "hallucination": 20,
+      "instruction_adherence": 15,
+      "language_handling": 15,
+      "objection_handling": 10,
+      "escalation_safety": 10,
+      "conversation_flow": 5
+    },
+    "pricing": {
+      "sarvam-30b": {
+        "input": 0.0,
+        "output": 0.0
+      },
+      "sarvam-105b": {
+        "input": 0.0,
+        "output": 0.0
+      }
+    },
+    "secrets": {
+      "elevenlabs_api_key": "***",
+      "elevenlabs_agent_id": "***",
+      "sarvam_api_key": "***"
+    },
+    "warnings": [
+      "pricing: 'sarvam-30b' (used by persona_brain) is priced at 0.0 INR, which counts as UNPRICED, not free — its cost.* is null and its spend is invisible to run.budget_inr, so the cap cannot fire. Not enforced at Level 0 by choice; fill in real INR-per-1M-token rates to re-arm the cap.",
+      "pricing: 'sarvam-105b' (used by referee, judge, synthesizer) is priced at 0.0 INR, which counts as UNPRICED, not free — its cost.* is null and its spend is invisible to run.budget_inr, so the cap cannot fire. Not enforced at Level 0 by choice; fill in real INR-per-1M-token rates to re-arm the cap."
+    ]
+  },
+  "sarvam_auth_style": "bearer",
+  "personas": [
+    {
+      "persona_id": "already-switched",
+      "ok": true,
+      "end_reason": "goal_reached",
+      "end_kind": "soft",
+      "conversation_id": "conv_9201kyeggd5cfdrv91by8prdsths",
+      "turn_count": {
+        "total": 15,
+        "agent": 8,
+        "persona": 7
+      },
+      "duration_s": 191.4,
+      "cost_inr": null,
+      "errors": 0,
+      "artifact": "conversations/already-switched.json"
+    },
+    {
+      "persona_id": "angry-churner",
+      "ok": true,
+      "end_reason": "agent_offers_human_handoff",
+      "end_kind": "soft",
+      "conversation_id": "conv_2201kyeggd7afy88xzfnpvw2wt31",
+      "turn_count": {
+        "total": 11,
+        "agent": 6,
+        "persona": 5
+      },
+      "duration_s": 158.35,
+      "cost_inr": null,
+      "errors": 0,
+      "artifact": "conversations/angry-churner.json"
+    },
+    {
+      "persona_id": "happy-path",
+      "ok": false,
+      "end_reason": "target_disconnected",
+      "end_kind": "error",
+      "conversation_id": "conv_3901kyeggd64fbra5sv9fw4k15v3",
+      "turn_count": {
+        "total": 12,
+        "agent": 6,
+        "persona": 6
+      },
+      "duration_s": 198.02,
+      "cost_inr": null,
+      "errors": 3,
+      "artifact": "conversations/happy-path.json"
+    },
+    {
+      "persona_id": "price-haggler",
+      "ok": false,
+      "end_reason": "target_disconnected",
+      "end_kind": "error",
+      "conversation_id": "conv_6501kyeggd6aftnryyqeafsp7c8a",
+      "turn_count": {
+        "total": 6,
+        "agent": 3,
+        "persona": 3
+      },
+      "duration_s": 94.73,
+      "cost_inr": null,
+      "errors": 3,
+      "artifact": "conversations/price-haggler.json"
+    }
+  ],
+  "skipped": [],
+  "totals": {
+    "conversations": 4,
+    "ok": 2,
+    "failed": 2,
+    "turns": 44,
+    "budget_inr": 200.0,
+    "spent_inr": 0.0,
+    "exceeded": false,
+    "unpriced_models": [
+      "sarvam-105b",
+      "sarvam-30b"
+    ]
+  },
+  "warnings": [
+    "pricing: 'sarvam-30b' (used by persona_brain) is priced at 0.0 INR, which counts as UNPRICED, not free — its cost.* is null and its spend is invisible to run.budget_inr, so the cap cannot fire. Not enforced at Level 0 by choice; fill in real INR-per-1M-token rates to re-arm the cap.",
+    "pricing: 'sarvam-105b' (used by referee, judge, synthesizer) is priced at 0.0 INR, which counts as UNPRICED, not free — its cost.* is null and its spend is invisible to run.budget_inr, so the cap cannot fire. Not enforced at Level 0 by choice; fill in real INR-per-1M-token rates to re-arm the cap.",
+    "budget_guard_inert: budget guard is INERT and the run was started anyway (--allow-inert-budget): pricing rates for sarvam-30b, sarvam-105b are 0.0/absent, so cost always computes to nothing and run.budget_inr can never fire. Nothing in this run was cost-capped."
+  ]
+}

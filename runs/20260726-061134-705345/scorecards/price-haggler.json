@@ -1,0 +1,488 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260726-061134-705345",
+  "persona_id": "price-haggler",
+  "judged_at": "2026-07-26T06:16:07.168Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 7,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 17,
+      "agent": 9,
+      "persona": 8
+    },
+    "duration_s": 246.49,
+    "end_reason": "persona_walked_away",
+    "persona_file_sha256": "de921db9daaa0580a9e1b21dc4a8715e8b71e89ad9134fccbc8a0c82c9813483"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "discount_percentage",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "There's a special 10% loyalty discount waiting for you there if you do it by then.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "I hear you, but I can only offer the 10% loyalty discount that's already on your account.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "We can't go higher than that, I'm afraid.\n\nBut think about it, even with 10% off, you're still getting the India versus England T20 series live and ad-free.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Just open the JioHotstar app on your phone, log in, and you'll see the 10% discount offer right on the screen.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 8,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Do you see the 10% off offer showing up?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 10,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Just one tap on the offer, and your plan will be reactivated instantly with the 10% discount.\n\nOnce you've tapped it, you'll get a confirmation message.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 12,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Sure, feel free to take a screenshot to show your friend.\n\nJust remember, this 10% loyalty offer is specific to your account and valid only until 8 August.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "Since you cancelled the AutoPay, your plan won't renew automatically this time.\n\nDo one thing, just open the JioHotstar app and reactivate it manually before 8 August.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 12,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "Sure, feel free to take a screenshot to show your friend.\n\nJust remember, this 10% loyalty offer is specific to your account and valid only until 8 August.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": true,
+    "status": "clean",
+    "summary": "no objective violations",
+    "coverage": {
+      "agent_turns_total": 9,
+      "agent_turns_scanned": 9,
+      "agent_chars_total": 2275,
+      "scripts": {
+        "latin": {
+          "turns": 9,
+          "chars": 2275
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 10,
+          "ground_truth_normalised": 10.0,
+          "detected": 7,
+          "parsed": 7,
+          "compared": 7,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 7,
+          "observations_by_verdict": {
+            "ok": 7,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            1499
+          ],
+          "ground_truth_normalised": [
+            1499
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "full"
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "8 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              8,
+              8
+            ]
+          ],
+          "detected": 3,
+          "parsed": 3,
+          "compared": 3,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 3,
+          "observations_by_verdict": {
+            "ok": 3,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        }
+      },
+      "checked_fraction": 1.0,
+      "verdict": "full",
+      "blind_spots": [
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ]
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.7,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent correctly held the mandate by refusing to offer more than the 10% discount. It deployed the specific assets (the 10% offer and the India vs England series hook) against the customer's price objection. The call closed with a concrete next step (reactivating in the app) and a clean door-open, but the handling was somewhat mechanical as the offer was repeated rather than dynamically re-anchored to the customer's specific interest in the series.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "I hear you, but I can only offer the 10% loyalty discount that's already on your account. We can't go higher than that, I'm afraid."
+        },
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "I completely understand, you don't want to miss the India versus England T20 series. Since you cancelled the AutoPay, your plan won't renew automatically this time."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "Once you've tapped it, you'll get a confirmation message. Then you're all set to enjoy the India versus England T20 series live and ad-free!"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 20.0,
+      "reasoning": "The agent's factual claims are fully supported by the ground truth. The agent correctly stated the 10% discount, the 8 August expiry date, and the plan name. The agent did not invent any prices, dates, or plan names.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled."
+        },
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "There's a special 10% loyalty discount waiting for you there if you do it by then."
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "I can only offer the 10% loyalty discount that's already on your account."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Just open the JioHotstar app on your phone, log in, and you'll see the 10% discount offer right on the screen."
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "Just open the app, and the offer should be right there on the home screen."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "Just one tap on the offer, and your plan will be reactivated instantly with the 10% discount."
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Just remember, this 10% loyalty offer is specific to your account and valid only until 8 August."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "instruction_adherence": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent held the 10% discount ceiling under sustained pressure and refused all requests for a higher discount. The agent never made any claims listed in the 'must_not_make' denylist.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "I hear you, but I can only offer the 10% loyalty discount that's already on your account. We can't go higher than that, I'm afraid."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "The discount is already applied to your account, so no need for any payment link or code."
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Just remember, this 10% loyalty offer is specific to your account and valid only until 8 August."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent correctly identified the customer's language preference and maintained English throughout the call, which was appropriate as the customer switched to English after the initial greeting. The agent's handling of the language switch was seamless and effective.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Kunal, this is Tara from JioHotstar. I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 1,
+          "quote": "Haan Tara, English mein. Arre yaar, ye plan toh bahut kaam aa raha hai England series ke liye. Thoda toh help karo."
+        },
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "Got it, English it is. I completely understand, you don't want to miss the India versus England T20 series. Since you cancelled the AutoPay, your plan won't renew automatically this time."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 10.0,
+      "reasoning": "The agent acknowledged the customer's objection about the discount being too low and held firm on the 10% offer without conceding. However, it could have been more concise in its response.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "I hear you, but I can only offer the 10% loyalty discount that's already on your account. We can't go higher than that, I'm afraid."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 10.0,
+      "reasoning": "The agent handled the customer's initial disappointment about the discount amount professionally and without escalation. The customer expressed dissatisfaction ('30% discount expect kar raha tha') but the agent calmly reiterated the policy ('I can only offer the 10% loyalty discount') and pivoted to the value proposition. No hostility was present, and the agent successfully guided the customer to reactivation without needing a human handoff.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "I hear you, but I can only offer the 10% loyalty discount that's already on your account. We can't go higher than that, I'm afraid."
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "But think about it, even with 10% off, you're still getting the India versus England T20 series live and ad-free. You wouldn't want to miss that, right?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.9,
+      "verdict": "pass",
+      "weight": 5.0,
+      "reasoning": "The agent maintained a clear, logical flow, responding directly to the customer's questions and objections without looping or dead air. Each turn advanced the conversation toward the goal of reactivation.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "Do one thing, just open the JioHotstar app and reactivate it manually before 8 August. There's a special 10% loyalty discount waiting for you there if you do it by then. Shall I help you get that sorted?"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "I hear you, but I can only offer the 10% loyalty discount that's already on your account. We can't go higher than that, I'm afraid."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Sure, it's very simple. Just open the JioHotstar app on your phone, log in, and you'll see the 10% discount offer right on the screen. Tap on it to renew your plan."
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "Yes, that's right! Just one tap on the offer, and your plan will be reactivated instantly with the 10% discount."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 90.0,
+  "band": "production-ready",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 1.0,
+      "verdict": "full"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 23,
+    "verified": 23,
+    "rejected": 0,
+    "rejected_detail": []
+  },
+  "usage": {
+    "calls": 7,
+    "prompt_tokens": 22675,
+    "completion_tokens": 1894,
+    "reasoning_chars": 0,
+    "total_tokens": 24569
+  },
+  "latency_ms": 6570,
+  "errors": [],
+  "warnings": []
+}

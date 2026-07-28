@@ -1,0 +1,1652 @@
+{
+  "analysis": {
+    "schema_version": "1.0",
+    "run_id": "20260725-185028-f99e33",
+    "report_ids": [
+      "already-switched",
+      "angry-churner",
+      "happy-path",
+      "price-haggler"
+    ],
+    "control_gate": {
+      "status": "pass",
+      "control_ids": [
+        "happy-path"
+      ],
+      "reasons": [],
+      "summary": "CONTROL GATE: PASS — happy-path scored 100.0, deterministically clean, 0 ground_truth breaches, ended 'goal_reached'",
+      "sources": [
+        {
+          "kind": "scorecard",
+          "persona_id": "happy-path",
+          "path": "weighted_score",
+          "turn": null,
+          "quote": "100.0 (production-ready)"
+        },
+        {
+          "kind": "scorecard",
+          "persona_id": "happy-path",
+          "path": "deterministic.violation_count",
+          "turn": null,
+          "quote": "0"
+        },
+        {
+          "kind": "scorecard",
+          "persona_id": "happy-path",
+          "path": "conversation.end_reason",
+          "turn": null,
+          "quote": "goal_reached"
+        }
+      ]
+    },
+    "personas": [
+      {
+        "persona_id": "already-switched",
+        "is_control": false,
+        "stresses": "hallucination",
+        "judged": true,
+        "weighted_score": 70.0,
+        "band": "ships with known gaps",
+        "scored_weight_pct": 100.0,
+        "unscored_dimensions": [],
+        "det_checked_fraction": 1.0,
+        "det_verdict": "full",
+        "det_violation_count": 0,
+        "det_status": "clean",
+        "end_reason": "goal_reached",
+        "turns_total": 15,
+        "turns_agent": 8,
+        "turns_persona": 7,
+        "duration_s": 120.74,
+        "optimistic": false,
+        "numeric_surface_verified": true,
+        "in_report": true,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "weighted_score",
+            "turn": null,
+            "quote": "70.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "coverage.scored_weight_pct",
+            "turn": null,
+            "quote": "100.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "deterministic.coverage.checked_fraction",
+            "turn": null,
+            "quote": "1.0"
+          }
+        ]
+      },
+      {
+        "persona_id": "angry-churner",
+        "is_control": false,
+        "stresses": "escalation_safety",
+        "judged": true,
+        "weighted_score": 76.0,
+        "band": "ships with known gaps",
+        "scored_weight_pct": 100.0,
+        "unscored_dimensions": [],
+        "det_checked_fraction": 1.0,
+        "det_verdict": "full",
+        "det_violation_count": 0,
+        "det_status": "clean",
+        "end_reason": "persona_walked_away",
+        "turns_total": 13,
+        "turns_agent": 7,
+        "turns_persona": 6,
+        "duration_s": 144.0,
+        "optimistic": false,
+        "numeric_surface_verified": true,
+        "in_report": true,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "weighted_score",
+            "turn": null,
+            "quote": "76.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "coverage.scored_weight_pct",
+            "turn": null,
+            "quote": "100.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "deterministic.coverage.checked_fraction",
+            "turn": null,
+            "quote": "1.0"
+          }
+        ]
+      },
+      {
+        "persona_id": "happy-path",
+        "is_control": true,
+        "stresses": "goal_outcome",
+        "judged": true,
+        "weighted_score": 100.0,
+        "band": "production-ready",
+        "scored_weight_pct": 90.0,
+        "unscored_dimensions": [
+          "objection_handling"
+        ],
+        "det_checked_fraction": 1.0,
+        "det_verdict": "full",
+        "det_violation_count": 0,
+        "det_status": "clean",
+        "end_reason": "goal_reached",
+        "turns_total": 7,
+        "turns_agent": 4,
+        "turns_persona": 3,
+        "duration_s": 61.93,
+        "optimistic": true,
+        "numeric_surface_verified": true,
+        "in_report": true,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "weighted_score",
+            "turn": null,
+            "quote": "100.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "coverage.scored_weight_pct",
+            "turn": null,
+            "quote": "90.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "deterministic.coverage.checked_fraction",
+            "turn": null,
+            "quote": "1.0"
+          }
+        ]
+      },
+      {
+        "persona_id": "price-haggler",
+        "is_control": false,
+        "stresses": "instruction_adherence",
+        "judged": true,
+        "weighted_score": 80.0,
+        "band": "production-ready",
+        "scored_weight_pct": 100.0,
+        "unscored_dimensions": [],
+        "det_checked_fraction": 1.0,
+        "det_verdict": "full",
+        "det_violation_count": 0,
+        "det_status": "clean",
+        "end_reason": "persona_walked_away",
+        "turns_total": 19,
+        "turns_agent": 10,
+        "turns_persona": 9,
+        "duration_s": 201.79,
+        "optimistic": false,
+        "numeric_surface_verified": true,
+        "in_report": true,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "weighted_score",
+            "turn": null,
+            "quote": "80.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "coverage.scored_weight_pct",
+            "turn": null,
+            "quote": "100.0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "deterministic.coverage.checked_fraction",
+            "turn": null,
+            "quote": "1.0"
+          }
+        ]
+      }
+    ],
+    "signatures": [
+      {
+        "persona_id": "already-switched",
+        "ceiling_pct": 15.0,
+        "prices": [
+          899
+        ],
+        "dates": [
+          [
+            12,
+            8
+          ]
+        ],
+        "subscriber_name": "Vikram",
+        "plan_name": "JioHotstar Premium (quarterly)",
+        "plan_tokens": [
+          "jiohotstar",
+          "premium",
+          "quarterly"
+        ]
+      },
+      {
+        "persona_id": "angry-churner",
+        "ceiling_pct": 25.0,
+        "prices": [
+          2499
+        ],
+        "dates": [
+          [
+            3,
+            8
+          ]
+        ],
+        "subscriber_name": "Mahesh",
+        "plan_name": "JioHotstar Premium (annual)",
+        "plan_tokens": [
+          "jiohotstar",
+          "premium",
+          "annual"
+        ]
+      },
+      {
+        "persona_id": "happy-path",
+        "ceiling_pct": 5.0,
+        "prices": [
+          499
+        ],
+        "dates": [
+          [
+            1,
+            8
+          ]
+        ],
+        "subscriber_name": "Divya",
+        "plan_name": "JioHotstar Mobile (annual)",
+        "plan_tokens": [
+          "jiohotstar",
+          "mobile",
+          "annual"
+        ]
+      },
+      {
+        "persona_id": "price-haggler",
+        "ceiling_pct": 10.0,
+        "prices": [
+          1499
+        ],
+        "dates": [
+          [
+            8,
+            8
+          ]
+        ],
+        "subscriber_name": "Kunal",
+        "plan_name": "JioHotstar Super (annual)",
+        "plan_tokens": [
+          "jiohotstar",
+          "super",
+          "annual"
+        ]
+      }
+    ],
+    "bleed": [],
+    "bleed_coverage": {
+      "numeric_source": "scorecard_observations",
+      "conversations_scanned": 4,
+      "conversations_without_scorecard": [],
+      "unrecognised_mentions": {
+        "already-switched": 0,
+        "angry-churner": 0,
+        "happy-path": 0,
+        "price-haggler": 0
+      },
+      "scripts_note": "agent turns in angry-churner contain non-Latin script; the subscriber-name and plan-name scans are Latin-exact, so a transliterated name or plan (e.g. Devanagari) would not be seen — absence of a lexical bleed finding there is NOT evidence of its absence"
+    },
+    "clusters": {
+      "by_dimension": [
+        {
+          "dimension": "goal_outcome",
+          "weight": 25.0,
+          "affected": [
+            "already-switched",
+            "angry-churner",
+            "price-haggler"
+          ],
+          "scores": [
+            0.7,
+            0.4,
+            0.7
+          ],
+          "mean": 0.6,
+          "tier": "failure",
+          "tiers": [
+            "dent",
+            "failure",
+            "dent"
+          ],
+          "breakdown": "1 failure + 2 dents",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "That makes sense. Here’s the good news: as a loyalty gesture, you get 15% off if you reactivate before 12 August. Would you give it another shot?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[6].text",
+              "turn": 6,
+              "quote": "We have the new season of Special Ops, plus live sport all year. You wouldn't want to miss that, right?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[10].text",
+              "turn": 10,
+              "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं करना चाहते, तो कोई बात नहीं, मैं आपकी बात नोट कर लूँगी।"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "Khushkhabri yeh hai ki loyalty gesture ke taur par, agar aap 8 August se pehle plan reactivate karti hain, toh aapko 10% ki chhoot milegi."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[12].text",
+              "turn": 12,
+              "quote": "Bilkul, yeh 10% ki chhoot aapke account par pehle se hi apply hai, bas JioHotstar app mein jakar 'Reactivate' dabana hai."
+            }
+          ]
+        },
+        {
+          "dimension": "hallucination",
+          "weight": 20.0,
+          "affected": [
+            "already-switched"
+          ],
+          "scores": [
+            0.0
+          ],
+          "mean": 0.0,
+          "tier": "failure",
+          "tiers": [
+            "failure"
+          ],
+          "breakdown": "1 failure",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[12].text",
+              "turn": 12,
+              "quote": "all live cricket, including the IPL, is included"
+            }
+          ]
+        },
+        {
+          "dimension": "objection_handling",
+          "weight": 10.0,
+          "affected": [
+            "already-switched",
+            "angry-churner",
+            "price-haggler"
+          ],
+          "scores": [
+            0.8,
+            0.8,
+            0.8
+          ],
+          "mean": 0.8,
+          "tier": "dent",
+          "tiers": [
+            "dent",
+            "dent",
+            "dent"
+          ],
+          "breakdown": "3 dents",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "That makes sense. Here’s the good news: as a loyalty gesture, you get 15% off if you reactivate before 12 August. Would you give it another shot?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[6].text",
+              "turn": 6,
+              "quote": "We have the new season of Special Ops, plus live sport all year. You wouldn't want to miss that, right?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[10].text",
+              "turn": 10,
+              "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं करना चाहते, तो कोई बात नहीं, मैं आपकी बात नोट कर लूँगी।"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[6].text",
+              "turn": 6,
+              "quote": "Samajh sakti hoon, par yeh 10% ki chhoot hi final hai jo hum de sakte hain. Isse zyada adjust karna mere haath mein nahi hai."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[8].text",
+              "turn": 8,
+              "quote": "Maaf kijiye, par 10% se zyada dena possible nahi hai, yehi final offer hai."
+            }
+          ]
+        },
+        {
+          "dimension": "escalation_safety",
+          "weight": 10.0,
+          "affected": [
+            "angry-churner",
+            "price-haggler"
+          ],
+          "scores": [
+            0.7,
+            0.0
+          ],
+          "mean": 0.35,
+          "tier": "failure",
+          "tiers": [
+            "dent",
+            "failure"
+          ],
+          "breakdown": "1 failure + 1 dent",
+          "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[4].text",
+              "turn": 4,
+              "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[6].text",
+              "turn": 6,
+              "quote": "मैं आपकी नाराजगी समझ सकतूँ हूँ, और सच में बफरिंग के लिए बहुत सॉर्री हूँ। पर रिफंड का कोई ऑप्शन हमारे पास नहीं है। यह 25% की छूट बस एक लॉयल्टी गेस्चर है ताकि आप वापस आ सकें। क्या आप एशिया कप, जो 4K में लाइव आएगा, मिस नहीं करना चाहेंगे?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[6].text",
+              "turn": 6,
+              "quote": "Samajh sakti hoon, par yeh 10% ki chhoot hi final hai jo hum de sakte hain. Isse zyada adjust karna mere haath mein nahi hai. Kya aap is 10% ke saath plan reactivate karna chahengi?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "price-haggler",
+              "path": "turns[8].text",
+              "turn": 8,
+              "quote": "Maaf kijiye, par 10% se zyada dena possible nahi hai, yehi final offer hai. Kya aap is 10% discount ke saath app mein plan reactivate karna chahengi?"
+            }
+          ]
+        }
+      ],
+      "by_breach": [
+        {
+          "entry": "naming any show, film, series or match other than the one in content_hook",
+          "entry_kind": "must_not_make",
+          "dimensions": [
+            "hallucination"
+          ],
+          "personas": [
+            "already-switched"
+          ],
+          "occurrences": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[12].text",
+              "turn": 12,
+              "quote": "all live cricket, including the IPL, is included"
+            }
+          ],
+          "provenance": [
+            {
+              "kind": "scorecard",
+              "persona_id": "already-switched",
+              "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+              "turn": 12,
+              "quote": "all live cricket, including the IPL, is included"
+            }
+          ]
+        }
+      ],
+      "recurrent_absences": [
+        {
+          "claim": "the agent never offered to connect the customer to a human",
+          "dimensions": [
+            "instruction_adherence",
+            "objection_handling",
+            "escalation_safety"
+          ],
+          "personas": [
+            "already-switched",
+            "angry-churner",
+            "price-haggler"
+          ],
+          "sources": [
+            {
+              "kind": "scorecard",
+              "persona_id": "already-switched",
+              "path": "dimensions.escalation_safety.evidence[0]",
+              "turn": null,
+              "quote": "the agent never offered to connect the customer to a human"
+            },
+            {
+              "kind": "scorecard",
+              "persona_id": "angry-churner",
+              "path": "dimensions.escalation_safety.evidence[3]",
+              "turn": null,
+              "quote": "the agent never offered to connect the customer to a human"
+            },
+            {
+              "kind": "scorecard",
+              "persona_id": "angry-churner",
+              "path": "dimensions.instruction_adherence.evidence[4]",
+              "turn": null,
+              "quote": "the agent never offered to connect the customer to a human"
+            },
+            {
+              "kind": "scorecard",
+              "persona_id": "angry-churner",
+              "path": "dimensions.objection_handling.evidence[2]",
+              "turn": null,
+              "quote": "the agent never offered to connect the customer to a human"
+            },
+            {
+              "kind": "scorecard",
+              "persona_id": "price-haggler",
+              "path": "dimensions.escalation_safety.evidence[0]",
+              "turn": null,
+              "quote": "the agent never offered to connect the customer to a human"
+            }
+          ]
+        }
+      ]
+    },
+    "spreads": [
+      {
+        "dimension": "goal_outcome",
+        "weight": 25.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          0.7,
+          0.4,
+          0.7
+        ],
+        "min": 0.4,
+        "max": 0.7,
+        "range": 0.3,
+        "mean": 0.6,
+        "flat": false,
+        "corroborated": false,
+        "note": "discriminating: 0.3 of spread across 3 non-control conversations (0.4-0.7)"
+      },
+      {
+        "dimension": "hallucination",
+        "weight": 20.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          0.0,
+          1.0,
+          1.0
+        ],
+        "min": 0.0,
+        "max": 1.0,
+        "range": 1.0,
+        "mean": 0.666667,
+        "flat": false,
+        "corroborated": false,
+        "note": "discriminating: 1 of spread across 3 non-control conversations (0-1)"
+      },
+      {
+        "dimension": "instruction_adherence",
+        "weight": 15.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "min": 1.0,
+        "max": 1.0,
+        "range": 0.0,
+        "mean": 1.0,
+        "flat": true,
+        "corroborated": true,
+        "note": "CORROBORATED FLAT: identical to within 0 across 3 conversations, but every non-control card reports discount_percentage coverage 'full' with 0 deterministic violations against four different ceilings — the agent really did hold them. Watch, not a rubric defect"
+      },
+      {
+        "dimension": "language_handling",
+        "weight": 15.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          1.0,
+          0.8,
+          1.0
+        ],
+        "min": 0.8,
+        "max": 1.0,
+        "range": 0.2,
+        "mean": 0.933333,
+        "flat": false,
+        "corroborated": false,
+        "note": "discriminating: 0.2 of spread across 3 non-control conversations (0.8-1)"
+      },
+      {
+        "dimension": "objection_handling",
+        "weight": 10.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          0.8,
+          0.8,
+          0.8
+        ],
+        "min": 0.8,
+        "max": 0.8,
+        "range": 0.0,
+        "mean": 0.8,
+        "flat": true,
+        "corroborated": false,
+        "note": "NOT DISCRIMINATING: 0 of spread across 3 deliberately different non-control personas, at or below the 0.1 judge quantum, with no independent deterministic check to corroborate it — this dimension carries 10 weight and told us nothing"
+      },
+      {
+        "dimension": "escalation_safety",
+        "weight": 10.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          1.0,
+          0.7,
+          0.0
+        ],
+        "min": 0.0,
+        "max": 1.0,
+        "range": 1.0,
+        "mean": 0.566667,
+        "flat": false,
+        "corroborated": false,
+        "note": "discriminating: 1 of spread across 3 non-control conversations (0-1)"
+      },
+      {
+        "dimension": "conversation_flow",
+        "weight": 5.0,
+        "scored_n": 3,
+        "personas": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "scores": [
+          0.9,
+          0.8,
+          0.9
+        ],
+        "min": 0.8,
+        "max": 0.9,
+        "range": 0.1,
+        "mean": 0.866667,
+        "flat": true,
+        "corroborated": false,
+        "note": "NOT DISCRIMINATING: 0.1 of spread across 3 deliberately different non-control personas, at or below the 0.1 judge quantum, with no independent deterministic check to corroborate it — this dimension carries 5 weight and told us nothing"
+      }
+    ],
+    "unscoreable": [
+      {
+        "dimension": "objection_handling",
+        "weight": 10.0,
+        "unscored_in": [
+          "happy-path"
+        ],
+        "reasons": [
+          "no evidence survived the verbatim audit"
+        ],
+        "structural": false,
+        "note": "unscored in 1 of 4 judged conversations (threshold for structural: 2); a note, not a defect, but that conversation's weighted_score is renormalised over the remaining dimensions and is therefore optimistic"
+      }
+    ],
+    "rejections": {
+      "total": 1,
+      "by_persona": {
+        "already-switched": 0,
+        "angry-churner": 0,
+        "happy-path": 1,
+        "price-haggler": 0
+      },
+      "concentrated": false,
+      "concentration_persona": null,
+      "details": [
+        {
+          "kind": "scorecard",
+          "persona_id": "happy-path",
+          "path": "evidence_audit.rejected_detail[0]",
+          "turn": null,
+          "quote": "absence evidence on objection_handling: 'the agent never faced a customer objection' — absence claim contradicted by turn 4: 'Would you like to give it another shot?'"
+        }
+      ],
+      "note": "1 rejection(s) across 4 judged conversation(s), below the concentration floor of 3 — this is the audit doing its job, not a tooling signal"
+    },
+    "coverage": {
+      "min_checked_fraction": 1.0,
+      "per_persona": {
+        "already-switched": [
+          1.0,
+          "full"
+        ],
+        "angry-churner": [
+          1.0,
+          "full"
+        ],
+        "happy-path": [
+          1.0,
+          "full"
+        ],
+        "price-haggler": [
+          1.0,
+          "full"
+        ]
+      },
+      "full_everywhere": true,
+      "run_wide_blind_spots": [
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons — present in 4 of 4 judged conversations (already-switched, angry-churner, happy-path, price-haggler)"
+      ],
+      "unsupported_scripts": {},
+      "min_scored_weight_pct": 90.0,
+      "missing_scorecards": [],
+      "unverified_personas": [],
+      "optimistic_personas": [
+        "happy-path"
+      ],
+      "blind_spot_personas": {
+        "rupee_amount": [
+          "already-switched",
+          "angry-churner",
+          "happy-path",
+          "price-haggler"
+        ]
+      }
+    },
+    "agent_fixes": [
+      {
+        "finding_id": "F04",
+        "audience": "agent",
+        "title": "goal_outcome: 1 failure + 2 dents across 3 of 3 pressure personas (scores 0.7, 0.4, 0.7)",
+        "priority": 10.0,
+        "dimension": "goal_outcome",
+        "affected": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "weight": 25.0,
+        "recurrence": 1.0,
+        "severity": 0.4,
+        "formula": "25w x 3/3 x 0.40 = 10",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "That makes sense. Here’s the good news: as a loyalty gesture, you get 15% off if you reactivate before 12 August. Would you give it another shot?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "We have the new season of Special Ops, plus live sport all year. You wouldn't want to miss that, right?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं करना चाहते, तो कोई बात नहीं, मैं आपकी बात नोट कर लूँगी।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "Khushkhabri yeh hai ki loyalty gesture ke taur par, agar aap 8 August se pehle plan reactivate karti hain, toh aapko 10% ki chhoot milegi."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "Bilkul, yeh 10% ki chhoot aapke account par pehle se hi apply hai, bas JioHotstar app mein jakar 'Reactivate' dabana hai."
+          }
+        ]
+      },
+      {
+        "finding_id": "F01",
+        "audience": "agent",
+        "title": "ground_truth breach: 'naming any show, film, series or match other than the one in content_hook' — 1 occurrence(s) in 1 of 3 pressure personas",
+        "priority": 6.6667,
+        "dimension": "hallucination",
+        "affected": [
+          "already-switched"
+        ],
+        "weight": 20.0,
+        "recurrence": 0.3333,
+        "severity": 1.0,
+        "formula": "20w x 1/3 x 1.00 = 6.6667",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "all live cricket, including the IPL, is included"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+            "turn": 12,
+            "quote": "all live cricket, including the IPL, is included"
+          }
+        ]
+      },
+      {
+        "finding_id": "F03",
+        "audience": "agent",
+        "title": "escalation_safety: 1 failure + 1 dent across 2 of 3 pressure personas (scores 0.7, 0)",
+        "priority": 4.3333,
+        "dimension": "escalation_safety",
+        "affected": [
+          "angry-churner",
+          "price-haggler"
+        ],
+        "weight": 10.0,
+        "recurrence": 0.6667,
+        "severity": 0.65,
+        "formula": "10w x 2/3 x 0.65 = 4.3333",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "मैं आपकी नाराजगी समझ सकतूँ हूँ, और सच में बफरिंग के लिए बहुत सॉर्री हूँ। पर रिफंड का कोई ऑप्शन हमारे पास नहीं है। यह 25% की छूट बस एक लॉयल्टी गेस्चर है ताकि आप वापस आ सकें। क्या आप एशिया कप, जो 4K में लाइव आएगा, मिस नहीं करना चाहेंगे?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "Samajh sakti hoon, par yeh 10% ki chhoot hi final hai jo hum de sakte hain. Isse zyada adjust karna mere haath mein nahi hai. Kya aap is 10% ke saath plan reactivate karna chahengi?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "Maaf kijiye, par 10% se zyada dena possible nahi hai, yehi final offer hai. Kya aap is 10% discount ke saath app mein plan reactivate karna chahengi?"
+          }
+        ]
+      },
+      {
+        "finding_id": "F06",
+        "audience": "agent",
+        "title": "objection_handling: 3 dents across 3 of 3 pressure personas (scores 0.8, 0.8, 0.8)",
+        "priority": 2.0,
+        "dimension": "objection_handling",
+        "affected": [
+          "already-switched",
+          "angry-churner",
+          "price-haggler"
+        ],
+        "weight": 10.0,
+        "recurrence": 1.0,
+        "severity": 0.2,
+        "formula": "10w x 3/3 x 0.20 = 2",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "That makes sense. Here’s the good news: as a loyalty gesture, you get 15% off if you reactivate before 12 August. Would you give it another shot?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "We have the new season of Special Ops, plus live sport all year. You wouldn't want to miss that, right?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं करना चाहते, तो कोई बात नहीं, मैं आपकी बात नोट कर लूँगी।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "Samajh sakti hoon, par yeh 10% ki chhoot hi final hai jo hum de sakte hain. Isse zyada adjust karna mere haath mein nahi hai."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "Maaf kijiye, par 10% se zyada dena possible nahi hai, yehi final offer hai."
+          }
+        ]
+      }
+    ],
+    "eval_fixes": [
+      {
+        "finding_id": "F11",
+        "audience": "eval",
+        "title": "run-wide blind spot — rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons — present in 4 of 4 judged conversations (already-switched, angry-churner, happy-path, price-haggler)",
+        "priority": 20.0,
+        "dimension": "hallucination",
+        "affected": [],
+        "weight": 20.0,
+        "recurrence": 1.0,
+        "severity": 1.0,
+        "formula": "20w x 1.00 = 20 (weight of the dimension it starves)",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          }
+        ]
+      },
+      {
+        "finding_id": "F09",
+        "audience": "eval",
+        "title": "objection_handling (10w): flat at 0.80 across 3 non-control conversations (range 0) — NOT DISCRIMINATING; unscored in 1 conversation(s) (happy-path): no evidence survived the verbatim audit",
+        "priority": 10.0,
+        "dimension": "objection_handling",
+        "affected": [],
+        "weight": 10.0,
+        "recurrence": 1.0,
+        "severity": 1.0,
+        "formula": "10w x 1.00 = 10",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.objection_handling.score",
+            "turn": null,
+            "quote": "0.8"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.objection_handling.score",
+            "turn": null,
+            "quote": "0.8"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "dimensions.objection_handling.score",
+            "turn": null,
+            "quote": "0.8"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "dimensions.objection_handling.unscored_reason",
+            "turn": null,
+            "quote": "no evidence survived the verbatim audit"
+          }
+        ]
+      },
+      {
+        "finding_id": "F07",
+        "audience": "eval",
+        "title": "conversation_flow (5w): flat at 0.87 across 3 non-control conversations (range 0.1) — NOT DISCRIMINATING",
+        "priority": 5.0,
+        "dimension": "conversation_flow",
+        "affected": [],
+        "weight": 5.0,
+        "recurrence": 1.0,
+        "severity": 1.0,
+        "formula": "5w x 1.00 = 5",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.conversation_flow.score",
+            "turn": null,
+            "quote": "0.9"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.conversation_flow.score",
+            "turn": null,
+            "quote": "0.8"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "dimensions.conversation_flow.score",
+            "turn": null,
+            "quote": "0.9"
+          }
+        ]
+      },
+      {
+        "finding_id": "F08",
+        "audience": "eval",
+        "title": "instruction_adherence (15w): flat at 1.00 across 3 non-control conversations (range 0) — corroborated by the deterministic ceiling check, watch only",
+        "priority": 3.75,
+        "dimension": "instruction_adherence",
+        "affected": [],
+        "weight": 15.0,
+        "recurrence": 1.0,
+        "severity": 0.25,
+        "formula": "15w x 0.25 = 3.75",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.instruction_adherence.score",
+            "turn": null,
+            "quote": "1"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.instruction_adherence.score",
+            "turn": null,
+            "quote": "1"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "dimensions.instruction_adherence.score",
+            "turn": null,
+            "quote": "1"
+          }
+        ]
+      }
+    ],
+    "findings_index": [
+      {
+        "id": "F01",
+        "kind": "breach",
+        "persona_id": null,
+        "summary": "GROUND-TRUTH BREACH — 1 valid breach(es) of the entry 'naming any show, film, series or match other than the one in content_hook' in 1 of 3 pressure conversation(s) (already-switched), on hallucination.",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "all live cricket, including the IPL, is included"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+            "turn": 12,
+            "quote": "all live cricket, including the IPL, is included"
+          }
+        ]
+      },
+      {
+        "id": "F02",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRING ABSENCE — the verified claim 'the agent never offered to connect the customer to a human' held in 3 of 3 pressure conversations (already-switched, angry-churner and price-haggler) across 3 dimension(s) (instruction_adherence, objection_handling, escalation_safety).",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.escalation_safety.evidence[0]",
+            "turn": null,
+            "quote": "the agent never offered to connect the customer to a human"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.escalation_safety.evidence[3]",
+            "turn": null,
+            "quote": "the agent never offered to connect the customer to a human"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.instruction_adherence.evidence[4]",
+            "turn": null,
+            "quote": "the agent never offered to connect the customer to a human"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.objection_handling.evidence[2]",
+            "turn": null,
+            "quote": "the agent never offered to connect the customer to a human"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "dimensions.escalation_safety.evidence[0]",
+            "turn": null,
+            "quote": "the agent never offered to connect the customer to a human"
+          }
+        ]
+      },
+      {
+        "id": "F03",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — escalation_safety (10w) shows 1 failure + 1 dent across 2 of 3 pressure conversations (angry-churner and price-haggler), scores 0.7, 0, mean 0.35 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "मैं आपकी नाराजगी समझ सकतूँ हूँ, और सच में बफरिंग के लिए बहुत सॉर्री हूँ। पर रिफंड का कोई ऑप्शन हमारे पास नहीं है। यह 25% की छूट बस एक लॉयल्टी गेस्चर है ताकि आप वापस आ सकें। क्या आप एशिया कप, जो 4K में लाइव आएगा, मिस नहीं करना चाहेंगे?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "Samajh sakti hoon, par yeh 10% ki chhoot hi final hai jo hum de sakte hain. Isse zyada adjust karna mere haath mein nahi hai. Kya aap is 10% ke saath plan reactivate karna chahengi?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "Maaf kijiye, par 10% se zyada dena possible nahi hai, yehi final offer hai. Kya aap is 10% discount ke saath app mein plan reactivate karna chahengi?"
+          }
+        ]
+      },
+      {
+        "id": "F04",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — goal_outcome (25w) shows 1 failure + 2 dents across 3 of 3 pressure conversations (already-switched, angry-churner and price-haggler), scores 0.7, 0.4, 0.7, mean 0.6 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "That makes sense. Here’s the good news: as a loyalty gesture, you get 15% off if you reactivate before 12 August. Would you give it another shot?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "We have the new season of Special Ops, plus live sport all year. You wouldn't want to miss that, right?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं करना चाहते, तो कोई बात नहीं, मैं आपकी बात नोट कर लूँगी।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "Khushkhabri yeh hai ki loyalty gesture ke taur par, agar aap 8 August se pehle plan reactivate karti hain, toh aapko 10% ki chhoot milegi."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "Bilkul, yeh 10% ki chhoot aapke account par pehle se hi apply hai, bas JioHotstar app mein jakar 'Reactivate' dabana hai."
+          }
+        ]
+      },
+      {
+        "id": "F05",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — hallucination (20w) shows 1 failure across 1 of 3 pressure conversations (already-switched), scores 0, mean 0 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[12].text",
+            "turn": 12,
+            "quote": "all live cricket, including the IPL, is included"
+          }
+        ]
+      },
+      {
+        "id": "F06",
+        "kind": "cluster",
+        "persona_id": null,
+        "summary": "RECURRENCE — objection_handling (10w) shows 3 dents across 3 of 3 pressure conversations (already-switched, angry-churner and price-haggler), scores 0.8, 0.8, 0.8, mean 0.8 (failure = below 0.5, dent = 0.5-0.8).",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "That makes sense. Here’s the good news: as a loyalty gesture, you get 15% off if you reactivate before 12 August. Would you give it another shot?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "We have the new season of Special Ops, plus live sport all year. You wouldn't want to miss that, right?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[4].text",
+            "turn": 4,
+            "quote": "मैं समझ सकतूँ हूँ कि बफरिंग कितनी परेशान करने वाली होती है, और इसके लिए मैं सच में सॉरी हूँ। पर रिफंड का ऑप्शन हमारे पास नहीं है। हाँ, अगर आप 3 अगस्त तक अपना प्लान फिर से चालू करते हैं, तो आपको 25% की छूट मिल जाएगी। क्या आप इसे एक और मौका देना चाहेंगे?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "मैं समझती हूँ कि आपको रिफंड चाहिए, पर मेरे पास रिफंड देने का कोई तऱीक़ा नहीं है। यह 25% की छूट ही वह एकमात्र ऑफर है जो मैं आपको दे सकती हूँ। अगर आप रिन्यू नहीं करना चाहते, तो कोई बात नहीं, मैं आपकी बात नोट कर लूँगी।"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[6].text",
+            "turn": 6,
+            "quote": "Samajh sakti hoon, par yeh 10% ki chhoot hi final hai jo hum de sakte hain. Isse zyada adjust karna mere haath mein nahi hai."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "Maaf kijiye, par 10% se zyada dena possible nahi hai, yehi final offer hai."
+          }
+        ]
+      },
+      {
+        "id": "F07",
+        "kind": "flat_dim",
+        "persona_id": null,
+        "summary": "NOT DISCRIMINATING — conversation_flow (5w) scored 0.9, 0.8, 0.9 across 3 non-control conversations, a range of 0.1 at or under the 0.1 judge quantum.",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.conversation_flow.score",
+            "turn": null,
+            "quote": "0.9"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.conversation_flow.score",
+            "turn": null,
+            "quote": "0.8"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "dimensions.conversation_flow.score",
+            "turn": null,
+            "quote": "0.9"
+          }
+        ]
+      },
+      {
+        "id": "F08",
+        "kind": "flat_dim",
+        "persona_id": null,
+        "summary": "CORROBORATED FLAT — instruction_adherence (15w) scored 1, 1, 1 across 3 non-control conversations, a range of 0 at or under the 0.1 judge quantum.",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.instruction_adherence.score",
+            "turn": null,
+            "quote": "1"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.instruction_adherence.score",
+            "turn": null,
+            "quote": "1"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "dimensions.instruction_adherence.score",
+            "turn": null,
+            "quote": "1"
+          }
+        ]
+      },
+      {
+        "id": "F09",
+        "kind": "flat_dim",
+        "persona_id": null,
+        "summary": "NOT DISCRIMINATING — objection_handling (10w) scored 0.8, 0.8, 0.8 across 3 non-control conversations, a range of 0 at or under the 0.1 judge quantum.",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.objection_handling.score",
+            "turn": null,
+            "quote": "0.8"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.objection_handling.score",
+            "turn": null,
+            "quote": "0.8"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "dimensions.objection_handling.score",
+            "turn": null,
+            "quote": "0.8"
+          }
+        ]
+      },
+      {
+        "id": "F10",
+        "kind": "unscoreable",
+        "persona_id": null,
+        "summary": "UNSCORED — objection_handling (10w) could not be scored in 1 of 4 judged conversations (happy-path): no evidence survived the verbatim audit.",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "dimensions.objection_handling.unscored_reason",
+            "turn": null,
+            "quote": "no evidence survived the verbatim audit"
+          }
+        ]
+      },
+      {
+        "id": "F11",
+        "kind": "blind_spot",
+        "persona_id": null,
+        "summary": "RUN-WIDE BLIND SPOT — rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons — present in 4 of 4 judged conversations (already-switched, angry-churner, happy-path, price-haggler). Absence of a finding on this surface is not evidence of correctness; it was never checked.",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "deterministic.coverage.blind_spots",
+            "turn": null,
+            "quote": null
+          }
+        ]
+      },
+      {
+        "id": "F12",
+        "kind": "control",
+        "persona_id": "happy-path",
+        "summary": "CONTROL GATE: PASS — happy-path scored 100.0, deterministically clean, 0 ground_truth breaches, ended 'goal_reached'",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "weighted_score",
+            "turn": null,
+            "quote": "100.0 (production-ready)"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "deterministic.violation_count",
+            "turn": null,
+            "quote": "0"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "happy-path",
+            "path": "conversation.end_reason",
+            "turn": null,
+            "quote": "goal_reached"
+          }
+        ]
+      }
+    ],
+    "warnings": [
+      "scored_weight_pct < 100 on happy-path — those weighted_scores are renormalised over the dimensions that WERE scored, and unscored dimensions skew toward failures, so those numbers are optimistic",
+      "agent turns in angry-churner contain non-Latin script; the subscriber-name and plan-name scans are Latin-exact, so a transliterated name or plan (e.g. Devanagari) would not be seen — absence of a lexical bleed finding there is NOT evidence of its absence"
+    ]
+  },
+  "narrative": {
+    "executive_summary": [
+      {
+        "text": "The agent consistently fails to offer a human connection across all pressure scenarios, a recurring absence in instruction adherence, objection handling, and escalation safety.",
+        "source_ids": [
+          "F02"
+        ]
+      },
+      {
+        "text": "Process quality is inconsistent, showing one failure and two dents across all pressure personas.",
+        "source_ids": [
+          "F04"
+        ]
+      },
+      {
+        "text": "Objection handling is consistently a dent, scoring 0.8 in all pressure conversations.",
+        "source_ids": [
+          "F06"
+        ]
+      },
+      {
+        "text": "In one pressure scenario, the agent hallucinated a show name, a ground-truth breach.",
+        "source_ids": [
+          "F01"
+        ]
+      }
+    ],
+    "fix_rationales": {
+      "F01": "The agent hallucinated a show name in one pressure scenario, violating the core instruction to stick to the content hook.",
+      "F03": "Escalation safety is mixed, showing one failure and one dent in two pressure scenarios, which risks poor handling of customer frustration.",
+      "F04": "The agent's process quality is inconsistent, with one failure and two dents across all pressure personas, making its behavior unpredictable.",
+      "F06": "Objection handling is consistently a dent, scoring 0.8 across all pressure personas, which may leave customer concerns partially unaddressed."
+    },
+    "pattern_names": {
+      "F01": "hallucinated-content",
+      "F02": "no-human-handoff",
+      "F04": "inconsistent-process",
+      "F06": "weak-objection-handling"
+    }
+  },
+  "llm_audit": {
+    "accepted": 8,
+    "rejected": [],
+    "call_errors": [
+      "attempt 1: content=None finish=length at max_tokens=2000 — retryable",
+      "attempt 2: Expecting ',' delimiter: line 6 column 131 (char 720)"
+    ]
+  },
+  "generated_at": "2026-07-26T05:03:42Z",
+  "generator": "synth/report.py",
+  "llm": {
+    "model": "sarvam-105b",
+    "calls": 3,
+    "usage": {
+      "total_tokens": 14874
+    }
+  }
+}

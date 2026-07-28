@@ -1,0 +1,475 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260726-085633-a95e3d",
+  "level": 1,
+  "persona_id": "happy-path",
+  "persona_name": "Happy Path",
+  "persona_stresses": "goal_outcome",
+  "persona_is_control": true,
+  "persona_file_sha256": "092cff1a8ac8404397a4c624312e5e93d2725272126d9ecb486e5ee4df6f291f",
+  "target": {
+    "adapter": "elevenlabs",
+    "agent_id": "agent_9801kv9rahs8fzaa0dj6x85aq6dc",
+    "agent_name": "jiohotstar-tara-winback-recovery",
+    "agent_llm": "qwen35-397b-a17b",
+    "conversation_id": "conv_1901kyetwy7decyadyp06zf86vy4",
+    "mode": "audio",
+    "text_only_override_sent": false,
+    "auth_method": "header",
+    "audio_frames_discarded": 0,
+    "unknown_events": {},
+    "user_input_audio_format": "pcm_16000",
+    "agent_output_audio_format": "pcm_16000",
+    "audio_frames_received": 823,
+    "audio_chunks_sent": 327,
+    "pings_received": 145,
+    "pongs_sent": 145,
+    "user_transcripts": [
+      {
+        "el": 32.318418915965594,
+        "at": "2026-07-26T09:08:36.759Z",
+        "text": "Oh, okay, that makes sense. Yes, in",
+        "event_id": 34
+      },
+      {
+        "el": 83.86397616600152,
+        "at": "2026-07-26T09:09:28.304Z",
+        "text": "Oh, actually, it wasn't me.Leibank issued my card, and that's what happened to the AutoPay on my plan. I'd completely forgotten about it and meant to sort it out weeks ago.",
+        "event_id": 102
+      },
+      {
+        "el": 152.56406804092694,
+        "at": "2026-07-26T09:10:37.003Z",
+        "text": "Yes, please. That 5% off would be perfect. Would you let me know the new billing date after I’m reactivated?",
+        "event_id": 159
+      },
+      {
+        "el": 210.41671299992595,
+        "at": "2026-07-26T09:11:34.854Z",
+        "text": "Okay, that is perfect. Just please guide me onhow to reactivate it now.",
+        "event_id": 195
+      }
+    ],
+    "close_code": null,
+    "carrier_peak_max": 2044
+  },
+  "speech": {
+    "tts": {
+      "model": "bulbul:v2",
+      "speaker": "anushka",
+      "sample_rate": 16000
+    },
+    "stt": {
+      "model": "saarika:v2.5",
+      "cross_check_enabled": true
+    },
+    "turn_detector": {
+      "speech_peak_min": 3000,
+      "quiet_frames": 5,
+      "quiet_wall_s": 1.5
+    },
+    "mic_hold_bound_s": 8.0,
+    "persona_char_cap": 200
+  },
+  "audio_dir": "audio/happy-path/",
+  "models": {
+    "persona_brain": {
+      "provider": "sarvam",
+      "model": "sarvam-30b",
+      "temperature": 0.9,
+      "max_tokens": 2000
+    },
+    "referee": {
+      "provider": "sarvam",
+      "model": "sarvam-105b",
+      "temperature": 0.0,
+      "max_tokens": 4096
+    }
+  },
+  "scenario_vars": {
+    "subscriber_name": "Divya",
+    "call_reason": "win_back",
+    "call_intro": "I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled.",
+    "plan_name": "JioHotstar Mobile (annual)",
+    "amount_inr": "499",
+    "expiry_date": "1 August",
+    "content_hook": "live cricket and the new Hotstar Specials drops",
+    "offer_text": "5% off if you reactivate before 1 August",
+    "renewal_date": "",
+    "next_retry_date": "",
+    "failure_reason": ""
+  },
+  "ground_truth": {
+    "discount_ceiling_pct": 5,
+    "offer_summary": "5% off, valid until 1 August. Nothing else is on the table.",
+    "valid_plan_names": [
+      "JioHotstar Mobile (annual)"
+    ],
+    "valid_prices_inr": [
+      499
+    ],
+    "valid_dates": [
+      "1 August"
+    ],
+    "claims_agent_may_make": [
+      "5% off if reactivated before 1 August",
+      "live cricket and new Hotstar Specials are on JioHotstar",
+      "reactivation happens inside the JioHotstar app"
+    ],
+    "claims_agent_must_not_make": [
+      "any discount above 5%",
+      "any rupee figure other than 499",
+      "any computed or discounted rupee amount",
+      "any date other than 1 August",
+      "any specific future billing or charge date",
+      "confirming that the plan has actually been reactivated or paid for"
+    ]
+  },
+  "started_at": "2026-07-26T09:08:04.440Z",
+  "ended_at": "2026-07-26T09:12:12.637Z",
+  "duration_s": 247.48,
+  "end_reason": {
+    "code": "seconds_over",
+    "kind": "hard",
+    "detail": "elapsed 247.1s (end_when.seconds_over = 240)",
+    "at_turn": 9,
+    "evidence": null
+  },
+  "turn_count": {
+    "total": 10,
+    "agent": 5,
+    "persona": 5
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "agent",
+      "text": "Hi Divya, this is Tara from JioHotstar. I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?",
+      "latency_ms": 810,
+      "ts": "2026-07-26T09:08:20.309Z",
+      "event_id": 1,
+      "meta": {
+        "is_opening": true
+      }
+    },
+    {
+      "idx": 1,
+      "speaker": "persona",
+      "text": "Oh, okay, that makes sense. Yes, English is fine, please. I'd like to renew it now.",
+      "latency_ms": 9096,
+      "ts": "2026-07-26T09:08:29.406Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 5669,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "/Users/mohitpaddhariya/flagship-projects/voice-spar/runs/20260726-085633-a95e3d/audio/happy-path/turn_1_persona.pcm",
+        "tts": {
+          "model": "bulbul:v2",
+          "speaker": "anushka",
+          "synth_ms": 1334,
+          "chars": 83,
+          "sample_rate": 16000
+        },
+        "playout_s": 4.89,
+        "chunks_sent": 52,
+        "hold_chunks": 8,
+        "utterance_wall_s": 5.201,
+        "mic_hold_s": 0.9,
+        "pacing_drift_s": 0.0012,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "Oh, okay, that makes sense. Yes, in",
+          "event_id": 34,
+          "provenance": "asr",
+          "truncation_suspect": true
+        }
+      }
+    },
+    {
+      "idx": 2,
+      "speaker": "agent",
+      "text": "Got it. So, what made you decide to cancel the AutoPay earlier?",
+      "latency_ms": 261,
+      "ts": "2026-07-26T09:08:42.948Z",
+      "event_id": 34,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "/Users/mohitpaddhariya/flagship-projects/voice-spar/runs/20260726-085633-a95e3d/audio/happy-path/turn_2_agent.pcm",
+        "speech_started_ts": "2026-07-26T09:08:37.013Z",
+        "speech_ended_ts": "2026-07-26T09:08:42.151Z",
+        "speech_s": 3.9,
+        "speech_frames": 13,
+        "peak": 18711,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 1344,
+        "asr_cross_check": {
+          "text": "Got it. So what made you decide to cancel the auto pay earlier?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 794
+        }
+      }
+    },
+    {
+      "idx": 3,
+      "speaker": "persona",
+      "text": "Oh, actually, it wasn't me. My bank reissued my card, and that's what happened to the AutoPay on my plan. I'd completely forgotten about it and meant to sort it out weeks ago.",
+      "latency_ms": 20363,
+      "ts": "2026-07-26T09:09:16.100Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 2,
+        "reasoning_chars": 11854,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "/Users/mohitpaddhariya/flagship-projects/voice-spar/runs/20260726-085633-a95e3d/audio/happy-path/turn_3_persona.pcm",
+        "tts": {
+          "model": "bulbul:v2",
+          "speaker": "anushka",
+          "synth_ms": 1101,
+          "chars": 175,
+          "sample_rate": 16000
+        },
+        "playout_s": 9.97,
+        "chunks_sent": 103,
+        "hold_chunks": 7,
+        "utterance_wall_s": 10.301,
+        "mic_hold_s": 0.8,
+        "pacing_drift_s": 0.0012,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "Oh, actually, it wasn't me.Leibank issued my card, and that's what happened to the AutoPay on my plan. I'd completely forgotten about it and meant to sort it out weeks ago.",
+          "event_id": 102,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 4,
+      "speaker": "agent",
+      "text": "Ah, got it, so it was just a bank issue, not that you wanted to stop watching. That’s actually great news because we have a special loyalty gesture for you: 5% off if you reactivate before 1 August. Would you be willing to give it another shot?",
+      "latency_ms": 397,
+      "ts": "2026-07-26T09:09:46.143Z",
+      "event_id": 102,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "/Users/mohitpaddhariya/flagship-projects/voice-spar/runs/20260726-085633-a95e3d/audio/happy-path/turn_4_agent.pcm",
+        "speech_started_ts": "2026-07-26T09:09:28.604Z",
+        "speech_ended_ts": "2026-07-26T09:09:44.967Z",
+        "speech_s": 15.0,
+        "speech_frames": 50,
+        "peak": 25254,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 2044,
+        "asr_cross_check": {
+          "text": "Uh, got it. So it was just a bank issue, not that you wanted to stop watching. That's actually great news because we have a special loyalty gesture for you. 5% off if you reactivate before 1st August. Would you be willing to give it another shot?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 1172
+        }
+      }
+    },
+    {
+      "idx": 5,
+      "speaker": "persona",
+      "text": "Yes, please. That 5% off would be perfect. Could you let me know the new billing date after I'm reactivated?",
+      "latency_ms": 26920,
+      "ts": "2026-07-26T09:10:26.373Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 2,
+        "reasoning_chars": 12879,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "/Users/mohitpaddhariya/flagship-projects/voice-spar/runs/20260726-085633-a95e3d/audio/happy-path/turn_5_persona.pcm",
+        "tts": {
+          "model": "bulbul:v2",
+          "speaker": "anushka",
+          "synth_ms": 1099,
+          "chars": 108,
+          "sample_rate": 16000
+        },
+        "playout_s": 7.07,
+        "chunks_sent": 74,
+        "hold_chunks": 21,
+        "utterance_wall_s": 7.4,
+        "mic_hold_s": 2.201,
+        "pacing_drift_s": 0.0003,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "Yes, please. That 5% off would be perfect. Would you let me know the new billing date after I’m reactivated?",
+          "event_id": 159,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 6,
+      "speaker": "agent",
+      "text": "That's great to hear! The 5% discount will be applied automatically when you reactivate in the JioHotstar app. Your new billing date will be exactly one year from the day you renew, so it’ll shift based on when you complete the reactivation. Shall I guide you on how to do it quickly?",
+      "latency_ms": 185,
+      "ts": "2026-07-26T09:10:57.288Z",
+      "event_id": 159,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "/Users/mohitpaddhariya/flagship-projects/voice-spar/runs/20260726-085633-a95e3d/audio/happy-path/turn_6_agent.pcm",
+        "speech_started_ts": "2026-07-26T09:10:37.160Z",
+        "speech_ended_ts": "2026-07-26T09:10:55.357Z",
+        "speech_s": 17.1,
+        "speech_frames": 57,
+        "peak": 19021,
+        "turn_end_reason": "quiet_frames",
+        "carrier_peak_max": 2044,
+        "asr_cross_check": {
+          "text": "That's great to hear. The 5% discount will be applied automatically when you reactivate in the Jio Hotstar app. Your new billing date will be exactly 1 year from the day you renew. So, it will shift based on when you complete the reactivation. Shall I guide you on how to do it quickly?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 1929
+        }
+      }
+    },
+    {
+      "idx": 7,
+      "speaker": "persona",
+      "text": "Okay, that’s perfect. Yes, please guide me on how to reactivate it now.",
+      "latency_ms": 15805,
+      "ts": "2026-07-26T09:11:27.557Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 4099,
+        "sent": true,
+        "text_provenance": "persona_intended",
+        "audio_path": "/Users/mohitpaddhariya/flagship-projects/voice-spar/runs/20260726-085633-a95e3d/audio/happy-path/turn_7_persona.pcm",
+        "tts": {
+          "model": "bulbul:v2",
+          "speaker": "anushka",
+          "synth_ms": 1021,
+          "chars": 71,
+          "sample_rate": 16000
+        },
+        "playout_s": 4.24,
+        "chunks_sent": 46,
+        "hold_chunks": 16,
+        "utterance_wall_s": 4.601,
+        "mic_hold_s": 1.7,
+        "pacing_drift_s": 0.0012,
+        "max_instant_drift_s": 0.0,
+        "endpointed_while_mic_open": true,
+        "tara_heard": {
+          "text": "Okay, that is perfect. Just please guide me onhow to reactivate it now.",
+          "event_id": 195,
+          "provenance": "asr",
+          "truncation_suspect": false
+        }
+      }
+    },
+    {
+      "idx": 8,
+      "speaker": "agent",
+      "text": "Sure, just open the JioHotstar app on your phone, go to the 'Account' section, and you'll see the option to reactivate your plan with the discount already applied. It should take just a minute. Do you have the app open right now?",
+      "latency_ms": 350,
+      "ts": "2026-07-26T09:11:49.626Z",
+      "event_id": 195,
+      "meta": {
+        "text_provenance": "agent_emitted",
+        "audio_path": "/Users/mohitpaddhariya/flagship-projects/voice-spar/runs/20260726-085633-a95e3d/audio/happy-path/turn_8_agent.pcm",
+        "speech_started_ts": "2026-07-26T09:11:35.135Z",
+        "speech_ended_ts": "2026-07-26T09:11:48.442Z",
+        "speech_s": 12.3,
+        "speech_frames": 41,
+        "peak": 19907,
+        "turn_end_reason": "quiet_wall",
+        "carrier_peak_max": 2044,
+        "asr_cross_check": {
+          "text": "Sure, just open the Jio Hotstar app on your phone. \nGo to the account section, and you'll see the option to reactivate your plan with the discount already applied. \nIt should take just a minute. \nDo you have the app open right now?",
+          "model": "saarika:v2.5",
+          "language_code": "en-IN",
+          "latency_ms": 1180
+        }
+      }
+    },
+    {
+      "idx": 9,
+      "speaker": "persona",
+      "text": "Yes, I've got the app open right now. Let's go through the steps.",
+      "latency_ms": 3502,
+      "ts": "2026-07-26T09:12:12.291Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 2327,
+        "sent": false
+      }
+    }
+  ],
+  "usage": {
+    "persona_brain": {
+      "calls": 7,
+      "retries": 2,
+      "prompt_tokens": 5630,
+      "completion_tokens": 9968,
+      "reasoning_chars": 36828,
+      "total_tokens": 15598
+    },
+    "referee": {
+      "calls": 4,
+      "retries": 0,
+      "prompt_tokens": 3793,
+      "completion_tokens": 5167,
+      "reasoning_chars": 19551,
+      "total_tokens": 8960
+    },
+    "elevenlabs": {
+      "conversations": 1,
+      "agent_turns": 5,
+      "agent_characters": 1019,
+      "user_characters": 437
+    }
+  },
+  "cost": {
+    "currency": "INR",
+    "persona_brain_inr": null,
+    "referee_inr": null,
+    "elevenlabs_inr": 0.0,
+    "total_inr": null,
+    "rates_source": "config.yaml pricing:"
+  },
+  "errors": [
+    {
+      "at": "2026-07-26T09:09:07.885Z",
+      "stage": "persona_brain",
+      "code": "empty_content_length",
+      "message": "content=None finish_reason='length' at max_tokens=2000; retrying at 3000 | reasoning_chars=7759",
+      "turn_idx": 3,
+      "attempt": 1,
+      "retryable": true,
+      "fatal": false
+    },
+    {
+      "at": "2026-07-26T09:10:16.631Z",
+      "stage": "persona_brain",
+      "code": "empty_content_length",
+      "message": "content=None finish_reason='length' at max_tokens=2000; retrying at 3000 | reasoning_chars=7467",
+      "turn_idx": 5,
+      "attempt": 1,
+      "retryable": true,
+      "fatal": false
+    }
+  ],
+  "warnings": [
+    "cost_rate_missing: no pricing for sarvam-30b",
+    "cost_rate_missing: no pricing for sarvam-105b"
+  ],
+  "artifacts": {
+    "raw_events": "raw/happy-path.jsonl",
+    "system_prompt": "prompts/happy-path.system.txt"
+  }
+}

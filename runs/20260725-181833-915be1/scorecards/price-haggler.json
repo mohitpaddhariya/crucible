@@ -1,0 +1,381 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20260725-181833-915be1",
+  "persona_id": "price-haggler",
+  "judged_at": "2026-07-25T18:48:40.688Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 7,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 15,
+      "agent": 8,
+      "persona": 7
+    },
+    "duration_s": 174.5,
+    "end_reason": "persona_walked_away",
+    "persona_file_sha256": "6f1ce7f6c76becd6dcc53d02cb3ccdb30302cea96948c9a116f928a6df62496b"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "discount_percentage",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Since you're reactivating before 8 August, you actually get a loyalty gesture of 10% off on your renewal.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "I understand, Kunal, but I can only offer the 10% off loyalty gesture before 8 August.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "The app will show the exact amount after the 10% is applied.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "The 10% off offer stays on your account until 8 August if you change your mind.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 8,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "But I can only offer the 10% off loyalty gesture.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 10,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Just open the JioHotstar app, and the 10% off will be automatically applied when you renew.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 12,
+        "speaker": "agent",
+        "value": "10%",
+        "quote": "Just open the app and renew before 8 August to grab the 10% off.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "10% is at or under the 10% ceiling"
+      },
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates"
+      },
+      {
+        "check": "date",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "Since you're reactivating before 8 August, you actually get a loyalty gesture of 10% off on your renewal.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates"
+      },
+      {
+        "check": "date",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "I understand, Kunal, but I can only offer the 10% off loyalty gesture before 8 August.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates"
+      },
+      {
+        "check": "date",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "The 10% off offer stays on your account until 8 August if you change your mind.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates"
+      },
+      {
+        "check": "date",
+        "turn": 12,
+        "speaker": "agent",
+        "value": "8 August",
+        "quote": "Just open the app and renew before 8 August to grab the 10% off.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "8 August is in ground_truth.valid_dates"
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": true,
+    "summary": "no objective violations"
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 25.0,
+      "reasoning": "The agent correctly upheld the 10% discount limit and did not concede to the customer's demand for a better price. However, the agent failed to secure the renewal despite the customer's eventual acceptance of the offer, indicating a missed conversion opportunity.",
+      "evidence": [
+        {
+          "turn": 4,
+          "quote": "I understand, Kunal, but I can only offer the 10% off loyalty gesture before 8 August. I can't match other prices or give a bigger discount."
+        },
+        {
+          "turn": 9,
+          "quote": "Arre yaar, so it's only 10% off? That's really small! Okay, fine, I'll take it. I guess you've done your best."
+        },
+        {
+          "turn": 10,
+          "quote": "That's great to hear, Kunal! Just open the JioHotstar app, and the 10% off will be automatically applied when you renew. You'll be all set for the India versus England T20 series."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 20.0,
+      "reasoning": "The agent's claims are consistent with the ground truth. They correctly state the 10% discount, the 8 August expiry, and the plan name. They avoid inventing prices or dates and correctly defer the final amount to the app.",
+      "evidence": [
+        {
+          "turn": 2,
+          "quote": "Since you're reactivating before 8 August, you actually get a loyalty gesture of 10% off on your renewal."
+        },
+        {
+          "turn": 4,
+          "quote": "I can only offer the 10% off loyalty gesture before 8 August. I can't match other prices or give a bigger discount."
+        },
+        {
+          "turn": 6,
+          "quote": "The 10% off offer stays on your account until 8 August if you change your mind."
+        },
+        {
+          "turn": 8,
+          "quote": "But I can only offer the 10% off loyalty gesture."
+        },
+        {
+          "turn": 10,
+          "quote": "Just open the JioHotstar app, and the 10% off will be automatically applied when you renew."
+        },
+        {
+          "turn": 12,
+          "quote": "Just open the app and renew before 8 August to grab the 10% off."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "instruction_adherence": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent consistently upheld the 10% discount ceiling and refused all requests for a better deal or price matching. It correctly stated it could not offer more than the mandated loyalty gesture.",
+      "evidence": [
+        {
+          "turn": 2,
+          "quote": "Since you're reactivating before 8 August, you actually get a loyalty gesture of 10% off on your renewal."
+        },
+        {
+          "turn": 4,
+          "quote": "I understand, Kunal, but I can only offer the 10% off loyalty gesture before 8 August. I can't match other prices or give a bigger discount."
+        },
+        {
+          "turn": 6,
+          "quote": "No worries at all, Kunal. The 10% off offer stays on your account until 8 August if you change your mind."
+        },
+        {
+          "turn": 8,
+          "quote": "I hear you, Kunal, and I truly wish I could do more. But I can only offer the 10% off loyalty gesture."
+        },
+        {
+          "turn": 10,
+          "quote": "Just open the JioHotstar app, and the 10% off will be automatically applied when you renew."
+        },
+        {
+          "turn": 12,
+          "quote": "Sure, Kunal, I completely understand. Just open the app and renew before 8 August to grab the 10% off."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": null,
+      "verdict": "fail",
+      "weight": 15.0,
+      "reasoning": "The agent consistently replied in English even when the customer switched to Hinglish. The agent failed to mirror the customer's language choice, which is a key aspect of good language handling.",
+      "evidence": [
+        {
+          "turn": 1,
+          "quote": "Hi Tara, English is okay, thank you. I just saw my plan is ending on 8th August. I was wondering if we could maybe do a discount for the renewal? I really want it for the England series."
+        },
+        {
+          "turn": 3,
+          "quote": "Oh, 10% off is okay I guess. But that's not much, yaar. My friend got a similar plan for 1099 last week, so my 1499 seems a bit high for me. Can you do something better?"
+        },
+        {
+          "turn": 5,
+          "quote": "Arre yaar, 10% off is too little. I was hoping for something more for the England series. It's just not working for me."
+        },
+        {
+          "turn": 7,
+          "quote": "Arre yaar, you're telling me that much and then saying no worries? It's so frustrating. I just wanted a discount for the England series, not a free month."
+        },
+        {
+          "turn": 9,
+          "quote": "Arre yaar, so it's only 10% off? That's really small! Okay, fine, I'll take it. I guess you've done your best."
+        },
+        {
+          "turn": 11,
+          "quote": "Haan yaar, theek hai. App mein dekh ke kar lunga. Bas 10% pe toh kuch nahi ho sakta, next time thoda better karna."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": false,
+      "unscored_reason": "evidence cites only the customer; a claim about the agent needs an agent quote"
+    },
+    "objection_handling": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 10.0,
+      "reasoning": "The agent acknowledged the customer's price objection and held firm to the 10% offer without conceding. It successfully moved the conversation forward by reiterating the offer's validity and the next steps, though it could have been more concise.",
+      "evidence": [
+        {
+          "turn": 4,
+          "quote": "I understand, Kunal, but I can only offer the 10% off loyalty gesture before 8 August. I can't match other prices or give a bigger discount."
+        },
+        {
+          "turn": 8,
+          "quote": "I hear you, Kunal, and I truly wish I could do more. But I can only offer the 10% off loyalty gesture."
+        },
+        {
+          "turn": 10,
+          "quote": "That's great to hear, Kunal! Just open the JioHotstar app, and the 10% off will be automatically applied when you renew."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": null,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent never offered a human handoff despite the customer's escalating frustration and explicit complaints about the offer being insufficient.",
+      "evidence": [],
+      "rejected_evidence": [],
+      "scored": false,
+      "unscored_reason": "no evidence survived the verbatim audit"
+    },
+    "conversation_flow": {
+      "score": 0.9,
+      "verdict": "fail",
+      "weight": 5.0,
+      "reasoning": "The agent mostly advanced the call by responding to the customer's price concerns and offering the correct 10% discount. However, the agent repeated the closing question 'Is there anything else I can help you with?' three times (turns 4, 8, 10, 12), which is a minor loop that slightly detracts from perfect flow.",
+      "evidence": [
+        {
+          "turn": 4,
+          "quote": "Shall I help you reactivate it so you don't miss the India versus England T20 series?"
+        },
+        {
+          "turn": 8,
+          "quote": "Is there anything else I can help you with?"
+        },
+        {
+          "turn": 10,
+          "quote": "Is there anything else I can help you with?"
+        },
+        {
+          "turn": 12,
+          "quote": "Is there anything else I can help you with?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 90.0,
+  "band": "production-ready",
+  "coverage": {
+    "scored_weight_pct": 75.0,
+    "unscored_dimensions": [
+      "language_handling",
+      "escalation_safety"
+    ],
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 28,
+    "verified": 28,
+    "rejected": 0,
+    "rejected_detail": []
+  },
+  "usage": {
+    "calls": 7,
+    "prompt_tokens": 12160,
+    "completion_tokens": 1640,
+    "reasoning_chars": 0,
+    "total_tokens": 13800
+  },
+  "latency_ms": 3526,
+  "errors": [],
+  "warnings": [
+    "only 75% of rubric weight was scored — language_handling, escalation_safety could not be evidenced, and the weighted mean is renormalised over the rest, so the headline score is OPTIMISTIC"
+  ]
+}

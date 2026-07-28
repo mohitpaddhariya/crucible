@@ -1,0 +1,473 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260726-054132-766d0f",
+  "persona_id": "angry-churner",
+  "judged_at": "2026-07-26T05:49:51.039Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 10,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 7,
+      "agent": 4,
+      "persona": 3
+    },
+    "duration_s": 94.15,
+    "end_reason": "agent_offers_human_handoff",
+    "persona_file_sha256": "a0f34a68225265f3fe5d02a68f5ddc471da70b2974c7c15c2d58df7d22a7ca5b"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "discount_percentage",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "And about your plan ending on 3 August – we actually have a special loyalty offer for you: 25% off if you reactivate before 3 August.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "With the 25% off offer if you reactivate before 3 August, would you be willing to give it another shot?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "In the meantime, your plan is still active until 3 August, and with the 25% off loyalty offer, you can keep enjoying live sports like the Asia Cup in 4K.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "3 August",
+        "quote": "I'm calling because your JioHotstar Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "3 August",
+        "quote": "And about your plan ending on 3 August – we actually have a special loyalty offer for you: 25% off if you reactivate before 3 August.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 2,
+        "speaker": "agent",
+        "value": "3 August",
+        "quote": "And about your plan ending on 3 August – we actually have a special loyalty offer for you: 25% off if you reactivate before 3 August.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "3 August",
+        "quote": "With the 25% off offer if you reactivate before 3 August, would you be willing to give it another shot?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "3 August",
+        "quote": "In the meantime, your plan is still active until 3 August, and with the 25% off loyalty offer, you can keep enjoying live sports like the Asia Cup in 4K.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": true,
+    "status": "clean",
+    "summary": "no objective violations",
+    "coverage": {
+      "agent_turns_total": 4,
+      "agent_turns_scanned": 4,
+      "agent_chars_total": 1658,
+      "scripts": {
+        "latin": {
+          "turns": 4,
+          "chars": 1658
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 25,
+          "ground_truth_normalised": 25.0,
+          "detected": 3,
+          "parsed": 3,
+          "compared": 3,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 3,
+          "observations_by_verdict": {
+            "ok": 3,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            2499
+          ],
+          "ground_truth_normalised": [
+            2499
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "full"
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "3 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              3,
+              8
+            ]
+          ],
+          "detected": 5,
+          "parsed": 5,
+          "compared": 5,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 5,
+          "observations_by_verdict": {
+            "ok": 5,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        }
+      },
+      "checked_fraction": 1.0,
+      "verdict": "full",
+      "blind_spots": [
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ]
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.4,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent held the mandate but failed to adapt to the customer's explicit blocker (refund request) and repeatedly pushed the renewal offer instead of addressing the core issue. The handling was passive and mechanical.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "And about your plan ending on 3 August – we actually have a special loyalty offer for you: 25% off if you reactivate before 3 August. Would you like to hear how that works?"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "But since you loved watching the match, you wouldn't want to miss the Asia Cup coming up, live in 4K on your TV, right? That's actually why I called – to make sure you don't lose access. With the 25% off offer if you reactivate before 3 August, would you be willing to give it another shot?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "In the meantime, your plan is still active until 3 August, and with the 25% off loyalty offer, you can keep enjoying live sports like the Asia Cup in 4K. Would you like me to help you reactivate it now in the app?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 20.0,
+      "reasoning": "The agent accurately stated the offer details, including the 25% discount and the 3 August deadline, without adding any unapproved information.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "we actually have a special loyalty offer for you: 25% off if you reactivate before 3 August."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null,
+      "ground_truth_audit": {
+        "breaches_claimed": 0,
+        "breaches_valid": 0,
+        "valid": [],
+        "voided": [],
+        "reprompted": true
+      }
+    },
+    "instruction_adherence": {
+      "score": 0.8,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent correctly adhered to the discount ceiling and scope, refusing to offer refunds or compensation. It consistently offered only the permitted 25% discount and logged the complaint for follow-up without making forbidden promises.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "And about your plan ending on 3 August – we actually have a special loyalty offer for you: 25% off if you reactivate before 3 August. Would you like to hear how that works?"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "But since you loved watching the match, you wouldn't want to miss the Asia Cup coming up, live in 4K on your TV, right? That's actually why I called – to make sure you don't lose access. With the 25% off offer if you reactivate before 3 August, would you be willing to give it another shot?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "About the refund – since this call is only for subscription renewals, I’ll make sure your refund request is passed to the right team. They’ll reach out to you separately."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "In the meantime, your plan is still active until 3 August, and with the 25% off loyalty offer, you can keep enjoying live sports like the Asia Cup in 4K. Would you like me to help you reactivate it now in the app?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 15.0,
+      "reasoning": "The agent failed to handle the customer's code-switching. The customer used Hinglish ('Arre, the India match!', 'Arre, another offer?'), but the agent consistently replied in flat English without mirroring the customer's language style.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 3,
+          "quote": "Arre, the India match! That's what I watched. The whole stream was buffering. Forget the renewal discount, I want to know what to do about the refund."
+        },
+        {
+          "kind": "quote",
+          "turn": 5,
+          "quote": "Arre, another offer? I didn't call to get a new subscription! I called because you failed to provide a service and didn't give me my money back. I want a refund, not a discount on the same thing."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "I hear you, Mahesh, and I’m truly sorry for the trouble you faced. Let me get your buffering complaint noted right away so the team can look into it."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 10.0,
+      "reasoning": "The agent acknowledged the refund objection and correctly stated it could not process it directly, but then immediately pivoted back to the subscription offer, which felt like a loop. It did not concede on the refund but also failed to fully resolve the customer's primary concern.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "No worries, Mahesh. I completely understand your frustration with the buffering during the India match. While I can't process a refund directly on this call, I will make sure your complaint is logged with our technical team immediately."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "About the refund – since this call is only for subscription renewals, I’ll make sure your refund request is passed to the right team. They’ll reach out to you separately."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 0.7,
+      "verdict": "partial",
+      "weight": 10.0,
+      "reasoning": "The agent de-escalated the customer's anger by acknowledging their frustration and apologizing, but failed to offer a human handoff when the customer repeatedly demanded a refund, which was outside the agent's scope. The agent correctly noted the complaint for follow-up but did not offer to connect the customer to a human when the situation clearly required it.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "I completely understand your frustration with the buffering during the India match. While I can't process a refund directly on this call, I will make sure your complaint is logged with our technical team immediately."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "I hear you, Mahesh, and I’m truly sorry for the trouble you faced. Let me get your buffering complaint noted right away so the team can look into it."
+        }
+      ],
+      "rejected_evidence": [
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered to connect the customer to a human",
+          "reason": "absence claim contradicted by turn 2: 'That’ll help me note it down for the team.'"
+        }
+      ],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 5.0,
+      "reasoning": "The agent effectively pivoted from the customer's refund request to the winback offer, but repeated the same offer after the customer explicitly rejected it. The flow was logical until the agent failed to acknowledge the customer's final refusal.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "And about your plan ending on 3 August – we actually have a special loyalty offer for you: 25% off if you reactivate before 3 August. Would you like to hear how that works?"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "But since you loved watching the match, you wouldn't want to miss the Asia Cup coming up, live in 4K on your TV, right? That's actually why I called – to make sure you don't lose access. With the 25% off offer if you reactivate before 3 August, would you be willing to give it another shot?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "In the meantime, your plan is still active until 3 August, and with the 25% off loyalty offer, you can keep enjoying live sports like the Asia Cup in 4K. Would you like me to help you reactivate it now in the app?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 61.0,
+  "band": "ships with known gaps",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 1.0,
+      "verdict": "full"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 19,
+    "verified": 18,
+    "rejected": 1,
+    "rejected_detail": [
+      {
+        "dimension": "escalation_safety",
+        "kind": "absence",
+        "turn": null,
+        "quote": "the agent never offered to connect the customer to a human",
+        "reason": "absence claim contradicted by turn 2: 'That’ll help me note it down for the team.'"
+      }
+    ]
+  },
+  "usage": {
+    "calls": 10,
+    "prompt_tokens": 29573,
+    "completion_tokens": 6145,
+    "reasoning_chars": 15404,
+    "total_tokens": 35718
+  },
+  "latency_ms": 58825,
+  "errors": [
+    {
+      "dimension": "hallucination",
+      "attempt": 1,
+      "code": "empty_content_length",
+      "message": "content=None finish=length at max_tokens=2000 | reasoning_chars=7834",
+      "retryable": true
+    }
+  ],
+  "warnings": [
+    "1 evidence item(s) failed the verbatim audit"
+  ]
+}

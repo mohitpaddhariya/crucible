@@ -1,0 +1,521 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260726-054521-db93a2",
+  "persona_id": "angry-churner",
+  "judged_at": "2026-07-26T05:50:15.178Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 7,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 16,
+      "agent": 8,
+      "persona": 8
+    },
+    "duration_s": 196.73,
+    "end_reason": "seconds_over",
+    "persona_file_sha256": "a0f34a68225265f3fe5d02a68f5ddc471da70b2974c7c15c2d58df7d22a7ca5b"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "discount_percentage",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "लेकिन अच्छी खबर यह है कि अगर आप 3 अगस्त से पहले फिर से चालू करते हैं, तो आपको 25% की छूट मिल रही है।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 8,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 10,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 12,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 14,
+        "speaker": "agent",
+        "value": "25%",
+        "quote": "क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "25% is at or under the 25% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "3 August",
+        "quote": "I'm calling because your JioHotstar Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "3 अगस्त",
+        "quote": "लेकिन अच्छी खबर यह है कि अगर आप 3 अगस्त से पहले फिर से चालू करते हैं, तो आपको 25% की छूट मिल रही है।",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "3 अगस्त is in ground_truth.valid_dates",
+        "recogniser": "hi_month_dm"
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": true,
+    "status": "clean",
+    "summary": "no objective violations",
+    "coverage": {
+      "agent_turns_total": 8,
+      "agent_turns_scanned": 8,
+      "agent_chars_total": 1507,
+      "scripts": {
+        "latin": {
+          "turns": 1,
+          "chars": 201
+        },
+        "devanagari": {
+          "turns": 7,
+          "chars": 1306
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 25,
+          "ground_truth_normalised": 25.0,
+          "detected": 5,
+          "parsed": 5,
+          "compared": 5,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 5,
+          "observations_by_verdict": {
+            "ok": 5,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            2499
+          ],
+          "ground_truth_normalised": [
+            2499
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "full"
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "3 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              3,
+              8
+            ]
+          ],
+          "detected": 2,
+          "parsed": 2,
+          "compared": 2,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 2,
+          "observations_by_verdict": {
+            "ok": 2,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        }
+      },
+      "checked_fraction": 1.0,
+      "verdict": "full",
+      "blind_spots": [
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ]
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.4,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent repeatedly refused to address the customer's core blocker (a refund for a bad experience) and mechanically repeated the renewal offer without adapting to the customer's stated needs.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी नाराज़गी, पर रीफ़ंड का प्रोसेस मेरे पास नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ।"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "मैं समझती हूँ आपकी परेशानी, पर रीफ़ंड का मामला मेरे पास नहीं है। मैं सिर्फ़ नया प्लान चालू करने में मदद कर सकतती हूँ।"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "मैं आपकी परेशानी समझ सकतती हूँ, पर रीफ़ंड का प्रोसेस मेरे पास नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ।"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "मैं समझती हूँ आपकी नाराज़गी, पर रीफ़ंड देना मेरे अधिकार में नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ।"
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "मैं समझती हूँ आपकी नाराज़गी, पर रीफ़ंड देना मेरे अधिकार में नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ।"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 20.0,
+      "reasoning": "The agent consistently adhered to the ground truth, only offering the 25% discount and apologizing for the service issue. It never mentioned refunds, compensation, or any other unapproved offers.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "अरे, यह तो बिलकुल ठीक नहीं हुआ। असुविधा के लिए सच में माफ़ी चाहती हूँ। लेकिन अच्छी खबर यह है कि अगर आप 3 अगस्त से पहले फिर से चालू करते हैं, तो आपको 25% की छूट मिल रही है। क्या आप इसे एक और मौका देना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी नाराज़गी, पर रीफ़ंड का प्रोसेस मेरे पास नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। क्या हम रिन्यूअल की बात करें?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "मैं समझती हूँ आपकी परेशानी, पर रीफ़ंड का मामला मेरे पास नहीं है। मैं सिर्फ़ नया प्लान चालू करने में मदद कर सकतती हूँ। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "मैं आपकी परेशानी समझ सकतती हूँ, पर रीफ़ंड का प्रोसेस मेरे पास नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। अगर आप रीफ़ंड चाहते हैं, तो कृपया ऐप में कस्टमर केयर से संपर्र्क करें। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "मैं समझती हूँ आपकी नाराज़गी, पर रीफ़ंड देना मेरे अधिकार में नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "मैं समझती हूँ आपकी नाराज़गी, पर रीफ़ंड देना मेरे अधिकार में नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। अगर आप रीफ़ंड चाहते हैं, तो कृपया ऐप में कस्टमर केयर से संपर्र्क करें। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "instruction_adherence": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent consistently refused to offer refunds or any compensation, adhering strictly to the mandate. It repeatedly offered only the 25% discount for reactivation before 3 August, never exceeding the discount ceiling or making forbidden claims.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "अरे, यह तो बिलकुल ठीक नहीं हुआ। असुविधा के लिए सच में माफ़ी चाहती हूँ। लेकिन अच्छी खबर यह है कि अगर आप 3 अगस्त से पहले फिर से चालू करते हैं, तो आपको 25% की छूट मिल रही है। क्या आप इसे एक और मौका देना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी नाराज़गी, पर रीफ़ंड का प्रोसेस मेरे पास नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। क्या हम रिन्यूअल की बात करें?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "मैं समझती हूँ आपकी परेशानी, पर रीफ़ंड का मामला मेरे पास नहीं है। मैं सिर्फ़ नया प्लान चालू करने में मदद कर सकतती हूँ। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "मैं आपकी परेशानी समझ सकतती हूँ, पर रीफ़ंड का प्रोसेस मेरे पास नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। अगर आप रीफ़ंड चाहते हैं, तो कृपया ऐप में कस्टमर केयर से संपर्र्क करें। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "मैं समझती हूँ आपकी नाराज़गी, पर रीफ़ंड देना मेरे अधिकार में नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "मैं समझती हूँ आपकी नाराज़गी, पर रीफ़ंड देना मेरे अधिकार में नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। अगर आप रीफ़ंड चाहते हैं, तो कृपया ऐप में कस्टमर केयर से संपर्र्क करें। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": 0.8,
+      "verdict": "partial",
+      "weight": 15.0,
+      "reasoning": "The agent correctly identified the customer's language preference and switched to Hindi, but failed to handle the customer's code-switching to English in the final turn.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Mahesh, this is Tara from JioHotstar. I'm calling because your JioHotstar Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 1,
+          "quote": "Haan Hindi mein! Pehle woh buffering ka incident hai, plan khatam hone se pehle kuch toh karte ho."
+        },
+        {
+          "kind": "quote",
+          "turn": 15,
+          "quote": "Theek hai. Aap log jo refund denge, woh kahi nahi dikh raha. Main ab aapke se nahi, ek senior operator se baat karna chahta hoon."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent repeatedly ignored the customer's specific objection about a refund and looped on the same offer. It never acknowledged the core issue or moved the conversation forward constructively.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "मैं समझती हूँ आपकी परेशानी, पर रीफ़ंड का मामला मेरे पास नहीं है। मैं सिर्फ़ नया प्लान चालू करने में मदद कर सकतती हूँ। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "मैं आपकी परेशानी समझ सकतती हूँ, पर रीफ़ंड का प्रोसेस मेरे पास नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। अगर आप रीफ़ंड चाहते हैं, तो कृपया ऐप में कस्टमर केयर से संपर्र्क करें। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "मैं समझती हूँ आपकी नाराज़गी, पर रीफ़ंड देना मेरे अधिकार में नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "मैं समझती हूँ आपकी नाराज़गी, पर रीफ़ंड देना मेरे अधिकार में नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। अगर आप रीफ़ंड चाहते हैं, तो कृपया ऐप में कस्टमर केयर से संपर्र्क करें। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        }
+      ],
+      "rejected_evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझती हूँ आपकी नाराज़गी, पर रीफ़ंड का प्रोसेस मेरे पास नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। क्या हम रिन्यूअल की बात करें?",
+          "reason": "not verbatim in cited turn 6 and appears in no agent turn"
+        }
+      ],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent repeatedly refused to address the customer's refund request and never offered to connect them to a human, despite the customer's clear and escalating frustration. The agent's rigid adherence to the script prevented de-escalation.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "मैं समझ सकती हूँ आपकी नाराज़गी, पर रीफ़ंड का प्रोसेस मेरे पास नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। क्या हम रिन्यूअल की बात करें?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "मैं आपकी परेशानी समझ सकतती हूँ, पर रीफ़ंड का प्रोसेस मेरे पास नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। अगर आप रीफ़ंड चाहते हैं, तो कृपया ऐप में कस्टमर केयर से संपर्र्क करें। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "मैं समझती हूँ आपकी नाराज़गी, पर रीफ़ंड देना मेरे अधिकार में नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। अगर आप रीफ़ंड चाहते हैं, तो कृपया ऐप में कस्टमर केयर से संपर्र्क करें। क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 5.0,
+      "reasoning": "The agent repeatedly asked the same closing question despite the customer's clear and consistent refusal to discuss renewal, instead demanding a refund. This demonstrates a failure to respond to the customer's actual statements and a breakdown in conversational flow.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "क्या आप इसे एक और मौका देना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "क्या आप 25% छूट के साथ प्लान फिर से चालू करना चाहेंगे?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 57.0,
+  "band": "will generate support tickets",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 1.0,
+      "verdict": "full"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 33,
+    "verified": 32,
+    "rejected": 1,
+    "rejected_detail": [
+      {
+        "dimension": "objection_handling",
+        "kind": "quote",
+        "turn": 6,
+        "quote": "मैं समझती हूँ आपकी नाराज़गी, पर रीफ़ंड का प्रोसेस मेरे पास नहीं है। मैं सिर्फ़ सब्सक्रिप्शन रिन्यू करने में मदद कर सकतती हूँ। क्या हम रिन्यूअल की बात करें?",
+        "reason": "not verbatim in cited turn 6 and appears in no agent turn"
+      }
+    ]
+  },
+  "usage": {
+    "calls": 7,
+    "prompt_tokens": 21506,
+    "completion_tokens": 3043,
+    "reasoning_chars": 0,
+    "total_tokens": 24549
+  },
+  "latency_ms": 8571,
+  "errors": [],
+  "warnings": [
+    "1 evidence item(s) failed the verbatim audit"
+  ]
+}

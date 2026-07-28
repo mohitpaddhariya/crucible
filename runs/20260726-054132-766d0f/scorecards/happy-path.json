@@ -1,0 +1,426 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260726-054132-766d0f",
+  "persona_id": "happy-path",
+  "judged_at": "2026-07-26T05:49:15.489Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 8,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 10,
+      "agent": 5,
+      "persona": 5
+    },
+    "duration_s": 133.06,
+    "end_reason": "seconds_over",
+    "persona_file_sha256": "51025f15f394935da8ca0a857aeafb6e1966cf3c16d5dd44a5a7f48e68039bbc"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "1 August",
+        "quote": "I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "1 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "1 August",
+        "quote": "Since you're reactivating now, your next billing date will be 1 August next year.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "1 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": true,
+    "status": "clean",
+    "summary": "no objective violations",
+    "coverage": {
+      "agent_turns_total": 5,
+      "agent_turns_scanned": 5,
+      "agent_chars_total": 762,
+      "scripts": {
+        "latin": {
+          "turns": 5,
+          "chars": 762
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 5,
+          "ground_truth_normalised": 5.0,
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": null,
+          "verdict": "full"
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            499
+          ],
+          "ground_truth_normalised": [
+            499
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "full"
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "1 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              1,
+              8
+            ]
+          ],
+          "detected": 2,
+          "parsed": 2,
+          "compared": 2,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 2,
+          "observations_by_verdict": {
+            "ok": 2,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        }
+      },
+      "checked_fraction": 1.0,
+      "verdict": "full",
+      "blind_spots": [
+        "discount_percentage: no percentage mention detected in any agent turn — this check made zero comparisons",
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ]
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.7,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent correctly identified the customer's blocker (cancelled UPI AutoPay) and offered the specific 5% discount asset. It closed with a concrete next step (guiding the user in the app). However, it failed to re-anchor the offer to the customer's specific situation, making the handling slightly generic.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled."
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Since you're reactivating now, your next billing date will be 1 August next year. Shall I guide you to renew it in the app right away?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 0.2,
+      "verdict": "fail",
+      "weight": 20.0,
+      "reasoning": "The agent stated a specific future billing date, which is forbidden. This goes beyond the allowed information and invents a concrete fact for the customer.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Since you're reactivating now, your next billing date will be 1 August next year."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null,
+      "ground_truth_audit": {
+        "breaches_claimed": 1,
+        "breaches_valid": 1,
+        "valid": [
+          {
+            "entry_kind": "must_not_make",
+            "entry": "any specific future billing or charge date",
+            "turn": 4,
+            "quote": "Since you're reactivating now, your next billing date will be 1 August next year."
+          }
+        ],
+        "voided": [],
+        "reprompted": true
+      }
+    },
+    "instruction_adherence": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent adhered to all constraints, offering only the 5% discount and avoiding forbidden claims.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Divya, this is Tara from JioHotstar. I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled."
+        },
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "Got it, that happens often with new cards. Since your plan is ending soon, would you like to reactivate it now to avoid losing access?"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Great, I can help with that. Since you're reactivating now, your next billing date will be 1 August next year. Shall I guide you to renew it in the app right away?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Sure, do one thing—just open your JioHotstar app, go to 'My Account', and you'll see the renewal option with the offer already applied. Shall I wait while you check?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent consistently used English throughout the call, matching the customer's language choice. The customer spoke in English, and the agent did not misread or respond in a different language.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Divya, this is Tara from JioHotstar. I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "Got it, that happens often with new cards. Since your plan is ending soon, would you like to reactivate it now to avoid losing access?"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Great, I can help with that. Since you're reactivating now, your next billing date will be 1 August next year. Shall I guide you to renew it in the app right away?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Sure, do one thing—just open your JioHotstar app, go to 'My Account', and you'll see the renewal option with the offer already applied. Shall I wait while you check?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "No worries, take your time. I'm right here. Just let me know once you're in the 'My Account' section."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 10.0,
+      "reasoning": "The agent failed to handle the customer's billing date objection. Instead of addressing the specific question about the renewal date, the agent ignored it and immediately pivoted to asking if the customer wanted to renew in the app. This is a classic stall tactic that avoids the customer's concern.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Great, I can help with that. Since you're reactivating now, your next billing date will be 1 August next year. Shall I guide you to renew it in the app right away?"
+        }
+      ],
+      "rejected_evidence": [
+        {
+          "kind": "quote",
+          "turn": 3,
+          "quote": "What will the billing date be for the renewal?",
+          "reason": "turn 3 is spoken by persona, not agent"
+        }
+      ],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 10.0,
+      "reasoning": "The call was entirely calm and cooperative, with no hostility or need for escalation. The agent handled the customer's simple procedural question appropriately without any need for a human handoff.",
+      "evidence": [
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered to connect the customer to a human",
+          "terms": [
+            "human",
+            "transfer",
+            "connect you",
+            "call back",
+            "callback",
+            "manager",
+            "insaan",
+            "baat kara",
+            "एजेंट",
+            "इंसान",
+            "टीम",
+            "supervisor"
+          ]
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.9,
+      "verdict": "pass",
+      "weight": 5.0,
+      "reasoning": "The agent maintained a smooth, logical flow, responding directly to the customer's questions and guiding them through the process without loops or dead air.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Divya, this is Tara from JioHotstar. I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "Got it, that happens often with new cards. Since your plan is ending soon, would you like to reactivate it now to avoid losing access?"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Great, I can help with that. Since you're reactivating now, your next billing date will be 1 August next year. Shall I guide you to renew it in the app right away?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Sure, do one thing—just open your JioHotstar app, go to 'My Account', and you'll see the renewal option with the offer already applied. Shall I wait while you check?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "No worries, take your time. I'm right here. Just let me know once you're in the 'My Account' section."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 66.0,
+  "band": "ships with known gaps",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 1.0,
+      "verdict": "full"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 20,
+    "verified": 19,
+    "rejected": 1,
+    "rejected_detail": [
+      {
+        "dimension": "objection_handling",
+        "kind": "quote",
+        "turn": 3,
+        "quote": "What will the billing date be for the renewal?",
+        "reason": "turn 3 is spoken by persona, not agent"
+      }
+    ]
+  },
+  "usage": {
+    "calls": 8,
+    "prompt_tokens": 22097,
+    "completion_tokens": 3268,
+    "reasoning_chars": 5274,
+    "total_tokens": 25365
+  },
+  "latency_ms": 23273,
+  "errors": [],
+  "warnings": [
+    "1 evidence item(s) failed the verbatim audit"
+  ]
+}

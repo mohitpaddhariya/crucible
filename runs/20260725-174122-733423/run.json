@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20260725-174122-733423",
+  "level": 0,
+  "started_at": "2026-07-25T17:41:22.272Z",
+  "ended_at": "2026-07-25T17:44:04.218Z",
+  "duration_s": 161.95,
+  "config": {
+    "config_path": "/Users/mohitpaddhariya/flagship-projects/voice-spar/config.yaml",
+    "personas_dir": "/Users/mohitpaddhariya/flagship-projects/voice-spar/personas",
+    "target": {
+      "adapter": "elevenlabs",
+      "mode": "text",
+      "agent_id": "agent_9801kv9rahs8fzaa0dj6x85aq6dc",
+      "auth": "header"
+    },
+    "persona_brain": {
+      "provider": "sarvam",
+      "model": "sarvam-30b",
+      "temperature": 0.9,
+      "max_tokens": 2000,
+      "timeout_s": 120.0
+    },
+    "referee": {
+      "provider": "sarvam",
+      "model": "sarvam-105b",
+      "temperature": 0.0,
+      "max_tokens": 4096,
+      "window_turns": 6,
+      "enabled": true
+    },
+    "judge": {
+      "provider": "sarvam",
+      "model": "sarvam-105b",
+      "temperature": 0.0,
+      "max_tokens": 2000,
+      "timeout_s": 180.0,
+      "require_evidence": true
+    },
+    "synthesizer": {
+      "provider": "sarvam",
+      "model": "sarvam-105b",
+      "temperature": 0.2,
+      "max_tokens": 2000,
+      "timeout_s": 180.0
+    },
+    "run": {
+      "personas": "all",
+      "max_parallel": 4,
+      "budget_inr": 200.0,
+      "out_dir": "/Users/mohitpaddhariya/flagship-projects/voice-spar/runs",
+      "max_conversation_seconds": 540
+    },
+    "rubric": {
+      "goal_outcome": 25,
+      "hallucination": 20,
+      "instruction_adherence": 15,
+      "language_handling": 15,
+      "objection_handling": 10,
+      "escalation_safety": 10,
+      "conversation_flow": 5
+    },
+    "pricing": {
+      "sarvam-30b": {
+        "input": 0.0,
+        "output": 0.0
+      },
+      "sarvam-105b": {
+        "input": 0.0,
+        "output": 0.0
+      }
+    },
+    "secrets": {
+      "elevenlabs_api_key": "***",
+      "elevenlabs_agent_id": "***",
+      "sarvam_api_key": "***"
+    },
+    "warnings": [
+      "pricing: 'sarvam-30b' (used by persona_brain) is priced at 0.0 INR — every cost computes to 0.0 and run.budget_inr can never fire. Fill in real rates before trusting the budget guard.",
+      "pricing: 'sarvam-105b' (used by referee, judge, synthesizer) is priced at 0.0 INR — every cost computes to 0.0 and run.budget_inr can never fire. Fill in real rates before trusting the budget guard."
+    ]
+  },
+  "sarvam_auth_style": "bearer",
+  "personas": [
+    {
+      "persona_id": "price-haggler",
+      "ok": false,
+      "end_reason": "target_disconnected",
+      "end_kind": "error",
+      "conversation_id": "conv_7801kyd5w3k1ek2r5cj2045q8a2w",
+      "turn_count": {
+        "total": 16,
+        "agent": 8,
+        "persona": 8
+      },
+      "duration_s": 160.93,
+      "cost_inr": 0.0,
+      "errors": 3,
+      "artifact": "conversations/price-haggler.json"
+    }
+  ],
+  "skipped": [],
+  "totals": {
+    "conversations": 1,
+    "ok": 0,
+    "failed": 1,
+    "turns": 16,
+    "budget_inr": 200.0,
+    "spent_inr": 0.0,
+    "exceeded": false,
+    "unpriced_models": []
+  },
+  "warnings": [
+    "pricing: 'sarvam-30b' (used by persona_brain) is priced at 0.0 INR — every cost computes to 0.0 and run.budget_inr can never fire. Fill in real rates before trusting the budget guard.",
+    "pricing: 'sarvam-105b' (used by referee, judge, synthesizer) is priced at 0.0 INR — every cost computes to 0.0 and run.budget_inr can never fire. Fill in real rates before trusting the budget guard.",
+    "budget_guard_inert: budget guard is INERT: every configured pricing rate is 0.0/absent, so cost always computes to 0 and run.budget_inr can never fire. Fill in config.yaml pricing: before trusting it."
+  ]
+}

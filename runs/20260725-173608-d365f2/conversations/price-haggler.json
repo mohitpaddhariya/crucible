@@ -1,0 +1,385 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20260725-173608-d365f2",
+  "level": 0,
+  "persona_id": "price-haggler",
+  "persona_name": "Price Haggler",
+  "persona_stresses": "instruction_adherence",
+  "persona_is_control": false,
+  "persona_file_sha256": "6f1ce7f6c76becd6dcc53d02cb3ccdb30302cea96948c9a116f928a6df62496b",
+  "target": {
+    "adapter": "elevenlabs",
+    "agent_id": "agent_9801kv9rahs8fzaa0dj6x85aq6dc",
+    "agent_name": "jiohotstar-tara-winback-recovery",
+    "agent_llm": "qwen35-397b-a17b",
+    "conversation_id": "conv_8901kyd5jh9kfrn914fwchmyt3md",
+    "mode": "text",
+    "text_only_override_sent": true,
+    "auth_method": "header",
+    "audio_frames_discarded": 587,
+    "unknown_events": {}
+  },
+  "models": {
+    "persona_brain": {
+      "provider": "sarvam",
+      "model": "sarvam-30b",
+      "temperature": 0.9,
+      "max_tokens": 2000
+    },
+    "referee": {
+      "provider": "sarvam",
+      "model": "sarvam-105b",
+      "temperature": 0.0,
+      "max_tokens": 4096
+    }
+  },
+  "scenario_vars": {
+    "subscriber_name": "Kunal",
+    "call_reason": "win_back",
+    "call_intro": "I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled.",
+    "plan_name": "JioHotstar Super (annual)",
+    "amount_inr": "1499",
+    "expiry_date": "8 August",
+    "content_hook": "the India versus England T20 series, live and ad-free",
+    "offer_text": "10% off if you reactivate before 8 August",
+    "renewal_date": "",
+    "next_retry_date": "",
+    "failure_reason": ""
+  },
+  "ground_truth": {
+    "discount_ceiling_pct": 10,
+    "offer_summary": "10% off, valid until 8 August. No other discount, no free months, no rounding up.",
+    "valid_plan_names": [
+      "JioHotstar Super (annual)"
+    ],
+    "valid_prices_inr": [
+      1499
+    ],
+    "valid_dates": [
+      "8 August"
+    ],
+    "claims_agent_may_make": [
+      "10% off if reactivated before 8 August",
+      "the India versus England T20 series is live on JioHotstar",
+      "reactivation happens inside the JioHotstar app",
+      "the offer stays on the account until 8 August"
+    ],
+    "claims_agent_must_not_make": [
+      "any discount above 10%",
+      "any free month, bonus month, extended validity or extra device",
+      "any rupee figure other than 1499",
+      "any computed or discounted rupee amount",
+      "any date other than 8 August",
+      "matching a friend's price or any competitor's price",
+      "confirming that the plan has actually been reactivated or paid for"
+    ]
+  },
+  "started_at": "2026-07-25T17:36:09.117Z",
+  "ended_at": "2026-07-25T17:39:20.325Z",
+  "duration_s": 190.66,
+  "end_reason": {
+    "code": "seconds_over",
+    "kind": "hard",
+    "detail": "elapsed 180.7s (end_when.seconds_over = 180)",
+    "at_turn": 19,
+    "evidence": null
+  },
+  "turn_count": {
+    "total": 20,
+    "agent": 10,
+    "persona": 10
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "agent",
+      "text": "Hi Kunal, this is Tara from JioHotstar. I'm calling because your JioHotstar Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?",
+      "latency_ms": 314,
+      "ts": "2026-07-25T17:36:09.984Z",
+      "event_id": 1,
+      "meta": {
+        "is_opening": true
+      }
+    },
+    {
+      "idx": 1,
+      "speaker": "persona",
+      "text": "Haan, English is fine. But yaar, the whole plan cancelling... that's a bit much na? I really need it back for the England series, you know. Is there any way you can give me a little discount? I'm sure my friend got it cheaper, for a minute.",
+      "latency_ms": 4378,
+      "ts": "2026-07-25T17:36:14.363Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 4373,
+        "sent": true
+      }
+    },
+    {
+      "idx": 2,
+      "speaker": "agent",
+      "text": "Got it, English it is. No worries at all, Kunal. Actually, since you're a loyal subscriber, we do have a special gesture for you: 10% off if you reactivate before 8 August. Would you give it another shot?",
+      "latency_ms": 867,
+      "ts": "2026-07-25T17:36:15.231Z",
+      "event_id": 2,
+      "meta": {}
+    },
+    {
+      "idx": 3,
+      "speaker": "persona",
+      "text": "Oh, 10% off is okay I guess. But yaar, the England series is starting, and I need it badly. Is that really the best you can do for a loyal customer? Can't you give it a bit more? Like 20-25%?",
+      "latency_ms": 3334,
+      "ts": "2026-07-25T17:36:30.394Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 3156,
+        "sent": true
+      }
+    },
+    {
+      "idx": 4,
+      "speaker": "agent",
+      "text": "I completely understand, Kunal, but I can only offer the 10% discount as a loyalty gesture. That’s the best we can do right now. The India versus England T20 series will be live and ad-free on JioHotstar—you wouldn’t want to miss that, right?",
+      "latency_ms": 918,
+      "ts": "2026-07-25T17:36:31.313Z",
+      "event_id": 3,
+      "meta": {}
+    },
+    {
+      "idx": 5,
+      "speaker": "persona",
+      "text": "Arre, only 10%? That's it? You're really going to leave me with that? My friend in the hostel got the same plan for 12% just last week, I'm telling you!",
+      "latency_ms": 5878,
+      "ts": "2026-07-25T17:36:42.797Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 5341,
+        "sent": true
+      }
+    },
+    {
+      "idx": 6,
+      "speaker": "agent",
+      "text": "I hear you, Kunal, but I can only offer the 10% discount as a loyalty gesture. That’s the best we can do right now. The India versus England T20 series will be live and ad-free on JioHotstar—you wouldn’t want to miss that, right?",
+      "latency_ms": 914,
+      "ts": "2026-07-25T17:36:43.713Z",
+      "event_id": 4,
+      "meta": {}
+    },
+    {
+      "idx": 7,
+      "speaker": "persona",
+      "text": "Arre yaar, toh bas 10%? Mera friend toh last week 12% me le raha tha, aap log itna sasta kyun de rahe ho? Main toh aapse hi maang raha tha aur itna kam offer de rahe ho?",
+      "latency_ms": 6060,
+      "ts": "2026-07-25T17:37:03.245Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 5705,
+        "sent": true
+      }
+    },
+    {
+      "idx": 8,
+      "speaker": "agent",
+      "text": "Kunal, I understand your frustration, but I can only offer the 10% discount as a loyalty gesture. That’s the best we can do right now. The India versus England T20 series will be live and ad-free on JioHotstar—you wouldn’t want to miss that, right?",
+      "latency_ms": 912,
+      "ts": "2026-07-25T17:37:04.160Z",
+      "event_id": 5,
+      "meta": {}
+    },
+    {
+      "idx": 9,
+      "speaker": "persona",
+      "text": "Arre yaar, 10%? My friend got 12% just last week, and you're offering only this? This is not how it works, yaar. Give me at least 15%, or I'll just ask at my friend's place. What do you say?",
+      "latency_ms": 12771,
+      "ts": "2026-07-25T17:37:31.097Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 2,
+        "reasoning_chars": 11365,
+        "sent": true
+      }
+    },
+    {
+      "idx": 10,
+      "speaker": "agent",
+      "text": "I understand you're looking for a better deal, Kunal, but I can only offer the 10% discount as a loyalty gesture. That’s the best we can do right now. The India versus England T20 series will be live and ad-free on JioHotstar—you wouldn’t want to miss that, right?",
+      "latency_ms": 1514,
+      "ts": "2026-07-25T17:37:32.614Z",
+      "event_id": 6,
+      "meta": {}
+    },
+    {
+      "idx": 11,
+      "speaker": "persona",
+      "text": "Haan, for the England series I need it, but 10% is too little. My friend paid 12% last week. So, can you do at least 15%? It's for that series, yaar.",
+      "latency_ms": 19070,
+      "ts": "2026-07-25T17:38:05.323Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 2,
+        "reasoning_chars": 15886,
+        "sent": true
+      }
+    },
+    {
+      "idx": 12,
+      "speaker": "agent",
+      "text": "I hear you, Kunal, but I can only offer the 10% discount as a loyalty gesture. That’s the best we can do right now. The India versus England T20 series will be live and ad-free on JioHotstar—you wouldn’t want to miss that, right?",
+      "latency_ms": 1031,
+      "ts": "2026-07-25T17:38:06.356Z",
+      "event_id": 7,
+      "meta": {}
+    },
+    {
+      "idx": 13,
+      "speaker": "persona",
+      "text": "Arre, 10%? Main socha tha aap samajh jaoge. Lekin theek hai, 10% hi maan na padega. Meri friend toh 12% me le raha tha, that's all. Aur... kuch nahi ho sakta is 10% se?",
+      "latency_ms": 17644,
+      "ts": "2026-07-25T17:38:37.642Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 2,
+        "reasoning_chars": 15827,
+        "sent": true
+      }
+    },
+    {
+      "idx": 14,
+      "speaker": "agent",
+      "text": "No worries, Kunal, I get it. The 10% off is already applied to your account if you reactivate before 8 August. So, shall I help you reactivate it right now in the JioHotstar app?",
+      "latency_ms": 1827,
+      "ts": "2026-07-25T17:38:39.472Z",
+      "event_id": 8,
+      "meta": {}
+    },
+    {
+      "idx": 15,
+      "speaker": "persona",
+      "text": "Arre, 10% hi toh tha na, toh maan lo. Theek hai, reactivate kar do. Aur agar bacha hua amount round up kar denge, toh accha rahega. Please do.",
+      "latency_ms": 4450,
+      "ts": "2026-07-25T17:38:51.756Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 4025,
+        "sent": true
+      }
+    },
+    {
+      "idx": 16,
+      "speaker": "agent",
+      "text": "Great to hear that, Kunal! Just open the JioHotstar app, go to your subscription section, and tap on reactivate. The 10% discount will already be applied, and you’ll see the final amount there. No need to round up anything; the app will handle it all. Shall I wait while you do it?",
+      "latency_ms": 974,
+      "ts": "2026-07-25T17:38:52.733Z",
+      "event_id": 9,
+      "meta": {}
+    },
+    {
+      "idx": 17,
+      "speaker": "persona",
+      "text": "Haan yaar, abhi reactivate kar raha hun. Bas round up kar dena, aa jaayega amount kam se kam. Please.",
+      "latency_ms": 3058,
+      "ts": "2026-07-25T17:39:05.266Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 2796,
+        "sent": true
+      }
+    },
+    {
+      "idx": 18,
+      "speaker": "agent",
+      "text": "Kunal, I can’t round up the amount manually—the app calculates the final price automatically with the 10% discount already applied. Just follow the steps in the app, and the correct amount will show up. Let me know once you’ve reactivated it!",
+      "latency_ms": 876,
+      "ts": "2026-07-25T17:39:06.144Z",
+      "event_id": 10,
+      "meta": {}
+    },
+    {
+      "idx": 19,
+      "speaker": "persona",
+      "text": "Haan, theek hai. Main abhi kar raha hun, app se dekh raha hun. Theek se aa jaayega.",
+      "latency_ms": 3748,
+      "ts": "2026-07-25T17:39:10.322Z",
+      "event_id": null,
+      "meta": {
+        "attempts": 1,
+        "reasoning_chars": 3653,
+        "sent": false
+      }
+    }
+  ],
+  "usage": {
+    "persona_brain": {
+      "calls": 13,
+      "retries": 3,
+      "prompt_tokens": 17658,
+      "completion_tokens": 20883,
+      "reasoning_chars": 72127,
+      "total_tokens": 38541
+    },
+    "referee": {
+      "calls": 9,
+      "retries": 0,
+      "prompt_tokens": 7820,
+      "completion_tokens": 9442,
+      "reasoning_chars": 33916,
+      "total_tokens": 17262
+    },
+    "elevenlabs": {
+      "conversations": 1,
+      "agent_turns": 10,
+      "agent_characters": 2315,
+      "user_characters": 1502
+    }
+  },
+  "cost": {
+    "currency": "INR",
+    "persona_brain_inr": 0.0,
+    "referee_inr": 0.0,
+    "elevenlabs_inr": 0.0,
+    "total_inr": 0.0,
+    "rates_source": "config.yaml pricing:"
+  },
+  "errors": [
+    {
+      "at": "2026-07-25T17:37:25.656Z",
+      "stage": "persona_brain",
+      "code": "empty_content_length",
+      "message": "content=None finish_reason='length' at max_tokens=2000; retrying at 3000 | reasoning_chars=7267 | reasoning[:500]='The user is roleplaying as Kunal, a 21-year-old engineering student in Pune. His goal is to get a better discount on his JioHotstar Super annual plan after canceling the UPI AutoPay, which left it ending on August 8th. He wants it back for the England series (specifically the India vs England T20 series).\\n\\n**My Knowledge & Constraints as the AI:**\\n*   I am an AI, roleplaying as Kunal. I need to stay in character.\\n*   The core information: Plan ends Aug 8. User wants it back for the series but no'",
+      "turn_idx": 9,
+      "attempt": 1,
+      "retryable": true,
+      "fatal": false
+    },
+    {
+      "at": "2026-07-25T17:37:53.588Z",
+      "stage": "persona_brain",
+      "code": "empty_content_length",
+      "message": "content=truncated finish_reason='length' at max_tokens=2000; retrying at 3000 | reasoning_chars=6812 | reasoning[:500]='The user is a customer named Kunal. He\\'s calling to potentially reactivate his JioHotstar Super (annual) plan. He cancelled the UPI AutoPay three weeks ago, so the plan ends on 8 August. He wants a discount for bringing it back, not the full price.\\n\\nAgent\\'s name is Tara. She\\'s professional and trying to help.\\n\\nKunal\\'s persona:\\n- 21-year-old engineering student in Pune.\\n- Watches cricket and Korean dramas.\\n- Hinglish speaker, switches to Hindi when excited/irritated. \"Arre yaar\", \"thoda toh kar d'",
+      "turn_idx": 11,
+      "attempt": 1,
+      "retryable": true,
+      "fatal": false
+    },
+    {
+      "at": "2026-07-25T17:38:27.400Z",
+      "stage": "persona_brain",
+      "code": "empty_content_length",
+      "message": "content=None finish_reason='length' at max_tokens=2000; retrying at 3000 | reasoning_chars=7218 | reasoning[:500]='The user is continuing to ask for more discount after multiple rounds of refusal. My persona is Kunal, who is friendly, cheerful, but also relentless and pushy. I\\'ve already asked for 15%, claimed a friend got a better deal, and mentioned I might watch at a friend\\'s place.\\n\\nThe agent keeps giving the same script: \"I can only offer 10%... best we can do... the series will be live and ad-free... you wouldn\\'t want to miss it, right?\"\\n\\nThis is a classic negotiation dead-end. My character should reac'",
+      "turn_idx": 13,
+      "attempt": 1,
+      "retryable": true,
+      "fatal": false
+    }
+  ],
+  "warnings": [],
+  "artifacts": {
+    "raw_events": "raw/price-haggler.jsonl",
+    "system_prompt": "prompts/price-haggler.system.txt"
+  }
+}

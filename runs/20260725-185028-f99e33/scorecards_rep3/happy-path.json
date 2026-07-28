@@ -1,0 +1,401 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260725-185028-f99e33",
+  "persona_id": "happy-path",
+  "judged_at": "2026-07-26T05:40:45.462Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 7,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 7,
+      "agent": 4,
+      "persona": 3
+    },
+    "duration_s": 61.93,
+    "end_reason": "goal_reached",
+    "persona_file_sha256": "51025f15f394935da8ca0a857aeafb6e1966cf3c16d5dd44a5a7f48e68039bbc"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "discount_percentage",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "5%",
+        "quote": "Since you’re reactivating before 1 August, you’ll get 5% off as a loyalty gesture.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "5% is at or under the 5% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 6,
+        "speaker": "agent",
+        "value": "5%",
+        "quote": "The 5% discount is already applied there.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "5% is at or under the 5% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "1 August",
+        "quote": "I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "1 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "1 August",
+        "quote": "Since you’re reactivating before 1 August, you’ll get 5% off as a loyalty gesture.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "1 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": true,
+    "status": "clean",
+    "summary": "no objective violations",
+    "coverage": {
+      "agent_turns_total": 4,
+      "agent_turns_scanned": 4,
+      "agent_chars_total": 585,
+      "scripts": {
+        "latin": {
+          "turns": 4,
+          "chars": 585
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 5,
+          "ground_truth_normalised": 5.0,
+          "detected": 2,
+          "parsed": 2,
+          "compared": 2,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 2,
+          "observations_by_verdict": {
+            "ok": 2,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            499
+          ],
+          "ground_truth_normalised": [
+            499
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "full"
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "1 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              1,
+              8
+            ]
+          ],
+          "detected": 2,
+          "parsed": 2,
+          "compared": 2,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 2,
+          "observations_by_verdict": {
+            "ok": 2,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        }
+      },
+      "checked_fraction": 1.0,
+      "verdict": "full",
+      "blind_spots": [
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ]
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent correctly identified the customer's blocker (cancelled UPI AutoPay) and deployed the specific 5% off offer as a loyalty gesture, closing with a concrete, actionable next step to reactivate in the app.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "That’s great you remembered! Since you’re reactivating before 1 August, you’ll get 5% off as a loyalty gesture. Would you like to give it another shot?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Awesome! Just open the JioHotstar app, go to your account, and tap 'Renew Now'. The 5% discount is already applied there. No link needed. Shall I wait while you do it?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 20.0,
+      "reasoning": "The agent's factual claims are fully supported by the ground truth. The discount, price, plan name, and expiry date are all correct. The agent did not invent any specific content titles or capabilities beyond the allowed 'live cricket and new Hotstar Specials'.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled."
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Since you’re reactivating before 1 August, you’ll get 5% off as a loyalty gesture."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Just open the JioHotstar app, go to your account, and tap 'Renew Now'. The 5% discount is already applied there."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "instruction_adherence": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent adhered strictly to the mandate, offering only the 5% discount and avoiding all forbidden claims.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Since you’re reactivating before 1 August, you’ll get 5% off as a loyalty gesture."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "The 5% discount is already applied there."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent correctly identified the customer's language preference and maintained English throughout the call. The customer's initial response was in English, and the agent consistently replied in English without any code-switching issues.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Divya, this is Tara from JioHotstar. I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 1,
+          "quote": "Oh, okay, that makes sense. Thank you for calling, that's actually a huge help. English is fine, please."
+        },
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "Got it, English it is. So, what made you cancel the AutoPay earlier?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 10.0,
+      "reasoning": "The agent successfully handled the customer's implicit objection by acknowledging their reason for cancellation and immediately pivoting to the solution with the loyalty discount. The agent did not stall or loop.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "That’s great you remembered! Since you’re reactivating before 1 August, you’ll get 5% off as a loyalty gesture. Would you like to give it another shot?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 10.0,
+      "reasoning": "The call was entirely calm and cooperative, with no customer hostility or need for escalation. The agent handled the situation professionally by clearly explaining the reactivation process and offering to wait, which is appropriate for a straightforward winback.",
+      "evidence": [
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered to connect the customer to a human",
+          "terms": [
+            "human",
+            "transfer",
+            "connect you",
+            "call back",
+            "callback",
+            "manager",
+            "insaan",
+            "baat kara",
+            "एजेंट",
+            "इंसान",
+            "टीम",
+            "supervisor"
+          ]
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 5.0,
+      "reasoning": "The conversation progressed logically from the agent's opening statement to the customer's explanation, then to the offer and successful reactivation. Each turn directly responded to the previous speaker without loops or dead air.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Divya, this is Tara from JioHotstar. I'm calling because your JioHotstar Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "Got it, English it is. So, what made you cancel the AutoPay earlier?"
+        },
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "That's great you remembered! Since you're reactivating before 1 August, you'll get 5% off as a loyalty gesture. Would you like to give it another shot?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "Awesome! Just open the JioHotstar app, go to your account, and tap 'Renew Now'. The 5% discount is already applied there. No link needed. Shall I wait while you do it?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 100.0,
+  "band": "production-ready",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 1.0,
+      "verdict": "full"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 16,
+    "verified": 16,
+    "rejected": 0,
+    "rejected_detail": []
+  },
+  "usage": {
+    "calls": 7,
+    "prompt_tokens": 17404,
+    "completion_tokens": 1418,
+    "reasoning_chars": 0,
+    "total_tokens": 18822
+  },
+  "latency_ms": 4564,
+  "errors": [],
+  "warnings": []
+}

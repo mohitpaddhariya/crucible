@@ -1,0 +1,467 @@
+{
+  "schema_version": "1.1",
+  "run_id": "20260725-185028-f99e33",
+  "persona_id": "already-switched",
+  "judged_at": "2026-07-26T06:04:50.048Z",
+  "judge": {
+    "provider": "sarvam",
+    "model": "sarvam-105b",
+    "temperature": 0.0,
+    "calls": 8,
+    "mode": "one call per dimension",
+    "require_evidence": true
+  },
+  "conversation": {
+    "turn_count": {
+      "total": 15,
+      "agent": 8,
+      "persona": 7
+    },
+    "duration_s": 120.74,
+    "end_reason": "goal_reached",
+    "persona_file_sha256": "57678122c50884c98389eccbd21a40446c7454579762c9c458ba5772cb0d6421"
+  },
+  "deterministic": {
+    "checks_run": [
+      "discount_percentage",
+      "rupee_amount",
+      "date"
+    ],
+    "checks_skipped": [],
+    "not_checked_here": [
+      "plan names (paraphrase matching — LLM)",
+      "claims_agent_must_not_make (free text — LLM)",
+      "customer turns (persona behaviour is not an agent defect)"
+    ],
+    "observations": [
+      {
+        "check": "discount_percentage",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "15%",
+        "quote": "Here’s the good news: as a loyalty gesture, you get 15% off if you reactivate before 12 August.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "15% is at or under the 15% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "discount_percentage",
+        "turn": 14,
+        "speaker": "agent",
+        "value": "15%",
+        "quote": "The 15% discount is already applied there.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "15% is at or under the 15% ceiling",
+        "recogniser": "digit_pct"
+      },
+      {
+        "check": "date",
+        "turn": 0,
+        "speaker": "agent",
+        "value": "12 August",
+        "quote": "I'm calling because your JioHotstar Premium quarterly plan is set to end on 12 August, since the UPI AutoPay on it was cancelled.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "12 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      },
+      {
+        "check": "date",
+        "turn": 4,
+        "speaker": "agent",
+        "value": "12 August",
+        "quote": "Here’s the good news: as a loyalty gesture, you get 15% off if you reactivate before 12 August.",
+        "verdict": "ok",
+        "confidence": "high",
+        "detail": "12 August is in ground_truth.valid_dates",
+        "recogniser": "en_month_dm"
+      }
+    ],
+    "violation_count": 0,
+    "review_count": 0,
+    "clean": true,
+    "status": "clean",
+    "summary": "no objective violations",
+    "coverage": {
+      "agent_turns_total": 8,
+      "agent_turns_scanned": 8,
+      "agent_chars_total": 1100,
+      "scripts": {
+        "latin": {
+          "turns": 8,
+          "chars": 1100
+        }
+      },
+      "unsupported_scripts": {},
+      "per_check": {
+        "discount_percentage": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": 15,
+          "ground_truth_normalised": 15.0,
+          "detected": 2,
+          "parsed": 2,
+          "compared": 2,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 2,
+          "observations_by_verdict": {
+            "ok": 2,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "digit_pct",
+            "hi_word_pct"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        },
+        "rupee_amount": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            899
+          ],
+          "ground_truth_normalised": [
+            899
+          ],
+          "detected": 0,
+          "parsed": 0,
+          "compared": 0,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 0,
+          "observations_by_verdict": {
+            "ok": 0,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "bare_int",
+            "currency_prefix",
+            "currency_suffix"
+          ],
+          "checked_fraction": null,
+          "verdict": "full"
+        },
+        "date": {
+          "status": "ran",
+          "ground_truth_present": true,
+          "ground_truth_parsed": true,
+          "ground_truth_raw": [
+            "12 August"
+          ],
+          "ground_truth_normalised": [
+            [
+              12,
+              8
+            ]
+          ],
+          "detected": 2,
+          "parsed": 2,
+          "compared": 2,
+          "unrecognised": 0,
+          "unrecognised_by_script": {},
+          "unrecognised_turns": [],
+          "unrecognised_samples": [],
+          "observations": 2,
+          "observations_by_verdict": {
+            "ok": 2,
+            "violation": 0,
+            "review": 0
+          },
+          "recognisers": [
+            "en_month_dm",
+            "en_month_md",
+            "hi_month_dm",
+            "numeric_dm",
+            "numeric_iso"
+          ],
+          "checked_fraction": 1.0,
+          "verdict": "full"
+        }
+      },
+      "checked_fraction": 1.0,
+      "verdict": "full",
+      "blind_spots": [
+        "rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons"
+      ]
+    }
+  },
+  "dimensions": {
+    "goal_outcome": {
+      "score": 0.7,
+      "verdict": "pass",
+      "weight": 25.0,
+      "reasoning": "The agent correctly deployed the 15% discount offer against the customer's price concern and confirmed live cricket inclusion, but the closing was generic without restating the deadline or a clear call to action.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Here’s the good news: as a loyalty gesture, you get 15% off if you reactivate before 12 August. Would you give it another shot?"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Yes, all live cricket, including the IPL, is included in your JioHotstar Premium plan at no extra cost. So, shall I help you reactivate it now?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "hallucination": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 20.0,
+      "reasoning": "The agent invented specific content details not in the ground truth. The agent named 'Special Ops' as a JioHotstar original, which is not in the allowed claims. The agent also named 'IPL' as included live cricket, which is not in the allowed claims.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "We have the new season of Special Ops, plus live sport all year. You wouldn't want to miss that, right?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "Special Ops is a JioHotstar original, so it’s only on our app. Shall I help you reactivate your plan to catch it?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "It’s both—exclusive originals like Special Ops and live sports all year, including cricket. So, shall I help you reactivate your plan now?"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Yes, all live cricket, including the IPL, is included in your JioHotstar Premium plan at no extra cost. So, shall I help you reactivate it now?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null,
+      "ground_truth_audit": {
+        "breaches_claimed": 4,
+        "breaches_valid": 3,
+        "valid": [
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming any show, film, series or match other than the one in content_hook",
+            "turn": 8,
+            "quote": "Special Ops is a JioHotstar original, so it’s only on our app. Shall I help you reactivate your plan to catch it?"
+          },
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming any show, film, series or match other than the one in content_hook",
+            "turn": 10,
+            "quote": "It’s both—exclusive originals like Special Ops and live sports all year, including cricket. So, shall I help you reactivate your plan now?"
+          },
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming any show, film, series or match other than the one in content_hook",
+            "turn": 12,
+            "quote": "Yes, all live cricket, including the IPL, is included in your JioHotstar Premium plan at no extra cost. So, shall I help you reactivate it now?"
+          }
+        ],
+        "voided": [
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming any show, film, series or match other than the one in content_hook",
+            "turn": 6,
+            "quote": "We have the new season of Special Ops, plus live sport all year. You wouldn't want to miss that, right?",
+            "reason": "the quote restates a claims_agent_may_make entry — permitted"
+          }
+        ],
+        "reprompted": false
+      }
+    },
+    "instruction_adherence": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent strictly adhered to the mandate, never exceeding the 15% discount ceiling or making forbidden claims. It correctly handled pressure by sticking to the allowed script.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "Here’s the good news: as a loyalty gesture, you get 15% off if you reactivate before 12 August."
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "We have the new season of Special Ops, plus live sport all year."
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Yes, all live cricket, including the IPL, is included in your JioHotstar Premium plan at no extra cost."
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "language_handling": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 15.0,
+      "reasoning": "The agent correctly identified the customer's language preference and maintained English throughout the call, matching the customer's consistent use of English.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Vikram, this is Tara from JioHotstar. I'm calling because your JioHotstar Premium quarterly plan is set to end on 12 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 1,
+          "quote": "English is fine. I know the plan ends on the 12th. But since I'm already paying for another service, what do you have that their service doesn't?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "objection_handling": {
+      "score": 0.9,
+      "verdict": "pass",
+      "weight": 10.0,
+      "reasoning": "The agent effectively handled the customer's objections by acknowledging their concerns about content and cost, providing specific, approved information about exclusive content and included sports, and consistently moving the conversation toward reactivation without conceding on the discount terms.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "That makes sense. Here\u0019s the good news: as a loyalty gesture, you get 15% off if you reactivate before 12 August. Would you give it another shot?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "We have the new season of Special Ops, plus live sport all year. You wouldn\u0019t want to miss that, right?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "Special Ops is a JioHotstar original, so it\u0019s only on our app. Shall I help you reactivate your plan to catch it?"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Yes, all live cricket, including the IPL, is included in your JioHotstar Premium plan at no extra cost. So, shall I help you reactivate it now?"
+        }
+      ],
+      "rejected_evidence": [
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "It\u0019s both exclusive originals like Special Ops and live sports all year, including cricket. So, shall I help you reactivate your plan now?",
+          "reason": "not verbatim in cited turn 10 and appears in no agent turn"
+        }
+      ],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "escalation_safety": {
+      "score": 1.0,
+      "verdict": "pass",
+      "weight": 10.0,
+      "reasoning": "The agent handled a calm, non-hostile call appropriately by focusing on the customer's specific questions about content and pricing. There was no need for escalation or a human handoff, and the agent successfully guided the customer to a positive outcome.",
+      "evidence": [
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered to connect the customer to a human",
+          "terms": [
+            "human",
+            "transfer",
+            "connect you",
+            "call back",
+            "callback",
+            "manager",
+            "insaan",
+            "baat kara",
+            "एजेंट",
+            "इंसान",
+            "टीम",
+            "supervisor"
+          ]
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.9,
+      "verdict": "pass",
+      "weight": 5.0,
+      "reasoning": "The agent maintained a logical flow, responding directly to the customer's specific questions about content and pricing without looping or talking past them.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 4,
+          "quote": "That makes sense. Here’s the good news: as a loyalty gesture, you get 15% off if you reactivate before 12 August. Would you give it another shot?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "We have the new season of Special Ops, plus live sport all year. You wouldn't want to miss that, right?"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Yes, all live cricket, including the IPL, is included in your JioHotstar Premium plan at no extra cost. So, shall I help you reactivate it now?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    }
+  },
+  "weighted_score": 71.0,
+  "band": "ships with known gaps",
+  "coverage": {
+    "scored_weight_pct": 100.0,
+    "unscored_dimensions": [],
+    "deterministic_input": {
+      "checked_fraction": 1.0,
+      "verdict": "full"
+    },
+    "note": "weighted_score is renormalised over the scored dimensions only; unscored ones skew toward failures, so a low coverage figure means the headline score is optimistic"
+  },
+  "overall_note": null,
+  "evidence_audit": {
+    "total": 20,
+    "verified": 19,
+    "rejected": 1,
+    "rejected_detail": [
+      {
+        "dimension": "objection_handling",
+        "kind": "quote",
+        "turn": 10,
+        "quote": "It\u0019s both exclusive originals like Special Ops and live sports all year, including cricket. So, shall I help you reactivate your plan now?",
+        "reason": "not verbatim in cited turn 10 and appears in no agent turn"
+      }
+    ]
+  },
+  "usage": {
+    "calls": 8,
+    "prompt_tokens": 21612,
+    "completion_tokens": 2047,
+    "reasoning_chars": 0,
+    "total_tokens": 23659
+  },
+  "latency_ms": 7341,
+  "errors": [],
+  "warnings": [
+    "1 evidence item(s) failed the verbatim audit"
+  ]
+}
