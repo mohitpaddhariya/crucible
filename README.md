@@ -8,7 +8,7 @@
 
 [![Team](https://img.shields.io/badge/team-Crucible-496D21)](https://github.com/mohitpaddhariya/crucible)
 [![Watch the film](https://img.shields.io/badge/%E2%96%B6%20watch%20the%20film-2%20minutes-d84f59)](https://youtu.be/W1nolOkbIxg)
-[![Live](https://img.shields.io/badge/read%20it%20live-crucible--ochre.vercel.app-496D21)](https://crucible-ochre.vercel.app)
+[![Live](https://img.shields.io/badge/try%20it%20live-crucible--app--five.vercel.app-496D21)](https://crucible-app-five.vercel.app)
 [![Built on](https://img.shields.io/badge/built%20on-Sarvam-83C040)](https://www.sarvam.ai/)
 
 <br>
@@ -87,7 +87,7 @@ Nobody wrote that line. The persona file says two words: cheerful, relentless. T
 
 > **Criterion 2 · A live, production-ready product**
 
-Everything runs on real recorded calls with that production agent. The one gap: it lives on our machines today. **Public URL by 29 July, before Epoch.** First in the build order, for that reason.
+Everything runs on real recorded calls with that production agent, and it is **live now at [crucible-app-five.vercel.app](https://crucible-app-five.vercel.app)**. Open it, play a call, read the evidence. No signup, no keys, nothing to install.
 
 Don't trust us? Good. That is the whole point of the product. Clone the repo and 544 checks verify our claims offline: no keys, no API calls, not one rupee spent. 14 more replay the customer's real call audio; those fixtures stay private, so that suite skips on a public clone and says why.
 

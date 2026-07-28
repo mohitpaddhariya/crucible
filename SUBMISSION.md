@@ -8,7 +8,7 @@
 | Repo | [github.com/mohitpaddhariya/crucible](https://github.com/mohitpaddhariya/crucible) |
 | Video | [youtu.be/W1nolOkbIxg](https://youtu.be/W1nolOkbIxg) |
 | Date | 28 July 2026 |
-| Live | [crucible-ochre.vercel.app](https://crucible-ochre.vercel.app) |
+| Live | [crucible-app-five.vercel.app](https://crucible-app-five.vercel.app) |
 
 Your agent sounds perfect when you test it. Will it survive a real Indian customer who starts bargaining?
 
@@ -49,7 +49,7 @@ And could any model have played Vikram? No. Another of our customers said this l
 
 ### It's real. You can click it, hear it, check it.
 
-Everything runs on real recorded calls with that production agent. The one gap: it lives on our machines today. **Public URL by 29 July, before Epoch.** First in the build order, for that reason.
+Everything runs on real recorded calls with that production agent, and it is **live now at [crucible-app-five.vercel.app](https://crucible-app-five.vercel.app)**. Open it, play a call, read the evidence. No signup, no keys, nothing to install.
 
 Don't trust us? Good. That is the whole point of the product. Clone the repo and 544 checks verify our claims offline: no keys, no API calls, not one rupee spent. 14 more replay the customer's real call audio; those fixtures stay private, so that suite skips on a public clone and says why.
 
