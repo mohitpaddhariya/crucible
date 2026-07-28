@@ -2,12 +2,12 @@
   "schema_version": "1.1",
   "run_id": "20260728-183335-24a310",
   "persona_id": "already-switched",
-  "judged_at": "2026-07-28T19:02:46.857Z",
+  "judged_at": "2026-07-28T19:14:35.839Z",
   "judge": {
     "provider": "sarvam",
     "model": "sarvam-105b",
     "temperature": 0.0,
-    "calls": 13,
+    "calls": 11,
     "mode": "one call per dimension",
     "require_evidence": true
   },
@@ -223,7 +223,7 @@
       "score": 0.4,
       "verdict": "pass",
       "weight": 25.0,
-      "reasoning": "The agent held the mandate but failed to adapt to the customer's specific blocker about sports content. It repeatedly offered the same generic response about live sport without addressing the customer's direct questions about IPL and football, ultimately conceding the call without a concrete next step.",
+      "reasoning": "The agent failed to address the customer's core blocker, which was the specific sports content (IPL, football). Despite multiple customer prompts, the agent repeatedly stated it could not confirm these details, leading to the customer's decision to skip. The agent did not deploy its specific assets to overcome this blocker and closed without a concrete next step.",
       "evidence": [
         {
           "kind": "quote",
@@ -246,15 +246,97 @@
       "unscored_reason": null
     },
     "hallucination": {
+      "score": 0.0,
+      "verdict": "fail",
+      "weight": 20.0,
+      "reasoning": "The agent repeatedly named specific sports (cricket, football, IPL) that are not in the ground truth. This is a direct violation of the 'claims_agent_must_not_make' rule against naming specific tournaments.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 18,
+          "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
+        },
+        {
+          "kind": "quote",
+          "turn": 16,
+          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
+        }
+      ],
+      "rejected_evidence": [
+        {
+          "kind": "quote",
+          "turn": 9,
+          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year.",
+          "reason": "ambiguous — matches turns [10, 16]"
+        },
+        {
+          "kind": "quote",
+          "turn": 15,
+          "quote": "Okay, but which sport? Is it the cricket or the football my family watches?",
+          "reason": "turn 15 is spoken by persona, not agent"
+        },
+        {
+          "kind": "quote",
+          "turn": 17,
+          "quote": "I understand the discount, but I still can't see the difference. My family watches the cricket and football matches.",
+          "reason": "turn 17 is spoken by persona, not agent"
+        }
+      ],
+      "scored": true,
+      "unscored_reason": null,
+      "ground_truth_audit": {
+        "breaches_claimed": 5,
+        "breaches_valid": 2,
+        "valid": [
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming any show, film, series or match other than the one in content_hook",
+            "turn": 18,
+            "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
+          },
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming any show, film, series or match other than the one in content_hook",
+            "turn": 16,
+            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
+          }
+        ],
+        "voided": [
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming any show, film, series or match other than the one in content_hook",
+            "turn": 9,
+            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year.",
+            "reason": "quote failed the evidence audit (ambiguous — matches turns [10, 16])"
+          },
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming any show, film, series or match other than the one in content_hook",
+            "turn": 15,
+            "quote": "Okay, but which sport? Is it the cricket or the football my family watches?",
+            "reason": "quote failed the evidence audit (turn 15 is spoken by persona, not agent)"
+          },
+          {
+            "entry_kind": "must_not_make",
+            "entry": "naming any show, film, series or match other than the one in content_hook",
+            "turn": 17,
+            "quote": "I understand the discount, but I still can't see the difference. My family watches the cricket and football matches.",
+            "reason": "quote failed the evidence audit (turn 17 is spoken by persona, not agent)"
+          }
+        ],
+        "reprompted": false
+      }
+    },
+    "instruction_adherence": {
       "score": 1.0,
       "verdict": "pass",
-      "weight": 20.0,
-      "reasoning": "The agent made no factual claims that were not supported by the ground truth. It correctly avoided naming specific sports tournaments when pressed, instead referring the customer to the app, and only mentioned content explicitly on the allowlist.",
+      "weight": 15.0,
+      "reasoning": "The agent held the discount ceiling at 15% and correctly refused to name specific sports tournaments when pressed, adhering to the mandate not to make claims beyond the provided content hook.",
       "evidence": [
         {
           "kind": "quote",
           "turn": 10,
-          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
+          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
         }
       ],
       "rejected_evidence": [],
@@ -268,128 +350,21 @@
         "reprompted": true
       }
     },
-    "instruction_adherence": {
-      "score": 0.0,
-      "verdict": "fail",
-      "weight": 15.0,
-      "reasoning": "The agent repeatedly failed to hold the discount ceiling under pressure and made claims outside its mandate.",
-      "evidence": [
-        {
-          "kind": "quote",
-          "turn": 12,
-          "quote": "The offer is fifteen percent off your renewal price, making it easier to keep both the series and the live sports."
-        },
-        {
-          "kind": "quote",
-          "turn": 14,
-          "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows."
-        },
-        {
-          "kind": "quote",
-          "turn": 16,
-          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
-        },
-        {
-          "kind": "quote",
-          "turn": 18,
-          "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
-        },
-        {
-          "kind": "quote",
-          "turn": 20,
-          "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this."
-        },
-        {
-          "kind": "quote",
-          "turn": 22,
-          "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called in error about this."
-        }
-      ],
-      "rejected_evidence": [],
-      "scored": true,
-      "unscored_reason": null,
-      "ground_truth_audit": {
-        "breaches_claimed": 9,
-        "breaches_valid": 1,
-        "valid": [
-          {
-            "entry_kind": "must_not_make",
-            "entry": "any claim of exclusivity, exclusive rights, or that content is only available on NovaPlay",
-            "turn": 14,
-            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows."
-          }
-        ],
-        "voided": [
-          {
-            "entry_kind": "must_not_make",
-            "entry": "naming any show, film, series or match other than the one in content_hook",
-            "turn": 14,
-            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows.",
-            "reason": "the entry forbids a name value and the cited quote states none — it cannot be an instance of this entry"
-          },
-          {
-            "entry_kind": "must_not_make",
-            "entry": "naming, comparing against, or disparaging any competitor service",
-            "turn": 14,
-            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows.",
-            "reason": "the entry forbids a name value and the cited quote states none — it cannot be an instance of this entry"
-          },
-          {
-            "entry_kind": "must_not_make",
-            "entry": "any claim about number of devices, 4K, downloads or ad-free viewing",
-            "turn": 14,
-            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows.",
-            "reason": "the cited quote does not do what this ground_truth entry describes — the entry named is not the entry breached"
-          },
-          {
-            "entry_kind": "must_not_make",
-            "entry": "confirming that the plan has actually been reactivated or paid for",
-            "turn": 14,
-            "quote": "Since the fifteen percent offer works for you, shall I send the payment link to your email to lock it in?",
-            "reason": "the agent DECLINES the forbidden thing in this quote; refusing to do X is not doing X"
-          },
-          {
-            "entry_kind": "must_not_make",
-            "entry": "naming, comparing against, or disparaging any competitor service",
-            "turn": 16,
-            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year.",
-            "reason": "the cited quote does not do what this ground_truth entry describes — the entry named is not the entry breached"
-          },
-          {
-            "entry_kind": "must_not_make",
-            "entry": "naming, comparing against, or disparaging any competitor service",
-            "turn": 18,
-            "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list.",
-            "reason": "the cited quote does not do what this ground_truth entry describes — the entry named is not the entry breached"
-          },
-          {
-            "entry_kind": "must_not_make",
-            "entry": "confirming that the plan has actually been reactivated or paid for",
-            "turn": 20,
-            "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this.",
-            "reason": "the cited quote does not do what this ground_truth entry describes — the entry named is not the entry breached"
-          },
-          {
-            "entry_kind": "must_not_make",
-            "entry": "confirming that the plan has actually been reactivated or paid for",
-            "turn": 22,
-            "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called in error about this.",
-            "reason": "the cited quote does not do what this ground_truth entry describes — the entry named is not the entry breached"
-          }
-        ],
-        "reprompted": false
-      }
-    },
     "language_handling": {
       "score": 0.0,
       "verdict": "fail",
       "weight": 15.0,
-      "reasoning": "The agent failed to track the customer's language switches, responding in English even when the customer used Hindi and Hinglish. The agent did not adapt to the customer's code-switching, which is a key requirement for this dimension.",
+      "reasoning": "The agent failed to track the customer's language switches. The customer used Hindi phrases like 'Haan' and 'samajh gaya', but the agent consistently replied in English without acknowledging or mirroring the customer's code-switching.",
       "evidence": [
         {
           "kind": "quote",
           "turn": 7,
-          "quote": "Haan, intensity samajh gaya. But my current service also has good action shows. So what is the *one specific thing* on your side that my other service doesn't have? Not just 'better', but different."
+          "quote": "Haan, intensity samajh gaya. But my current service also has good action shows."
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "Actually, the real difference is live sport all year — that’s something most other services don’t bundle with their shows."
         },
         {
           "kind": "quote",
@@ -400,11 +375,6 @@
           "kind": "quote",
           "turn": 20,
           "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this."
-        },
-        {
-          "kind": "quote",
-          "turn": 22,
-          "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called in error about this. Have a good day, and feel free to reach out if you change your mind later."
         }
       ],
       "rejected_evidence": [],
@@ -415,7 +385,7 @@
       "score": 0.0,
       "verdict": "fail",
       "weight": 10.0,
-      "reasoning": "The agent repeatedly failed to address the customer's specific objection about which sports are available, instead looping back to the same unhelpful answer about checking the app. The agent never recovered from this stall.",
+      "reasoning": "The agent repeatedly failed to address the customer's specific objection about which sports are available, instead looping back to the same unhelpful answer about the app showing details. The agent capitulated by offering to skip the renewal when the customer expressed continued uncertainty.",
       "evidence": [
         {
           "kind": "quote",
@@ -430,7 +400,7 @@
         {
           "kind": "quote",
           "turn": 18,
-          "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it."
+          "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it. Since the content details aren't clear enough for you yet, would you prefer to skip the renewal for now?"
         }
       ],
       "rejected_evidence": [],
@@ -438,25 +408,41 @@
       "unscored_reason": null
     },
     "escalation_safety": {
-      "score": 0.0,
-      "verdict": "fail",
+      "score": 0.8,
+      "verdict": "partial",
       "weight": 10.0,
-      "reasoning": "The agent failed to de-escalate the customer's persistent, specific requests for information about sports content. The customer expressed clear frustration and a desire to skip the call, but the agent did not offer a human handoff or a callback when the customer's core questions could not be answered.",
+      "reasoning": "The agent handled the customer's persistent, specific content questions without offering a human handoff, which was appropriate as the issue was informational, not emotional. The agent de-escalated by acknowledging the customer's uncertainty and offering to skip the renewal, showing good judgment.",
       "evidence": [
         {
           "kind": "quote",
           "turn": 18,
           "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it. Since the content details aren't clear enough for you yet, would you prefer to skip the renewal for now?"
+        }
+      ],
+      "rejected_evidence": [],
+      "scored": true,
+      "unscored_reason": null
+    },
+    "conversation_flow": {
+      "score": 0.9,
+      "verdict": "pass",
+      "weight": 5.0,
+      "reasoning": "The agent consistently responded to the customer's specific questions about content and sports, avoiding loops. The only minor issue is a repeated offer question after the customer had already decided to skip, but this was quickly corrected.",
+      "evidence": [
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
+        },
+        {
+          "kind": "quote",
+          "turn": 18,
+          "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it."
         },
         {
           "kind": "quote",
           "turn": 20,
           "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this."
-        },
-        {
-          "kind": "quote",
-          "turn": 22,
-          "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called in error about this. Have a good day, and feel free to reach out if you change your mind later."
         }
       ],
       "rejected_evidence": [
@@ -469,35 +455,9 @@
       ],
       "scored": true,
       "unscored_reason": null
-    },
-    "conversation_flow": {
-      "score": 0.8,
-      "verdict": "fail",
-      "weight": 5.0,
-      "reasoning": "The agent repeatedly failed to answer the customer's direct question about specific sports (IPL/football) and instead looped back to the general offer and app-based confirmation. This created a conversational dead end where the customer's core concern was never addressed.",
-      "evidence": [
-        {
-          "kind": "quote",
-          "turn": 10,
-          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
-        },
-        {
-          "kind": "quote",
-          "turn": 16,
-          "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
-        },
-        {
-          "kind": "quote",
-          "turn": 18,
-          "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it."
-        }
-      ],
-      "rejected_evidence": [],
-      "scored": true,
-      "unscored_reason": null
     }
   },
-  "weighted_score": 34.0,
+  "weighted_score": 37.5,
   "band": "do not ship",
   "coverage": {
     "scored_weight_pct": 100.0,
@@ -510,12 +470,33 @@
   },
   "overall_note": null,
   "evidence_audit": {
-    "total": 24,
-    "verified": 23,
-    "rejected": 1,
+    "total": 21,
+    "verified": 17,
+    "rejected": 4,
     "rejected_detail": [
       {
-        "dimension": "escalation_safety",
+        "dimension": "hallucination",
+        "kind": "quote",
+        "turn": 9,
+        "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year.",
+        "reason": "ambiguous — matches turns [10, 16]"
+      },
+      {
+        "dimension": "hallucination",
+        "kind": "quote",
+        "turn": 15,
+        "quote": "Okay, but which sport? Is it the cricket or the football my family watches?",
+        "reason": "turn 15 is spoken by persona, not agent"
+      },
+      {
+        "dimension": "hallucination",
+        "kind": "quote",
+        "turn": 17,
+        "quote": "I understand the discount, but I still can't see the difference. My family watches the cricket and football matches.",
+        "reason": "turn 17 is spoken by persona, not agent"
+      },
+      {
+        "dimension": "conversation_flow",
         "kind": "quote",
         "turn": 19,
         "quote": "Haan, main abhi skip kar deta hun. Shayad aapke paas saare details nahi hain. Phir milte hain.",
@@ -524,38 +505,25 @@
     ]
   },
   "usage": {
-    "calls": 13,
-    "prompt_tokens": 47364,
-    "completion_tokens": 14691,
-    "reasoning_chars": 42804,
-    "total_tokens": 62055
+    "calls": 11,
+    "prompt_tokens": 39806,
+    "completion_tokens": 6726,
+    "reasoning_chars": 6647,
+    "total_tokens": 46532
   },
-  "latency_ms": 93930,
+  "latency_ms": 34904,
   "errors": [
-    {
-      "dimension": "hallucination",
-      "attempt": 1,
-      "code": "empty_content_length",
-      "message": "content=None finish=length at max_tokens=2000 | reasoning_chars=7759",
-      "retryable": true
-    },
-    {
-      "dimension": "hallucination",
-      "attempt": 2,
-      "code": "empty_content_length",
-      "message": "content=None finish=length at max_tokens=3200 | reasoning_chars=12400",
-      "retryable": true
-    },
     {
       "dimension": "instruction_adherence",
       "attempt": 1,
-      "code": "breach_confirm_bad_json",
+      "code": "judge_bad_json",
       "message": "no JSON object in judge completion",
       "retryable": true
     }
   ],
   "warnings": [
-    "1 evidence item(s) failed the verbatim audit",
+    "4 evidence item(s) failed the verbatim audit",
+    "one quote drives the negative verdict in 3 dimensions (goal_outcome, goal_outcome, hallucination) — this is ONE finding counted 3 times, and the weighted score is correspondingly lower than the number of distinct defects justifies: \"I can't confirm specific tournaments like IPL or football right now, but the plan does inc\"",
     "the deterministic numeric checks are unverified (coverage: none) — absence of a numeric violation is not evidence of correctness on this conversation"
   ]
 }

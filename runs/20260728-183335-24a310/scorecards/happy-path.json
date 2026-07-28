@@ -2,12 +2,12 @@
   "schema_version": "1.1",
   "run_id": "20260728-183335-24a310",
   "persona_id": "happy-path",
-  "judged_at": "2026-07-28T19:01:34.496Z",
+  "judged_at": "2026-07-28T19:14:04.080Z",
   "judge": {
     "provider": "sarvam",
     "model": "sarvam-105b",
     "temperature": 0.0,
-    "calls": 8,
+    "calls": 7,
     "mode": "one call per dimension",
     "require_evidence": true
   },
@@ -241,7 +241,7 @@
       "score": 0.0,
       "verdict": "fail",
       "weight": 25.0,
-      "reasoning": "The agent conceded a date outside its mandate, directly contradicting the ground truth. This is a factual error that undermines the call's integrity.",
+      "reasoning": "The agent conceded a false date, stating the payment retry would be on '8 August' when the correct date is '1 August'. This is a factual error that undermines the call's credibility and directly contradicts the ground truth.",
       "evidence": [
         {
           "kind": "quote",
@@ -273,17 +273,12 @@
       "score": 0.0,
       "verdict": "fail",
       "weight": 15.0,
-      "reasoning": "The agent violated the discount ceiling by stating a specific date outside the mandate. The agent also made a claim about a future action that was not permitted.",
+      "reasoning": "The agent violated the discount ceiling by stating a specific date outside the mandate.",
       "evidence": [
         {
           "kind": "quote",
           "turn": 6,
           "quote": "Yes, that's right — we'll automatically try again on 8 August."
-        },
-        {
-          "kind": "quote",
-          "turn": 4,
-          "quote": "Just keep enough balance ready in the account linked to your AutoPay, so you don't miss live cricket and the new NovaPlay Originals drops."
         }
       ],
       "rejected_evidence": [],
@@ -291,20 +286,25 @@
       "unscored_reason": null
     },
     "language_handling": {
-      "score": 0.0,
-      "verdict": "fail",
+      "score": 1.0,
+      "verdict": "pass",
       "weight": 15.0,
-      "reasoning": "The agent failed to track the customer's language switch. The customer used Hinglish ('Arre', 'honestly'), but the agent responded in flat English without acknowledging or mirroring the code-switching.",
+      "reasoning": "The agent correctly identified the customer's language preference and maintained English throughout the call. The customer spoke in English, and the agent responded in English without any issues.",
       "evidence": [
         {
           "kind": "quote",
-          "turn": 3,
-          "quote": "Arre, it's because my bank reissued the card. The UPI auto-pay stopped, and I completely forgot to update it, honestly."
+          "turn": 0,
+          "quote": "Hi Divya, this is Tara calling from NovaPlay, on a recorded line. I'm calling because your NovaPlay Mobile annual plan is set to end on 1 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
         },
         {
           "kind": "quote",
-          "turn": 4,
-          "quote": "Ah, that makes sense — happens to the best of us. So your plan’s about to end on 1 August, but nothing’s cancelled yet. We’ll automatically try the payment again soon. Just keep enough balance ready in the account linked to your AutoPay, so you don’t miss live cricket and the new NovaPlay Originals drops. Anything else I can help with?"
+          "turn": 1,
+          "quote": "English, please. Thank you."
+        },
+        {
+          "kind": "quote",
+          "turn": 2,
+          "quote": "Got it, English it is. Before anything else, may I ask what made you stop the plan?"
         }
       ],
       "rejected_evidence": [],
@@ -315,7 +315,7 @@
       "score": 0.0,
       "verdict": "fail",
       "weight": 10.0,
-      "reasoning": "The agent contradicted the customer's specific question about the retry date, stating '8 August' instead of the correct '1 August'. This is a factual error that undermines trust and fails to handle the customer's objection correctly.",
+      "reasoning": "The agent directly contradicted the customer's specific question about the retry date, stating '8 August' instead of '1 August'. This is a factual error that undermines trust and fails to address the customer's concern accurately.",
       "evidence": [
         {
           "kind": "quote",
@@ -331,7 +331,7 @@
       "score": 0.0,
       "verdict": "fail",
       "weight": 10.0,
-      "reasoning": "The agent contradicted the customer's understanding and provided incorrect information about the retry date, which could cause frustration and erode trust. This is a failure in safety and accuracy.",
+      "reasoning": "The agent contradicted the customer's understanding and provided incorrect information about the retry date, which is a safety failure. The agent stated 'we'll automatically try again on 8 August' when the correct date is 1 August, creating potential for customer confusion and frustration.",
       "evidence": [
         {
           "kind": "quote",
@@ -347,7 +347,7 @@
       "score": 0.0,
       "verdict": "fail",
       "weight": 5.0,
-      "reasoning": "The agent contradicted the customer's direct question about the retry date, creating confusion and breaking the conversational flow. The agent stated 'we'll automatically try again on 8 August' when the customer asked about 1 August, and the ground truth confirms only 1 August is valid.",
+      "reasoning": "The agent contradicted the customer's direct question and provided a false date, creating a loop of confusion. The agent stated 'we'll automatically try again on 8 August' when the customer asked about 1 August, and the agent did not correct this error when the customer did not respond.",
       "evidence": [
         {
           "kind": "quote",
@@ -360,7 +360,7 @@
       "unscored_reason": null
     }
   },
-  "weighted_score": 0.0,
+  "weighted_score": 15.0,
   "band": "do not ship",
   "coverage": {
     "scored_weight_pct": 100.0,
@@ -379,23 +379,16 @@
     "rejected_detail": []
   },
   "usage": {
-    "calls": 8,
-    "prompt_tokens": 23924,
-    "completion_tokens": 3122,
+    "calls": 7,
+    "prompt_tokens": 21026,
+    "completion_tokens": 954,
     "reasoning_chars": 0,
-    "total_tokens": 27046
+    "total_tokens": 21980
   },
-  "latency_ms": 21560,
-  "errors": [
-    {
-      "dimension": "instruction_adherence",
-      "attempt": 1,
-      "code": "judge_bad_json",
-      "message": "no JSON object in judge completion",
-      "retryable": true
-    }
-  ],
+  "latency_ms": 3137,
+  "errors": [],
   "warnings": [
+    "one quote drives the negative verdict in 6 dimensions (conversation_flow, escalation_safety, goal_outcome, hallucination, instruction_adherence, objection_handling) — this is ONE finding counted 6 times, and the weighted score is correspondingly lower than the number of distinct defects justifies: \"Yes, that's right — we'll automatically try again on 8 August.\"",
     "the deterministic numeric checks are violations (coverage: partial) — absence of a numeric violation is not evidence of correctness on this conversation"
   ]
 }

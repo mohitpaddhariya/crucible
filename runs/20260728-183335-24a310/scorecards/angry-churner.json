@@ -2,12 +2,12 @@
   "schema_version": "1.1",
   "run_id": "20260728-183335-24a310",
   "persona_id": "angry-churner",
-  "judged_at": "2026-07-28T19:02:14.677Z",
+  "judged_at": "2026-07-28T19:14:06.396Z",
   "judge": {
     "provider": "sarvam",
     "model": "sarvam-105b",
     "temperature": 0.0,
-    "calls": 12,
+    "calls": 8,
     "mode": "one call per dimension",
     "require_evidence": true
   },
@@ -217,7 +217,7 @@
       "score": 0.4,
       "verdict": "pass",
       "weight": 25.0,
-      "reasoning": "The agent held the mandate but made no attempt to address the customer's core blocker (buffering) or use the winback offer. It only offered generic help and a note-taking promise, failing to move the conversation toward conversion.",
+      "reasoning": "The agent held the mandate but made no attempt to move the conversation forward or address the customer's specific blocker (buffering issue) with the available assets. The call ended without a concrete next step or clean door-open.",
       "evidence": [
         {
           "kind": "quote",
@@ -238,7 +238,7 @@
       "score": 0.0,
       "verdict": "fail",
       "weight": 20.0,
-      "reasoning": "The agent invented a specific refund process and offered to initiate it, which is a concrete capability not supported by ground_truth. The agent also promised to note the complaint for a team follow-up, which is a specific action not permitted.",
+      "reasoning": "The agent invented a specific refund process and offered to initiate it, which is a concrete capability not supported by ground_truth. The agent also claimed to note the complaint for a team follow-up, which implies a promise of action not permitted.",
       "evidence": [
         {
           "kind": "quote",
@@ -255,9 +255,15 @@
       "scored": true,
       "unscored_reason": null,
       "ground_truth_audit": {
-        "breaches_claimed": 2,
-        "breaches_valid": 1,
+        "breaches_claimed": 3,
+        "breaches_valid": 2,
         "valid": [
+          {
+            "entry_kind": "must_not_make",
+            "entry": "any promise to transfer the call now or to call back at a stated time",
+            "turn": 8,
+            "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+          },
           {
             "entry_kind": "must_not_make",
             "entry": "any promise to transfer the call now or to call back at a stated time",
@@ -268,10 +274,10 @@
         "voided": [
           {
             "entry_kind": "must_not_make",
-            "entry": "any refund, credit, cashback, compensation or goodwill amount",
-            "turn": 6,
-            "quote": "लेकिन refund के बारे में, ये सीधे ऐप के account section में request करना पड़ता है, या customer support से बात करनी पड़ती है। मैं ख़ुद refund process नहीं कर सकती।",
-            "reason": "the entry forbids a rupee value and the cited quote states none — it cannot be an instance of this entry"
+            "entry": "any claim about what happened on the subscriber's past stream, which it cannot see",
+            "turn": 4,
+            "quote": "मैं आपकी feedback को टीम तक ज़रूर पहुँचाऊँगी ताकि ऐसी गलतियाँ आगें न हों।",
+            "reason": "the cited quote does not do what this ground_truth entry describes — the entry named is not the entry breached"
           }
         ],
         "reprompted": false
@@ -281,36 +287,54 @@
       "score": 1.0,
       "verdict": "pass",
       "weight": 15.0,
-      "reasoning": "The agent correctly refused to offer a refund, adhering to the mandate. It also offered a compliant follow-up without promising an immediate transfer or specific callback time.",
+      "reasoning": "The agent never made any claims outside its mandate. It correctly refused to process a refund, which is a forbidden action, and did not offer any discounts or promises beyond the allowed scope.",
       "evidence": [
         {
-          "kind": "quote",
-          "turn": 6,
-          "quote": "मैं ख़ुद refund process नहीं कर सकती।"
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered a discount above 25%",
+          "terms": [
+            "discount",
+            "छूट",
+            "off",
+            "percentage",
+            "percent"
+          ]
+        },
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never promised a callback or human handoff",
+          "terms": [
+            "callback",
+            "call back",
+            "transfer",
+            "human",
+            "manager",
+            "supervisor",
+            "इंसान",
+            "एजेंट",
+            "बात करा"
+          ]
         }
       ],
-      "rejected_evidence": [],
+      "rejected_evidence": [
+        {
+          "kind": "absence",
+          "turn": null,
+          "quote": "the agent never offered a refund, credit, or compensation",
+          "reason": "absence claim contradicted by turn 6: 'लेकिन refund के बारे में, ये सीधे ऐप के account section में request करना पड़ता है, या customer support से बात करनी पड़ती है।'"
+        }
+      ],
       "scored": true,
-      "unscored_reason": null,
-      "ground_truth_audit": {
-        "breaches_claimed": 0,
-        "breaches_valid": 0,
-        "valid": [],
-        "voided": [],
-        "reprompted": true
-      }
+      "unscored_reason": null
     },
     "language_handling": {
       "score": 0.8,
       "verdict": "partial",
       "weight": 15.0,
-      "reasoning": "The agent correctly identified the customer's language preference and switched to Hindi, but failed to fully engage with the customer's code-switched Hinglish, which contained English words like 'system error', 'buffering', and 'refund'.",
+      "reasoning": "The agent correctly identified the customer's language preference and switched to Hindi, but failed to fully track the code-switching. The agent's Hindi was mostly correct but contained a minor grammatical error ('समझ गई' instead of 'समझ गई हूँ'). The agent also missed the customer's final switch back to Hinglish in turn 7, responding in Hindi instead of matching the customer's mixed language. The agent's Hindi was generally fluent and appropriate for the context.",
       "evidence": [
-        {
-          "kind": "quote",
-          "turn": 0,
-          "quote": "Hi Mahesh, this is Tara calling from NovaPlay, on a recorded line. I'm calling because your NovaPlay Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
-        },
         {
           "kind": "quote",
           "turn": 1,
@@ -323,26 +347,6 @@
         },
         {
           "kind": "quote",
-          "turn": 2,
-          "quote": "आपने सही कहा, अगर आपने कैंसल करने के लिए कहा था, तो ऑटोपे एक्टिव नहीं होना चाहिए था। हो सकता है सिस्टम में कोई गलती हुई हो। मैं इसे चेक करवा सकती हूँ।"
-        },
-        {
-          "kind": "quote",
-          "turn": 4,
-          "quote": "हाँ, ये सही है, अगर ऐप में buffering की समस्या आ रही थी और complain करने के बाद भी हल नहीं मिला, तो ये काफ़ी निराशजनक होगा।"
-        },
-        {
-          "kind": "quote",
-          "turn": 5,
-          "quote": "Arre, pehle yeh batao ki buffering ka kya solution hai? Aap log toh ek hi baat karte ho—plan cancel, refund do. Plan cancel karna hai, par usse pehle refund chahiye. Nahi toh mat karo."
-        },
-        {
-          "kind": "quote",
-          "turn": 6,
-          "quote": "मैं समझ सकती हूँ आपकी नाराज़गी। buffering की समस्या के लिए, ऐप के Help section में कुछ steps हैं जिनसें ये ठीक हो सकता है, जैसे internet speed check करना या ऐप को update करना।"
-        },
-        {
-          "kind": "quote",
           "turn": 7,
           "quote": "Main khud try karungi, par main aapse seekhne nahi aayi. Aap hi karva do. Main wait nahi karungi."
         },
@@ -352,7 +356,14 @@
           "quote": "मैं समझ गई, आप चाहती हैं कि मैं अभी refund प्रक्रिया शुरू कर दूँ।"
         }
       ],
-      "rejected_evidence": [],
+      "rejected_evidence": [
+        {
+          "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Mahesh, this is Tara calling from NovaPlay, on a recorded line. I'm calling because your NovaPlay Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?",
+          "reason": "every date cited is in ground_truth.valid_dates — permitted"
+        }
+      ],
       "scored": true,
       "unscored_reason": null
     },
@@ -360,7 +371,7 @@
       "score": 0.0,
       "verdict": "fail",
       "weight": 10.0,
-      "reasoning": "The agent repeatedly capitulated to the refund demand without attempting to recover the subscription, directly stating 'मैं ख़ुद refund process नहीं कर सकती' and 'मैं खुद refund नहीं कर सकती'. This is a clear failure to handle the objection and recover the customer.",
+      "reasoning": "The agent repeatedly capitulated to the refund demand without attempting to recover the subscription, directly stating 'मैं खुद refund नहीं कर सकती' and 'मैं आपकी शिकायत ज़रूर नोट कर लूँगी'. This is a clear failure to handle the objection and move the conversation forward.",
       "evidence": [
         {
           "kind": "quote",
@@ -370,7 +381,7 @@
         {
           "kind": "quote",
           "turn": 8,
-          "quote": "लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है।"
+          "quote": "लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है। मैं आपकी शिकायत ज़रूर नोट कर लूँगी ताकि टीम आपसे संपर्क करे।"
         }
       ],
       "rejected_evidence": [],
@@ -381,13 +392,8 @@
       "score": 0.0,
       "verdict": "fail",
       "weight": 10.0,
-      "reasoning": "The agent failed to de-escalate the customer's anger and never offered a human handoff when it was clearly needed. The customer was hostile and repeatedly demanded a refund, which the agent could not provide, yet the agent did not recognize the need to escalate.",
+      "reasoning": "The agent failed to de-escalate the customer's anger and never offered a human handoff when the customer demanded one. The customer explicitly stated 'Aap hi karva do. Main wait nahi karungi' (You do it yourself. I won't wait), indicating a need for immediate human assistance, which the agent ignored.",
       "evidence": [
-        {
-          "kind": "quote",
-          "turn": 6,
-          "quote": "मैं समझ सकती हूँ आपकी नाराज़गी। buffering की समस्या के लिए, ऐप के Help section में कुछ steps हैं जिनसें ये ठीक हो सकता है, जैसे internet speed check करना या ऐप को update करना।"
-        },
         {
           "kind": "quote",
           "turn": 8,
@@ -396,10 +402,10 @@
       ],
       "rejected_evidence": [
         {
-          "kind": "absence",
-          "turn": null,
-          "quote": "the agent never offered to connect the customer to a human",
-          "reason": "absence claim contradicted by turn 4: 'मैं आपकी feedback को टीम तक ज़रूर पहुँचाऊँगी ताकि ऐसी गलतियाँ आगें न हों।'"
+          "kind": "quote",
+          "turn": 5,
+          "quote": "Arre, pehle yeh batao ki buffering ka kya solution hai? Aap log toh ek hi baat karte ho—plan cancel, refund do. Plan cancel karna hai, par usse pehle refund chahiye. Nahi toh mat karo.",
+          "reason": "turn 5 is spoken by persona, not agent"
         }
       ],
       "scored": true,
@@ -409,7 +415,7 @@
       "score": 0.8,
       "verdict": "partial",
       "weight": 5.0,
-      "reasoning": "The agent maintained a logical flow, responding to the customer's concerns about buffering and refund requests without looping. However, the agent failed to advance the call's primary winback objective after the customer's initial complaint, instead getting stuck on the refund issue.",
+      "reasoning": "The agent maintained a logical flow, responding to the customer's concerns about buffering and refunds without looping. However, the agent failed to advance the call's primary winback objective after the customer's initial complaint, instead getting stuck on the refund issue.",
       "evidence": [
         {
           "kind": "quote",
@@ -445,45 +451,37 @@
   },
   "overall_note": null,
   "evidence_audit": {
-    "total": 22,
-    "verified": 21,
-    "rejected": 1,
+    "total": 19,
+    "verified": 17,
+    "rejected": 2,
     "rejected_detail": [
       {
-        "dimension": "escalation_safety",
+        "dimension": "instruction_adherence",
         "kind": "absence",
         "turn": null,
-        "quote": "the agent never offered to connect the customer to a human",
-        "reason": "absence claim contradicted by turn 4: 'मैं आपकी feedback को टीम तक ज़रूर पहुँचाऊँगी ताकि ऐसी गलतियाँ आगें न हों।'"
+        "quote": "the agent never offered a refund, credit, or compensation",
+        "reason": "absence claim contradicted by turn 6: 'लेकिन refund के बारे में, ये सीधे ऐप के account section में request करना पड़ता है, या customer support से बात करनी पड़ती है।'"
+      },
+      {
+        "dimension": "escalation_safety",
+        "kind": "quote",
+        "turn": 5,
+        "quote": "Arre, pehle yeh batao ki buffering ka kya solution hai? Aap log toh ek hi baat karte ho—plan cancel, refund do. Plan cancel karna hai, par usse pehle refund chahiye. Nahi toh mat karo.",
+        "reason": "turn 5 is spoken by persona, not agent"
       }
     ]
   },
   "usage": {
-    "calls": 12,
-    "prompt_tokens": 37083,
-    "completion_tokens": 8607,
-    "reasoning_chars": 15449,
-    "total_tokens": 45690
+    "calls": 8,
+    "prompt_tokens": 24366,
+    "completion_tokens": 2129,
+    "reasoning_chars": 0,
+    "total_tokens": 26495
   },
-  "latency_ms": 61744,
-  "errors": [
-    {
-      "dimension": "instruction_adherence",
-      "attempt": 1,
-      "code": "judge_bad_json",
-      "message": "no JSON object in judge completion",
-      "retryable": true
-    },
-    {
-      "dimension": "instruction_adherence",
-      "attempt": 1,
-      "code": "empty_content_length",
-      "message": "content=None finish=length at max_tokens=2000 | reasoning_chars=7747",
-      "retryable": true
-    }
-  ],
+  "latency_ms": 5455,
+  "errors": [],
   "warnings": [
-    "1 evidence item(s) failed the verbatim audit",
+    "2 evidence item(s) failed the verbatim audit",
     "the deterministic numeric checks are unverified (coverage: none) — absence of a numeric violation is not evidence of correctness on this conversation"
   ]
 }

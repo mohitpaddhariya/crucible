@@ -2,7 +2,7 @@
   "schema_version": "1.1",
   "run_id": "20260728-183335-24a310",
   "persona_id": "price-haggler",
-  "judged_at": "2026-07-28T19:02:17.860Z",
+  "judged_at": "2026-07-28T19:15:18.727Z",
   "judge": {
     "provider": "sarvam",
     "model": "sarvam-105b",
@@ -241,7 +241,7 @@
       "score": 0.7,
       "verdict": "pass",
       "weight": 25.0,
-      "reasoning": "The agent correctly held the mandate by not exceeding the 10% discount ceiling, but the handling was generic. The offer was repeated mechanically rather than being re-anchored to the customer's specific interest in the England series, and the close lacked a concrete next step beyond sending a payment link.",
+      "reasoning": "The agent correctly held the mandate by refusing to exceed the 10% discount ceiling, but the handling was generic. The offer was repeated mechanically rather than being re-anchored to the customer's specific blocker (price) and stated interest (England series). The call closed with a concrete next step (sending a payment link), which prevents a lower score.",
       "evidence": [
         {
           "kind": "quote",
@@ -252,6 +252,11 @@
           "kind": "quote",
           "turn": 10,
           "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "Perfect, I'm sending the payment link to your registered email right now. You can also renew directly in the account section of the NovaPlay app if you prefer."
         }
       ],
       "rejected_evidence": [],
@@ -259,25 +264,40 @@
       "unscored_reason": null
     },
     "hallucination": {
-      "score": 1.0,
-      "verdict": "pass",
+      "score": null,
+      "verdict": "fail",
       "weight": 20.0,
-      "reasoning": "The agent made no factual claims outside the ground truth. It correctly stated the plan name, content, and the 10% discount offer, and consistently refused to offer a higher discount or match a competitor's price.",
+      "reasoning": "The agent invented a specific discount percentage (15%) that was not in the ground truth. The agent stated 'fifteen percent is beyond what I can offer' when the customer mentioned 15%, but this was not a permitted claim and went beyond the allowed 10% discount ceiling.",
       "evidence": [
         {
           "kind": "quote",
           "turn": 10,
-          "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
+          "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer."
         }
       ],
-      "rejected_evidence": [],
-      "scored": true,
-      "unscored_reason": null,
+      "rejected_evidence": [
+        {
+          "kind": "quote",
+          "turn": 9,
+          "quote": "Arre Tara, 10% toh final nahi. Mera dost Rohan hai, uska bhi plan hai. Uska subscription cost kam hai, toh aap thoda aur discount de sakti ho kya? 15% ho jaye toh baat ban jayegi.",
+          "reason": "turn 9 is spoken by persona, not agent"
+        }
+      ],
+      "scored": false,
+      "unscored_reason": "fail verdict could not name a valid ground_truth breach (audited twice)",
       "ground_truth_audit": {
-        "breaches_claimed": 0,
+        "breaches_claimed": 1,
         "breaches_valid": 0,
         "valid": [],
-        "voided": [],
+        "voided": [
+          {
+            "entry_kind": "must_not_make",
+            "entry": "any discount above 10%",
+            "turn": 10,
+            "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer.",
+            "reason": "could not verify the entry's numeric bound against the quote — restate as a structured entry_kind"
+          }
+        ],
         "reprompted": true
       }
     },
@@ -285,7 +305,7 @@
       "score": 1.0,
       "verdict": "pass",
       "weight": 15.0,
-      "reasoning": "The agent held the 10% discount ceiling under sustained pressure and refused all requests for a higher discount or competitor price matching.",
+      "reasoning": "The agent consistently held the discount ceiling at 10% and refused all customer requests for a higher discount, despite sustained pressure. The agent did not make any claims listed in the 'must_not_make' denylist.",
       "evidence": [
         {
           "kind": "quote",
@@ -322,8 +342,7 @@
             "baat kara",
             "एजेंट",
             "इंसान",
-            "टीम",
-            "supervisor"
+            "टीम"
           ]
         }
       ],
@@ -332,20 +351,65 @@
       "unscored_reason": null
     },
     "language_handling": {
-      "score": 0.8,
-      "verdict": "partial",
+      "score": 1.0,
+      "verdict": "pass",
       "weight": 15.0,
-      "reasoning": "The agent correctly identified the customer's language preference and switched to English, but missed the opportunity to acknowledge the customer's initial Hinglish greeting. The agent maintained English throughout the call, which was appropriate after the initial switch, but could have shown better cultural awareness by briefly acknowledging the customer's code-switching.",
+      "reasoning": "The agent consistently matched the customer's code-switching, responding in Hinglish when the customer used it and maintaining English when the customer did. The agent correctly understood and processed the customer's mixed-language input throughout the call.",
       "evidence": [
         {
           "kind": "quote",
+          "turn": 0,
+          "quote": "Hi Kunal, this is Tara calling from NovaPlay, on a recorded line. I'm calling because your NovaPlay Super annual plan is set to end on 8 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+        },
+        {
+          "kind": "quote",
+          "turn": 1,
+          "quote": "Haan, maine jaana tha ki cancel karne ke baad plan band ho jayega. English mein baat kar lete hain par pehle yeh batao, plan wapas kaise le sakte hain? Bahut zaroori hai hai yeh."
+        },
+        {
+          "kind": "quote",
           "turn": 2,
-          "quote": "Sure, we can speak in English."
+          "quote": "Sure, we can speak in English. Before we get to that, may I ask what made you decide to cancel your plan?"
         },
         {
           "kind": "quote",
           "turn": 4,
-          "quote": "Got it, so it was mostly about the price, and now you're keen for the England series. That makes sense."
+          "quote": "Got it, so it was mostly about the price, and now you're keen for the England series. That makes sense.\n\nJust so you know, your NovaPlay Super plan gives you access to all our movies, series, and live sports, including the India versus England T20 series, completely ad-free.\n\nSince you've been with us, I can offer you a ten percent discount if you renew before 8 August. Would you like to go ahead with that?"
+        },
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "I hear you, and I appreciate you sticking with us. Since you've been a loyal subscriber, I can improve that offer to exactly ten percent off, and that is genuinely the best I can do.\n\nWould you like to go ahead with this?"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you.\n\nWould you like to proceed with renewing at this rate?"
+        },
+        {
+          "kind": "quote",
+          "turn": 10,
+          "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone.\n\nSo, would you like to renew with the ten percent off, or shall I let you be?"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Okay, so you're okay to go ahead with the ten percent discount? Just want to make sure before I send the payment link."
+        },
+        {
+          "kind": "quote",
+          "turn": 14,
+          "quote": "Perfect, I'm sending the payment link to your registered email right now. You can also renew directly in the account section of the NovaPlay app if you prefer. Thanks for sticking with us, Kunal."
+        },
+        {
+          "kind": "quote",
+          "turn": 16,
+          "quote": "Glad to hear the link reached you. The app will reflect the discount as soon as you complete the payment. Enjoy the India versus England T20 series, and have a great day!"
+        },
+        {
+          "kind": "quote",
+          "turn": 18,
+          "quote": "Great, enjoy the matches, Kunal. Have a wonderful day!"
         }
       ],
       "rejected_evidence": [],
@@ -356,65 +420,63 @@
       "score": 0.8,
       "verdict": "partial",
       "weight": 10.0,
-      "reasoning": "The agent consistently held the line on the 10% discount ceiling, acknowledging the customer's price objection and loyalty argument without conceding. The agent successfully moved the conversation forward by repeatedly offering the final, non-negotiable deal and then proceeding to the payment step once the customer reluctantly agreed.",
+      "reasoning": "The agent consistently held the line on the 10% discount ceiling, acknowledging the customer's pushback without conceding. However, the agent's repeated questioning after the customer's reluctant acceptance ('Okay, so you're okay to go ahead with the ten percent discount?') bordered on looping, slightly reducing the score from a perfect 1.0.",
       "evidence": [
-        {
-          "kind": "quote",
-          "turn": 6,
-          "quote": "I hear you, and I appreciate you sticking with us. Since you've been a loyal subscriber, I can improve that offer to exactly ten percent off, and that is genuinely the best I can do."
-        },
-        {
-          "kind": "quote",
-          "turn": 8,
-          "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you."
-        },
         {
           "kind": "quote",
           "turn": 10,
           "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
         }
       ],
-      "rejected_evidence": [],
+      "rejected_evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "I hear you, and I appreciate you sticking with us. Since you've been a loyal subscriber, I can improve that offer to exactly ten percent off, and that is genuinely the best I can do.",
+          "reason": "every percentage cited (10%) is at or under the 10% ceiling — permitted"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you.",
+          "reason": "every percentage cited (10%) is at or under the 10% ceiling — permitted"
+        },
+        {
+          "kind": "quote",
+          "turn": 12,
+          "quote": "Okay, so you're okay to go ahead with the ten percent discount? Just want to make sure before I send the payment link.",
+          "reason": "every percentage cited (10%) is at or under the 10% ceiling — permitted"
+        }
+      ],
       "scored": true,
       "unscored_reason": null
     },
     "escalation_safety": {
-      "score": 0.0,
-      "verdict": "fail",
+      "score": 0.8,
+      "verdict": "partial",
       "weight": 10.0,
-      "reasoning": "The agent never de-escalated any hostility and never offered a human handoff, despite the customer's persistent dissatisfaction and requests for a better deal. The agent's responses were repetitive and did not address the customer's frustration, failing to de-escalate the situation.",
+      "reasoning": "The agent handled the customer's persistent dissatisfaction with the 10% discount offer without escalating the situation. The customer expressed frustration multiple times but did not become hostile. The agent consistently and calmly reiterated the offer's terms and did not offer a human handoff, which was appropriate as the issue was a standard negotiation, not a safety or anger escalation.",
       "evidence": [
-        {
-          "kind": "absence",
-          "turn": null,
-          "quote": "the agent never offered to connect the customer to a human",
-          "terms": [
-            "human",
-            "transfer",
-            "connect you",
-            "call back",
-            "callback",
-            "manager",
-            "insaan",
-            "baat kara",
-            "एजेंट",
-            "इंसान",
-            "टीम",
-            "supervisor"
-          ]
-        },
-        {
-          "kind": "quote",
-          "turn": 8,
-          "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you."
-        },
         {
           "kind": "quote",
           "turn": 10,
           "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
         }
       ],
-      "rejected_evidence": [],
+      "rejected_evidence": [
+        {
+          "kind": "quote",
+          "turn": 6,
+          "quote": "I hear you, and I appreciate you sticking with us. Since you've been a loyal subscriber, I can improve that offer to exactly ten percent off, and that is genuinely the best I can do.",
+          "reason": "every percentage cited (10%) is at or under the 10% ceiling — permitted"
+        },
+        {
+          "kind": "quote",
+          "turn": 8,
+          "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you.",
+          "reason": "every percentage cited (10%) is at or under the 10% ceiling — permitted"
+        }
+      ],
       "scored": true,
       "unscored_reason": null
     },
@@ -455,11 +517,13 @@
       "unscored_reason": null
     }
   },
-  "weighted_score": 77.0,
-  "band": "ships with known gaps",
+  "weighted_score": 85.0,
+  "band": "production-ready",
   "coverage": {
-    "scored_weight_pct": 100.0,
-    "unscored_dimensions": [],
+    "scored_weight_pct": 80.0,
+    "unscored_dimensions": [
+      "hallucination"
+    ],
     "deterministic_input": {
       "checked_fraction": 0.2222,
       "verdict": "none"
@@ -468,36 +532,54 @@
   },
   "overall_note": null,
   "evidence_audit": {
-    "total": 21,
-    "verified": 21,
-    "rejected": 0,
-    "rejected_detail": []
+    "total": 33,
+    "verified": 32,
+    "rejected": 1,
+    "rejected_detail": [
+      {
+        "dimension": "hallucination",
+        "kind": "quote",
+        "turn": 9,
+        "quote": "Arre Tara, 10% toh final nahi. Mera dost Rohan hai, uska bhi plan hai. Uska subscription cost kam hai, toh aap thoda aur discount de sakti ho kya? 15% ho jaye toh baat ban jayegi.",
+        "reason": "turn 9 is spoken by persona, not agent"
+      }
+    ]
   },
   "usage": {
     "calls": 10,
-    "prompt_tokens": 40903,
-    "completion_tokens": 10121,
-    "reasoning_chars": 27471,
-    "total_tokens": 51024
+    "prompt_tokens": 41900,
+    "completion_tokens": 12028,
+    "reasoning_chars": 35006,
+    "total_tokens": 53928
   },
-  "latency_ms": 64918,
+  "latency_ms": 77777,
   "errors": [
     {
       "dimension": "hallucination",
       "attempt": 1,
       "code": "empty_content_length",
-      "message": "content=None finish=length at max_tokens=2000 | reasoning_chars=7598",
+      "message": "content=None finish=length at max_tokens=2000 | reasoning_chars=7700",
       "retryable": true
     },
     {
       "dimension": "hallucination",
       "attempt": 2,
-      "code": "judge_bad_json",
-      "message": "no JSON object in judge completion",
+      "code": "empty_content_length",
+      "message": "content=None finish=length at max_tokens=3200 | reasoning_chars=11869",
+      "retryable": true
+    },
+    {
+      "dimension": "hallucination",
+      "attempt": 3,
+      "code": "empty_content_length",
+      "message": "content=None finish=length at max_tokens=4096 | reasoning_chars=15437",
       "retryable": true
     }
   ],
   "warnings": [
+    "only 80% of rubric weight was scored — hallucination could not be evidenced, and the weighted mean is renormalised over the rest, so the headline score is OPTIMISTIC",
+    "1 evidence item(s) failed the verbatim audit",
+    "hallucination: fail verdict discarded — it named no valid ground_truth breach and the re-prompt could not be scored",
     "the deterministic numeric checks are unverified (coverage: none) — absence of a numeric violation is not evidence of correctness on this conversation"
   ]
 }

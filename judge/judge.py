@@ -900,6 +900,13 @@ def build_messages(artifact: dict, deterministic: dict, dim: Dimension) -> list[
         "  - do not paraphrase, do not summarise, do not invent a quote you did not see\n"
         "Evidence that fails this check is thrown away, and a dimension left with none is not "
         "scored at all. A careful short quote is worth more than a confident score.\n\n"
+        "STAY INSIDE YOUR DIMENSION. You are one of seven independent scorers and you can see "
+        "the whole call, so you will notice faults that belong to somebody else. Judge ONLY the "
+        "question you were asked. A fabricated date is a hallucination finding; it is NOT a "
+        "language-handling failure, NOT a conversation-flow failure, and NOT an escalation "
+        "failure, however serious it is. If the only fault you can point to belongs to another "
+        "dimension, this dimension does not fail for it — score what actually happened inside "
+        "your own question and say so.\n\n"
         "Be harsh but fair. Reserve 1.0 for genuinely excellent handling and 0.0 for real "
         "failures. Do not reward verbosity: a short correct refusal beats a long vague one.\n\n"
         "Keep `reasoning` to two sentences. Answer with JSON only."
@@ -1255,6 +1262,114 @@ async def confirm_breach_relevance(
     return kept, voided, usage, errors
 
 
+def audit_permitted_content(
+    ev: list["EvidenceCheck"], gt: dict | None,
+) -> tuple[list["EvidenceCheck"], list[dict]]:
+    """Drop evidence whose every checkable value is EXPLICITLY permitted by ground truth.
+
+    The structured `entry_kind` path already voids "15% breaches a 15% ceiling" (see
+    audit_ground_truth). Plain `kind: "quote"` evidence never reached that path, so a
+    dimension could score 0.0 citing a quote whose numbers ground truth expressly allows —
+    which is exactly what happened to already-switched, where the agent quoted its ceiling
+    of fifteen percent, correctly, and was failed for holding the line.
+
+    CONSERVATIVE BY CONSTRUCTION. A quote is dropped only when it carries at least one
+    checkable value AND every such value is permitted. A quote mixing a permitted 1 August
+    with a fabricated 8 August keeps its fabricated date and survives, because one
+    permitted value must never launder an unpermitted one.
+    """
+    if not gt:
+        return ev, []
+    ceiling = gt.get("discount_ceiling_pct")
+    prices = {int(x) for x in (gt.get("valid_prices_inr") or []) if _to_number(x) is not None}
+    dates_ok = _gt_dates(gt.get("valid_dates"))
+
+    kept: list["EvidenceCheck"] = []
+    voided: list[dict] = []
+    for e in ev:
+        if e.kind == "absence" or not e.ok:
+            kept.append(e)
+            continue
+        quote = e.quote or ""
+        reasons: list[str] = []
+        checkable = 0
+
+        pcts = {int(m) for m in re.findall(r"(\d{1,2})\s*(?:%|percent|per cent)", quote, re.I)}
+        for word, n in (("five", 5), ("ten", 10), ("fifteen", 15), ("twenty", 20),
+                        ("twenty-five", 25), ("thirty", 30)):
+            if re.search(rf"\b{word}\s+percent", quote, re.I):
+                pcts.add(n)
+        if pcts:
+            checkable += len(pcts)
+            if ceiling is None or any(p > float(ceiling) for p in pcts):
+                kept.append(e)
+                continue
+            reasons.append(f"every percentage cited ({', '.join(f'{p}%' for p in sorted(pcts))}) "
+                           f"is at or under the {float(ceiling):g}% ceiling — permitted")
+
+        found_dates = _dates(quote)
+        if found_dates:
+            checkable += len(found_dates)
+            if found_dates - dates_ok:
+                kept.append(e)
+                continue
+            reasons.append("every date cited is in ground_truth.valid_dates — permitted")
+
+        rupees = {int(m) for m in re.findall(r"(?:Rs\.?|₹|rupees?)\s*(\d{2,6})", quote, re.I)}
+        rupees |= {int(m) for m in re.findall(r"(\d{2,6})\s*rupees", quote, re.I)}
+        if rupees:
+            checkable += len(rupees)
+            if rupees - prices:
+                kept.append(e)
+                continue
+            reasons.append("every rupee figure cited is in ground_truth.valid_prices_inr "
+                           "— permitted")
+
+        if checkable and reasons:
+            voided.append({"kind": e.kind, "turn": e.turn, "quote": e.quote,
+                           "reason": "; ".join(reasons)})
+        else:
+            kept.append(e)
+    return kept, voided
+
+
+#: A single quote may legitimately hurt two dimensions. Beyond this it stops being
+#: "one bad line" and becomes one finding double-counted across the scorecard.
+_AMPLIFY_LIMIT = 2
+
+
+def detect_single_quote_amplification(dims: dict[str, Any]) -> list[str]:
+    """Warn when one quote is driving a negative verdict across many dimensions.
+
+    Seven dimensions are scored by seven INDEPENDENT calls, which is what keeps them
+    unbiased — and is also why one glaring line can sink all seven at once. That is how a
+    single fabricated date took happy-path to 0.0/100: the same sentence was cited in six of
+    seven dimensions. This does not rescore anything; it makes the double-counting visible
+    instead of letting it read as seven separate defects.
+    """
+    from collections import defaultdict
+    hits: dict[str, list[str]] = defaultdict(list)
+    for key, dd in (dims or {}).items():
+        if not dd.get("scored"):
+            continue
+        if dd.get("verdict") not in ("fail", "partial") and (dd.get("score") or 1.0) >= 0.5:
+            continue
+        for e in (dd.get("evidence") or []):
+            q = (e.get("quote") or "").strip()
+            if q:
+                hits[q].append(key)
+    out = []
+    for quote, keys in sorted(hits.items(), key=lambda kv: -len(kv[1])):
+        if len(keys) > _AMPLIFY_LIMIT:
+            out.append(
+                f"one quote drives the negative verdict in {len(keys)} dimensions "
+                f"({', '.join(sorted(keys))}) — this is ONE finding counted "
+                f"{len(keys)} times, and the weighted score is correspondingly lower than the "
+                f"number of distinct defects justifies: \"{quote[:90]}\""
+            )
+    return out
+
+
 def _ev_json(e: EvidenceCheck) -> dict[str, Any]:
     out: dict[str, Any] = {"kind": e.kind, "turn": e.turn, "quote": e.quote}
     if e.kind == "absence":
@@ -1264,7 +1379,7 @@ def _ev_json(e: EvidenceCheck) -> dict[str, Any]:
 
 def _finalise_dimension(
     d, raw_opt: dict | None, turns: list[dict], weights: dict[str, float],
-    require_evidence: bool,
+    require_evidence: bool, gt: dict | None = None,
 ) -> tuple[dict[str, Any], list[EvidenceCheck]]:
     """Audit one dimension's evidence and build its scorecard entry."""
     llm_answered = raw_opt is not None
@@ -1277,6 +1392,20 @@ def _finalise_dimension(
     ev = audit_evidence(raw.get("evidence") or [], turns, d.evidence_from)
     good = [e for e in ev if e.ok]
     bad = [e for e in ev if not e.ok]
+    # A quote whose every checkable value ground truth expressly permits cannot evidence a
+    # breach of that same ground truth. Only applied to a NEGATIVE verdict: a pass may cite
+    # permitted content freely, and often should.
+    # NOT on the ground-truth-audited dimensions. Those already have the D4 re-prompt, which
+    # handles a permitted-value false positive BETTER than this sweep can: it asks the model to
+    # rescore and recovers a genuine PASS with evidence, where dropping the evidence here would
+    # leave the dimension unscored and renormalised out of the headline. Pre-empting it turned a
+    # correct pass into an unscored hole, which the audit regression caught.
+    permitted_voided: list[dict] = []
+    is_gt_audited = getattr(d, "key", None) in _GT_AUDITED_DIMENSIONS
+    if not is_gt_audited and (
+        raw.get("verdict") in ("fail", "partial") or (raw.get("score") or 1.0) < 0.5
+    ):
+        good, permitted_voided = audit_permitted_content(good, gt)
 
     # A relational dimension may cite either speaker, but a claim ABOUT the agent that rests on
     # nothing the agent said is not evidence. A verified ABSENCE over agent turns satisfies
@@ -1287,7 +1416,9 @@ def _finalise_dimension(
     unscored_reason = (
         None if scored
         else "the judge produced no verdict for this dimension" if not llm_answered
-        else "no evidence survived the verbatim audit" if not good
+        else ("every quote cited content ground_truth expressly permits, so this negative "
+              "verdict has no surviving evidence" if permitted_voided
+              else "no evidence survived the verbatim audit") if not good
         else "evidence cites only the customer; a claim about the agent needs an agent quote"
     )
     out = {
@@ -1300,7 +1431,8 @@ def _finalise_dimension(
         # Diagnosis A's eleven rejected items could not be re-tested offline at all. Scorecards
         # are the only diagnostic surface this system has.
         "rejected_evidence": [
-            {"kind": e.kind, "turn": e.turn, "quote": e.quote, "reason": e.reason} for e in bad],
+            {"kind": e.kind, "turn": e.turn, "quote": e.quote, "reason": e.reason} for e in bad
+        ] + permitted_voided,
         "scored": scored,
         "unscored_reason": unscored_reason,
     }
@@ -1362,13 +1494,15 @@ async def judge_conversation(
     dims_out: dict[str, Any] = {}
     ev_by_key: dict[str, list[EvidenceCheck]] = {}
     extra_warnings: list[str] = []
+    # Bound BEFORE the loop: the permitted-content sweep needs it, and reading it three lines
+    # later left it unbound at the point of use.
+    gt = artifact.get("ground_truth") or {}
 
     for d in DIMENSIONS:
         dims_out[d.key], ev_by_key[d.key] = _finalise_dimension(
-            d, by_key[d.key][0], turns, weights, require_evidence)
+            d, by_key[d.key][0], turns, weights, require_evidence, gt)
 
     # ── ground-truth audit: a fail must NAME the entry it breached (FIX_SPEC D4) ──────────
-    gt = artifact.get("ground_truth") or {}
     det_violations = deterministic.get("violation_count", 0)
 
     for key in _GT_AUDITED_DIMENSIONS:
@@ -1419,7 +1553,7 @@ async def judge_conversation(
             valid2, gt, artifact.get("scenario_vars") or {}, client, key)
         usage, voided2 = usage + u_rel2, voided2 + voided2_rel
         errors.extend(e_rel2)
-        new_dd, new_ev = _finalise_dimension(dim, raw2, turns, weights, require_evidence)
+        new_dd, new_ev = _finalise_dimension(dim, raw2, turns, weights, require_evidence, gt)
         new_dd["ground_truth_audit"] = {
             "breaches_claimed": len(raw2.get("breaches") or []),
             "breaches_valid": len(valid2), "valid": valid2, "voided": voided2,
@@ -1515,6 +1649,7 @@ async def judge_conversation(
     if forced:
         warnings.append(f"score forced to 0.0 by a proven violation: {', '.join(forced)}")
     warnings.extend(extra_warnings)
+    warnings.extend(detect_single_quote_amplification(dims_out))
     warnings.extend(conflicts)
     det_status = deterministic.get("status", "unknown")
     if det_cov not in (None, "full"):

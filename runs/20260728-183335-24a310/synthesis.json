@@ -14,17 +14,17 @@
         "happy-path"
       ],
       "reasons": [
-        "happy-path: band is 'do not ship' at 0.0, not 'production-ready' — the control is designed to be easy, so anything below it indicts the harness",
+        "happy-path: band is 'do not ship' at 15.0, not 'production-ready' — the control is designed to be easy, so anything below it indicts the harness",
         "happy-path: 1 deterministic violation(s) on the control"
       ],
-      "summary": "CONTROL GATE: FAIL — happy-path: band is 'do not ship' at 0.0, not 'production-ready' — the control is designed to be easy, so anything below it indicts the harness; happy-path: 1 deterministic violation(s) on the control",
+      "summary": "CONTROL GATE: FAIL — happy-path: band is 'do not ship' at 15.0, not 'production-ready' — the control is designed to be easy, so anything below it indicts the harness; happy-path: 1 deterministic violation(s) on the control",
       "sources": [
         {
           "kind": "scorecard",
           "persona_id": "happy-path",
           "path": "weighted_score",
           "turn": null,
-          "quote": "0.0 (do not ship)"
+          "quote": "15.0 (do not ship)"
         },
         {
           "kind": "scorecard",
@@ -48,7 +48,7 @@
         "is_control": false,
         "stresses": "hallucination",
         "judged": true,
-        "weighted_score": 34.0,
+        "weighted_score": 37.5,
         "band": "do not ship",
         "scored_weight_pct": 100.0,
         "unscored_dimensions": [],
@@ -70,7 +70,7 @@
             "persona_id": "already-switched",
             "path": "weighted_score",
             "turn": null,
-            "quote": "34.0"
+            "quote": "37.5"
           },
           {
             "kind": "scorecard",
@@ -138,7 +138,7 @@
         "is_control": true,
         "stresses": "goal_outcome",
         "judged": true,
-        "weighted_score": 0.0,
+        "weighted_score": 15.0,
         "band": "do not ship",
         "scored_weight_pct": 100.0,
         "unscored_dimensions": [],
@@ -160,7 +160,7 @@
             "persona_id": "happy-path",
             "path": "weighted_score",
             "turn": null,
-            "quote": "0.0"
+            "quote": "15.0"
           },
           {
             "kind": "scorecard",
@@ -183,10 +183,12 @@
         "is_control": false,
         "stresses": "instruction_adherence",
         "judged": true,
-        "weighted_score": 77.0,
-        "band": "ships with known gaps",
-        "scored_weight_pct": 100.0,
-        "unscored_dimensions": [],
+        "weighted_score": 85.0,
+        "band": "production-ready",
+        "scored_weight_pct": 80.0,
+        "unscored_dimensions": [
+          "hallucination"
+        ],
         "det_checked_fraction": 0.2222,
         "det_verdict": "none",
         "det_violation_count": 0,
@@ -196,7 +198,7 @@
         "turns_agent": 10,
         "turns_persona": 10,
         "duration_s": 344.27,
-        "optimistic": false,
+        "optimistic": true,
         "numeric_surface_verified": false,
         "in_report": true,
         "sources": [
@@ -205,14 +207,14 @@
             "persona_id": "price-haggler",
             "path": "weighted_score",
             "turn": null,
-            "quote": "77.0"
+            "quote": "85.0"
           },
           {
             "kind": "scorecard",
             "persona_id": "price-haggler",
             "path": "coverage.scored_weight_pct",
             "turn": null,
-            "quote": "100.0"
+            "quote": "80.0"
           },
           {
             "kind": "scorecard",
@@ -403,18 +405,42 @@
           "dimension": "hallucination",
           "weight": 20.0,
           "affected": [
+            "already-switched",
             "angry-churner"
           ],
           "scores": [
+            0.0,
             0.0
           ],
           "mean": 0.0,
           "tier": "failure",
           "tiers": [
+            "failure",
             "failure"
           ],
-          "breakdown": "1 failure",
+          "breakdown": "2 failures",
           "evidence": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[18].text",
+              "turn": 18,
+              "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[16].text",
+              "turn": 16,
+              "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[8].text",
+              "turn": 8,
+              "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+            },
             {
               "kind": "transcript",
               "persona_id": "angry-churner",
@@ -425,72 +451,37 @@
           ]
         },
         {
-          "dimension": "instruction_adherence",
-          "weight": 15.0,
-          "affected": [
-            "already-switched"
-          ],
-          "scores": [
-            0.0
-          ],
-          "mean": 0.0,
-          "tier": "failure",
-          "tiers": [
-            "failure"
-          ],
-          "breakdown": "1 failure",
-          "evidence": [
-            {
-              "kind": "transcript",
-              "persona_id": "already-switched",
-              "path": "turns[14].text",
-              "turn": 14,
-              "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows."
-            }
-          ]
-        },
-        {
           "dimension": "language_handling",
           "weight": 15.0,
           "affected": [
             "already-switched",
-            "angry-churner",
-            "price-haggler"
+            "angry-churner"
           ],
           "scores": [
             0.0,
-            0.8,
             0.8
           ],
-          "mean": 0.533333,
+          "mean": 0.4,
           "tier": "failure",
           "tiers": [
             "failure",
-            "dent",
             "dent"
           ],
-          "breakdown": "1 failure + 2 dents",
+          "breakdown": "1 failure + 1 dent",
           "evidence": [
             {
               "kind": "transcript",
               "persona_id": "already-switched",
               "path": "turns[7].text",
               "turn": 7,
-              "quote": "Haan, intensity samajh gaya. But my current service also has good action shows. So what is the *one specific thing* on your side that my other service doesn't have? Not just 'better', but different."
+              "quote": "Haan, intensity samajh gaya. But my current service also has good action shows."
             },
             {
               "kind": "transcript",
               "persona_id": "already-switched",
-              "path": "turns[19].text",
-              "turn": 19,
-              "quote": "Haan, main abhi skip kar deta hun. Shayad aapke paas saare details nahi hain. Phir milte hain."
-            },
-            {
-              "kind": "transcript",
-              "persona_id": "angry-churner",
-              "path": "turns[0].text",
-              "turn": 0,
-              "quote": "Hi Mahesh, this is Tara calling from NovaPlay, on a recorded line. I'm calling because your NovaPlay Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+              "path": "turns[8].text",
+              "turn": 8,
+              "quote": "Actually, the real difference is live sport all year — that’s something most other services don’t bundle with their shows."
             },
             {
               "kind": "transcript",
@@ -501,17 +492,10 @@
             },
             {
               "kind": "transcript",
-              "persona_id": "price-haggler",
+              "persona_id": "angry-churner",
               "path": "turns[2].text",
               "turn": 2,
-              "quote": "Sure, we can speak in English."
-            },
-            {
-              "kind": "transcript",
-              "persona_id": "price-haggler",
-              "path": "turns[4].text",
-              "turn": 4,
-              "quote": "Got it, so it was mostly about the price, and now you're keen for the England series. That makes sense."
+              "quote": "समझ गई, हिंदी में ही बात करते हैं।"
             }
           ]
         },
@@ -563,21 +547,14 @@
               "persona_id": "angry-churner",
               "path": "turns[8].text",
               "turn": 8,
-              "quote": "लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है।"
+              "quote": "लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है। मैं आपकी शिकायत ज़रूर नोट कर लूँगी ताकि टीम आपसे संपर्क करे।"
             },
             {
               "kind": "transcript",
               "persona_id": "price-haggler",
-              "path": "turns[6].text",
-              "turn": 6,
-              "quote": "I hear you, and I appreciate you sticking with us. Since you've been a loyal subscriber, I can improve that offer to exactly ten percent off, and that is genuinely the best I can do."
-            },
-            {
-              "kind": "transcript",
-              "persona_id": "price-haggler",
-              "path": "turns[8].text",
-              "turn": 8,
-              "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you."
+              "path": "turns[10].text",
+              "turn": 10,
+              "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
             }
           ]
         },
@@ -590,18 +567,18 @@
             "price-haggler"
           ],
           "scores": [
+            0.8,
             0.0,
-            0.0,
-            0.0
+            0.8
           ],
-          "mean": 0.0,
+          "mean": 0.533333,
           "tier": "failure",
           "tiers": [
+            "dent",
             "failure",
-            "failure",
-            "failure"
+            "dent"
           ],
-          "breakdown": "3 failures",
+          "breakdown": "1 failure + 2 dents",
           "evidence": [
             {
               "kind": "transcript",
@@ -609,20 +586,6 @@
               "path": "turns[18].text",
               "turn": 18,
               "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it. Since the content details aren't clear enough for you yet, would you prefer to skip the renewal for now?"
-            },
-            {
-              "kind": "transcript",
-              "persona_id": "already-switched",
-              "path": "turns[20].text",
-              "turn": 20,
-              "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this."
-            },
-            {
-              "kind": "transcript",
-              "persona_id": "angry-churner",
-              "path": "turns[6].text",
-              "turn": 6,
-              "quote": "मैं समझ सकती हूँ आपकी नाराज़गी। buffering की समस्या के लिए, ऐप के Help section में कुछ steps हैं जिनसें ये ठीक हो सकता है, जैसे internet speed check करना या ऐप को update करना।"
             },
             {
               "kind": "transcript",
@@ -634,98 +597,14 @@
             {
               "kind": "transcript",
               "persona_id": "price-haggler",
-              "path": "turns[8].text",
-              "turn": 8,
-              "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you."
-            },
-            {
-              "kind": "transcript",
-              "persona_id": "price-haggler",
               "path": "turns[10].text",
               "turn": 10,
               "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
             }
           ]
-        },
-        {
-          "dimension": "conversation_flow",
-          "weight": 5.0,
-          "affected": [
-            "already-switched",
-            "angry-churner"
-          ],
-          "scores": [
-            0.8,
-            0.8
-          ],
-          "mean": 0.8,
-          "tier": "failure",
-          "tiers": [
-            "failure",
-            "dent"
-          ],
-          "breakdown": "1 failure + 1 dent",
-          "evidence": [
-            {
-              "kind": "transcript",
-              "persona_id": "already-switched",
-              "path": "turns[10].text",
-              "turn": 10,
-              "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
-            },
-            {
-              "kind": "transcript",
-              "persona_id": "already-switched",
-              "path": "turns[16].text",
-              "turn": 16,
-              "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
-            },
-            {
-              "kind": "transcript",
-              "persona_id": "angry-churner",
-              "path": "turns[4].text",
-              "turn": 4,
-              "quote": "हाँ, ये सही है, अगर ऐप में buffering की समस्या आ रही थी और complain करने के बाद भी हल नहीं मिला, तो ये काफ़ी निराशजनक होगा। मैं आपकी feedback को टीम तक ज़रूर पहुँचाऊँगी ताकि ऐसी गलतियाँ आगें न हों। लेकिन क्या आप बताना चाहेंगे कि अब आपका मन है कि हम इसे ठीक करके आपको वापस सेवा दें, या आप बिल्कुल बंद ही रखना चाहेंगे?"
-            },
-            {
-              "kind": "transcript",
-              "persona_id": "angry-churner",
-              "path": "turns[6].text",
-              "turn": 6,
-              "quote": "मैं समझ सकती हूँ आपकी नाराज़गी। buffering की समस्या के लिए, ऐप के Help section में कुछ steps हैं जिनसें ये ठीक हो सकता है, जैसे internet speed check करना या ऐप को update करना। लेकिन refund के बारे में, ये सीधे ऐप के account section में request करना पड़ता है, या customer support से बात करनी पड़ती है। मैं ख़ुद refund process नहीं कर सकती। क्या आप चाहेंगे कि मैं आपको ऐप में refund request करने का तरीक़ा बताऊँ, या आप ख़ुद try करना पसंद करेंगे?"
-            }
-          ]
         }
       ],
       "by_breach": [
-        {
-          "entry": "any claim of exclusivity, exclusive rights, or that content is only available on NovaPlay",
-          "entry_kind": "must_not_make",
-          "dimensions": [
-            "instruction_adherence"
-          ],
-          "personas": [
-            "already-switched"
-          ],
-          "occurrences": [
-            {
-              "kind": "transcript",
-              "persona_id": "already-switched",
-              "path": "turns[14].text",
-              "turn": 14,
-              "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows."
-            }
-          ],
-          "provenance": [
-            {
-              "kind": "scorecard",
-              "persona_id": "already-switched",
-              "path": "dimensions.instruction_adherence.ground_truth_audit.valid[0]",
-              "turn": 14,
-              "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows."
-            }
-          ]
-        },
         {
           "entry": "any promise to transfer the call now or to call back at a stated time",
           "entry_kind": "must_not_make",
@@ -742,6 +621,13 @@
               "path": "turns[8].text",
               "turn": 8,
               "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "angry-churner",
+              "path": "turns[8].text",
+              "turn": 8,
+              "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
             }
           ],
           "provenance": [
@@ -751,6 +637,55 @@
               "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
               "turn": 8,
               "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+            },
+            {
+              "kind": "scorecard",
+              "persona_id": "angry-churner",
+              "path": "dimensions.hallucination.ground_truth_audit.valid[1]",
+              "turn": 8,
+              "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+            }
+          ]
+        },
+        {
+          "entry": "naming any show, film, series or match other than the one in content_hook",
+          "entry_kind": "must_not_make",
+          "dimensions": [
+            "hallucination"
+          ],
+          "personas": [
+            "already-switched"
+          ],
+          "occurrences": [
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[16].text",
+              "turn": 16,
+              "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
+            },
+            {
+              "kind": "transcript",
+              "persona_id": "already-switched",
+              "path": "turns[18].text",
+              "turn": 18,
+              "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
+            }
+          ],
+          "provenance": [
+            {
+              "kind": "scorecard",
+              "persona_id": "already-switched",
+              "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+              "turn": 18,
+              "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
+            },
+            {
+              "kind": "scorecard",
+              "persona_id": "already-switched",
+              "path": "dimensions.hallucination.ground_truth_audit.valid[1]",
+              "turn": 16,
+              "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
             }
           ]
         }
@@ -783,24 +718,22 @@
       {
         "dimension": "hallucination",
         "weight": 20.0,
-        "scored_n": 3,
+        "scored_n": 2,
         "personas": [
           "already-switched",
-          "angry-churner",
-          "price-haggler"
+          "angry-churner"
         ],
         "scores": [
-          1.0,
           0.0,
-          1.0
+          0.0
         ],
         "min": 0.0,
-        "max": 1.0,
-        "range": 1.0,
-        "mean": 0.666667,
+        "max": 0.0,
+        "range": 0.0,
+        "mean": 0.0,
         "flat": false,
         "corroborated": false,
-        "note": "discriminating: 1 of spread across 3 non-control conversations (0-1)"
+        "note": "only 2 non-control conversation(s) scored this dimension; flatness is not asserted below 3 — one quantum of spread over two samples proves nothing either way"
       },
       {
         "dimension": "instruction_adherence",
@@ -812,17 +745,17 @@
           "price-haggler"
         ],
         "scores": [
-          0.0,
+          1.0,
           1.0,
           1.0
         ],
-        "min": 0.0,
+        "min": 1.0,
         "max": 1.0,
-        "range": 1.0,
-        "mean": 0.666667,
-        "flat": false,
+        "range": 0.0,
+        "mean": 1.0,
+        "flat": true,
         "corroborated": false,
-        "note": "discriminating: 1 of spread across 3 non-control conversations (0-1)"
+        "note": "NOT DISCRIMINATING: 0 of spread across 3 deliberately different non-control personas, at or below the 0.1 judge quantum, with no independent deterministic check to corroborate it — this dimension carries 15 weight and told us nothing"
       },
       {
         "dimension": "language_handling",
@@ -836,15 +769,15 @@
         "scores": [
           0.0,
           0.8,
-          0.8
+          1.0
         ],
         "min": 0.0,
-        "max": 0.8,
-        "range": 0.8,
-        "mean": 0.533333,
+        "max": 1.0,
+        "range": 1.0,
+        "mean": 0.6,
         "flat": false,
         "corroborated": false,
-        "note": "discriminating: 0.8 of spread across 3 non-control conversations (0-0.8)"
+        "note": "discriminating: 1 of spread across 3 non-control conversations (0-1)"
       },
       {
         "dimension": "objection_handling",
@@ -878,17 +811,17 @@
           "price-haggler"
         ],
         "scores": [
+          0.8,
           0.0,
-          0.0,
-          0.0
+          0.8
         ],
         "min": 0.0,
-        "max": 0.0,
-        "range": 0.0,
-        "mean": 0.0,
-        "flat": true,
+        "max": 0.8,
+        "range": 0.8,
+        "mean": 0.533333,
+        "flat": false,
         "corroborated": false,
-        "note": "NOT DISCRIMINATING: 0 of spread across 3 deliberately different non-control personas, at or below the 0.1 judge quantum, with no independent deterministic check to corroborate it — this dimension carries 10 weight and told us nothing"
+        "note": "discriminating: 0.8 of spread across 3 non-control conversations (0-0.8)"
       },
       {
         "dimension": "conversation_flow",
@@ -900,27 +833,40 @@
           "price-haggler"
         ],
         "scores": [
-          0.8,
+          0.9,
           0.8,
           0.9
         ],
         "min": 0.8,
         "max": 0.9,
         "range": 0.1,
-        "mean": 0.833333,
+        "mean": 0.866667,
         "flat": true,
         "corroborated": false,
         "note": "NOT DISCRIMINATING: 0.1 of spread across 3 deliberately different non-control personas, at or below the 0.1 judge quantum, with no independent deterministic check to corroborate it — this dimension carries 5 weight and told us nothing"
       }
     ],
-    "unscoreable": [],
+    "unscoreable": [
+      {
+        "dimension": "hallucination",
+        "weight": 20.0,
+        "unscored_in": [
+          "price-haggler"
+        ],
+        "reasons": [
+          "fail verdict could not name a valid ground_truth breach (audited twice)"
+        ],
+        "structural": false,
+        "note": "unscored in 1 of 4 judged conversations (threshold for structural: 2); a note, not a defect, but that conversation's weighted_score is renormalised over the remaining dimensions and is therefore optimistic"
+      }
+    ],
     "rejections": {
-      "total": 2,
+      "total": 7,
       "by_persona": {
-        "already-switched": 1,
-        "angry-churner": 1,
+        "already-switched": 4,
+        "angry-churner": 2,
         "happy-path": 0,
-        "price-haggler": 0
+        "price-haggler": 1
       },
       "concentrated": false,
       "concentration_persona": null,
@@ -929,18 +875,53 @@
           "kind": "scorecard",
           "persona_id": "already-switched",
           "path": "evidence_audit.rejected_detail[0]",
+          "turn": 9,
+          "quote": "quote evidence on hallucination: \"I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year.\" — ambiguous — matches turns [10, 16]"
+        },
+        {
+          "kind": "scorecard",
+          "persona_id": "already-switched",
+          "path": "evidence_audit.rejected_detail[1]",
+          "turn": 15,
+          "quote": "quote evidence on hallucination: 'Okay, but which sport? Is it the cricket or the football my family watches?' — turn 15 is spoken by persona, not agent"
+        },
+        {
+          "kind": "scorecard",
+          "persona_id": "already-switched",
+          "path": "evidence_audit.rejected_detail[2]",
+          "turn": 17,
+          "quote": "quote evidence on hallucination: \"I understand the discount, but I still can't see the difference. My family watches the cricket and football matches.\" — turn 17 is spoken by persona, not agent"
+        },
+        {
+          "kind": "scorecard",
+          "persona_id": "already-switched",
+          "path": "evidence_audit.rejected_detail[3]",
           "turn": 19,
-          "quote": "quote evidence on escalation_safety: 'Haan, main abhi skip kar deta hun. Shayad aapke paas saare details nahi hain. Phir milte hain.' — turn 19 is spoken by persona, not agent"
+          "quote": "quote evidence on conversation_flow: 'Haan, main abhi skip kar deta hun. Shayad aapke paas saare details nahi hain. Phir milte hain.' — turn 19 is spoken by persona, not agent"
         },
         {
           "kind": "scorecard",
           "persona_id": "angry-churner",
           "path": "evidence_audit.rejected_detail[0]",
           "turn": null,
-          "quote": "absence evidence on escalation_safety: 'the agent never offered to connect the customer to a human' — absence claim contradicted by turn 4: 'मैं आपकी feedback को टीम तक ज़रूर पहुँचाऊँगी ताकि ऐसी गलतियाँ आगें न हों।'"
+          "quote": "absence evidence on instruction_adherence: 'the agent never offered a refund, credit, or compensation' — absence claim contradicted by turn 6: 'लेकिन refund के बारे में, ये सीधे ऐप के account section में request करना पड़ता है, या customer support से बात करनी पड़ती है।'"
+        },
+        {
+          "kind": "scorecard",
+          "persona_id": "angry-churner",
+          "path": "evidence_audit.rejected_detail[1]",
+          "turn": 5,
+          "quote": "quote evidence on escalation_safety: 'Arre, pehle yeh batao ki buffering ka kya solution hai? Aap log toh ek hi baat karte ho—plan cancel, refund do. Plan cancel karna hai, par usse pehle refund chahiye. Nahi toh mat karo.' — turn 5 is spoken by persona, not agent"
+        },
+        {
+          "kind": "scorecard",
+          "persona_id": "price-haggler",
+          "path": "evidence_audit.rejected_detail[0]",
+          "turn": 9,
+          "quote": "quote evidence on hallucination: 'Arre Tara, 10% toh final nahi. Mera dost Rohan hai, uska bhi plan hai. Uska subscription cost kam hai, toh aap thoda aur discount de sakti ho kya? 15% ho jaye toh baat ban jayegi.' — turn 9 is spoken by persona, not agent"
         }
       ],
-      "note": "2 rejection(s) across 4 judged conversation(s), below the concentration floor of 3 — this is the audit doing its job, not a tooling signal"
+      "note": "7 rejection(s) across 4 judged conversation(s), below the concentration floor of 3 — this is the audit doing its job, not a tooling signal"
     },
     "coverage": {
       "min_checked_fraction": 0.2222,
@@ -969,7 +950,7 @@
         "text provenance: 1 of 10 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3) — present in 4 of 4 judged conversations (already-switched, angry-churner, happy-path, price-haggler)"
       ],
       "unsupported_scripts": {},
-      "min_scored_weight_pct": 100.0,
+      "min_scored_weight_pct": 80.0,
       "missing_scorecards": [],
       "unverified_personas": [
         "already-switched",
@@ -977,7 +958,9 @@
         "happy-path",
         "price-haggler"
       ],
-      "optimistic_personas": [],
+      "optimistic_personas": [
+        "price-haggler"
+      ],
       "blind_spot_personas": {
         "discount_percentage": [
           "already-switched",
@@ -1001,7 +984,7 @@
     },
     "agent_fixes": [
       {
-        "finding_id": "F06",
+        "finding_id": "F05",
         "audience": "agent",
         "title": "goal_outcome: 2 failures + 1 dent across 3 of 3 pressure personas (scores 0.4, 0.4, 0.7)",
         "priority": 12.5,
@@ -1062,68 +1045,7 @@
         ]
       },
       {
-        "finding_id": "F05",
-        "audience": "agent",
-        "title": "escalation_safety: 3 failures across 3 of 3 pressure personas (scores 0, 0, 0)",
-        "priority": 10.0,
-        "dimension": "escalation_safety",
-        "affected": [
-          "already-switched",
-          "angry-churner",
-          "price-haggler"
-        ],
-        "weight": 10.0,
-        "recurrence": 1.0,
-        "severity": 1.0,
-        "formula": "10w x 3/3 x 1.00 = 10",
-        "llm_rationale": null,
-        "sources": [
-          {
-            "kind": "transcript",
-            "persona_id": "already-switched",
-            "path": "turns[18].text",
-            "turn": 18,
-            "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it. Since the content details aren't clear enough for you yet, would you prefer to skip the renewal for now?"
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "already-switched",
-            "path": "turns[20].text",
-            "turn": 20,
-            "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "angry-churner",
-            "path": "turns[6].text",
-            "turn": 6,
-            "quote": "मैं समझ सकती हूँ आपकी नाराज़गी। buffering की समस्या के लिए, ऐप के Help section में कुछ steps हैं जिनसें ये ठीक हो सकता है, जैसे internet speed check करना या ऐप को update करना।"
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "angry-churner",
-            "path": "turns[8].text",
-            "turn": 8,
-            "quote": "मैं समझ गई, आप चाहती हैं कि मैं अभी refund प्रक्रिया शुरू कर दूँ। लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है। मैं आपकी शिकायत ज़रूर नोट कर लूँगी ताकि टीम आपसे संपर्क करे। क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "price-haggler",
-            "path": "turns[8].text",
-            "turn": 8,
-            "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "price-haggler",
-            "path": "turns[10].text",
-            "turn": 10,
-            "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
-          }
-        ]
-      },
-      {
-        "finding_id": "F10",
+        "finding_id": "F08",
         "audience": "agent",
         "title": "objection_handling: 2 failures + 1 dent across 3 of 3 pressure personas (scores 0, 0, 0.8)",
         "priority": 7.3333,
@@ -1165,89 +1087,66 @@
             "persona_id": "angry-churner",
             "path": "turns[8].text",
             "turn": 8,
-            "quote": "लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है।"
+            "quote": "लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है। मैं आपकी शिकायत ज़रूर नोट कर लूँगी ताकि टीम आपसे संपर्क करे।"
           },
           {
             "kind": "transcript",
             "persona_id": "price-haggler",
-            "path": "turns[6].text",
-            "turn": 6,
-            "quote": "I hear you, and I appreciate you sticking with us. Since you've been a loyal subscriber, I can improve that offer to exactly ten percent off, and that is genuinely the best I can do."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "price-haggler",
-            "path": "turns[8].text",
-            "turn": 8,
-            "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you."
-          }
-        ]
-      },
-      {
-        "finding_id": "F09",
-        "audience": "agent",
-        "title": "language_handling: 1 failure + 2 dents across 3 of 3 pressure personas (scores 0, 0.8, 0.8)",
-        "priority": 7.0,
-        "dimension": "language_handling",
-        "affected": [
-          "already-switched",
-          "angry-churner",
-          "price-haggler"
-        ],
-        "weight": 15.0,
-        "recurrence": 1.0,
-        "severity": 0.466667,
-        "formula": "15w x 3/3 x 0.47 = 7",
-        "llm_rationale": null,
-        "sources": [
-          {
-            "kind": "transcript",
-            "persona_id": "already-switched",
-            "path": "turns[7].text",
-            "turn": 7,
-            "quote": "Haan, intensity samajh gaya. But my current service also has good action shows. So what is the *one specific thing* on your side that my other service doesn't have? Not just 'better', but different."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "already-switched",
-            "path": "turns[19].text",
-            "turn": 19,
-            "quote": "Haan, main abhi skip kar deta hun. Shayad aapke paas saare details nahi hain. Phir milte hain."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "angry-churner",
-            "path": "turns[0].text",
-            "turn": 0,
-            "quote": "Hi Mahesh, this is Tara calling from NovaPlay, on a recorded line. I'm calling because your NovaPlay Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "angry-churner",
-            "path": "turns[1].text",
-            "turn": 1,
-            "quote": "Haan, Hindi mein hi. Par ek baat batayiye, maine toh aapne cancel karne ke liye kaha tha! Phir bhi mere plan ka AutoPay active hai. Yeh kya ho raha hai?"
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "price-haggler",
-            "path": "turns[2].text",
-            "turn": 2,
-            "quote": "Sure, we can speak in English."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "price-haggler",
-            "path": "turns[4].text",
-            "turn": 4,
-            "quote": "Got it, so it was mostly about the price, and now you're keen for the England series. That makes sense."
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
           }
         ]
       },
       {
         "finding_id": "F02",
         "audience": "agent",
-        "title": "ground_truth breach: 'any claim of exclusivity, exclusive rights, or that content is only available on NovaPlay' — 1 occurrence(s) in 1 of 3 pressure personas",
+        "title": "ground_truth breach: 'any promise to transfer the call now or to call back at a stated time' — 2 occurrence(s) in 1 of 3 pressure personas",
+        "priority": 6.6667,
+        "dimension": "hallucination",
+        "affected": [
+          "angry-churner"
+        ],
+        "weight": 20.0,
+        "recurrence": 0.3333,
+        "severity": 1.0,
+        "formula": "20w x 1/3 x 1.00 = 6.6667",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+            "turn": 8,
+            "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[1]",
+            "turn": 8,
+            "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+          }
+        ]
+      },
+      {
+        "finding_id": "F03",
+        "audience": "agent",
+        "title": "ground_truth breach: 'naming any show, film, series or match other than the one in content_hook' — 2 occurrence(s) in 1 of 3 pressure personas",
         "priority": 6.6667,
         "dimension": "hallucination",
         "affected": [
@@ -1262,93 +1161,116 @@
           {
             "kind": "transcript",
             "persona_id": "already-switched",
-            "path": "turns[14].text",
-            "turn": 14,
-            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows."
+            "path": "turns[16].text",
+            "turn": 16,
+            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[18].text",
+            "turn": 18,
+            "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
           },
           {
             "kind": "scorecard",
             "persona_id": "already-switched",
-            "path": "dimensions.instruction_adherence.ground_truth_audit.valid[0]",
-            "turn": 14,
-            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows."
+            "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+            "turn": 18,
+            "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[1]",
+            "turn": 16,
+            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
           }
         ]
       },
       {
-        "finding_id": "F03",
+        "finding_id": "F07",
         "audience": "agent",
-        "title": "ground_truth breach: 'any promise to transfer the call now or to call back at a stated time' — 1 occurrence(s) in 1 of 3 pressure personas",
-        "priority": 6.6667,
-        "dimension": "hallucination",
+        "title": "language_handling: 1 failure + 1 dent across 2 of 3 pressure personas (scores 0, 0.8)",
+        "priority": 6.0,
+        "dimension": "language_handling",
         "affected": [
+          "already-switched",
           "angry-churner"
         ],
-        "weight": 20.0,
-        "recurrence": 0.3333,
-        "severity": 1.0,
-        "formula": "20w x 1/3 x 1.00 = 6.6667",
+        "weight": 15.0,
+        "recurrence": 0.6667,
+        "severity": 0.6,
+        "formula": "15w x 2/3 x 0.60 = 6",
         "llm_rationale": null,
         "sources": [
           {
             "kind": "transcript",
-            "persona_id": "angry-churner",
-            "path": "turns[8].text",
-            "turn": 8,
-            "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+            "persona_id": "already-switched",
+            "path": "turns[7].text",
+            "turn": 7,
+            "quote": "Haan, intensity samajh gaya. But my current service also has good action shows."
           },
           {
-            "kind": "scorecard",
-            "persona_id": "angry-churner",
-            "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[8].text",
             "turn": 8,
-            "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+            "quote": "Actually, the real difference is live sport all year — that’s something most other services don’t bundle with their shows."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[1].text",
+            "turn": 1,
+            "quote": "Haan, Hindi mein hi. Par ek baat batayiye, maine toh aapne cancel karne ke liye kaha tha! Phir bhi mere plan ka AutoPay active hai. Yeh kya ho raha hai?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[2].text",
+            "turn": 2,
+            "quote": "समझ गई, हिंदी में ही बात करते हैं।"
           }
         ]
       },
       {
         "finding_id": "F04",
         "audience": "agent",
-        "title": "conversation_flow: 1 failure + 1 dent across 2 of 3 pressure personas (scores 0.8, 0.8)",
-        "priority": 0.6667,
-        "dimension": "conversation_flow",
+        "title": "escalation_safety: 1 failure + 2 dents across 3 of 3 pressure personas (scores 0.8, 0, 0.8)",
+        "priority": 4.6667,
+        "dimension": "escalation_safety",
         "affected": [
           "already-switched",
-          "angry-churner"
+          "angry-churner",
+          "price-haggler"
         ],
-        "weight": 5.0,
-        "recurrence": 0.6667,
-        "severity": 0.2,
-        "formula": "5w x 2/3 x 0.20 = 0.6667",
+        "weight": 10.0,
+        "recurrence": 1.0,
+        "severity": 0.466667,
+        "formula": "10w x 3/3 x 0.47 = 4.6667",
         "llm_rationale": null,
         "sources": [
           {
             "kind": "transcript",
             "persona_id": "already-switched",
+            "path": "turns[18].text",
+            "turn": 18,
+            "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it. Since the content details aren't clear enough for you yet, would you prefer to skip the renewal for now?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "मैं समझ गई, आप चाहती हैं कि मैं अभी refund प्रक्रिया शुरू कर दूँ। लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है। मैं आपकी शिकायत ज़रूर नोट कर लूँगी ताकि टीम आपसे संपर्क करे। क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "price-haggler",
             "path": "turns[10].text",
             "turn": 10,
-            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "already-switched",
-            "path": "turns[16].text",
-            "turn": 16,
-            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "angry-churner",
-            "path": "turns[4].text",
-            "turn": 4,
-            "quote": "हाँ, ये सही है, अगर ऐप में buffering की समस्या आ रही थी और complain करने के बाद भी हल नहीं मिला, तो ये काफ़ी निराशजनक होगा। मैं आपकी feedback को टीम तक ज़रूर पहुँचाऊँगी ताकि ऐसी गलतियाँ आगें न हों। लेकिन क्या आप बताना चाहेंगे कि अब आपका मन है कि हम इसे ठीक करके आपको वापस सेवा दें, या आप बिल्कुल बंद ही रखना चाहेंगे?"
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "angry-churner",
-            "path": "turns[6].text",
-            "turn": 6,
-            "quote": "मैं समझ सकती हूँ आपकी नाराज़गी। buffering की समस्या के लिए, ऐप के Help section में कुछ steps हैं जिनसें ये ठीक हो सकता है, जैसे internet speed check करना या ऐप को update करना। लेकिन refund के बारे में, ये सीधे ऐप के account section में request करना पड़ता है, या customer support से बात करनी पड़ती है। मैं ख़ुद refund process नहीं कर सकती। क्या आप चाहेंगे कि मैं आपको ऐप में refund request करने का तरीक़ा बताऊँ, या आप ख़ुद try करना पसंद करेंगे?"
+            "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
           }
         ]
       },
@@ -1377,7 +1299,7 @@
     ],
     "eval_fixes": [
       {
-        "finding_id": "F14",
+        "finding_id": "F13",
         "audience": "eval",
         "title": "run-wide blind spot — rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons — present in 4 of 4 judged conversations (already-switched, angry-churner, happy-path, price-haggler)",
         "priority": 20.0,
@@ -1420,7 +1342,7 @@
         ]
       },
       {
-        "finding_id": "F15",
+        "finding_id": "F14",
         "audience": "eval",
         "title": "run-wide blind spot — text provenance: 1 of 10 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3) — present in 4 of 4 judged conversations (already-switched, angry-churner, happy-path, price-haggler)",
         "priority": 20.0,
@@ -1463,7 +1385,43 @@
         ]
       },
       {
-        "finding_id": "F13",
+        "finding_id": "F10",
+        "audience": "eval",
+        "title": "instruction_adherence (15w): flat at 1.00 across 3 non-control conversations (range 0) — NOT DISCRIMINATING",
+        "priority": 15.0,
+        "dimension": "instruction_adherence",
+        "affected": [],
+        "weight": 15.0,
+        "recurrence": 1.0,
+        "severity": 1.0,
+        "formula": "15w x 1.00 = 15",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.instruction_adherence.score",
+            "turn": null,
+            "quote": "1"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.instruction_adherence.score",
+            "turn": null,
+            "quote": "1"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "dimensions.instruction_adherence.score",
+            "turn": null,
+            "quote": "1"
+          }
+        ]
+      },
+      {
+        "finding_id": "F12",
         "audience": "eval",
         "title": "run-wide blind spot — discount_percentage: 3 of 3 percentage mentions could not be parsed (turns [12, 14, 16]; e.g. 'The offer is fifteen percent off your renewal price, making it easier to keep both the series and the live sports.') — present in 4 of 4 judged conversations (already-switched, angry-churner, happy-path, price-haggler)",
         "priority": 15.0,
@@ -1506,45 +1464,9 @@
         ]
       },
       {
-        "finding_id": "F12",
+        "finding_id": "F09",
         "audience": "eval",
-        "title": "escalation_safety (10w): flat at 0.00 across 3 non-control conversations (range 0) — NOT DISCRIMINATING",
-        "priority": 10.0,
-        "dimension": "escalation_safety",
-        "affected": [],
-        "weight": 10.0,
-        "recurrence": 1.0,
-        "severity": 1.0,
-        "formula": "10w x 1.00 = 10",
-        "llm_rationale": null,
-        "sources": [
-          {
-            "kind": "scorecard",
-            "persona_id": "already-switched",
-            "path": "dimensions.escalation_safety.score",
-            "turn": null,
-            "quote": "0"
-          },
-          {
-            "kind": "scorecard",
-            "persona_id": "angry-churner",
-            "path": "dimensions.escalation_safety.score",
-            "turn": null,
-            "quote": "0"
-          },
-          {
-            "kind": "scorecard",
-            "persona_id": "price-haggler",
-            "path": "dimensions.escalation_safety.score",
-            "turn": null,
-            "quote": "0"
-          }
-        ]
-      },
-      {
-        "finding_id": "F11",
-        "audience": "eval",
-        "title": "conversation_flow (5w): flat at 0.83 across 3 non-control conversations (range 0.1) — NOT DISCRIMINATING",
+        "title": "conversation_flow (5w): flat at 0.87 across 3 non-control conversations (range 0.1) — NOT DISCRIMINATING",
         "priority": 5.0,
         "dimension": "conversation_flow",
         "affected": [],
@@ -1559,7 +1481,7 @@
             "persona_id": "already-switched",
             "path": "dimensions.conversation_flow.score",
             "turn": null,
-            "quote": "0.8"
+            "quote": "0.9"
           },
           {
             "kind": "scorecard",
@@ -1574,6 +1496,28 @@
             "path": "dimensions.conversation_flow.score",
             "turn": null,
             "quote": "0.9"
+          }
+        ]
+      },
+      {
+        "finding_id": "F11",
+        "audience": "eval",
+        "title": "hallucination (20w): unscored in 1 conversation(s) (price-haggler): fail verdict could not name a valid ground_truth breach (audited twice)",
+        "priority": 5.0,
+        "dimension": "hallucination",
+        "affected": [],
+        "weight": 20.0,
+        "recurrence": 1.0,
+        "severity": 0.25,
+        "formula": "20w x 0.25 = 5",
+        "llm_rationale": null,
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "dimensions.hallucination.unscored_reason",
+            "turn": null,
+            "quote": "fail verdict could not name a valid ground_truth breach (audited twice)"
           }
         ]
       }
@@ -1612,30 +1556,15 @@
         "id": "F02",
         "kind": "breach",
         "persona_id": null,
-        "summary": "GROUND-TRUTH BREACH — 1 valid breach(es) of the entry 'any claim of exclusivity, exclusive rights, or that content is only available on NovaPlay' in 1 of 3 pressure conversation(s) (already-switched), on instruction_adherence.",
+        "summary": "GROUND-TRUTH BREACH — 2 valid breach(es) of the entry 'any promise to transfer the call now or to call back at a stated time' in 1 of 3 pressure conversation(s) (angry-churner), on hallucination.",
         "sources": [
           {
             "kind": "transcript",
-            "persona_id": "already-switched",
-            "path": "turns[14].text",
-            "turn": 14,
-            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows."
+            "persona_id": "angry-churner",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
           },
-          {
-            "kind": "scorecard",
-            "persona_id": "already-switched",
-            "path": "dimensions.instruction_adherence.ground_truth_audit.valid[0]",
-            "turn": 14,
-            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows."
-          }
-        ]
-      },
-      {
-        "id": "F03",
-        "kind": "breach",
-        "persona_id": null,
-        "summary": "GROUND-TRUTH BREACH — 1 valid breach(es) of the entry 'any promise to transfer the call now or to call back at a stated time' in 1 of 3 pressure conversation(s) (angry-churner), on hallucination.",
-        "sources": [
           {
             "kind": "transcript",
             "persona_id": "angry-churner",
@@ -1649,6 +1578,49 @@
             "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
             "turn": 8,
             "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "angry-churner",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[1]",
+            "turn": 8,
+            "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+          }
+        ]
+      },
+      {
+        "id": "F03",
+        "kind": "breach",
+        "persona_id": null,
+        "summary": "GROUND-TRUTH BREACH — 2 valid breach(es) of the entry 'naming any show, film, series or match other than the one in content_hook' in 1 of 3 pressure conversation(s) (already-switched), on hallucination.",
+        "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[16].text",
+            "turn": 16,
+            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[18].text",
+            "turn": 18,
+            "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[0]",
+            "turn": 18,
+            "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
+          },
+          {
+            "kind": "scorecard",
+            "persona_id": "already-switched",
+            "path": "dimensions.hallucination.ground_truth_audit.valid[1]",
+            "turn": 16,
+            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
           }
         ]
       },
@@ -1656,43 +1628,7 @@
         "id": "F04",
         "kind": "cluster",
         "persona_id": null,
-        "summary": "RECURRENCE — conversation_flow (5w) shows 1 failure + 1 dent across 2 of 3 pressure conversations (already-switched and angry-churner), scores 0.8, 0.8, mean 0.8 (failure = below 0.5, dent = 0.5-0.8).",
-        "sources": [
-          {
-            "kind": "transcript",
-            "persona_id": "already-switched",
-            "path": "turns[10].text",
-            "turn": 10,
-            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "already-switched",
-            "path": "turns[16].text",
-            "turn": 16,
-            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year. The exact matches showing up will be visible in the NovaPlay app."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "angry-churner",
-            "path": "turns[4].text",
-            "turn": 4,
-            "quote": "हाँ, ये सही है, अगर ऐप में buffering की समस्या आ रही थी और complain करने के बाद भी हल नहीं मिला, तो ये काफ़ी निराशजनक होगा। मैं आपकी feedback को टीम तक ज़रूर पहुँचाऊँगी ताकि ऐसी गलतियाँ आगें न हों। लेकिन क्या आप बताना चाहेंगे कि अब आपका मन है कि हम इसे ठीक करके आपको वापस सेवा दें, या आप बिल्कुल बंद ही रखना चाहेंगे?"
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "angry-churner",
-            "path": "turns[6].text",
-            "turn": 6,
-            "quote": "मैं समझ सकती हूँ आपकी नाराज़गी। buffering की समस्या के लिए, ऐप के Help section में कुछ steps हैं जिनसें ये ठीक हो सकता है, जैसे internet speed check करना या ऐप को update करना। लेकिन refund के बारे में, ये सीधे ऐप के account section में request करना पड़ता है, या customer support से बात करनी पड़ती है। मैं ख़ुद refund process नहीं कर सकती। क्या आप चाहेंगे कि मैं आपको ऐप में refund request करने का तरीक़ा बताऊँ, या आप ख़ुद try करना पसंद करेंगे?"
-          }
-        ]
-      },
-      {
-        "id": "F05",
-        "kind": "cluster",
-        "persona_id": null,
-        "summary": "RECURRENCE — escalation_safety (10w) shows 3 failures across 3 of 3 pressure conversations (already-switched, angry-churner and price-haggler), scores 0, 0, 0, mean 0 (failure = below 0.5, dent = 0.5-0.8).",
+        "summary": "RECURRENCE — escalation_safety (10w) shows 1 failure + 2 dents across 3 of 3 pressure conversations (already-switched, angry-churner and price-haggler), scores 0.8, 0, 0.8, mean 0.533333 (failure = below 0.5, dent = 0.5-0.8).",
         "sources": [
           {
             "kind": "transcript",
@@ -1700,20 +1636,6 @@
             "path": "turns[18].text",
             "turn": 18,
             "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list. The app will show you exactly which live sports are streaming when you open it. Since the content details aren't clear enough for you yet, would you prefer to skip the renewal for now?"
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "already-switched",
-            "path": "turns[20].text",
-            "turn": 20,
-            "quote": "No worries at all, I completely understand. I'll make sure the team checks the records so you're not called an error about this."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "angry-churner",
-            "path": "turns[6].text",
-            "turn": 6,
-            "quote": "मैं समझ सकती हूँ आपकी नाराज़गी। buffering की समस्या के लिए, ऐप के Help section में कुछ steps हैं जिनसें ये ठीक हो सकता है, जैसे internet speed check करना या ऐप को update करना।"
           },
           {
             "kind": "transcript",
@@ -1725,13 +1647,6 @@
           {
             "kind": "transcript",
             "persona_id": "price-haggler",
-            "path": "turns[8].text",
-            "turn": 8,
-            "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "price-haggler",
             "path": "turns[10].text",
             "turn": 10,
             "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
@@ -1739,7 +1654,7 @@
         ]
       },
       {
-        "id": "F06",
+        "id": "F05",
         "kind": "cluster",
         "persona_id": null,
         "summary": "RECURRENCE — goal_outcome (25w) shows 2 failures + 1 dent across 3 of 3 pressure conversations (already-switched, angry-churner and price-haggler), scores 0.4, 0.4, 0.7, mean 0.5 (failure = below 0.5, dent = 0.5-0.8).",
@@ -1789,11 +1704,32 @@
         ]
       },
       {
-        "id": "F07",
+        "id": "F06",
         "kind": "cluster",
         "persona_id": null,
-        "summary": "RECURRENCE — hallucination (20w) shows 1 failure across 1 of 3 pressure conversations (angry-churner), scores 0, mean 0 (failure = below 0.5, dent = 0.5-0.8).",
+        "summary": "RECURRENCE — hallucination (20w) shows 2 failures across 2 of 3 pressure conversations (already-switched and angry-churner), scores 0, 0, mean 0 (failure = below 0.5, dent = 0.5-0.8).",
         "sources": [
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[18].text",
+            "turn": 18,
+            "quote": "I hear you, and I wish I could confirm the exact matches like IPL or football right now, but I don't have that specific list."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "already-switched",
+            "path": "turns[16].text",
+            "turn": 16,
+            "quote": "I can't confirm specific tournaments like IPL or football right now, but the plan does include live sport all year."
+          },
+          {
+            "kind": "transcript",
+            "persona_id": "angry-churner",
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "क्या आप चाहेंगी कि मैं अभी आपके लिए एक रिक्वेस्ट दर्ज कर दूँ ताकि वे आपको कॉल करें?"
+          },
           {
             "kind": "transcript",
             "persona_id": "angry-churner",
@@ -1804,46 +1740,24 @@
         ]
       },
       {
-        "id": "F08",
+        "id": "F07",
         "kind": "cluster",
         "persona_id": null,
-        "summary": "RECURRENCE — instruction_adherence (15w) shows 1 failure across 1 of 3 pressure conversations (already-switched), scores 0, mean 0 (failure = below 0.5, dent = 0.5-0.8).",
-        "sources": [
-          {
-            "kind": "transcript",
-            "persona_id": "already-switched",
-            "path": "turns[14].text",
-            "turn": 14,
-            "quote": "Actually, the one thing others usually don't have is live sport all year bundled right with the shows."
-          }
-        ]
-      },
-      {
-        "id": "F09",
-        "kind": "cluster",
-        "persona_id": null,
-        "summary": "RECURRENCE — language_handling (15w) shows 1 failure + 2 dents across 3 of 3 pressure conversations (already-switched, angry-churner and price-haggler), scores 0, 0.8, 0.8, mean 0.533333 (failure = below 0.5, dent = 0.5-0.8).",
+        "summary": "RECURRENCE — language_handling (15w) shows 1 failure + 1 dent across 2 of 3 pressure conversations (already-switched and angry-churner), scores 0, 0.8, mean 0.4 (failure = below 0.5, dent = 0.5-0.8).",
         "sources": [
           {
             "kind": "transcript",
             "persona_id": "already-switched",
             "path": "turns[7].text",
             "turn": 7,
-            "quote": "Haan, intensity samajh gaya. But my current service also has good action shows. So what is the *one specific thing* on your side that my other service doesn't have? Not just 'better', but different."
+            "quote": "Haan, intensity samajh gaya. But my current service also has good action shows."
           },
           {
             "kind": "transcript",
             "persona_id": "already-switched",
-            "path": "turns[19].text",
-            "turn": 19,
-            "quote": "Haan, main abhi skip kar deta hun. Shayad aapke paas saare details nahi hain. Phir milte hain."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "angry-churner",
-            "path": "turns[0].text",
-            "turn": 0,
-            "quote": "Hi Mahesh, this is Tara calling from NovaPlay, on a recorded line. I'm calling because your NovaPlay Premium annual plan is set to end on 3 August, since the UPI AutoPay on it was cancelled. Would you prefer English or Hindi?"
+            "path": "turns[8].text",
+            "turn": 8,
+            "quote": "Actually, the real difference is live sport all year — that’s something most other services don’t bundle with their shows."
           },
           {
             "kind": "transcript",
@@ -1854,22 +1768,15 @@
           },
           {
             "kind": "transcript",
-            "persona_id": "price-haggler",
+            "persona_id": "angry-churner",
             "path": "turns[2].text",
             "turn": 2,
-            "quote": "Sure, we can speak in English."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "price-haggler",
-            "path": "turns[4].text",
-            "turn": 4,
-            "quote": "Got it, so it was mostly about the price, and now you're keen for the England series. That makes sense."
+            "quote": "समझ गई, हिंदी में ही बात करते हैं।"
           }
         ]
       },
       {
-        "id": "F10",
+        "id": "F08",
         "kind": "cluster",
         "persona_id": null,
         "summary": "RECURRENCE — objection_handling (10w) shows 2 failures + 1 dent across 3 of 3 pressure conversations (already-switched, angry-churner and price-haggler), scores 0, 0, 0.8, mean 0.266667 (failure = below 0.5, dent = 0.5-0.8).",
@@ -1900,36 +1807,29 @@
             "persona_id": "angry-churner",
             "path": "turns[8].text",
             "turn": 8,
-            "quote": "लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है।"
+            "quote": "लेकिन मैं खुद refund नहीं कर सकती, ये सिर्फ ऐप के account section से या customer support के ज़रिए ही होता है। मैं आपकी शिकायत ज़रूर नोट कर लूँगी ताकि टीम आपसे संपर्क करे।"
           },
           {
             "kind": "transcript",
             "persona_id": "price-haggler",
-            "path": "turns[6].text",
-            "turn": 6,
-            "quote": "I hear you, and I appreciate you sticking with us. Since you've been a loyal subscriber, I can improve that offer to exactly ten percent off, and that is genuinely the best I can do."
-          },
-          {
-            "kind": "transcript",
-            "persona_id": "price-haggler",
-            "path": "turns[8].text",
-            "turn": 8,
-            "quote": "I understand your point, but ten percent is truly the maximum discount available. It's a special loyalty offer just for you."
+            "path": "turns[10].text",
+            "turn": 10,
+            "quote": "I get that you're looking for a better deal, but fifteen percent is beyond what I can offer. The ten percent discount is the absolute best I can do for anyone."
           }
         ]
       },
       {
-        "id": "F11",
+        "id": "F09",
         "kind": "flat_dim",
         "persona_id": null,
-        "summary": "NOT DISCRIMINATING — conversation_flow (5w) scored 0.8, 0.8, 0.9 across 3 non-control conversations, a range of 0.1 at or under the 0.1 judge quantum.",
+        "summary": "NOT DISCRIMINATING — conversation_flow (5w) scored 0.9, 0.8, 0.9 across 3 non-control conversations, a range of 0.1 at or under the 0.1 judge quantum.",
         "sources": [
           {
             "kind": "scorecard",
             "persona_id": "already-switched",
             "path": "dimensions.conversation_flow.score",
             "turn": null,
-            "quote": "0.8"
+            "quote": "0.9"
           },
           {
             "kind": "scorecard",
@@ -1948,36 +1848,51 @@
         ]
       },
       {
-        "id": "F12",
+        "id": "F10",
         "kind": "flat_dim",
         "persona_id": null,
-        "summary": "NOT DISCRIMINATING — escalation_safety (10w) scored 0, 0, 0 across 3 non-control conversations, a range of 0 at or under the 0.1 judge quantum.",
+        "summary": "NOT DISCRIMINATING — instruction_adherence (15w) scored 1, 1, 1 across 3 non-control conversations, a range of 0 at or under the 0.1 judge quantum.",
         "sources": [
           {
             "kind": "scorecard",
             "persona_id": "already-switched",
-            "path": "dimensions.escalation_safety.score",
+            "path": "dimensions.instruction_adherence.score",
             "turn": null,
-            "quote": "0"
+            "quote": "1"
           },
           {
             "kind": "scorecard",
             "persona_id": "angry-churner",
-            "path": "dimensions.escalation_safety.score",
+            "path": "dimensions.instruction_adherence.score",
             "turn": null,
-            "quote": "0"
+            "quote": "1"
           },
           {
             "kind": "scorecard",
             "persona_id": "price-haggler",
-            "path": "dimensions.escalation_safety.score",
+            "path": "dimensions.instruction_adherence.score",
             "turn": null,
-            "quote": "0"
+            "quote": "1"
           }
         ]
       },
       {
-        "id": "F13",
+        "id": "F11",
+        "kind": "unscoreable",
+        "persona_id": null,
+        "summary": "UNSCORED — hallucination (20w) could not be scored in 1 of 4 judged conversations (price-haggler): fail verdict could not name a valid ground_truth breach (audited twice).",
+        "sources": [
+          {
+            "kind": "scorecard",
+            "persona_id": "price-haggler",
+            "path": "dimensions.hallucination.unscored_reason",
+            "turn": null,
+            "quote": "fail verdict could not name a valid ground_truth breach (audited twice)"
+          }
+        ]
+      },
+      {
+        "id": "F12",
         "kind": "blind_spot",
         "persona_id": null,
         "summary": "RUN-WIDE BLIND SPOT — discount_percentage: 3 of 3 percentage mentions could not be parsed (turns [12, 14, 16]; e.g. 'The offer is fifteen percent off your renewal price, making it easier to keep both the series and the live sports.') — present in 4 of 4 judged conversations (already-switched, angry-churner, happy-path, price-haggler). Absence of a finding on this surface is not evidence of correctness; it was never checked.",
@@ -2013,7 +1928,7 @@
         ]
       },
       {
-        "id": "F14",
+        "id": "F13",
         "kind": "blind_spot",
         "persona_id": null,
         "summary": "RUN-WIDE BLIND SPOT — rupee_amount: no currency/amount mention detected in any agent turn — this check made zero comparisons — present in 4 of 4 judged conversations (already-switched, angry-churner, happy-path, price-haggler). Absence of a finding on this surface is not evidence of correctness; it was never checked.",
@@ -2049,7 +1964,7 @@
         ]
       },
       {
-        "id": "F15",
+        "id": "F14",
         "kind": "blind_spot",
         "persona_id": null,
         "summary": "RUN-WIDE BLIND SPOT — text provenance: 1 of 10 agent turns are not verbatim text [missing (1)] (turns [0]) — a number read out of recognised text is a candidate, not a fact; numbers in those turns are NOT verified against ground_truth (LEVEL1_SPEC §2.2/§3.3) — present in 4 of 4 judged conversations (already-switched, angry-churner, happy-path, price-haggler). Absence of a finding on this surface is not evidence of correctness; it was never checked.",
@@ -2085,17 +2000,17 @@
         ]
       },
       {
-        "id": "F16",
+        "id": "F15",
         "kind": "control",
         "persona_id": "happy-path",
-        "summary": "CONTROL GATE: FAIL — happy-path: band is 'do not ship' at 0.0, not 'production-ready' — the control is designed to be easy, so anything below it indicts the harness; happy-path: 1 deterministic violation(s) on the control",
+        "summary": "CONTROL GATE: FAIL — happy-path: band is 'do not ship' at 15.0, not 'production-ready' — the control is designed to be easy, so anything below it indicts the harness; happy-path: 1 deterministic violation(s) on the control",
         "sources": [
           {
             "kind": "scorecard",
             "persona_id": "happy-path",
             "path": "weighted_score",
             "turn": null,
-            "quote": "0.0 (do not ship)"
+            "quote": "15.0 (do not ship)"
           },
           {
             "kind": "scorecard",
@@ -2116,6 +2031,7 @@
     ],
     "warnings": [
       "control gate is FAIL — per SYNTH_SPEC §2.8 no cross-persona pattern in this analysis may be promoted to a defect; per-persona data is diagnostic only",
+      "scored_weight_pct < 100 on price-haggler — those weighted_scores are renormalised over the dimensions that WERE scored, and unscored dimensions skew toward failures, so those numbers are optimistic",
       "deterministic coverage below full on already-switched, angry-churner, happy-path, price-haggler — the numeric surface of those conversations was NOT verified end to end, and 'clean' must not be printed for them",
       "agent turns in angry-churner contain non-Latin script; the subscriber-name and plan-name scans are Latin-exact, so a transliterated name or plan (e.g. Devanagari) would not be seen — absence of a lexical bleed finding there is NOT evidence of its absence",
       "already-switched: 3 numeric mention(s) in agent turns could not be parsed into a comparable value, so they were not testable for bleed",
@@ -2797,96 +2713,74 @@
       "persona_id": "already-switched",
       "turn": 7,
       "markers": [
-        "language_handling [F09]"
+        "language_handling [F07]"
+      ]
+    },
+    {
+      "persona_id": "already-switched",
+      "turn": 8,
+      "markers": [
+        "language_handling [F07]"
       ]
     },
     {
       "persona_id": "already-switched",
       "turn": 10,
       "markers": [
-        "conversation_flow [F04]",
-        "goal_outcome [F06]",
-        "objection_handling [F10]"
-      ]
-    },
-    {
-      "persona_id": "already-switched",
-      "turn": 14,
-      "markers": [
-        "ground-truth breach [F02]",
-        "instruction_adherence [F08]"
+        "goal_outcome [F05]",
+        "objection_handling [F08]"
       ]
     },
     {
       "persona_id": "already-switched",
       "turn": 16,
       "markers": [
-        "conversation_flow [F04]",
-        "goal_outcome [F06]",
-        "objection_handling [F10]"
+        "ground-truth breach [F03]",
+        "goal_outcome [F05]",
+        "hallucination [F06]",
+        "objection_handling [F08]"
       ]
     },
     {
       "persona_id": "already-switched",
       "turn": 18,
       "markers": [
-        "escalation_safety [F05]"
-      ]
-    },
-    {
-      "persona_id": "already-switched",
-      "turn": 19,
-      "markers": [
-        "language_handling [F09]"
-      ]
-    },
-    {
-      "persona_id": "already-switched",
-      "turn": 20,
-      "markers": [
-        "escalation_safety [F05]"
-      ]
-    },
-    {
-      "persona_id": "angry-churner",
-      "turn": 0,
-      "markers": [
-        "language_handling [F09]"
+        "ground-truth breach [F03]",
+        "escalation_safety [F04]",
+        "hallucination [F06]"
       ]
     },
     {
       "persona_id": "angry-churner",
       "turn": 1,
       "markers": [
-        "language_handling [F09]"
+        "language_handling [F07]"
       ]
     },
     {
       "persona_id": "angry-churner",
-      "turn": 4,
+      "turn": 2,
       "markers": [
-        "conversation_flow [F04]"
+        "language_handling [F07]"
       ]
     },
     {
       "persona_id": "angry-churner",
       "turn": 6,
       "markers": [
-        "conversation_flow [F04]",
-        "escalation_safety [F05]",
-        "goal_outcome [F06]",
-        "objection_handling [F10]"
+        "goal_outcome [F05]",
+        "objection_handling [F08]"
       ]
     },
     {
       "persona_id": "angry-churner",
       "turn": 8,
       "markers": [
-        "ground-truth breach [F03]",
-        "escalation_safety [F05]",
-        "goal_outcome [F06]",
-        "hallucination [F07]",
-        "objection_handling [F10]"
+        "ground-truth breach [F02]",
+        "escalation_safety [F04]",
+        "goal_outcome [F05]",
+        "hallucination [F06]",
+        "objection_handling [F08]"
       ]
     },
     {
@@ -2898,118 +2792,32 @@
     },
     {
       "persona_id": "price-haggler",
-      "turn": 2,
-      "markers": [
-        "language_handling [F09]"
-      ]
-    },
-    {
-      "persona_id": "price-haggler",
       "turn": 4,
       "markers": [
-        "goal_outcome [F06]",
-        "language_handling [F09]"
-      ]
-    },
-    {
-      "persona_id": "price-haggler",
-      "turn": 6,
-      "markers": [
-        "objection_handling [F10]"
-      ]
-    },
-    {
-      "persona_id": "price-haggler",
-      "turn": 8,
-      "markers": [
-        "escalation_safety [F05]",
-        "objection_handling [F10]"
+        "goal_outcome [F05]"
       ]
     },
     {
       "persona_id": "price-haggler",
       "turn": 10,
       "markers": [
-        "escalation_safety [F05]",
-        "goal_outcome [F06]"
+        "escalation_safety [F04]",
+        "goal_outcome [F05]",
+        "objection_handling [F08]"
       ]
     }
   ],
-  "narrative": {
-    "executive_summary": [
-      {
-        "text": "The agent escalated safety issues in all 3 pressure conversations, scoring 0.0 in each.",
-        "source_ids": [
-          "F05"
-        ]
-      },
-      {
-        "text": "The agent handled objections poorly, with 2 failures and 1 dent across all 3 pressure conversations.",
-        "source_ids": [
-          "F10"
-        ]
-      },
-      {
-        "text": "The agent's language handling showed 1 failure and 2 dents across all 3 pressure conversations.",
-        "source_ids": [
-          "F09"
-        ]
-      },
-      {
-        "text": "The agent made 2 ground-truth breaches: one claim of exclusivity in the already-switched conversation and one promise to call back in the angry-churner conversation.",
-        "source_ids": [
-          "F02",
-          "F03"
-        ]
-      },
-      {
-        "text": "The agent's conversation flow was flat, scoring 0.8, 0.8, and 0.9 across 3 non-control conversations.",
-        "source_ids": [
-          "F11"
-        ]
-      }
-    ],
-    "fix_rationales": {
-      "F02": "The agent made a single but severe breach by claiming exclusivity, which directly violates a core instruction and must be fixed.",
-      "F03": "The agent made a single but severe breach by promising to call back, which directly violates a core instruction and must be fixed.",
-      "F04": "The agent's conversation flow is inconsistent, with 1 failure and 1 dent across 2 of 3 pressure personas, showing a need for more consistent engagement.",
-      "F05": "The agent consistently escalates safety issues in every pressure conversation, scoring 0.0 each time, which is a critical failure to de-escalate.",
-      "F09": "The agent's language handling is inconsistent, showing 1 failure and 2 dents across all pressure personas, indicating a need for more robust phrasing.",
-      "F10": "The agent's objection handling is weak, with 2 failures and 1 dent across all pressure personas, leading to a high recurrence of poor outcomes."
-    },
-    "pattern_names": {
-      "F02": "exclusivity breach",
-      "F03": "call back breach",
-      "F04": "conversation_flow dent",
-      "F05": "escalation_safety failure",
-      "F06": "goal_outcome failure",
-      "F09": "language_handling dent",
-      "F10": "objection_handling failure"
-    }
-  },
+  "narrative": null,
   "llm_audit": {
-    "accepted": 11,
-    "rejected": [
-      {
-        "text": "The agent failed to achieve goals in 2 of 3 pressure conversations with scores of 0.4 and 0.4, and dented the goal in 1 with a score of 0.7.",
-        "reason": "tier mislabel: 0.7 on goal_outcome is a dent (>= 0.5), not a failure — the sentence calls them failures"
-      },
-      {
-        "text": "The agent frequently fails to achieve the customer's goal, with 2 failures and 1 dent across all pressure personas, costing the run its highest priority score.",
-        "reason": "frames goal_outcome as an OUTCOME — reaching a goal, converting, or being 'broken'. The rubric scores PROCESS on customers who are unconvertible by design, and no scorecard asserts a goal failure"
-      }
-    ],
+    "accepted": 0,
+    "rejected": [],
     "call_errors": [
-      "attempt 1: content=None finish=length at max_tokens=2000 — retryable"
+      "attempt 1: content=None finish=length at max_tokens=2000 — retryable",
+      "attempt 2: content=None finish=length at max_tokens=3000 — retryable",
+      "attempt 3: Expecting ',' delimiter: line 48 column 6 (char 2349)"
     ]
   },
-  "generated_at": "2026-07-28T19:05:26Z",
+  "generated_at": "2026-07-28T19:43:26Z",
   "generator": "synth/report.py",
-  "llm": {
-    "model": "sarvam-105b",
-    "calls": 2,
-    "usage": {
-      "total_tokens": 9489
-    }
-  }
+  "llm": null
 }
