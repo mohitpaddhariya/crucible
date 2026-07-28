@@ -8,6 +8,7 @@
 | Repo | [github.com/mohitpaddhariya/crucible](https://github.com/mohitpaddhariya/crucible) |
 | Video | [youtu.be/W1nolOkbIxg](https://youtu.be/W1nolOkbIxg) |
 | Date | 28 July 2026 |
+| Live | Shipping 29 July (the URL lands here) |
 
 Your agent sounds perfect when you test it. Will it survive a real Indian customer who starts bargaining?
 
