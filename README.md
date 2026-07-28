@@ -6,7 +6,7 @@
 
 **Break your voice agent before your users do.**
 
-**Team Ring Zero** · [github.com/mohitpaddhariya/crucible](https://github.com/mohitpaddhariya/crucible) · **28 July 2026** · **Live URL: shipping 29 July**
+**Team Crucible** · [github.com/mohitpaddhariya/crucible](https://github.com/mohitpaddhariya/crucible) · **28 July 2026** · **Live URL: shipping 29 July**
 
 [![Watch 2 minutes of Crucible in action](https://img.youtube.com/vi/W1nolOkbIxg/maxresdefault.jpg)](https://youtu.be/W1nolOkbIxg)
 
@@ -16,7 +16,7 @@
 
 | | |
 |---|---|
-| Team | Ring Zero |
+| Team | Crucible |
 | Repo | [github.com/mohitpaddhariya/crucible](https://github.com/mohitpaddhariya/crucible) |
 | Video | [youtu.be/W1nolOkbIxg](https://youtu.be/W1nolOkbIxg) |
 | Date | 28 July 2026 |

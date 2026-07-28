@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| Team | Ring Zero |
+| Team | Crucible |
 | Repo | [github.com/mohitpaddhariya/crucible](https://github.com/mohitpaddhariya/crucible) |
 | Video | [youtu.be/W1nolOkbIxg](https://youtu.be/W1nolOkbIxg) |
 | Date | 28 July 2026 |
