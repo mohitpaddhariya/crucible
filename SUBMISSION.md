@@ -2,13 +2,17 @@
 
 **Break your voice agent before your users do.**
 
+### ▶ [Open the live product](https://crucible-app-five.vercel.app)
+
+The working product, not a video. Play a real call, read the evidence. No signup, no keys.
+
 | | |
 |---|---|
 | Team | Crucible |
 | Repo | [github.com/mohitpaddhariya/crucible](https://github.com/mohitpaddhariya/crucible) |
 | Video | [youtu.be/W1nolOkbIxg](https://youtu.be/W1nolOkbIxg) |
 | Date | 28 July 2026 |
-| Live | [crucible-app-five.vercel.app](https://crucible-app-five.vercel.app) |
+| **Live URL** | **[crucible-app-five.vercel.app](https://crucible-app-five.vercel.app)** (the working product) |
 
 Your agent sounds perfect when you test it. Will it survive a real Indian customer who starts bargaining?
 

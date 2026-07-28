@@ -6,6 +6,10 @@
 
 ### Break your voice agent before your users do.
 
+### ▶ [Open the live product](https://crucible-app-five.vercel.app)
+
+<sub>The working product, not a video. Play a real call, read the evidence. No signup, no keys.</sub>
+
 [![Team](https://img.shields.io/badge/team-Crucible-496D21)](https://github.com/mohitpaddhariya/crucible)
 [![Watch the film](https://img.shields.io/badge/%E2%96%B6%20watch%20the%20film-2%20minutes-d84f59)](https://youtu.be/W1nolOkbIxg)
 [![Live](https://img.shields.io/badge/try%20it%20live-crucible--app--five.vercel.app-496D21)](https://crucible-app-five.vercel.app)
