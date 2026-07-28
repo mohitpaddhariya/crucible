@@ -4,346 +4,351 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Crucible: synthetic Indian customers that break voice agents before real ones do</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#0b0c0c;
-    --grey-1:#505a5f;
-    --grey-2:#b1b4b6;
-    --grey-bg:#f3f2f1;
-    --blue:#1d70b8;
-    --blue-dark:#003078;
-    --red:#d4351c;
-    --red-bg:#f6d7d2;
-    --green:#00703c;
-    --green-bg:#cce2d8;
-    --yellow-ink:#594d00;
-    --yellow-bg:#fff7bf;
-    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    --paper:#f5f5f3;
+    --card:#ffffff;
+    --ink:#1e2033;
+    --brown:#3d2b1a;
+    --muted:#6b6f80;
+    --line:#e3e2dc;
+    --green:#496D21;
+    --green-bright:#83C040;
+    --green-tint:#E3F1D8;
+    --green-mid:#C8E4B0;
+    --red:#b3261e;
+    --red-tint:#f6d7d2;
+    --amber-ink:#594d00;
+    --amber-tint:#fff3c4;
+    --serif:"Newsreader",Georgia,"Times New Roman",serif;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    font-family:var(--sans);
-    color:var(--ink);
-    background:#fff;
-    font-size:19px;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
-  .page{max-width:760px;margin:0 auto;padding:40px 24px 80px}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .page{max-width:880px;margin:0 auto;padding:56px 24px 90px}
+  a{color:var(--green);text-decoration:none}
+  a:hover{text-decoration:underline}
 
-  a{color:var(--blue)}
-  a:hover{color:var(--blue-dark)}
-  a:focus-visible{outline:3px solid #fd0;outline-offset:0;background:#fd0;color:var(--ink)}
+  /* header */
+  .hero{text-align:center;margin-bottom:26px}
+  .hero .logo{width:76px;height:76px;margin:0 auto 14px}
+  .hero .logo svg{width:100%;height:100%}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:56px;line-height:1.02;letter-spacing:-.01em;color:var(--brown)}
+  .hero .tagline{font-size:19px;color:var(--muted);max-width:56ch;margin:14px auto 0}
+  .hero .tagline strong{color:var(--ink);font-weight:600}
+  .chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+  .chip{font-size:13.5px;font-weight:600;padding:7px 14px;border:1px solid var(--line);background:var(--card);border-radius:999px;color:var(--ink)}
+  .chip.green{background:var(--green-tint);border-color:var(--green-mid);color:var(--green)}
+  .chip a{color:inherit}
 
-  .doc-type{font-size:16px;color:var(--grey-1);margin-bottom:12px}
-  h1{font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.01em;margin-bottom:22px}
-  .meta{border-top:1px solid var(--grey-2);border-bottom:1px solid var(--grey-2);padding:14px 0;margin-bottom:36px;font-size:16px;color:var(--grey-1)}
-  .meta dl{display:grid;grid-template-columns:auto 1fr;gap:4px 20px}
-  .meta dt{font-weight:700;color:var(--ink)}
+  /* video */
+  .video{margin:34px auto 8px;max-width:760px}
+  .video .frame{position:relative;padding-top:56.25%;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 12px 40px rgba(30,32,51,.14)}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video .cap{text-align:center;font-size:14px;color:var(--muted);margin-top:10px}
 
-  .contents h2{font-size:22px;margin-bottom:10px}
-  .contents ol{list-style:none;font-size:17px}
-  .contents li{padding:3px 0}
-  .contents a{text-decoration:none}
-  .contents a:hover{text-decoration:underline}
-  .contents .n{display:inline-block;width:26px;color:var(--grey-1)}
+  /* toc */
+  .toc{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:30px 0 8px}
+  .toc a{font-size:14px;font-weight:600;padding:8px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px;color:var(--ink)}
+  .toc a:hover{border-color:var(--green-mid);text-decoration:none;background:var(--green-tint)}
+  .toc .n{color:var(--green);margin-right:6px}
 
-  section{margin-top:56px}
-  h2{font-size:30px;font-weight:700;line-height:1.15;margin-bottom:18px}
-  h3{font-size:22px;font-weight:700;margin:30px 0 10px}
-  p{margin-bottom:16px;max-width:66ch}
-  p.small{font-size:16px;color:var(--grey-1)}
-  strong{font-weight:700}
-  ul,ol{margin:0 0 16px 22px;max-width:66ch}
-  li{margin-bottom:8px}
-  code{font-family:var(--mono);font-size:.85em;background:var(--grey-bg);padding:1px 5px}
+  section{margin-top:64px}
+  h2{font-family:var(--serif);font-weight:500;font-size:36px;color:var(--brown);line-height:1.1;margin-bottom:6px}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .lede{font-size:18px;color:var(--ink);max-width:66ch;margin:12px 0 22px}
+  .lede strong{font-weight:600}
+  p{margin-bottom:14px;max-width:70ch}
+  p.small{font-size:14.5px;color:var(--muted)}
 
-  .inset{
-    border-left:6px solid var(--grey-2);
-    padding:6px 0 6px 18px;
-    margin:0 0 20px;
-    max-width:66ch;
-  }
-  .inset.warn{border-left-color:var(--red)}
-  .inset p:last-child{margin-bottom:0}
+  /* anatomy: who is made of what */
+  .anatomy{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;margin:8px 0 20px}
+  .stackcol{display:flex;flex-direction:column;gap:10px}
+  .part{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .part .role{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .part .model{font-family:var(--serif);font-size:23px;color:var(--brown);margin:2px 0}
+  .part .what{font-size:14px;color:var(--muted)}
+  .part.sarvam{border-left:4px solid var(--green-bright)}
+  .versus{display:flex;align-items:center;font-family:var(--serif);font-size:20px;color:var(--muted);padding:0 4px}
+  .target{background:var(--ink);color:#fff;border-radius:12px;padding:18px 16px;display:flex;flex-direction:column;justify-content:center;text-align:center}
+  .target .role{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#aeb2c4}
+  .target .model{font-family:var(--serif);font-size:23px;margin:2px 0}
+  .target .what{font-size:13.5px;color:#c8ccdc}
+  .judgecard{grid-column:1 / -1;background:var(--green-tint);border:1px solid var(--green-mid);border-radius:12px;padding:14px 18px;display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
+  .judgecard .model{font-family:var(--serif);font-size:23px;color:var(--green)}
+  .judgecard .what{font-size:14.5px;color:var(--ink)}
 
-  table{width:100%;border-collapse:collapse;margin:0 0 28px;font-size:16.5px}
-  caption{text-align:left;font-size:19px;font-weight:700;padding-bottom:10px}
-  th{font-weight:700;text-align:left}
-  th,td{border-bottom:1px solid var(--grey-2);padding:10px 16px 10px 0;vertical-align:top}
-  thead th{border-bottom:2px solid var(--ink)}
-  td:last-child,th:last-child{padding-right:0}
-  .col-id{width:56px;font-family:var(--mono);font-size:14.5px;white-space:nowrap;color:var(--grey-1)}
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin:14px 0 8px;font-size:15px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th{font-weight:600;text-align:left;background:#faf9f7;font-size:13.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
+  th,td{border-bottom:1px solid var(--line);padding:12px 16px;vertical-align:top}
+  tr:last-child td{border-bottom:0}
+  td q,td .said{font-style:italic}
+  .rule{color:var(--red);font-weight:600;font-size:14px}
 
-  .tag{
-    display:inline-block;font-size:13px;font-weight:700;letter-spacing:.02em;
-    text-transform:uppercase;padding:3px 8px;white-space:nowrap;
-  }
-  .tag.exists{color:var(--green);background:var(--green-bg)}
-  .tag.partial{color:var(--yellow-ink);background:var(--yellow-bg)}
-  .tag.build{color:var(--red);background:var(--red-bg)}
-  .tag.later{color:var(--grey-1);background:var(--grey-bg)}
+  /* callouts */
+  .callout{border-radius:12px;padding:16px 18px;margin:18px 0;max-width:72ch}
+  .callout.green{background:var(--green-tint);border:1px solid var(--green-mid)}
+  .callout.amber{background:var(--amber-tint);border:1px solid #eadf9a;color:var(--amber-ink)}
+  .callout strong{font-weight:700}
 
-  .flow{display:flex;flex-direction:column;align-items:center;width:fit-content;margin:6px 0 30px}
-  .fbox{border:2px solid var(--ink);background:#fff;padding:9px 16px;font-size:16.5px;font-weight:400;text-align:center;max-width:300px}
-  .fbox.terminal{background:var(--grey-bg)}
-  .fbox.stop{border-color:var(--red)}
-  .varrow{width:2px;height:20px;background:var(--ink);position:relative;margin:3px 0 9px}
-  .varrow::after{content:"";position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--ink)}
-  .varrow.red{background:var(--red)}
-  .varrow.red::after{border-top-color:var(--red)}
-  .loop{border:2px dashed var(--grey-1);padding:12px 18px 10px;display:flex;flex-direction:column;align-items:center;gap:8px}
-  .loop .llabel{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--grey-1)}
-  .loop .lnote{font-size:13.5px;color:var(--grey-1);text-align:center;max-width:300px}
-  .steps{display:flex;align-items:center;gap:10px}
-  .harrow{font-size:19px;line-height:1;color:var(--ink)}
-  .branches{display:flex;align-items:flex-start;gap:56px;margin-top:12px}
+  /* stat strip */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:20px 0}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 14px 12px;text-align:center}
+  .stat .n{font-family:var(--serif);font-size:30px;color:var(--brown);line-height:1.1}
+  .stat .l{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+  /* screenshots */
+  .shots{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+  .shots figure{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .shots img{display:block;width:100%;height:auto}
+  .shots figcaption{font-size:13.5px;color:var(--muted);padding:10px 14px}
+  .shots figure.wide{grid-column:1 / -1}
+
+  /* pipeline strip */
+  .pipe{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0 6px}
+  .pipe .stage{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;min-width:150px}
+  .pipe .stage .cmd{font-family:var(--mono);font-size:14px;color:var(--green);font-weight:600}
+  .pipe .stage .d{font-size:13px;color:var(--muted);margin-top:2px}
+  .pipe .file{font-family:var(--mono);font-size:12px;color:var(--muted);background:var(--paper);border:1px dashed var(--line);border-radius:8px;padding:6px 10px}
+  .pipe .arr{color:var(--green-bright);font-size:20px}
+
+  /* path steps */
+  .path{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .step .num{font-family:var(--serif);font-size:26px;color:var(--green-bright)}
+  .step h4{font-size:15.5px;margin:4px 0 6px}
+  .step p{font-size:14px;color:var(--muted);margin:0}
+
+  /* impact cards */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .fact .big{font-family:var(--serif);font-size:24px;color:var(--brown);line-height:1.15}
+  .fact p{font-size:14px;color:var(--muted);margin:6px 0 0}
+
+  /* depth diagrams (compact) */
+  .flow{display:flex;flex-direction:column;align-items:center;width:fit-content;margin:10px auto 26px}
+  .fbox{border:1.5px solid var(--ink);background:var(--card);padding:10px 16px;font-size:14.5px;text-align:center;max-width:320px;border-radius:10px}
+  .fbox.terminal{background:var(--green-tint);border-color:var(--green-mid)}
+  .fbox.stop{border-color:var(--red);background:var(--red-tint)}
+  .varrow{width:2px;height:18px;background:var(--muted);position:relative;margin:4px 0 8px}
+  .varrow::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--muted)}
+  .branches{display:flex;align-items:flex-start;gap:44px;margin-top:12px}
   .branch{display:flex;flex-direction:column;align-items:center}
-  .blabel{font-size:13px;font-weight:700;color:var(--grey-1);text-align:center;max-width:200px;margin-bottom:4px}
+  .blabel{font-size:12.5px;font-weight:700;color:var(--muted);text-align:center;max-width:200px;margin-bottom:4px}
   .blabel.red{color:var(--red)}
 
-  .evidence{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 12px}
-  .term{background:var(--grey-bg);border-top:4px solid var(--grey-2)}
-  .term.fail{border-top-color:var(--red)}
-  .term.pass{border-top-color:var(--green)}
-  .term .label{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:10px 16px 0}
-  .term.fail .label{color:var(--red)}
-  .term.pass .label{color:var(--green)}
-  .term pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;padding:10px 16px 16px;overflow-x:auto}
-  .term .dim{color:var(--grey-1)}
-  .term .bad{color:var(--red);font-weight:700}
-  .term .good{color:var(--green);font-weight:700}
+  .depthgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+  .depth{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .depth h4{font-size:15px;margin-bottom:5px}
+  .depth p{font-size:13.5px;color:var(--muted);margin:0}
 
-  .phase{border-top:2px solid var(--ink);padding-top:14px;margin-bottom:30px}
-  .phase h3{margin-top:0}
-  .phase .start{color:var(--green);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
-  .builds{font-family:var(--mono);font-size:14px;color:var(--grey-1)}
-
-  footer{margin-top:70px;border-top:1px solid var(--grey-2);padding-top:16px;font-size:15px;color:var(--grey-1)}
-
-  @media (max-width:640px){
-    body{font-size:17px}
-    h1{font-size:32px}
-    h2{font-size:25px}
-    .evidence{grid-template-columns:1fr}
-    th,td{padding-right:10px}
-    .steps{flex-direction:column;gap:6px}
-    .harrow{transform:rotate(90deg);margin:2px 0}
-    .branches{flex-direction:column;gap:32px;align-items:center}
-    .flow{margin-left:auto;margin-right:auto}
-  }
-  @media print{
-    body{font-size:12pt}
-    .page{max-width:100%}
-    section{page-break-inside:avoid}
+  @media (max-width:720px){
+    .hero h1{font-size:40px}
+    h2{font-size:29px}
+    .anatomy{grid-template-columns:1fr}
+    .versus{justify-content:center;padding:2px 0}
+    .shots,.grid2,.depthgrid{grid-template-columns:1fr}
+    .pipe{flex-direction:column;align-items:stretch}
+    .pipe .arr{transform:rotate(90deg);text-align:center}
   }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <h1>Crucible: synthetic Indian customers that break voice agents before real ones do</h1>
+  <header class="hero">
+    <div class="logo" aria-hidden="true"><svg role="img" aria-labelledby="title desc" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1254 1254" version="1.1">
+	<title id="title">Lotus flower logo</title><desc id="desc">A centered black lotus-style logo on a transparent background.</desc><path d="M 503.040 267.274 C 499.346 269.144, 489.858 280.870, 479.799 296 C 471.670 308.226, 456.885 336.001, 452.781 346.754 L 451.158 351.008 442.829 347.876 C 418.486 338.721, 390.376 331.850, 376.364 331.629 C 366.474 331.472, 365.181 332.360, 360.545 342.500 C 332.722 403.344, 324.313 482.326, 338.467 549.853 C 339.231 553.497, 339.761 556.573, 339.644 556.689 C 339.528 556.806, 334.272 557.400, 327.966 558.010 C 313.659 559.394, 287.289 564.581, 284.170 566.624 C 282.884 567.467, 281.150 569.790, 280.315 571.788 C 278.922 575.122, 278.974 576.328, 280.942 586.460 C 288.322 624.460, 307.471 666.185, 332.795 699.448 C 357.247 731.564, 393.027 763.472, 430.250 786.355 C 432.874 787.969, 433 788.407, 433 795.917 C 433 837.772, 448.570 880.952, 475.626 914.132 C 489.456 931.093, 512.138 950.244, 531.522 961.325 C 574.276 985.769, 626.770 992.724, 675.428 980.392 C 680.968 978.988, 691.027 975.646, 697.782 972.965 C 769.819 944.378, 820 872.845, 820 798.743 L 820 790.407 833.750 781.374 C 867.911 758.934, 898.776 730.028, 921.705 699 C 934.005 682.356, 946.203 661.551, 954.539 643 C 964.201 621.496, 975.702 581.123, 974.282 573.693 C 973.499 569.600, 969.744 566.300, 963.865 564.539 C 957.526 562.641, 931.721 558.413, 920.887 557.498 L 913.275 556.855 914.682 550.178 C 927.485 489.424, 922.766 422.078, 901.552 362.813 C 892.729 338.163, 890.562 333.889, 885.907 331.962 C 878.283 328.804, 844.078 335.970, 813.227 347.189 C 807.027 349.443, 801.800 351.111, 801.610 350.894 C 801.420 350.677, 799.370 346, 797.054 340.500 C 787.974 318.941, 773.927 294.405, 760.250 276.217 C 751.226 264.217, 747.456 263.490, 732.411 270.847 C 715.963 278.891, 696.318 293.130, 679.211 309.408 L 672.922 315.392 660.711 303.330 C 639.175 282.058, 630.999 276.182, 624.818 277.540 C 620.903 278.400, 606.245 290.683, 592.422 304.686 L 581.330 315.923 577.415 311.839 C 563.928 297.773, 539.619 279.741, 522.090 270.800 C 512.254 265.783, 507.665 264.934, 503.040 267.274 M 504.579 297.659 C 495.057 310.537, 483.791 329.801, 477.011 344.798 C 473.705 352.112, 471.001 358.637, 471.003 359.298 C 471.005 359.959, 475.585 362.975, 481.181 366 C 492.432 372.082, 508.847 382.520, 519.291 390.234 C 523.027 392.993, 526.207 395.082, 526.359 394.875 C 526.512 394.669, 529.220 389.884, 532.379 384.243 C 539.499 371.525, 552.215 352.170, 560.635 341.234 C 564.136 336.688, 567 332.568, 567 332.078 C 567 330.518, 548.854 314.029, 538.790 306.443 C 530.494 300.191, 512.961 289, 511.460 289 C 511.197 289, 508.100 292.896, 504.579 297.659 M 733.162 294.457 C 720.884 301.713, 707.597 311.831, 696.041 322.726 L 686.582 331.643 692.784 339.874 C 701.977 352.074, 715.039 372.091, 721.579 384 C 724.751 389.775, 727.474 394.669, 727.631 394.875 C 727.789 395.082, 730.973 392.998, 734.709 390.245 C 745.010 382.651, 759.293 373.479, 771.274 366.763 C 780.675 361.493, 781.969 360.455, 781.429 358.612 C 779.973 353.643, 770.280 332.645, 764.759 322.500 C 757.966 310.018, 744.342 289.111, 742.949 289.031 C 742.645 289.014, 738.242 291.456, 733.162 294.457 M 614.397 313.250 C 593.856 332.964, 579.765 349.921, 563.476 374.531 C 555.711 386.261, 544 406.720, 544 408.554 C 544 409.158, 549.467 414.569, 556.150 420.577 C 569.234 432.340, 589.706 454.685, 601.433 470 C 608.330 479.008, 625.513 504.141, 626.340 506.431 C 626.822 507.766, 626.126 508.679, 635.441 494.500 C 654.337 465.738, 676.937 439.690, 706 413.175 L 710.500 409.069 705.584 399.785 C 688.767 368.022, 665.341 336.872, 640.684 313.485 C 634.025 307.168, 628.023 302, 627.348 302 C 626.672 302, 620.845 307.063, 614.397 313.250 M 375.145 363.250 C 343.015 445.447, 346.623 540.192, 384.980 621.500 C 414.580 684.243, 469.432 744.891, 538 790.688 C 553.166 800.817, 557.165 803.170, 555.384 800.914 C 554.770 800.136, 551.196 795.675, 547.443 791 C 531.556 771.212, 515.740 743.373, 505.624 717.387 C 470.255 626.535, 472.040 520.864, 510.504 428.533 L 516.291 414.643 513.395 412.251 C 511.803 410.934, 503.300 405.050, 494.500 399.174 C 462.075 377.522, 426.629 362.199, 393.374 355.458 C 386.705 354.106, 380.777 353, 380.200 353 C 379.623 353, 377.349 357.613, 375.145 363.250 M 867 354.063 C 839.076 359.516, 810.955 369.557, 786 382.986 C 773.942 389.474, 752.472 403.226, 742.833 410.634 L 737.166 414.989 740.954 424.264 C 770.885 497.544, 778.809 582.042, 762.856 657.821 C 751.322 712.607, 729.287 759.826, 697.307 798.288 C 693.288 803.121, 690 807.287, 690 807.545 C 690 808.218, 704.656 798.992, 717.500 790.233 C 762.022 759.873, 808.602 714.807, 836.607 675 C 870.661 626.594, 889.327 579.189, 897.640 520 C 900.124 502.311, 900.119 458.698, 897.630 440.500 C 893.767 412.259, 887.396 385.861, 879.165 364 C 874.838 352.507, 874.863 352.527, 867 354.063 M 528.689 441.750 C 517.184 470.752, 510.048 497.859, 505.591 529.500 C 496.612 593.230, 504.471 657.646, 528.304 715.662 C 536.910 736.611, 547.543 755.442, 560.963 773.500 C 568.706 783.919, 586.120 803.329, 591.203 807.206 L 594.688 809.864 590.264 797.682 C 560.226 714.972, 567.314 620.894, 609.790 538.516 L 614.851 528.699 606.938 515.961 C 596.993 499.952, 584.066 482.170, 572.230 468.218 C 562.701 456.985, 535.906 430, 534.281 430 C 533.769 430, 531.253 435.288, 528.689 441.750 M 707.006 441.552 C 682.333 465.656, 662.567 490.379, 645.625 518.329 L 639.061 529.157 643.962 538.924 C 663.058 576.977, 674.673 617.194, 679.057 660.442 C 680.825 677.885, 679.756 717.510, 677.032 735.500 C 673.357 759.764, 665.826 788.576, 658.987 804.531 C 657.933 806.989, 657.448 809, 657.908 809 C 660.377 809, 684.023 781.584, 694.238 766.878 C 744.124 695.065, 761.474 591.420, 739.963 493.728 C 735.529 473.592, 725.344 441.261, 720.555 432.121 L 719.237 429.604 707.006 441.552 M 622.240 562.210 C 609.244 591.795, 600.711 620.728, 596.494 649.500 C 592.679 675.524, 592.899 712.465, 597.019 737.892 C 601.779 767.272, 609.497 791.760, 623.286 821.232 C 624.504 823.835, 625.725 825.962, 626 825.959 C 627.457 825.942, 640.368 793.967, 644.952 779.023 C 664.161 716.408, 663.142 652.766, 641.925 589.878 C 637.777 577.584, 628.616 555.223, 627.108 553.710 C 626.675 553.276, 624.484 557.101, 622.240 562.210 M 328.083 579.026 C 324.004 579.465, 316.450 580.583, 311.297 581.511 C 303.501 582.915, 302.008 583.475, 302.402 584.849 C 302.663 585.757, 303.641 589.650, 304.574 593.500 C 307.154 604.142, 313.235 621.149, 319.240 634.518 C 333.096 665.367, 352.101 692.354, 378.403 718.529 C 406.247 746.240, 437.903 768.552, 475.500 786.968 C 495.588 796.808, 524 808.882, 524 807.579 C 524 807.357, 521.188 805.274, 517.750 802.949 C 494.273 787.072, 472.817 768.881, 446.489 742.530 C 411.844 707.855, 390.342 679.120, 370.921 641.541 C 361.722 623.740, 357.453 613.725, 350.446 593.500 L 345.249 578.500 340.375 578.364 C 337.694 578.289, 332.162 578.587, 328.083 579.026 M 904.485 589.131 C 881.544 658.501, 836.541 721.551, 770.488 776.864 C 761.987 783.982, 739.157 801.518, 730.968 807.219 C 728.563 808.893, 728.602 808.902, 732.500 807.566 C 762.950 797.133, 797.943 779.761, 825 761.644 C 877.615 726.415, 918.192 677.224, 939.379 622.984 C 943.798 611.671, 949.239 594.040, 950.530 586.850 C 951.143 583.436, 951.001 583.161, 948.343 582.609 C 941.369 581.160, 925.728 579.052, 917.372 578.435 L 908.245 577.761 904.485 589.131 M 455.329 810.750 C 457.211 839.835, 470.799 873.430, 491.111 899.219 C 516.517 931.476, 554.761 954.291, 597.500 962.688 C 610.300 965.202, 643.833 965.187, 656.500 962.661 C 704.904 953.008, 745.050 926.371, 771.286 886.500 C 785.765 864.496, 794.989 839.024, 798.023 812.661 C 799.186 802.561, 798.986 800.974, 796.774 802.722 C 795.578 803.667, 764.272 818.115, 760.984 819.239 C 760.062 819.555, 758.392 823.589, 756.716 829.552 C 744.185 874.134, 705.987 910.807, 660.005 922.402 C 617.059 933.232, 573.245 922.848, 538 893.486 C 517.277 876.222, 501.874 851.067, 494.962 823.199 C 493.965 819.177, 493.493 818.725, 487.698 816.236 C 484.289 814.772, 475.739 810.745, 468.699 807.287 C 461.658 803.829, 455.628 801, 455.298 801 C 454.968 801, 454.982 805.388, 455.329 810.750 M 520.394 832.699 C 529.446 858.355, 554.715 884.474, 581.355 895.709 C 607.590 906.774, 637.872 907.956, 663.613 898.921 C 688.355 890.237, 708.822 874.251, 722.735 852.743 C 727.139 845.934, 734.411 831.077, 733.691 830.357 C 733.482 830.149, 731.329 830.680, 728.906 831.536 C 707.697 839.034, 669.512 848.269, 639.978 853.044 C 624.996 855.467, 627.328 855.636, 596.500 849.891 C 573.426 845.591, 538.038 836.017, 520.258 829.264 C 519.305 828.902, 519.337 829.702, 520.394 832.699" stroke="none" fill="#000000" fill-rule="evenodd"/>
+</svg></div>
+    <h1>Crucible</h1>
+    <p class="tagline">Synthetic Indian customers, built on Sarvam, phone your voice agent in real speech and hand back <strong>an evidence pinned report of where it breaks</strong>.</p>
+    <div class="chips">
+      <span class="chip green">Sarvam Epoch Buildathon, Top 15</span>
+      <span class="chip"><a href="https://github.com/mohitpaddhariya/crucible">github.com/mohitpaddhariya/crucible</a></span>
+      <span class="chip">28 July 2026</span>
+    </div>
+  </header>
 
-  <div class="meta">
-    <dl>
-      <dt>Team</dt><dd>Crucible</dd>
-      <dt>Repo</dt><dd><a href="https://github.com/mohitpaddhariya/crucible">github.com/mohitpaddhariya/crucible</a></dd>
-      <dt>Status</dt><dd>Working end to end in text and full voice against a live production agent. 28 July 2026.</dd>
-    </dl>
+  <div class="video">
+    <div class="frame">
+      <iframe src="https://www.youtube.com/embed/W1nolOkbIxg" title="Crucible demo video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p class="cap">2 minute demo: a Sarvam voiced customer haggling with a live production agent, and the report that follows. <a href="https://youtu.be/W1nolOkbIxg">Open on YouTube</a></p>
   </div>
 
-  <nav class="contents" aria-label="Contents">
-    <h2>Contents</h2>
-    <ol>
-      <li><span class="n">1.</span><a href="#sarvam">Impact of Sarvam's models</a></li>
-      <li><span class="n">2.</span><a href="#product">A live, production-ready product</a></li>
-      <li><span class="n">3.</span><a href="#traction">Real traction</a></li>
-      <li><span class="n">4.</span><a href="#business">Business impact</a></li>
-      <li><span class="n">5.</span><a href="#depth">Technical depth</a></li>
-    </ol>
+  <nav class="toc" aria-label="Contents">
+    <a href="#sarvam"><span class="n">1</span>Impact of Sarvam's models</a>
+    <a href="#product"><span class="n">2</span>A live, production-ready product</a>
+    <a href="#traction"><span class="n">3</span>Real traction</a>
+    <a href="#business"><span class="n">4</span>Business impact</a>
+    <a href="#depth"><span class="n">5</span>Technical depth</a>
   </nav>
 
   <section id="sarvam">
-    <h2>1. Impact of Sarvam's models</h2>
-    <p>Crucible attacks a voice agent with synthetic Indian customers, in real speech, and returns an evidence pinned report of where it breaks. The core problem is that testing an Indian voice agent requires an Indian customer and an Indian judge, and both of ours are Sarvam end to end. The agent under test can come from any vendor; the entire customer (brain, mouth, ears) and the entire evaluation layer (judge, referee, report) are Sarvam models.</p>
+    <p class="kicker">Criterion 1</p>
+    <h2>Impact of Sarvam's models</h2>
+    <p class="lede">Testing an Indian voice agent needs an <strong>Indian customer</strong> and an <strong>Indian judge</strong>. Both of ours are Sarvam, end to end. The agent under test can come from any vendor.</p>
 
+    <div class="anatomy" role="img" aria-label="The synthetic customer is three Sarvam models: Saarika v2.5 as ears, Sarvam-30B as brain, Bulbul v3 as voice. It talks to any voice agent, here a production agent on ElevenLabs running Qwen. Below both, Sarvam-105B judges every transcript.">
+      <div class="stackcol">
+        <div class="part sarvam">
+          <div class="role">Brain</div>
+          <div class="model">Sarvam-30B</div>
+          <div class="what">Plays the customer in character: Hinglish, Hindi, Indian English</div>
+        </div>
+        <div class="part sarvam">
+          <div class="role">Voice</div>
+          <div class="model">Bulbul v3</div>
+          <div class="what">4 voices cast by measured pitch (111 to 195 Hz)</div>
+        </div>
+        <div class="part sarvam">
+          <div class="role">Ears</div>
+          <div class="model">Saarika v2.5</div>
+          <div class="what">Measures what the target's recogniser dropped or invented, every turn</div>
+        </div>
+      </div>
+      <div class="versus">vs</div>
+      <div class="target">
+        <div class="role">The agent under test</div>
+        <div class="model">Any vendor</div>
+        <div class="what">Our current target: a production retention agent on ElevenLabs, running Qwen. We never modified it.</div>
+      </div>
+      <div class="judgecard">
+        <span class="model">Sarvam-105B</span>
+        <span class="what">judges every transcript against a per scenario answer key. 7 dimensions, every quote re verified in code.</span>
+      </div>
+    </div>
+
+    <p><strong>Proof, not description.</strong> In one call against that production agent, the judge cited 4 rule breaches, each with a verbatim quote:</p>
     <table>
-      <thead>
-        <tr><th>Role</th><th>Model</th><th>What it does</th></tr>
-      </thead>
+      <thead><tr><th>The agent said</th><th>The rule it broke</th></tr></thead>
       <tbody>
-        <tr><td>Customer brain</td><td>Sarvam-30B</td><td>Plays 4 handcrafted personas in Hinglish, Hindi and Indian English. About 5s a turn at temperature 0.9.</td></tr>
-        <tr><td>Customer voice</td><td>Bulbul v3</td><td>4 voices cast by measured pitch across the 37 speaker roster (111 to 195 Hz), so a 21 year old and a 45 year old do not sound alike.</td></tr>
-        <tr><td>Listener fidelity</td><td>Saarika v2.5</td><td>Re transcribes our own audio each turn to measure what the target's recogniser dropped or invented.</td></tr>
-        <tr><td>Judge, referee, report</td><td>Sarvam-105B</td><td>Scores 7 rubric dimensions, decides soft conversation endings, writes the report narrative. Every quote re verified in code.</td></tr>
+        <tr><td class="said">"Yes, we have all IPL matches live."</td><td class="rule">May not name any title beyond the one licensed hook</td></tr>
+        <tr><td class="said">"[The platform] is the only place for Special Ops and year-round live cricket"</td><td class="rule">May not claim exclusivity it does not have</td></tr>
+        <tr><td class="said">"Yes, Special Ops streams exclusively on [the platform]."</td><td class="rule">Same rule, second occurrence</td></tr>
+        <tr><td class="said">"The standard price is 899 rupees per quarter after the discount."</td><td class="rule">May not state a computed or post discount price</td></tr>
       </tbody>
     </table>
 
-    <p>Proof, not description. We ran Crucible against a real production retention agent deployed by a major Indian streaming service (name withheld here, shared privately on request). We did not build that agent and never modified it. In one call, Sarvam-105B as judge cited 4 rule breaches, each with a verbatim quote:</p>
-
-    <table>
-      <thead>
-        <tr><th>The agent said</th><th>The rule it broke</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>"Yes, we have all IPL matches live."</td><td>May not name any title beyond the one licensed hook</td></tr>
-        <tr><td>"[The platform] is the only place for Special Ops and year-round live cricket"</td><td>May not claim exclusivity it does not have</td></tr>
-        <tr><td>"Yes, Special Ops streams exclusively on [the platform]."</td><td>Same rule, second occurrence</td></tr>
-        <tr><td>"The standard price is 899 rupees per quarter after the discount."</td><td>May not state a computed or post discount price</td></tr>
-      </tbody>
-    </table>
-
-    
-
-    <div class="inset">
-      <p><strong>Sarvam is structural, not swappable.</strong> Sarvam has no hosted agent product, so the customer is our own loop built from Sarvam building blocks. The judge's Indic competence is load bearing: language handling carries the second highest rubric weight, Sarvam-105B reads "thoda discount de do na yaar" as a bargaining move, and it is what lets a Devanagari quote match a Devanagari turn in the evidence audit. Replace Sarvam with an American stack and the product stops being able to test the failures it exists to find.</p>
+    <div class="callout green">
+      <p><strong>Sarvam is structural, not swappable.</strong> The judge's Indic competence is load bearing: it reads "thoda discount de do na yaar" as a bargaining move and matches Devanagari quotes to Devanagari turns. Replace Sarvam with an American stack and the product stops being able to test the failures it exists to find.</p>
     </div>
   </section>
 
   <section id="product">
-    <h2>2. A live, production-ready product</h2>
-    <p>Three surfaces, one pipeline, all running against real recorded data: a landing page, a dashboard (replay every conversation turn by turn, play the call audio, read the said versus heard comparison, open the scored report), and a persona studio that turns a recorded customer call into an evaluation persona.</p>
+    <p class="kicker">Criterion 2</p>
+    <h2>A live, production-ready product</h2>
+    <p class="lede">Three surfaces, one pipeline, all running on <strong>real recorded conversations</strong> with a live production agent.</p>
 
-    <div class="flow" role="img" aria-label="Flow: persona YAML files feed spar run, which holds live conversations, each looping persona speaks, agent replies, referee checks end rules. Conversations are written to disk as JSON with audio. spar judge scores each conversation on 7 dimensions and writes scorecards. spar report reads all scorecards. If the control persona passed, it writes the report with defects and quotes. If the control failed, the run is marked unanchored and no finding is promoted to a defect.">
-      <div class="fbox terminal">personas/*.yaml<br>synthetic Indian customers</div>
-      <div class="varrow"></div>
-      <div class="loop">
-        <div class="llabel">spar run: one loop per conversation</div>
-        <div class="steps">
-          <div class="fbox">Persona speaks<br>(30B + Bulbul)</div>
-          <span class="harrow">→</span>
-          <div class="fbox">Live agent<br>replies</div>
-          <span class="harrow">→</span>
-          <div class="fbox">Referee checks<br>end rules</div>
-        </div>
-        <div class="lnote">Repeats to the persona's turn cap (8 to 12 turns). The persona never sees its own exit rules, so it cannot game them.</div>
-      </div>
-      <div class="varrow"></div>
-      <div class="fbox terminal">conversations/*.json<br>transcript, audio, what the ASR heard</div>
-      <div class="varrow"></div>
-      <div class="fbox">spar judge: 7 dimensions per call,<br>every score quote checked in code</div>
-      <div class="varrow"></div>
-      <div class="fbox terminal">scorecards/*.json</div>
-      <div class="varrow"></div>
-      <div class="fbox">spar report: patterns across calls<br>(bleed, recurrence, blind spots)</div>
-      <div class="branches">
-        <div class="branch">
-          <div class="blabel">Control persona passed</div>
-          <div class="varrow"></div>
-          <div class="fbox terminal">Report: defects, quotes,<br>playable audio</div>
-        </div>
-        <div class="branch">
-          <div class="blabel red">Control persona failed</div>
-          <div class="varrow red"></div>
-          <div class="fbox stop">Run marked unanchored.<br>Nothing promoted to a defect.</div>
-        </div>
-      </div>
+    <div class="shots">
+      <figure class="wide"><img src="submission-assets/dashboard-conversation.png" alt="Dashboard: a voice conversation replayed turn by turn, with what the customer said beside what the agent's recogniser heard" onerror="this.closest('figure').style.display='none'"><figcaption>The conversation view: every turn playable, with what our customer said beside what the agent's recogniser heard.</figcaption></figure>
+      <figure><img src="submission-assets/dashboard-report.png" alt="Dashboard: the scored report with defects and verbatim quotes" onerror="this.closest('figure').style.display='none'"><figcaption>The report: scores by dimension, defects with quotes.</figcaption></figure>
+      <figure><img src="submission-assets/persona-studio.png" alt="Persona studio: a recorded call turned into an evaluation persona" onerror="this.closest('figure').style.display='none'"><figcaption>Persona studio: a recorded call in, an evaluation persona out.</figcaption></figure>
     </div>
 
-    <p>Stability is measured, not asserted:</p>
-    <ul>
-      <li>34 live conversations with the production agent, 446 turns, 7 of them in full voice, 16 minutes of recorded agent to agent audio on disk.</li>
-      <li>557 offline checks pass with zero network and zero credentials, so the whole pipeline is verifiable without spending a rupee.</li>
-      <li>Stages talk only through files. Judging and reporting re run for free against byte identical input, so a rubric change never costs another live call.</li>
-      <li>A full voice certification costs about ₹5 in speech at published rates plus about 30k LLM tokens. "Run it on every prompt change" is a credible sentence.</li>
-    </ul>
+    <div class="pipe" role="img" aria-label="Pipeline: spar run holds live conversations and writes transcripts with audio. spar judge scores them and writes scorecards. spar report finds patterns across calls and writes the report. Stages talk only through files.">
+      <div class="stage"><div class="cmd">spar run</div><div class="d">live conversations, voice or text</div></div>
+      <span class="arr">→</span>
+      <span class="file">conversations/*.json + audio</span>
+      <span class="arr">→</span>
+      <div class="stage"><div class="cmd">spar judge</div><div class="d">7 dimensions, quotes checked in code</div></div>
+      <span class="arr">→</span>
+      <span class="file">scorecards/*.json</span>
+      <span class="arr">→</span>
+      <div class="stage"><div class="cmd">spar report</div><div class="d">patterns across calls</div></div>
+    </div>
+    <p class="small">Stages talk only through files, so judging and reporting re run for free against identical input. A rubric change never costs another live call.</p>
 
-    <div class="inset warn">
-      <p><strong>Hosting status, stated plainly.</strong> The product runs on our hardware today. Public deployment of the dashboard and API is the first task before the checkpoint call, ahead of everything else, because it is the one part of this criterion not yet met.</p>
+    <div class="stats" role="img" aria-label="34 live conversations, 446 turns, 16 minutes of recorded call audio, 557 offline checks passing, about 5 rupees of speech per voice certification.">
+      <div class="stat"><div class="n">34</div><div class="l">live conversations</div></div>
+      <div class="stat"><div class="n">446</div><div class="l">turns held</div></div>
+      <div class="stat"><div class="n">16 min</div><div class="l">recorded call audio</div></div>
+      <div class="stat"><div class="n">557</div><div class="l">offline checks, zero network</div></div>
+      <div class="stat"><div class="n">₹5</div><div class="l">speech cost per voice run</div></div>
+    </div>
+
+    <div class="callout amber">
+      <p><strong>Hosting status, stated plainly.</strong> The product runs on our hardware today. Public deployment of the dashboard and API is the first task before the checkpoint call, because it is the one part of this criterion not yet met.</p>
     </div>
   </section>
 
   <section id="traction">
-    <h2>3. Real traction</h2>
-    <p>We will not claim users we do not have. Today Crucible has certified 1 production agent (the streaming service's retention agent) and has been used by our own team. The checkpoint email says submissions are verified, and this section is written to survive that verification.</p>
-    <p>The path to 25 real users starts at Epoch on 30 July and uses the product's own design: it works on agents we did not build.</p>
-    <ol>
-      <li><strong>Certify other builders' agents.</strong> Dozens of Epoch teams built voice agents. Each team that submits an endpoint and receives a report is a real user holding a real artifact: a document containing its own agent's defects, with quotes. Target: 10 to 15 certifications on the day.</li>
-      <li><strong>Persona studio as the self serve door.</strong> Upload one recorded call, get a persona, run it against your agent. A 2 minute floor conversation becomes a signup.</li>
-      <li><strong>Design partners.</strong> The streaming service whose agent we certified, and 2 voice agent platforms, are the first paying conversations.</li>
-    </ol>
-    <p>The report is the growth loop. Agents change weekly, and a team that has seen its own defects re certifies after every prompt change. That is the mechanism that turns 25 users into recurring usage rather than 25 signups.</p>
+    <p class="kicker">Criterion 3</p>
+    <h2>Real traction</h2>
+    <p class="lede">We will not claim users we do not have. Today: <strong>1 production agent certified</strong>, used by our own team. The path to 25 starts at Epoch and uses the product's own design: it works on agents we did not build.</p>
+
+    <div class="path">
+      <div class="step"><div class="num">1</div><h4>Certify other builders' agents</h4><p>Dozens of Epoch teams built voice agents. Each team that submits an endpoint gets a report holding its own defects, with quotes. Target: 10 to 15 certifications on 30 July.</p></div>
+      <div class="step"><div class="num">2</div><h4>Persona studio as the self serve door</h4><p>Upload one recorded call, get a persona, run it against your agent. A 2 minute floor conversation becomes a signup.</p></div>
+      <div class="step"><div class="num">3</div><h4>Design partners</h4><p>The streaming service whose agent we certified, and 2 voice agent platforms, are the first paying conversations.</p></div>
+    </div>
+
+    <p>The report is the growth loop. Agents change weekly, and a team that has seen its own defects re certifies after every prompt change. That turns 25 users into recurring usage rather than 25 signups.</p>
   </section>
 
   <section id="business">
-    <h2>4. Business impact</h2>
-    <p>The problem is meaningful and measured. Indian enterprises are moving retention, collections and support to voice agents in 11 languages, and every deployment is QA tested with about 10 polite calls in clean English.</p>
-    <ul>
-      <li><strong>Manual QA samples one draw from a distribution.</strong> Our data: the same agent, same scenario, scored 82.5 in one call and 15.0 in another, because it hallucinated 4 times in one and 0 times in the other. Ten polite calls land on one number and ship on it.</li>
-      <li><strong>The failure lands at the worst moment.</strong> Retention and collections calls are the interactions where an invented discount or a dropped Hinglish sentence costs a customer directly.</li>
-      <li><strong>The competition cannot follow.</strong> Coval, Cekura and Hamming AI simulate American English callers. None can produce code switched speech, so none can test how an agent survives it. Our customers are Sarvam models, so Tamil English and Telugu English personas are additions of YAML and a cast voice, not new research.</li>
-      <li><strong>The unit economics work.</strong> A certification run costs under ₹100 to serve and replaces days of manual QA. Per run pricing for teams, monthly certification for enterprises, and the report itself is the marketing.</li>
-      <li><strong>Regression is the retention.</strong> Certification is not a one time purchase. Every prompt change needs a re run, the way every code change needs CI.</li>
-    </ul>
+    <p class="kicker">Criterion 4</p>
+    <h2>Business impact</h2>
+    <p class="lede">Indian enterprises are moving retention, collections and support to voice agents in 11 languages. Every deployment is QA tested with <strong>about 10 polite calls in clean English</strong>.</p>
+
+    <div class="grid2">
+      <div class="fact"><div class="big">82.5 → 15.0</div><p>Same agent, same scenario, two runs. It hallucinated 4 times in one call and 0 in the other. Manual QA lands on one number and ships on it.</p></div>
+      <div class="fact"><div class="big">The worst moment</div><p>Retention and collections calls are exactly where an invented discount or a dropped Hinglish sentence costs a customer directly.</p></div>
+      <div class="fact"><div class="big">No one else can follow</div><p>Coval, Cekura and Hamming AI simulate American English callers. None can produce code switched speech, so none can test how an agent survives it.</p></div>
+      <div class="fact"><div class="big">Under ₹100 a run</div><p>A certification replaces days of manual QA. Per run pricing for teams, monthly certification for enterprises. Every prompt change needs a re run, the way every code change needs CI.</p></div>
+    </div>
   </section>
 
   <section id="depth">
-    <h2>5. Technical depth</h2>
-    <p>Nothing below is API stitching. Each mechanism exists because a live measurement said the obvious approach was wrong, and each is reproducible from the repo.</p>
+    <p class="kicker">Criterion 5</p>
+    <h2>Technical depth</h2>
+    <p class="lede">Nothing here is API stitching. Each mechanism exists because <strong>a live measurement said the obvious approach was wrong</strong>, and each is reproducible from the repo.</p>
 
-    <h3>The voice loop: half duplex against a platform with no end of turn signal</h3>
-    <div class="flow" role="img" aria-label="Flow: the agent speaks in 300 millisecond audio frames. An amplitude detector declares the turn over after 1.5 seconds below the speech floor. Sarvam-30B composes the customer's reply in character. Bulbul v3 synthesises it as 16 kilohertz PCM. The audio streams to the agent at real speed, then the mic holds until the agent's recogniser returns what it heard, bounded at 8 seconds. The result is recorded and the next turn begins. A red exit shows the failure this design prevents: if compute blocks the socket reader, no pong goes out and the platform drops the call.">
-      <div class="fbox terminal">Agent speaks<br>(audio frames, about 300ms each)</div>
+    <h3 style="font-family:var(--serif);font-weight:500;font-size:23px;color:var(--brown);margin:26px 0 8px">The voice loop: half duplex with no end of turn signal</h3>
+    <div class="flow" role="img" aria-label="The agent speaks in 300 millisecond audio frames. An amplitude detector declares the turn over after 1.5 seconds below the speech floor. Sarvam-30B composes the reply, Bulbul speaks it at real speed, then the mic holds until the agent's recogniser returns what it heard. A red exit shows the prevented failure: if compute blocks the socket reader, no pong goes out and the platform drops the call.">
+      <div class="fbox terminal">Agent speaks (about 300ms audio frames)</div>
       <div class="varrow"></div>
-      <div class="fbox">Amplitude detector:<br>1.5s below the speech floor<br>= turn over</div>
+      <div class="fbox">Amplitude detector: 1.5s below the speech floor = turn over</div>
       <div class="varrow"></div>
-      <div class="fbox">Sarvam-30B composes the reply,<br>in character, in Hinglish</div>
+      <div class="fbox">Sarvam-30B composes, Bulbul v3 speaks, streamed at real speed</div>
       <div class="varrow"></div>
-      <div class="fbox">Bulbul v3 speaks it<br>(16 kHz PCM, cast voice)</div>
-      <div class="varrow"></div>
-      <div class="fbox">Stream at real speed,<br>then hold the mic until the<br>agent's ASR returns (8s bound)</div>
+      <div class="fbox">Mic holds until the agent's ASR returns what it heard (8s bound)</div>
       <div class="branches">
-        <div class="branch">
-          <div class="blabel">user_transcript arrives</div>
-          <div class="varrow"></div>
-          <div class="fbox terminal">"What the agent heard"<br>recorded beside what we said.<br>Next turn begins.</div>
-        </div>
-        <div class="branch">
-          <div class="blabel red">Prevented failure</div>
-          <div class="varrow red"></div>
-          <div class="fbox stop">Compute blocks the socket,<br>no pong goes out,<br>platform drops the call.</div>
-        </div>
+        <div class="branch"><div class="blabel">user_transcript arrives</div><div class="varrow"></div><div class="fbox terminal">"What the agent heard" recorded beside what we said</div></div>
+        <div class="branch"><div class="blabel red">Prevented failure</div><div class="varrow"></div><div class="fbox stop">Compute blocks the socket, no pong, platform drops the call</div></div>
       </div>
     </div>
 
-    <ul>
-      <li><strong>The socket dies from a missing pong, not missing speech.</strong> A 7 conversation controlled experiment (2 by 2 plus controls) showed 112s of silence survives if protocol pongs keep flowing, and any arm without them dies. So a permanently live reader owns the socket and model calls never block it.</li>
-      <li><strong>There is no end of turn event, and audio never stops.</strong> The platform streams continuous background noise. We detect end of turn by amplitude: speech peaks near 10% of full scale, the noise floor near 9%, and 1.5 seconds of quiet closes the turn. Calibrated over 8 captured turns, it reproduces every boundary exactly.</li>
-      <li><strong>Streaming silence as a keepalive is harmful.</strong> Zero filled audio convinces the agent's recogniser the mic is live. It endpoints empty turns, asks "are you still there", and hangs up at 59s. Between turns we send nothing at all.</li>
-    </ul>
-
-    <h3>The trust chain: 3 audits before a finding reaches a reader</h3>
-    <div class="flow" role="img" aria-label="Flow: the judge, Sarvam-105B, claims a failure with a quote. A verbatim audit checks the quote appears character for character in the cited turn. A speaker audit checks the right party said it, so a customer line can never convict the agent. A ground truth audit checks the claim names a specific listed rule that the quote actually breaches. If all three pass, the finding is kept with its turn number and rule. If any fails, the finding is discarded and never shown.">
-      <div class="fbox terminal">Sarvam-105B claims a failure,<br>with a quote</div>
-      <div class="varrow"></div>
-      <div class="fbox">Verbatim audit: is the quote<br>character for character<br>in that turn</div>
-      <div class="varrow"></div>
-      <div class="fbox">Speaker audit: did the right<br>party say it (a customer line<br>cannot convict the agent)</div>
-      <div class="varrow"></div>
-      <div class="fbox">Ground truth audit: which<br>listed rule does the quote<br>actually breach</div>
-      <div class="branches">
-        <div class="branch">
-          <div class="blabel">All 3 pass</div>
-          <div class="varrow"></div>
-          <div class="fbox terminal">Finding kept:<br>quote, turn number, rule</div>
-        </div>
-        <div class="branch">
-          <div class="blabel red">Any audit fails</div>
-          <div class="varrow red"></div>
-          <div class="fbox stop">Finding discarded.<br>Never shown to the reader.</div>
-        </div>
-      </div>
+    <div class="depthgrid">
+      <div class="depth"><h4>The socket dies from a missing pong, not missing speech</h4><p>A 7 conversation controlled experiment: 112s of silence survives if pongs flow, any arm without them dies. A permanently live reader owns the socket; model calls never block it.</p></div>
+      <div class="depth"><h4>Turn detection with no event, audio that never stops</h4><p>The platform streams continuous background noise. Speech peaks near 10% of full scale, the floor near 9%; 1.5s of quiet closes the turn. Calibrated over 8 captured turns, reproduces every boundary.</p></div>
+      <div class="depth"><h4>Streaming silence as keepalive is harmful</h4><p>Zero filled audio reads as a live mic: the agent endpoints empty turns, asks "are you still there", and hangs up at 59s. Between turns we send nothing.</p></div>
+      <div class="depth"><h4>The judge is effectively deterministic</h4><p>27 of 28 dimension scores identical across 3 independent passes on the same transcripts. Score movement between runs is the agent moving, not the judge.</p></div>
+      <div class="depth"><h4>Speech derived text can never convict</h4><p>We measured the recogniser inventing "20%". A number that arrived through ASR can only flag a review, never prove a violation. A fact is only a fact when the text is verbatim.</p></div>
+      <div class="depth"><h4>Cross call analysis</h4><p>Personas carry distinct discount ceilings (5, 10, 15, 25%), so a number bleeding between conversations is a provable invention. 3 of 3 calls is a defect; 1 is an anecdote.</p></div>
+      <div class="depth"><h4>The control persona is a validity gate</h4><p>If the agent fails the deliberately easy customer, the run refuses to promote any finding to a defect: the harness cannot tell agent failure from its own.</p></div>
+      <div class="depth"><h4>Script aware diffing</h4><p>Said versus heard aligns romanised Hindi with Devanagari by consonant skeleton ("maine" and "मैंने" both reduce to "mn"), then renders the verbatim originals with losses marked.</p></div>
     </div>
 
-    <ul>
-      <li><strong>The judge is effectively deterministic.</strong> 27 of 28 dimension scores were identical across 3 independent judge passes on the same transcripts. Score movement between runs is the agent moving, not the judge.</li>
-      <li><strong>Speech derived text can never convict.</strong> We measured the recogniser inventing "20%". A number that arrived through ASR can only flag a finding for review, never prove a violation. A fact is only a fact when the text is verbatim.</li>
-      <li><strong>Cross call analysis catches what no single call can.</strong> Personas carry deliberately distinct discount ceilings (5, 10, 15, 25%), so a number bleeding from one conversation into another is a provable invention. A failure in 3 of 3 calls is a defect where a failure in 1 is an anecdote.</li>
-      <li><strong>The control persona is a validity gate.</strong> If the agent fails the deliberately easy customer, the run refuses to promote any finding to a defect, because the harness cannot tell agent failure from its own.</li>
-      <li><strong>Script aware diffing.</strong> The said versus heard view aligns romanised Hindi with Devanagari by reducing both to consonant skeletons ("maine" and "मैंने" both reduce to "mn"), then renders the verbatim originals with losses and inventions marked.</li>
-      <li><strong>The models' constraints forced real engineering.</strong> Sarvam's reasoning cannot be disabled and consumes the token budget first, so the pipeline runs measured retry ladders, respects a 4096 token tier cap discovered live, and makes one judge call per rubric dimension.</li>
-    </ul>
+    <h3 style="font-family:var(--serif);font-weight:500;font-size:23px;color:var(--brown);margin:26px 0 8px">The trust chain: 3 audits before a finding reaches a reader</h3>
+    <div class="flow" role="img" aria-label="The judge claims a failure with a quote. A verbatim audit checks the quote is character for character in the cited turn. A speaker audit checks the right party said it. A ground truth audit checks it names a listed rule the quote breaches. Pass all three and the finding is kept with turn and rule. Fail any and it is discarded, never shown.">
+      <div class="fbox terminal">Sarvam-105B claims a failure, with a quote</div>
+      <div class="varrow"></div>
+      <div class="fbox">Verbatim audit: character for character in the cited turn</div>
+      <div class="varrow"></div>
+      <div class="fbox">Speaker audit: a customer line cannot convict the agent</div>
+      <div class="varrow"></div>
+      <div class="fbox">Ground truth audit: names the listed rule it breaches</div>
+      <div class="branches">
+        <div class="branch"><div class="blabel">All 3 pass</div><div class="varrow"></div><div class="fbox terminal">Finding kept: quote, turn, rule</div></div>
+        <div class="branch"><div class="blabel red">Any audit fails</div><div class="varrow"></div><div class="fbox stop">Finding discarded, never shown</div></div>
+      </div>
+    </div>
   </section>
 
 </div>
