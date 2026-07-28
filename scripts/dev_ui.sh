@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
+# One server, one port. http://localhost:3000
+#
+#   /            the landing page
+#   /dashboard   the dashboard, already on the newest run
+#   /api/**      run artifacts, read off disk
+#
+# This used to start TWO servers: Next on :3000 serving the dashboard at `/`, and a second
+# Vite server on :4173 serving the landing and proxying /dashboard, /api and /_next back to
+# Next. A visitor had to know which port was which, and the landing's own "Go to dashboard"
+# link only worked when entered through the proxy. The landing now lives inside the Next app
+# (web/app/landing/), so there is one origin and nothing to proxy.
+#
+# website/ remains the SOURCE of the landing page, and its own dev server is still the right
+# way to iterate on it in isolation:  npm --prefix website run dev
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-dashboard_pid=""
-website_pid=""
 
-cleanup() {
-  if [[ -n "$dashboard_pid" ]]; then
-    kill "$dashboard_pid" 2>/dev/null || true
-  fi
-  if [[ -n "$website_pid" ]]; then
-    kill "$website_pid" 2>/dev/null || true
-  fi
-}
+echo "Crucible UI  ->  http://localhost:3000"
+echo "  /            landing"
+echo "  /dashboard   dashboard"
+echo
 
-trap cleanup EXIT INT TERM
-
-npm --prefix "$repo_root/web" run dev -- --hostname 127.0.0.1 --port 3000 &
-dashboard_pid=$!
-
-npm --prefix "$repo_root/website" run dev -- --port 4173 &
-website_pid=$!
-
-wait -n "$dashboard_pid" "$website_pid"
+exec npm --prefix "$repo_root/web" run dev -- --hostname 127.0.0.1 --port 3000

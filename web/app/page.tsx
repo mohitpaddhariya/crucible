@@ -1,14 +1,28 @@
-import App from './App';
+import type { Metadata } from "next";
+import Landing from "./landing/Landing";
+import "./landing/landing.css";
 
 /**
- * Thin shell. Everything on screen is fetched client-side from `/api/**`, which reads
- * `runs/` off disk — so there is no build-time snapshot to go stale and no run id baked
- * into the page. It used to import a hardcoded RUN_ID from ./lib/data; that is why.
+ * `/` is the landing page; the dashboard lives at `/dashboard`.
  *
- * `force-dynamic` matches the route handlers under app/api (Next 16, cacheComponents off).
+ * Both used to be the same component on two servers — Next on :3000 serving the dashboard
+ * at `/`, and a second Vite server on :4173 serving the landing and proxying everything
+ * back. A visitor had to know which port was which. One origin now serves both, so the
+ * landing's own "Go to dashboard" link just works.
+ *
+ * The .landing-root wrapper is load-bearing: landing.css is rebased under it precisely so
+ * the landing's *, html and body rules cannot reach the dashboard's Tailwind base.
  */
-export const dynamic = 'force-dynamic';
+export const metadata: Metadata = {
+  title: "Crucible — break your voice agent before your users do",
+  description:
+    "Synthetic Indian customers, built on Sarvam, call a live voice agent and report where it breaks.",
+};
 
 export default function Page() {
-  return <App />;
+  return (
+    <div className="landing-root">
+      <Landing />
+    </div>
+  );
 }
