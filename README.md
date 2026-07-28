@@ -8,7 +8,7 @@
 
 [![Team](https://img.shields.io/badge/team-Crucible-496D21)](https://github.com/mohitpaddhariya/crucible)
 [![Watch the film](https://img.shields.io/badge/%E2%96%B6%20watch%20the%20film-2%20minutes-d84f59)](https://youtu.be/W1nolOkbIxg)
-[![Live](https://img.shields.io/badge/live%20URL-shipping%2029%20July-f2bd61)](https://github.com/mohitpaddhariya/crucible)
+[![Live](https://img.shields.io/badge/read%20it%20live-crucible--ochre.vercel.app-496D21)](https://crucible-ochre.vercel.app)
 [![Built on](https://img.shields.io/badge/built%20on-Sarvam-83C040)](https://www.sarvam.ai/)
 
 <br>

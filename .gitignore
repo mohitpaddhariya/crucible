@@ -22,3 +22,6 @@ venv/
 
 # local audio backups, never shipped
 .backups/
+
+# vercel deploy staging
+.deploy/
