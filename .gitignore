@@ -19,3 +19,6 @@ venv/
 .DS_Store
 *.wav
 *.mp3
+
+# local audio backups, never shipped
+.backups/
