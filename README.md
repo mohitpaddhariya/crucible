@@ -89,7 +89,7 @@ Nobody wrote that line. The persona file says two words: cheerful, relentless. T
 
 Everything runs on real recorded calls with that production agent, and it is **live now at [crucible-app-five.vercel.app](https://crucible-app-five.vercel.app)**. Open it, play a call, read the evidence. No signup, no keys, nothing to install.
 
-Don't trust us? Good. That is the whole point of the product. Clone the repo and 544 checks verify our claims offline: no keys, no API calls, not one rupee spent. 14 more replay the customer's real call audio; those fixtures stay private, so that suite skips on a public clone and says why.
+Don't trust us? Good. That is the whole point of the product. Clone the repo and 548 checks verify our claims offline: no keys, no API calls, not one rupee spent. 14 more replay the customer's real call audio; those fixtures stay private, so that suite skips on a public clone and says why.
 
 ```bash
 git clone https://github.com/mohitpaddhariya/crucible && cd crucible && ./scripts/verify.sh
@@ -112,7 +112,7 @@ What you can do today:
 
 <img src="submission-assets/dashboard-report.png" width="640" alt="61 out of 100, and why.">
 
-*61 out of 100, and why: every score carries verbatim evidence, and every finding links to the exact turn it happened in.*
+*61 out of 100, and why: every score carries verbatim evidence, and every finding links to the exact turn it happened in. This shot is one earlier run; the live dashboard opens on the newest one, so its scores differ. Every run is in the repo.*
 
 </div>
 
@@ -129,13 +129,13 @@ flowchart LR
 
 <div align="center">
 
-| **446** | **449** | **20** | **₹5** |
+| **505** | **531** | **24** | **₹5** |
 |:---:|:---:|:---:|:---:|
-| turns with a live production agent | claims audited, word for word | rule breaches caught, receipts attached | per test call |
+| turns with live production agents | claims audited, word for word | rule breaches caught, receipts attached | per test call |
 
 </div>
 
-446 turns held with a live production agent. 449 claims audited word for word. 20 rule breaches caught, receipts attached. And at ₹5 a call, you don't test once before launch. **You test every time you touch the prompt.**
+505 turns held with live production agents. 531 claims audited word for word. 24 rule breaches caught, receipts attached. And at ₹5 a call, you don't test once before launch. **You test every time you touch the prompt.**
 
 ---
 

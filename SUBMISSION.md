@@ -51,7 +51,7 @@ And could any model have played Vikram? No. Another of our customers said this l
 
 Everything runs on real recorded calls with that production agent, and it is **live now at [crucible-app-five.vercel.app](https://crucible-app-five.vercel.app)**. Open it, play a call, read the evidence. No signup, no keys, nothing to install.
 
-Don't trust us? Good. That is the whole point of the product. Clone the repo and 544 checks verify our claims offline: no keys, no API calls, not one rupee spent. 14 more replay the customer's real call audio; those fixtures stay private, so that suite skips on a public clone and says why.
+Don't trust us? Good. That is the whole point of the product. Clone the repo and 548 checks verify our claims offline: no keys, no API calls, not one rupee spent. 14 more replay the customer's real call audio; those fixtures stay private, so that suite skips on a public clone and says why.
 
 ```
 git clone https://github.com/mohitpaddhariya/crucible && cd crucible && ./scripts/verify.sh
@@ -66,7 +66,7 @@ What you can do today:
 
 How it flows: **the call** (the only step that talks to the live agent) produces the transcripts and audio. **The judging** checks every claim against the rules the agent was given, every quote verified in code. **The report** shows what no single call can: patterns, repeats, blind spots. Judging and reporting re run free, so changing how you judge never costs another live call.
 
-446 turns held with a live production agent. 449 claims audited word for word. 20 rule breaches caught, receipts attached. And at ₹5 a call, you don't test once before launch. **You test every time you touch the prompt.**
+505 turns held with live production agents. 531 claims audited word for word. 24 rule breaches caught, receipts attached. And at ₹5 a call, you don't test once before launch. **You test every time you touch the prompt.**
 
 ## 3. Real traction
 
