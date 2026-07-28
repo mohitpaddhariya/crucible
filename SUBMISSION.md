@@ -2,13 +2,15 @@
 
 | | |
 |---|---|
-| Team | Crucible (Sarvam Epoch Buildathon, Top 15) |
+| Team | Ring Zero |
 | Repo | [github.com/mohitpaddhariya/crucible](https://github.com/mohitpaddhariya/crucible) |
 | Demo video | [youtu.be/W1nolOkbIxg](https://youtu.be/W1nolOkbIxg) |
 | Status | Working end to end in text and full voice against a live production agent |
 | Date | 28 July 2026 |
 
-Naming, once: **Crucible** is the product; `spar` is its CLI verb (`spar run`, `spar judge`, `spar report`).
+**Break your voice agent before your users do.**
+
+Naming, once: **Ring Zero** is the team, **Crucible** is the product, `spar` is its CLI verb (`spar run`, `spar judge`, `spar report`).
 
 ## Contents
 
@@ -52,7 +54,7 @@ Three surfaces, one pipeline, all running on real recorded conversations with a 
 
 | Surface | What it does |
 |---|---|
-| Landing plus dashboard | Replay every conversation turn by turn, play the call audio, read the said versus heard comparison, open the scored report |
+| Landing plus dashboard | Replay every conversation turn by turn, play the call audio, read the said versus heard comparison, open the scored report. Every finding deep links to its turn |
 | Persona studio | Drop a recorded customer call, get back an evaluation persona described in plain English |
 | Pipeline (CLI) | `spar run`, `spar judge`, `spar report`. Stages talk only through files, so judging and reporting re run for free |
 
