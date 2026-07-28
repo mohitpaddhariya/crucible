@@ -89,7 +89,11 @@ Nobody wrote that line. The persona file says two words: cheerful, relentless. T
 
 Everything runs on real recorded calls with that production agent. The one gap: it lives on our machines today. **Public URL by 29 July, before Epoch.** First in the build order, for that reason.
 
-Don't trust us? Good. That is the whole point of the product. Clone the repo and 557 checks verify our claims offline: no keys, no network, not one rupee spent.
+Don't trust us? Good. That is the whole point of the product. Clone the repo and 557 checks verify our claims offline: no keys, no API calls, not one rupee spent.
+
+```bash
+git clone https://github.com/mohitpaddhariya/crucible && cd crucible && ./scripts/verify.sh
+```
 
 What you can do today:
 
