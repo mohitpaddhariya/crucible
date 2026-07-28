@@ -1,5 +1,6 @@
 'use client';
 
+import { apiBase } from '../apiBase';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { AudioTurnMeta, Turn } from './types';
 import { EmptyState, TRANSCRIPT_TEXT, formatSeconds } from './ui';
@@ -43,7 +44,7 @@ export default function ConversationPlayer({
   turns,
   onActiveTurnChange,
   onReady,
-  audioBase = '/api/audio',
+  audioBase = `${apiBase()}/api/audio`,
   className = '',
 }: ConversationPlayerProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);

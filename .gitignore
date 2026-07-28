@@ -25,3 +25,6 @@ venv/
 
 # vercel deploy staging
 .deploy/
+
+# vercel link for the dashboard project
+web/.vercel/

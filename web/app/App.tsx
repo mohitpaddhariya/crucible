@@ -35,6 +35,7 @@ import {
   formatDate,
   humanise,
 } from './components';
+import { apiUrl } from './apiBase';
 import PersonaTabs, { type PersonaTab } from './components/PersonaTabs';
 
 type Step = 0 | 1 | 2 | 3;
@@ -229,7 +230,7 @@ export default function App() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch('/api/runs')
+    fetch(apiUrl('/api/runs'))
       .then((r) => r.json())
       .then((rs) => {
         if (cancelled) return;
@@ -253,7 +254,7 @@ export default function App() {
     let cancelled = false;
     setDetail(null);
     setLoading(true);
-    fetch(`/api/runs/${runId}`)
+    fetch(apiUrl(`/api/runs/${runId}`))
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then((d) => {
         if (cancelled) return;
