@@ -67,9 +67,11 @@ How it flows: **the call** (the only step that talks to the live agent) produces
 
 ### Who's actually using it?
 
-Honest answer: it is day 3, and here is exactly where we stand, because we would rather be verified than believed.
+Honest answer: it is day 3, and here is exactly where we stand, because we would rather be verified than believed. **Our first design partner is signed, and more teams are testing Crucible on their own agents right now.**
 
-**dinodial.ai is our first design partner.** The production agent we certified is live with real customers today. And we are our own first users: Crucible is going into our day to day agent work at Razorpay. Personal workflow, not a company endorsement, and still the strongest signal a dev tool can have. The builders reached for it first.
+**dinodial.ai is our first design partner.** The production agent we certified is live with real customers today.
+
+> **We are voice agent builders ourselves; Crucible is going into our own agent workflow at Razorpay.** Personal use by this team, not a company endorsement. And still the strongest signal a dev tool can have: the team that built it is its target user, and we reached for it first.
 
 How do we get to 25? The product answers that itself: it works on agents we did not build.
 
