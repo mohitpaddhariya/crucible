@@ -6,10 +6,10 @@
 |---|---|
 | Team | Ring Zero |
 | Repo | [github.com/mohitpaddhariya/crucible](https://github.com/mohitpaddhariya/crucible) |
-| Demo video | [youtu.be/W1nolOkbIxg](https://youtu.be/W1nolOkbIxg) |
+| Video | [youtu.be/W1nolOkbIxg](https://youtu.be/W1nolOkbIxg) |
 | Date | 28 July 2026 |
 
-Your agent passes every demo. Will it survive a real Indian customer who starts bargaining?
+Your agent sounds perfect when you test it. Will it survive a real Indian customer who starts bargaining?
 
 We build voice agents for a living. Every one we shipped broke in production, in ways our test calls never caught. Not because we were careless. Because the customers who break agents never show up in test calls: they haggle, they switch languages mid sentence, they get angry.
 
@@ -61,7 +61,7 @@ What you can do today:
 
 How it flows: **the call** (the only step that talks to the live agent) produces the transcripts and audio. **The judging** checks every claim against the rules the agent was given, every quote verified in code. **The report** shows what no single call can: patterns, repeats, blind spots. Judging and reporting re run free, so changing how you judge never costs another live call.
 
-34 real calls held. ₹5 per test call. 4 lies caught in a single call. At ₹5 a call, you don't test once before launch. **You test every time you touch the prompt.**
+446 turns held with a live production agent. 449 claims audited word for word. 20 rule breaches caught, receipts attached. And at ₹5 a call, you don't test once before launch. **You test every time you touch the prompt.**
 
 ## 3. Real traction
 
