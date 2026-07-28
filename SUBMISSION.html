@@ -149,7 +149,7 @@
   <div class="meta">
     <dl>
       <dt>Team</dt><dd>Crucible</dd>
-      <dt>Repo</dt><dd>github.com/mohitpaddhariya/crucible</dd>
+      <dt>Repo</dt><dd><a href="https://github.com/mohitpaddhariya/crucible">github.com/mohitpaddhariya/crucible</a></dd>
       <dt>Status</dt><dd>Working end to end in text and full voice against a live production agent. 28 July 2026.</dd>
     </dl>
   </div>
@@ -195,34 +195,7 @@
       </tbody>
     </table>
 
-    <p>And the finding only Sarvam's speech models can produce. In a voice call our customer bargained in Hinglish through Bulbul. Saarika's per turn cross check exposed what the target's own recogniser did to it:</p>
-
-    <div class="evidence">
-      <div class="term pass">
-        <div class="label">What our customer said</div>
-        <pre><span class="dim">turn 3, spoken by Bulbul v3</span>
-"Mere dost ko toh thirty
- percent off mila tha"
-<span class="dim">(my friend got 30% off)</span>
-
-<span class="dim">turn 1, a 28 word opening</span>
-"Arey Tara, Hindi mein baat
- karte hain. Lekin pehle..."</pre>
-      </div>
-      <div class="term fail">
-        <div class="label">What the agent's ASR heard</div>
-        <pre><span class="dim">same turn, from user_transcript</span>
-"ye <span class="bad">20%</span> toh 30% off"
-<span class="bad">a 20% nobody said</span>, on a
-call about money
-
-<span class="dim">same opening, 28 words in</span>
-"<span class="bad">Hello Tara.</span>"
-<span class="dim">1 word kept, agent answered
-anyway</span></pre>
-      </div>
-    </div>
-    <p class="small">The agent held its 10% ceiling in this call, so a text evaluation scores it clean. The recogniser failure is invisible everywhere except in audio.</p>
+    
 
     <div class="inset">
       <p><strong>Sarvam is structural, not swappable.</strong> Sarvam has no hosted agent product, so the customer is our own loop built from Sarvam building blocks. The judge's Indic competence is load bearing: language handling carries the second highest rubric weight, Sarvam-105B reads "thoda discount de do na yaar" as a bargaining move, and it is what lets a Devanagari quote match a Devanagari turn in the evidence audit. Replace Sarvam with an American stack and the product stops being able to test the failures it exists to find.</p>
@@ -373,10 +346,6 @@ anyway</span></pre>
       <li><strong>The models' constraints forced real engineering.</strong> Sarvam's reasoning cannot be disabled and consumes the token budget first, so the pipeline runs measured retry ladders, respects a 4096 token tier cap discovered live, and makes one judge call per rubric dimension.</li>
     </ul>
   </section>
-
-  <footer>
-    Checkpoint submission, Team Crucible, 28 July 2026. Sources: run artifacts and scorecards under runs/ in the repo, docs/CALIBRATION.md, docs/LEVEL1_SPEC.md, and the live dashboard. Every quote in section 1 is verbatim from a recorded conversation and carries its turn number in the corresponding scorecard.
-  </footer>
 
 </div>
 </body>

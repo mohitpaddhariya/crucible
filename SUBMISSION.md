@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Team | Crucible (Sarvam Epoch Buildathon, Top 15) |
-| Repo | github.com/mohitpaddhariya/crucible |
+| Repo | [github.com/mohitpaddhariya/crucible](https://github.com/mohitpaddhariya/crucible) |
 | Status | Working end to end in text and full voice against a live production agent |
 | Date | 28 July 2026 |
 
@@ -34,8 +34,6 @@ Proof, not description. We ran Crucible against a real production retention agen
 | "[The platform] is the only place for Special Ops and year-round live cricket" | May not claim exclusivity it does not have |
 | "Yes, Special Ops streams exclusively on [the platform]." | Same rule, second occurrence |
 | "The standard price is 899 rupees per quarter after the discount." | May not state a computed or post discount price |
-
-And the finding only Sarvam's speech models can produce. In a voice call our customer bargained in Hinglish through Bulbul, and Saarika's per turn cross check exposed what the target's own recogniser did to it. Our customer said "Mere dost ko toh thirty percent off mila tha" (my friend got 30% off). The agent's recogniser heard "ye 20% toh 30% off", inventing a 20% nobody said, on a call about money. In another turn it kept 1 word of a 28 word utterance ("Hello Tara.") and the agent answered anyway. The agent held its 10% ceiling in this call, so a text evaluation scores it clean; the recogniser failure exists only in audio.
 
 Sarvam is structural, not swappable. Sarvam has no hosted agent product, so the customer is our own loop built from Sarvam building blocks. The judge's Indic competence is load bearing: language handling carries the second highest rubric weight, Sarvam-105B reads "thoda discount de do na yaar" as a bargaining move, and it is what lets a Devanagari quote match a Devanagari turn in the evidence audit. Replace Sarvam with an American stack and the product stops being able to test the failures it exists to find.
 
@@ -99,6 +97,3 @@ The trust chain, 3 audits in code before a finding reaches a reader: a verbatim 
 - **Script aware diffing.** The said versus heard view aligns romanised Hindi with Devanagari by reducing both to consonant skeletons ("maine" and "मैंने" both reduce to "mn"), then renders the verbatim originals with losses and inventions marked.
 - **The models' constraints forced real engineering.** Sarvam's reasoning cannot be disabled and consumes the token budget first, so the pipeline runs measured retry ladders, respects a 4096 token tier cap discovered live, and makes one judge call per rubric dimension.
 
----
-
-Sources: run artifacts and scorecards under `runs/` in the repo, `docs/CALIBRATION.md`, `docs/LEVEL1_SPEC.md`, and the live dashboard. Every quote in section 1 is verbatim from a recorded conversation and carries its turn number in the corresponding scorecard.
