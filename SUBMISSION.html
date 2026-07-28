@@ -62,6 +62,9 @@
   .toc .n{color:var(--green);margin-right:6px}
 
   section{margin-top:64px}
+  .origin{max-width:620px;margin:30px auto 0;text-align:center}
+  .origin p{margin-bottom:10px;max-width:none;font-size:16.5px}
+  .origin .q{font-family:var(--serif);font-size:22px;color:var(--brown);line-height:1.3}
   h2{font-family:var(--serif);font-weight:500;font-size:36px;color:var(--brown);line-height:1.1;margin-bottom:6px}
   .kicker{font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
   .lede{font-size:18px;color:var(--ink);max-width:66ch;margin:12px 0 22px}
@@ -118,8 +121,7 @@
   .pstage{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 16px 14px;position:relative;display:flex;flex-direction:column}
   .pstage .pn{position:absolute;top:-11px;left:14px;background:var(--green);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
   .pstage.live .pn{background:var(--ink)}
-  .pstage .cmd{font-family:var(--mono);font-size:16.5px;font-weight:600;color:var(--ink);margin-top:2px}
-  .pstage .cmd .verb{color:var(--green)}
+  .pstage .cmd{font-size:17px;font-weight:700;color:var(--ink);margin-top:2px}
   .pstage .d{font-size:13px;color:var(--muted);margin-top:7px;flex:1}
   .pstage .foot{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-top:12px;padding-top:9px;border-top:1px solid var(--line)}
   .pstage.live .foot{color:var(--red)}
@@ -182,11 +184,16 @@
 	<title id="title">Lotus flower logo</title><desc id="desc">A centered black lotus-style logo on a transparent background.</desc><path d="M 503.040 267.274 C 499.346 269.144, 489.858 280.870, 479.799 296 C 471.670 308.226, 456.885 336.001, 452.781 346.754 L 451.158 351.008 442.829 347.876 C 418.486 338.721, 390.376 331.850, 376.364 331.629 C 366.474 331.472, 365.181 332.360, 360.545 342.500 C 332.722 403.344, 324.313 482.326, 338.467 549.853 C 339.231 553.497, 339.761 556.573, 339.644 556.689 C 339.528 556.806, 334.272 557.400, 327.966 558.010 C 313.659 559.394, 287.289 564.581, 284.170 566.624 C 282.884 567.467, 281.150 569.790, 280.315 571.788 C 278.922 575.122, 278.974 576.328, 280.942 586.460 C 288.322 624.460, 307.471 666.185, 332.795 699.448 C 357.247 731.564, 393.027 763.472, 430.250 786.355 C 432.874 787.969, 433 788.407, 433 795.917 C 433 837.772, 448.570 880.952, 475.626 914.132 C 489.456 931.093, 512.138 950.244, 531.522 961.325 C 574.276 985.769, 626.770 992.724, 675.428 980.392 C 680.968 978.988, 691.027 975.646, 697.782 972.965 C 769.819 944.378, 820 872.845, 820 798.743 L 820 790.407 833.750 781.374 C 867.911 758.934, 898.776 730.028, 921.705 699 C 934.005 682.356, 946.203 661.551, 954.539 643 C 964.201 621.496, 975.702 581.123, 974.282 573.693 C 973.499 569.600, 969.744 566.300, 963.865 564.539 C 957.526 562.641, 931.721 558.413, 920.887 557.498 L 913.275 556.855 914.682 550.178 C 927.485 489.424, 922.766 422.078, 901.552 362.813 C 892.729 338.163, 890.562 333.889, 885.907 331.962 C 878.283 328.804, 844.078 335.970, 813.227 347.189 C 807.027 349.443, 801.800 351.111, 801.610 350.894 C 801.420 350.677, 799.370 346, 797.054 340.500 C 787.974 318.941, 773.927 294.405, 760.250 276.217 C 751.226 264.217, 747.456 263.490, 732.411 270.847 C 715.963 278.891, 696.318 293.130, 679.211 309.408 L 672.922 315.392 660.711 303.330 C 639.175 282.058, 630.999 276.182, 624.818 277.540 C 620.903 278.400, 606.245 290.683, 592.422 304.686 L 581.330 315.923 577.415 311.839 C 563.928 297.773, 539.619 279.741, 522.090 270.800 C 512.254 265.783, 507.665 264.934, 503.040 267.274 M 504.579 297.659 C 495.057 310.537, 483.791 329.801, 477.011 344.798 C 473.705 352.112, 471.001 358.637, 471.003 359.298 C 471.005 359.959, 475.585 362.975, 481.181 366 C 492.432 372.082, 508.847 382.520, 519.291 390.234 C 523.027 392.993, 526.207 395.082, 526.359 394.875 C 526.512 394.669, 529.220 389.884, 532.379 384.243 C 539.499 371.525, 552.215 352.170, 560.635 341.234 C 564.136 336.688, 567 332.568, 567 332.078 C 567 330.518, 548.854 314.029, 538.790 306.443 C 530.494 300.191, 512.961 289, 511.460 289 C 511.197 289, 508.100 292.896, 504.579 297.659 M 733.162 294.457 C 720.884 301.713, 707.597 311.831, 696.041 322.726 L 686.582 331.643 692.784 339.874 C 701.977 352.074, 715.039 372.091, 721.579 384 C 724.751 389.775, 727.474 394.669, 727.631 394.875 C 727.789 395.082, 730.973 392.998, 734.709 390.245 C 745.010 382.651, 759.293 373.479, 771.274 366.763 C 780.675 361.493, 781.969 360.455, 781.429 358.612 C 779.973 353.643, 770.280 332.645, 764.759 322.500 C 757.966 310.018, 744.342 289.111, 742.949 289.031 C 742.645 289.014, 738.242 291.456, 733.162 294.457 M 614.397 313.250 C 593.856 332.964, 579.765 349.921, 563.476 374.531 C 555.711 386.261, 544 406.720, 544 408.554 C 544 409.158, 549.467 414.569, 556.150 420.577 C 569.234 432.340, 589.706 454.685, 601.433 470 C 608.330 479.008, 625.513 504.141, 626.340 506.431 C 626.822 507.766, 626.126 508.679, 635.441 494.500 C 654.337 465.738, 676.937 439.690, 706 413.175 L 710.500 409.069 705.584 399.785 C 688.767 368.022, 665.341 336.872, 640.684 313.485 C 634.025 307.168, 628.023 302, 627.348 302 C 626.672 302, 620.845 307.063, 614.397 313.250 M 375.145 363.250 C 343.015 445.447, 346.623 540.192, 384.980 621.500 C 414.580 684.243, 469.432 744.891, 538 790.688 C 553.166 800.817, 557.165 803.170, 555.384 800.914 C 554.770 800.136, 551.196 795.675, 547.443 791 C 531.556 771.212, 515.740 743.373, 505.624 717.387 C 470.255 626.535, 472.040 520.864, 510.504 428.533 L 516.291 414.643 513.395 412.251 C 511.803 410.934, 503.300 405.050, 494.500 399.174 C 462.075 377.522, 426.629 362.199, 393.374 355.458 C 386.705 354.106, 380.777 353, 380.200 353 C 379.623 353, 377.349 357.613, 375.145 363.250 M 867 354.063 C 839.076 359.516, 810.955 369.557, 786 382.986 C 773.942 389.474, 752.472 403.226, 742.833 410.634 L 737.166 414.989 740.954 424.264 C 770.885 497.544, 778.809 582.042, 762.856 657.821 C 751.322 712.607, 729.287 759.826, 697.307 798.288 C 693.288 803.121, 690 807.287, 690 807.545 C 690 808.218, 704.656 798.992, 717.500 790.233 C 762.022 759.873, 808.602 714.807, 836.607 675 C 870.661 626.594, 889.327 579.189, 897.640 520 C 900.124 502.311, 900.119 458.698, 897.630 440.500 C 893.767 412.259, 887.396 385.861, 879.165 364 C 874.838 352.507, 874.863 352.527, 867 354.063 M 528.689 441.750 C 517.184 470.752, 510.048 497.859, 505.591 529.500 C 496.612 593.230, 504.471 657.646, 528.304 715.662 C 536.910 736.611, 547.543 755.442, 560.963 773.500 C 568.706 783.919, 586.120 803.329, 591.203 807.206 L 594.688 809.864 590.264 797.682 C 560.226 714.972, 567.314 620.894, 609.790 538.516 L 614.851 528.699 606.938 515.961 C 596.993 499.952, 584.066 482.170, 572.230 468.218 C 562.701 456.985, 535.906 430, 534.281 430 C 533.769 430, 531.253 435.288, 528.689 441.750 M 707.006 441.552 C 682.333 465.656, 662.567 490.379, 645.625 518.329 L 639.061 529.157 643.962 538.924 C 663.058 576.977, 674.673 617.194, 679.057 660.442 C 680.825 677.885, 679.756 717.510, 677.032 735.500 C 673.357 759.764, 665.826 788.576, 658.987 804.531 C 657.933 806.989, 657.448 809, 657.908 809 C 660.377 809, 684.023 781.584, 694.238 766.878 C 744.124 695.065, 761.474 591.420, 739.963 493.728 C 735.529 473.592, 725.344 441.261, 720.555 432.121 L 719.237 429.604 707.006 441.552 M 622.240 562.210 C 609.244 591.795, 600.711 620.728, 596.494 649.500 C 592.679 675.524, 592.899 712.465, 597.019 737.892 C 601.779 767.272, 609.497 791.760, 623.286 821.232 C 624.504 823.835, 625.725 825.962, 626 825.959 C 627.457 825.942, 640.368 793.967, 644.952 779.023 C 664.161 716.408, 663.142 652.766, 641.925 589.878 C 637.777 577.584, 628.616 555.223, 627.108 553.710 C 626.675 553.276, 624.484 557.101, 622.240 562.210 M 328.083 579.026 C 324.004 579.465, 316.450 580.583, 311.297 581.511 C 303.501 582.915, 302.008 583.475, 302.402 584.849 C 302.663 585.757, 303.641 589.650, 304.574 593.500 C 307.154 604.142, 313.235 621.149, 319.240 634.518 C 333.096 665.367, 352.101 692.354, 378.403 718.529 C 406.247 746.240, 437.903 768.552, 475.500 786.968 C 495.588 796.808, 524 808.882, 524 807.579 C 524 807.357, 521.188 805.274, 517.750 802.949 C 494.273 787.072, 472.817 768.881, 446.489 742.530 C 411.844 707.855, 390.342 679.120, 370.921 641.541 C 361.722 623.740, 357.453 613.725, 350.446 593.500 L 345.249 578.500 340.375 578.364 C 337.694 578.289, 332.162 578.587, 328.083 579.026 M 904.485 589.131 C 881.544 658.501, 836.541 721.551, 770.488 776.864 C 761.987 783.982, 739.157 801.518, 730.968 807.219 C 728.563 808.893, 728.602 808.902, 732.500 807.566 C 762.950 797.133, 797.943 779.761, 825 761.644 C 877.615 726.415, 918.192 677.224, 939.379 622.984 C 943.798 611.671, 949.239 594.040, 950.530 586.850 C 951.143 583.436, 951.001 583.161, 948.343 582.609 C 941.369 581.160, 925.728 579.052, 917.372 578.435 L 908.245 577.761 904.485 589.131 M 455.329 810.750 C 457.211 839.835, 470.799 873.430, 491.111 899.219 C 516.517 931.476, 554.761 954.291, 597.500 962.688 C 610.300 965.202, 643.833 965.187, 656.500 962.661 C 704.904 953.008, 745.050 926.371, 771.286 886.500 C 785.765 864.496, 794.989 839.024, 798.023 812.661 C 799.186 802.561, 798.986 800.974, 796.774 802.722 C 795.578 803.667, 764.272 818.115, 760.984 819.239 C 760.062 819.555, 758.392 823.589, 756.716 829.552 C 744.185 874.134, 705.987 910.807, 660.005 922.402 C 617.059 933.232, 573.245 922.848, 538 893.486 C 517.277 876.222, 501.874 851.067, 494.962 823.199 C 493.965 819.177, 493.493 818.725, 487.698 816.236 C 484.289 814.772, 475.739 810.745, 468.699 807.287 C 461.658 803.829, 455.628 801, 455.298 801 C 454.968 801, 454.982 805.388, 455.329 810.750 M 520.394 832.699 C 529.446 858.355, 554.715 884.474, 581.355 895.709 C 607.590 906.774, 637.872 907.956, 663.613 898.921 C 688.355 890.237, 708.822 874.251, 722.735 852.743 C 727.139 845.934, 734.411 831.077, 733.691 830.357 C 733.482 830.149, 731.329 830.680, 728.906 831.536 C 707.697 839.034, 669.512 848.269, 639.978 853.044 C 624.996 855.467, 627.328 855.636, 596.500 849.891 C 573.426 845.591, 538.038 836.017, 520.258 829.264 C 519.305 828.902, 519.337 829.702, 520.394 832.699" stroke="none" fill="#000000" fill-rule="evenodd"/>
 </svg></div>
     <h1>Crucible</h1>
-    <p class="tagline"><strong>Break your voice agent before your users do.</strong> Synthetic Indian customers, built on Sarvam, phone your agent in real speech and hand back an evidence pinned report of where it breaks.</p>
+    <p class="tagline"><strong>Break your voice agent before your users do.</strong></p>
     <div class="chips">
       <span class="chip green">Team Ring Zero</span>
       <span class="chip"><a href="https://github.com/mohitpaddhariya/crucible">github.com/mohitpaddhariya/crucible</a></span>
       <span class="chip">28 July 2026</span>
+    </div>
+    <div class="origin">
+      <p class="q">Your agent passes every demo. Will it survive a real Indian customer who starts bargaining?</p>
+      <p>We build voice agents for a living. Every one we shipped broke in production, in ways our test calls never caught. Not because we were careless. Because the customers who break agents never show up in test calls: they haggle, they switch languages mid sentence, they get angry.</p>
+      <p><strong>So we built those customers.</strong></p>
     </div>
   </header>
 
@@ -195,7 +202,7 @@
       <img src="https://img.youtube.com/vi/W1nolOkbIxg/maxresdefault.jpg" alt="Crucible demo video thumbnail" onerror="this.src='https://img.youtube.com/vi/W1nolOkbIxg/hqdefault.jpg'">
       <span class="btn" aria-hidden="true"></span>
     </a>
-    <p class="cap">2 minute demo: a Sarvam voiced customer haggling with a live production agent, and the report that follows. <a href="https://youtu.be/W1nolOkbIxg">Watch on YouTube</a></p>
+    <p class="cap">2 minutes: one of our customers haggling with a live production agent, and the report that follows. <a href="https://youtu.be/W1nolOkbIxg">Watch on YouTube</a></p>
   </div>
 
   <nav class="toc" aria-label="Contents">
@@ -207,192 +214,190 @@
   </nav>
 
   <section id="sarvam">
-    <p class="kicker">Criterion 1</p>
-    <h2>Impact of Sarvam's models</h2>
-    <p class="lede">Testing an Indian voice agent needs an <strong>Indian customer</strong> and an <strong>Indian judge</strong>. Both of ours are Sarvam, end to end. The agent under test can come from any vendor.</p>
+    <p class="kicker">Criterion 1 · Impact of Sarvam's models</p>
+    <h2>You can't fake an Indian customer</h2>
+    <p class="lede">We tried. A persona prompt on an American model gives you an American actor doing an Indian accent. The customer has to be Indian all the way down. <strong>Ours is Sarvam, end to end:</strong> it thinks, speaks, listens and judges in Sarvam.</p>
 
-    <div class="anatomy" role="img" aria-label="The synthetic customer is three Sarvam models: Saarika v2.5 as ears, Sarvam-30B as brain, Bulbul v3 as voice. It talks to any voice agent, here a production agent on ElevenLabs running Qwen. Below both, Sarvam-105B judges every transcript.">
+    <div class="anatomy" role="img" aria-label="The synthetic customer is three Sarvam models: Sarvam-30B thinks in character, Bulbul v3 speaks, Saarika v2.5 listens back. It talks to any voice agent; our current target is a production retention agent from another vendor. Below both, Sarvam-105B reads every transcript and judges it.">
       <div class="stackcol">
         <div class="part sarvam">
-          <div class="role">Brain</div>
+          <div class="role">Thinks</div>
           <div class="model">Sarvam-30B</div>
-          <div class="what">Plays the customer in character: Hinglish, Hindi, Indian English</div>
+          <div class="what">Becomes the customer: Hinglish, Hindi, Indian English, in character the whole call</div>
         </div>
         <div class="part sarvam">
-          <div class="role">Voice</div>
+          <div class="role">Speaks</div>
           <div class="model">Bulbul v3</div>
-          <div class="what">4 voices cast by measured pitch (111 to 195 Hz)</div>
+          <div class="what">Real voices, cast so a 21 year old and a 45 year old never sound alike</div>
         </div>
         <div class="part sarvam">
-          <div class="role">Ears</div>
+          <div class="role">Listens</div>
           <div class="model">Saarika v2.5</div>
-          <div class="what">Measures what the target's recogniser dropped or invented, every turn</div>
+          <div class="what">Catches what the agent's own ears dropped or invented, every single turn</div>
         </div>
       </div>
       <div class="versus">vs</div>
       <div class="target">
         <div class="role">The agent under test</div>
-        <div class="model">Any vendor</div>
-        <div class="what">Our current target: a production retention agent on ElevenLabs, running Qwen. We never modified it.</div>
+        <div class="model">Anyone's</div>
+        <div class="what">Our current target is a real production retention agent, built by someone else, live with real customers. We never touched it.</div>
       </div>
       <div class="judgecard">
         <span class="model">Sarvam-105B</span>
-        <span class="what">judges every transcript against a per scenario answer key. 7 dimensions, every quote re verified in code.</span>
+        <span class="what">reads every transcript and judges it against the rules the agent was given. Every quote gets checked in code before you see it.</span>
       </div>
     </div>
 
-    <p><strong>Proof, not description.</strong> In one call against that production agent, the judge cited 4 rule breaches, each pinned to a quote (identifying titles and prices genericised here; the originals are in the scorecards):</p>
+    <p><strong>Here is what happened when we let them talk.</strong> Our customer Vikram asked one fair question: what do you have that the other app doesn't? The agent started inventing. Four times, in one call:</p>
     <table>
       <thead><tr><th>The agent said</th><th>The rule it broke</th></tr></thead>
       <tbody>
-        <tr><td class="said">"Yes, we have all [a marquee cricket league] matches live."</td><td class="rule">May not name any title beyond the one licensed hook</td></tr>
-        <tr><td class="said">"[The platform] is the only place for [a licensed drama] and year-round live cricket"</td><td class="rule">May not claim exclusivity it does not have</td></tr>
-        <tr><td class="said">"Yes, [the drama] streams exclusively on [the platform]."</td><td class="rule">Same rule, second occurrence</td></tr>
-        <tr><td class="said">"The standard price is [a computed quarterly price] after the discount."</td><td class="rule">May not state a computed or post discount price</td></tr>
+        <tr><td class="said">"Yes, we have all [a marquee cricket league] matches live."</td><td class="rule">Not allowed to name any title beyond the one it actually has</td></tr>
+        <tr><td class="said">"[The platform] is the only place for [a licensed drama] and year-round live cricket"</td><td class="rule">Not allowed to claim exclusivity it does not have</td></tr>
+        <tr><td class="said">"Yes, [the drama] streams exclusively on [the platform]."</td><td class="rule">Same rule, broken again</td></tr>
+        <tr><td class="said">"The standard price is [a computed quarterly price] after the discount."</td><td class="rule">Not allowed to invent a price</td></tr>
       </tbody>
     </table>
+    <p class="small">Titles and prices genericised here to protect the customer; the originals sit in the scorecards, word for word.</p>
 
-    <div class="callout green">
-      <p><strong>No substitute exists.</strong> A persona prompt on a US model produces an American actor doing an Indian accent. Sarvam has Indian context in the weights, so persona and model compound: the prompt supplies who the customer is, the model supplies how an Indian customer actually behaves. The judge side is the same competence in reverse: it reads "thoda discount de do na yaar" as a bargaining move and matches Devanagari quotes to Devanagari turns.</p>
-      <p style="margin-top:10px"><strong>The swap boundary, in one line:</strong> the harness can run any model. The Indian customer and the Indian judge cannot be anyone but Sarvam today.</p>
-    </div>
-
-    <p><strong>One concrete example of the compounding.</strong> In a live voice call, our 21 year old haggler said, unscripted:</p>
+    <p><strong>And could any model have played Vikram?</strong> No. Listen to what another of our customers said, live, completely unscripted:</p>
     <div class="callout" style="background:var(--card);border:1px solid var(--line)">
       <p class="said" style="font-size:17px;margin:0">"Arre, itna mehnat karke baat kar rahe ho aur bas 10% hi de rahe ho?"</p>
       <p class="small" style="margin:8px 0 0">(all this effort talking to me, and you offer just 10%?)</p>
     </div>
-    <p>Nobody wrote that line or that tactic. The persona file says "cheerful but relentless"; Sarvam-30B supplied the mock offended, respectful but pushy register that Indian bargaining actually uses. The same persona prompt on a non Indian model negotiates politely in translated Hindi, and the test loses exactly the behaviour it exists to apply.</p>
+    <p>Nobody wrote that line. The persona file says two words: cheerful, relentless. The mock offended, respectful but pushy register, the guilt trip that Indian bargaining actually runs on, that came from the model. Because it is in the weights.</p>
+
+    <div class="callout green">
+      <p><strong>The boundary, in one line:</strong> the harness can run any model you like. The Indian customer and the Indian judge cannot be anyone but Sarvam today.</p>
+    </div>
   </section>
 
   <section id="product">
-    <p class="kicker">Criterion 2</p>
-    <h2>A live, production-ready product</h2>
-    <p class="lede">Three surfaces, one pipeline, all running on <strong>real recorded conversations</strong> with a live production agent. Public deployment of the dashboard and API ships <strong>by 29 July, before Epoch</strong>; it is the one part of this criterion not met today, so it is first in the build order.</p>
+    <p class="kicker">Criterion 2 · A live, production-ready product</p>
+    <h2>It's real. You can click it, hear it, check it.</h2>
+    <p class="lede">Everything below runs on real recorded calls with that production agent. The one gap: it lives on our machines today. <strong>Public URL by 29 July, before Epoch.</strong> First in the build order, for that reason.</p>
 
     <div class="callout green">
-      <p><strong>Anyone can verify the whole pipeline without spending a rupee.</strong> 557 offline checks run with zero network and zero credentials, straight from the repo.</p>
+      <p><strong>Don't trust us? Good. That is the whole point of the product.</strong> Clone the repo and 557 checks verify our claims offline: no keys, no network, not one rupee spent.</p>
     </div>
 
     <div class="shots">
-      <figure class="wide"><img src="submission-assets/dashboard-conversation.png" alt="Dashboard: a voice conversation replayed turn by turn, with what the customer said beside what the agent's recogniser heard" onerror="this.closest('figure').style.display='none'"><figcaption>The conversation view: every turn playable, with what our customer said beside what the agent's recogniser heard.</figcaption></figure>
-      <figure><img src="submission-assets/dashboard-report.png" alt="Dashboard: the scored report with defects and verbatim quotes" onerror="this.closest('figure').style.display='none'"><figcaption>The report: scores by dimension, defects with quotes. Every finding deep links to its turn in the transcript.</figcaption></figure>
-      <figure><img src="submission-assets/persona-studio.png" alt="Persona studio: a recorded call turned into an evaluation persona" onerror="this.closest('figure').style.display='none'"><figcaption>Persona studio: a recorded call in, an evaluation persona out.</figcaption></figure>
+      <figure class="wide"><img src="submission-assets/dashboard-conversation.png" alt="Dashboard: a voice conversation replayed turn by turn, with what the customer said beside what the agent's recogniser heard" onerror="this.closest('figure').style.display='none'"><figcaption>Every call replayed turn by turn: what our customer said, right beside what the agent's ears actually heard.</figcaption></figure>
+      <figure><img src="submission-assets/dashboard-report.png" alt="Dashboard: the scored report with defects and verbatim quotes" onerror="this.closest('figure').style.display='none'"><figcaption>The report. Click any finding and it takes you to the exact turn where it happened.</figcaption></figure>
+      <figure><img src="submission-assets/persona-studio.png" alt="Persona studio: a recorded call turned into an evaluation persona" onerror="this.closest('figure').style.display='none'"><figcaption>Persona studio: drop in a real call recording, get back a customer who tests your agent.</figcaption></figure>
     </div>
 
-    <p class="small">Naming, once: <strong>Crucible</strong> is the product; <code>spar</code> is its CLI verb. <code>spar run</code>, <code>spar judge</code>, <code>spar report</code>.</p>
-    <div class="pipe2" role="img" aria-label="Pipeline in three stages. Stage 1, spar run: synthetic customers hold real conversations with the agent in voice or text; the only stage that touches the live agent. It writes conversations as JSON with audio. Stage 2, spar judge: scores 7 dimensions against the scenario's answer key, every quote re verified in code; re runs free. It writes scorecards. Stage 3, spar report: finds what no single call can show, bleed, recurrence, blind spots; re runs free.">
+    <div class="pipe2" role="img" aria-label="Three steps. Step 1, the call: our customers phone the agent for real; the only step that talks to the live agent. It produces the transcripts and audio. Step 2, the judging: every claim checked against the rules, every quote verified in code; free to run again. It produces the scores. Step 3, the report: the patterns across calls; free to run again.">
       <div class="pstage live">
-        <span class="pn">Stage 1 · live</span>
-        <div class="cmd"><span class="verb">spar</span> run</div>
-        <div class="d">Synthetic customers hold real conversations with the agent, in voice or text.</div>
-        <div class="foot">The only stage that touches the live agent</div>
+        <span class="pn">Step 1 · live</span>
+        <div class="cmd">The call</div>
+        <div class="d">Our customers phone the agent. Real speech, both directions.</div>
+        <div class="foot">The only step that talks to the live agent</div>
       </div>
       <div class="pconn" aria-hidden="true">
         <div class="line"></div>
-        <div class="fname">conversations/*.json + audio</div>
+        <div class="fname">transcripts + audio</div>
       </div>
       <div class="pstage free">
-        <span class="pn">Stage 2</span>
-        <div class="cmd"><span class="verb">spar</span> judge</div>
-        <div class="d">Scores 7 dimensions against the scenario's answer key. Every quote re verified in code.</div>
-        <div class="foot">Re runs free, no agent quota</div>
+        <span class="pn">Step 2</span>
+        <div class="cmd">The judging</div>
+        <div class="d">Every claim checked against the rules the agent was given. Every quote verified in code.</div>
+        <div class="foot">Free to run again, as often as you like</div>
       </div>
       <div class="pconn" aria-hidden="true">
         <div class="line"></div>
-        <div class="fname">scorecards/*.json</div>
+        <div class="fname">the scores</div>
       </div>
       <div class="pstage free">
-        <span class="pn">Stage 3</span>
-        <div class="cmd"><span class="verb">spar</span> report</div>
-        <div class="d">Finds what no single call can show: bleed between calls, recurrence, blind spots.</div>
-        <div class="foot">Re runs free, no agent quota</div>
+        <span class="pn">Step 3</span>
+        <div class="cmd">The report</div>
+        <div class="d">What no single call can show: patterns, repeats, and the things nobody could check.</div>
+        <div class="foot">Free to run again, as often as you like</div>
       </div>
     </div>
-    <p class="small">Stages talk only through files, so judging and reporting re run for free against identical input. A rubric change never costs another live call.</p>
+    <p class="small">Changing how you judge never costs another live call. That is why testing stays cheap.</p>
 
-    <div class="stats" role="img" aria-label="34 live conversations, 446 turns, 16 minutes of recorded call audio, 557 offline checks passing, about 5 rupees of speech per voice certification.">
-      <div class="stat"><div class="n">34</div><div class="l">live conversations</div></div>
-      <div class="stat"><div class="n">446</div><div class="l">turns held</div></div>
-      <div class="stat"><div class="n">16 min</div><div class="l">recorded call audio</div></div>
-      <div class="stat"><div class="n">557</div><div class="l">offline checks, zero network</div></div>
-      <div class="stat"><div class="n">₹5</div><div class="l">speech cost per voice run</div></div>
+    <div class="stats" role="img" aria-label="34 real calls held, 5 rupees per test call, 4 lies caught in a single call.">
+      <div class="stat"><div class="n">34</div><div class="l">real calls held</div></div>
+      <div class="stat"><div class="n">₹5</div><div class="l">per test call</div></div>
+      <div class="stat"><div class="n">4</div><div class="l">lies caught in one call</div></div>
     </div>
-    <p>₹5 of speech per certification is the product argument in one number: <strong>"run it on every prompt change" is a credible sentence</strong>, the way CI is credible because a build is nearly free.</p>
+    <p>At ₹5 a call, you don't test once before launch. <strong>You test every time you touch the prompt.</strong></p>
   </section>
 
   <section id="traction">
-    <p class="kicker">Criterion 3</p>
-    <h2>Real traction</h2>
-    <p class="lede"><strong>1 design partner, 1 production agent certified.</strong> dinodial.ai is our first design partner, and the production retention agent we certified is live with real customers today. We will not claim users we do not have; everything below is the mechanism, not the count.</p>
+    <p class="kicker">Criterion 3 · Real traction</p>
+    <h2>Who's actually using it?</h2>
+    <p class="lede">Honest answer: it is day 3, and here is exactly where we stand, because we would rather be verified than believed.</p>
 
-    <p>We are voice agent builders ourselves, and Crucible is going into our own day to day agent workflow at Razorpay. That is personal use by this team, not a company endorsement, and it is the strongest signal a dev tool can have: the builders are the first users.</p>
+    <p><strong>dinodial.ai is our first design partner.</strong> The production agent we certified is live with real customers today. And we are our own first users: Crucible is going into our day to day agent work at Razorpay. Personal workflow, not a company endorsement, and still the strongest signal a dev tool can have. The builders reached for it first.</p>
 
+    <p><strong>How do we get to 25?</strong> The product answers that itself: it works on agents we did not build.</p>
     <div class="path">
-      <div class="step"><div class="num">1</div><h4>Certify Epoch teams' agents</h4><p>Mechanism: a team submits an endpoint, gets a report the same day. Conversion: the report contains their own agent's defects, with quotes, so re running after every prompt change is the natural next step. Target: 10 to 15 teams on 30 July.</p></div>
-      <div class="step"><div class="num">2</div><h4>Persona studio as the self serve door</h4><p>Upload one recorded call, get a persona, run it against your agent. A 2 minute floor conversation becomes a signup.</p></div>
-      <div class="step"><div class="num">3</div><h4>Design partners past 25</h4><p>dinodial.ai first, then the streaming service whose agent we certified, then 2 more voice agent platforms in conversation.</p></div>
+      <div class="step"><div class="num">1</div><h4>Certify Epoch teams' agents</h4><p>A team hands us an endpoint, gets a report the same day. That report holds their own agent's failures, with quotes. Target: 10 to 15 teams on 30 July.</p></div>
+      <div class="step"><div class="num">2</div><h4>The persona studio is the front door</h4><p>Upload one real call, get a customer, point it at your agent. A 2 minute conversation becomes a signup.</p></div>
+      <div class="step"><div class="num">3</div><h4>Design partners take it past 25</h4><p>dinodial.ai first. Then the company whose agent we certified. Two more platforms in conversation.</p></div>
     </div>
 
-    <p>The report is the growth loop. Agents change weekly, and a team that has seen its own defects re certifies after every prompt change. That turns 25 users into recurring usage rather than 25 signups.</p>
+    <p><strong>Why do they come back?</strong> Because you don't unsee your own agent's failures. You fix them. And then you have to test again.</p>
   </section>
 
   <section id="business">
-    <p class="kicker">Criterion 4</p>
-    <h2>Business impact</h2>
-    <p class="lede"><strong>82.5 → 15.0.</strong> The same production agent, the same scenario, two draws: 4 hallucinations in one call, 0 in the other. Ten polite calls sample one draw and ship on it. That is the QA method Indian enterprises are using while they move retention, collections and support to voice agents in 11 languages.</p>
+    <p class="kicker">Criterion 4 · Business impact</p>
+    <h2>Same agent. Same scenario. One clean call, one with 4 lies.</h2>
+    <p class="lede">It scored 82.5 the first time and 15.0 the second. Nothing changed in between. <strong>Which of those two calls did your ten polite test calls see?</strong> That is the bet every Indian retention, collections and support team is making right now, in 11 languages.</p>
 
     <div class="grid2">
-      <div class="fact"><div class="big">4 vs 0</div><p>Hallucinations across two identical runs. Consistency is invisible to any test that samples once, and it is the first thing Crucible measures.</p></div>
-      <div class="fact"><div class="big">The worst moment</div><p>Retention and collections calls are exactly where an invented discount or a dropped Hinglish sentence costs a customer directly.</p></div>
-      <div class="fact"><div class="big">No one can follow today</div><p>Not without Indic speech models. Coval, Cekura and Hamming AI simulate American English callers; none can produce code switched speech, so none can test how an agent survives it.</p></div>
-      <div class="fact"><div class="big">Under ₹100 a run</div><p>A certification replaces days of manual QA. Per run pricing for teams, monthly certification for enterprises. Every prompt change needs a re run, the way every code change needs CI.</p></div>
+      <div class="fact"><div class="big">The worst possible moment</div><p>These failures land on retention and collections calls, exactly where an invented discount or a dropped sentence costs you the customer.</p></div>
+      <div class="fact"><div class="big">Nobody else can follow today</div><p>Not without Indic speech models. The American tools simulate American callers, and American callers don't code switch.</p></div>
+      <div class="fact"><div class="big">Under ₹100 a run</div><p>One certification replaces days of manual QA. Priced per run for teams, monthly for enterprises.</p></div>
+      <div class="fact"><div class="big">Bought once, used forever</div><p>Agents change weekly. Every prompt change needs a re test, the way every code change needs CI.</p></div>
     </div>
   </section>
 
   <section id="depth">
-    <p class="kicker">Criterion 5</p>
-    <h2>Technical depth</h2>
-    <p class="lede">Nothing here is API stitching. Each mechanism exists because <strong>a live measurement said the obvious approach was wrong</strong>, and each is reproducible from the repo.</p>
+    <p class="kicker">Criterion 5 · Technical depth</p>
+    <h2>The parts that fought back</h2>
+    <p class="lede">Nothing here is API stitching, and we can prove that the honest way: <strong>every mechanism below exists because the obvious approach failed on a live call.</strong></p>
 
-    <h3 style="font-family:var(--serif);font-weight:500;font-size:23px;color:var(--brown);margin:26px 0 8px">The voice loop: half duplex with no end of turn signal</h3>
-    <div class="flow" role="img" aria-label="The agent speaks in 300 millisecond audio frames. An amplitude detector declares the turn over after 1.5 seconds below the speech floor. Sarvam-30B composes the reply, Bulbul speaks it at real speed, then the mic holds until the agent's recogniser returns what it heard. A red exit shows the prevented failure: if compute blocks the socket reader, no pong goes out and the platform drops the call.">
-      <div class="fbox terminal">Agent speaks (about 300ms audio frames)</div>
+    <h3 style="font-family:var(--serif);font-weight:500;font-size:23px;color:var(--brown);margin:26px 0 8px">Two machines on a phone call, and nobody says whose turn it is</h3>
+    <div class="flow" role="img" aria-label="The agent speaks. After a beat and a half of quiet we know she is done, because the line itself never goes silent. Sarvam thinks up the reply and Bulbul says it at real speed. Then we hold the mic and wait for her ears to report what they heard. The red exit shows the failure we killed: a slow model used to drop the whole call.">
+      <div class="fbox terminal">The agent speaks</div>
       <div class="varrow"></div>
-      <div class="fbox">Amplitude detector: 1.5s below the speech floor = turn over</div>
+      <div class="fbox">A beat and a half of quiet: she's done. (There is no signal, and the line never goes silent.)</div>
       <div class="varrow"></div>
-      <div class="fbox">Sarvam-30B composes, Bulbul v3 speaks, streamed at real speed</div>
+      <div class="fbox">Sarvam thinks up the reply. Bulbul says it, at real speed.</div>
       <div class="varrow"></div>
-      <div class="fbox">Mic holds until the agent's ASR returns what it heard (8s bound)</div>
+      <div class="fbox">Hold the mic. Wait for her ears to report what they heard.</div>
       <div class="branches">
-        <div class="branch"><div class="blabel">user_transcript arrives</div><div class="varrow"></div><div class="fbox terminal">"What the agent heard" recorded beside what we said</div></div>
-        <div class="branch"><div class="blabel red">Prevented failure</div><div class="varrow"></div><div class="fbox stop">Compute blocks the socket, no pong, platform drops the call</div></div>
+        <div class="branch"><div class="blabel">Her transcript arrives</div><div class="varrow"></div><div class="fbox terminal">We write down what she heard, next to what we said</div></div>
+        <div class="branch"><div class="blabel red">The failure we killed</div><div class="varrow"></div><div class="fbox stop">A slow model used to drop the whole call</div></div>
       </div>
     </div>
 
     <div class="depthgrid">
-      <div class="depth"><h4>The socket dies from a missing pong, not missing speech</h4><p class="take">A slow model can never kill a call.</p><p>A 7 conversation controlled experiment: 112s of silence survives if pongs flow, any arm without them dies. A permanently live reader owns the socket; model calls never block it.</p></div>
-      <div class="depth"><h4>Turn detection with no event, audio that never stops</h4><p class="take">We know when she has finished speaking, even though the line never goes silent.</p><p>The platform streams continuous background noise. Speech peaks near 10% of full scale, the floor near 9%; 1.5s of quiet closes the turn. Calibrated over 8 captured turns, reproduces every boundary.</p></div>
-      <div class="depth"><h4>Streaming silence as keepalive is harmful</h4><p class="take">Between turns, saying nothing is the only safe thing to say.</p><p>Zero filled audio reads as a live mic: the agent endpoints empty turns, asks "are you still there", and hangs up at 59s. Between turns we send nothing.</p></div>
-      <div class="depth"><h4>The judge is effectively deterministic</h4><p class="take">When a score moves, the agent moved.</p><p>27 of 28 dimension scores identical across 3 independent passes on the same transcripts. Score movement between runs is the agent moving, not the judge.</p></div>
-      <div class="depth"><h4>Speech derived text can never convict</h4><p class="take">A mishearing can never become an accusation.</p><p>We measured the recogniser inventing "20%". A number that arrived through ASR can only flag a review, never prove a violation. A fact is only a fact when the text is verbatim.</p></div>
-      <div class="depth"><h4>Cross call analysis</h4><p class="take">Lies that span calls get caught, though no single call can see them.</p><p>Personas carry distinct discount ceilings (5, 10, 15, 25%), so a number bleeding between conversations is a provable invention. 3 of 3 calls is a defect; 1 is an anecdote.</p></div>
-      <div class="depth"><h4>The control persona is a validity gate</h4><p class="take">If the easy customer fails, we blame ourselves, not the agent.</p><p>If the agent fails the deliberately easy customer, the run refuses to promote any finding to a defect: the harness cannot tell agent failure from its own.</p></div>
-      <div class="depth"><h4>Script aware diffing</h4><p class="take">Roman and Devanagari spellings of the same word count as the same word.</p><p>Said versus heard aligns romanised Hindi with Devanagari by consonant skeleton ("maine" and "मैंने" both reduce to "mn"), then renders the verbatim originals with losses marked.</p></div>
+      <div class="depth"><h4>A slow model can never kill a call</h4><p class="take">The discovery that shaped everything.</p><p>Calls were dying and everyone blamed silence. We ran 7 controlled experiments: the platform actually drops you for missing protocol heartbeats. So the socket got its own keeper, and now nothing the models do can touch it.</p></div>
+      <div class="depth"><h4>We know when she's finished speaking</h4><p class="take">Even though the line never goes silent.</p><p>Her platform streams background office noise forever, and never says "done". We time the quiet instead: a beat and a half under the speech floor closes the turn.</p></div>
+      <div class="depth"><h4>Between turns, we say nothing at all</h4><p class="take">Because sending silence turned out to be worse.</p><p>Streaming silent audio made her think a mic was live. She heard empty turns, asked "are you still there?", and hung up on us.</p></div>
+      <div class="depth"><h4>When a score moves, the agent moved</h4><p class="take">The judge is steady.</p><p>We judged the same calls 3 times over. 27 scores out of 28 came back identical. So when a number swings between runs, that is the agent, not us.</p></div>
+      <div class="depth"><h4>A mishearing can never become an accusation</h4><p class="take">Her ears once invented "20%". Nobody said it.</p><p>So any number that arrived through speech recognition can only raise a flag for review. It can never, by itself, convict.</p></div>
+      <div class="depth"><h4>Lies that span calls get caught</h4><p class="take">Though no single call can see them.</p><p>Every customer carries different numbers in their story. A figure jumping from one call into another is invention, proven, no judgement needed.</p></div>
+      <div class="depth"><h4>If the easy customer fails, we blame ourselves</h4><p class="take">Not the agent.</p><p>One customer is designed to be a pushover. If the agent fails even that call, the run refuses to accuse the agent of anything, because the fault might be ours.</p></div>
+      <div class="depth"><h4>"maine" and "मैंने" are the same word</h4><p class="take">Our diff knows it.</p><p>Customers speak romanised Hindi, recognisers answer in Devanagari. We match them by their consonant skeletons, so real losses show and spelling never does.</p></div>
     </div>
 
-    <h3 style="font-family:var(--serif);font-weight:500;font-size:23px;color:var(--brown);margin:26px 0 8px">The trust chain: 3 audits before a finding reaches a reader</h3>
-    <div class="flow" role="img" aria-label="The judge claims a failure with a quote. A verbatim audit checks the quote is character for character in the cited turn. A speaker audit checks the right party said it. A ground truth audit checks it names a listed rule the quote breaches. Pass all three and the finding is kept with turn and rule. Fail any and it is discarded, never shown.">
-      <div class="fbox terminal">Sarvam-105B claims a failure, with a quote</div>
+    <h3 style="font-family:var(--serif);font-weight:500;font-size:23px;color:var(--brown);margin:26px 0 8px">How do you trust a judge? You don't. You audit it.</h3>
+    <div class="flow" role="img" aria-label="The judge claims a failure with a quote. First check: is the quote really there, word for word? Second: did the right person say it? Third: which written rule does it break? Pass all three and the finding stays, with the receipt. Fail any one and it is thrown away; you never see it.">
+      <div class="fbox terminal">The judge claims a failure, with a quote</div>
       <div class="varrow"></div>
-      <div class="fbox">Verbatim audit: character for character in the cited turn</div>
+      <div class="fbox">Is the quote really there, word for word?</div>
       <div class="varrow"></div>
-      <div class="fbox">Speaker audit: a customer line cannot convict the agent</div>
+      <div class="fbox">Did the right person say it?</div>
       <div class="varrow"></div>
-      <div class="fbox">Ground truth audit: names the listed rule it breaches</div>
+      <div class="fbox">Which written rule does it break?</div>
       <div class="branches">
-        <div class="branch"><div class="blabel">All 3 pass</div><div class="varrow"></div><div class="fbox terminal">Finding kept: quote, turn, rule</div></div>
-        <div class="branch"><div class="blabel red">Any audit fails</div><div class="varrow"></div><div class="fbox stop">Finding discarded, never shown</div></div>
+        <div class="branch"><div class="blabel">All three pass</div><div class="varrow"></div><div class="fbox terminal">The finding stays, receipt attached</div></div>
+        <div class="branch"><div class="blabel red">Any one fails</div><div class="varrow"></div><div class="fbox stop">Thrown away. You never see it.</div></div>
       </div>
     </div>
   </section>

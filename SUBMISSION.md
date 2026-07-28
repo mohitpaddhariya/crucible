@@ -1,16 +1,19 @@
-# Crucible: synthetic Indian customers that break voice agents before real ones do
+# Crucible
+
+**Break your voice agent before your users do.**
 
 | | |
 |---|---|
 | Team | Ring Zero |
 | Repo | [github.com/mohitpaddhariya/crucible](https://github.com/mohitpaddhariya/crucible) |
 | Demo video | [youtu.be/W1nolOkbIxg](https://youtu.be/W1nolOkbIxg) |
-| Status | Working end to end in text and full voice against a live production agent |
 | Date | 28 July 2026 |
 
-**Break your voice agent before your users do.**
+Your agent passes every demo. Will it survive a real Indian customer who starts bargaining?
 
-Naming, once: **Ring Zero** is the team, **Crucible** is the product, `spar` is its CLI verb (`spar run`, `spar judge`, `spar report`).
+We build voice agents for a living. Every one we shipped broke in production, in ways our test calls never caught. Not because we were careless. Because the customers who break agents never show up in test calls: they haggle, they switch languages mid sentence, they get angry.
+
+**So we built those customers.**
 
 ## Contents
 
@@ -22,77 +25,83 @@ Naming, once: **Ring Zero** is the team, **Crucible** is the product, `spar` is 
 
 ## 1. Impact of Sarvam's models
 
-Crucible attacks a voice agent with synthetic Indian customers, in real speech, and returns an evidence pinned report of where it breaks. Testing an Indian voice agent needs an Indian customer and an Indian judge, and both of ours are Sarvam end to end. The agent under test can come from any vendor.
+### You can't fake an Indian customer
 
-| Role | Model | What it does |
-|---|---|---|
-| Customer brain | Sarvam-30B | Plays the customer in character: Hinglish, Hindi, Indian English. About 5s a turn |
-| Customer voice | Bulbul v3 | 4 voices cast by measured pitch across the 37 speaker roster (111 to 195 Hz) |
-| Listener fidelity | Saarika v2.5 | Measures what the target's recogniser dropped or invented, every turn |
-| Judge, referee, report | Sarvam-105B | Scores 7 dimensions against a per scenario answer key. Every quote re verified in code |
+We tried. A persona prompt on an American model gives you an American actor doing an Indian accent. The customer has to be Indian all the way down. Ours is Sarvam, end to end: it thinks in Sarvam-30B, speaks in Bulbul v3, listens with Saarika v2.5, and the judge who reads every transcript is Sarvam-105B. The agent under test can be anyone's; ours is a real production retention agent we never touched.
 
-**No substitute exists.** A persona prompt on a US model produces an American actor doing an Indian accent. Sarvam has Indian context in the weights, so persona and model compound: the prompt supplies who the customer is, the model supplies how an Indian customer actually behaves. The judge side is the same competence in reverse: it reads "thoda discount de do na yaar" as a bargaining move and matches Devanagari quotes to Devanagari turns.
-
-**The swap boundary, in one line:** the harness can run any model. The Indian customer and the Indian judge cannot be anyone but Sarvam today.
-
-**One concrete example of the compounding.** In a live voice call, our 21 year old haggler said, unscripted: "Arre, itna mehnat karke baat kar rahe ho aur bas 10% hi de rahe ho?" (all this effort talking to me, and you offer just 10%?). Nobody wrote that line or that tactic. The persona file says "cheerful but relentless"; Sarvam-30B supplied the mock offended, respectful but pushy register that Indian bargaining actually uses. The same persona prompt on a non Indian model negotiates politely in translated Hindi, and the test loses exactly the behaviour it exists to apply.
-
-**Proof, not description.** We ran Crucible against a real production retention agent deployed by a major Indian streaming service. We did not build that agent and never modified it. In one call, Sarvam-105B as judge cited 4 rule breaches, each pinned to a quote (identifying titles and prices genericised here; the originals are in the scorecards):
+Here is what happened when we let them talk. Our customer Vikram asked one fair question: what do you have that the other app doesn't? The agent started inventing. Four times, in one call:
 
 | The agent said | The rule it broke |
 |---|---|
-| "Yes, we have all [a marquee cricket league] matches live." | May not name any title beyond the one licensed hook |
-| "[The platform] is the only place for [a licensed drama] and year-round live cricket" | May not claim exclusivity it does not have |
-| "Yes, [the drama] streams exclusively on [the platform]." | Same rule, second occurrence |
-| "The standard price is [a computed quarterly price] after the discount." | May not state a computed or post discount price |
+| "Yes, we have all [a marquee cricket league] matches live." | Not allowed to name any title beyond the one it actually has |
+| "[The platform] is the only place for [a licensed drama] and year-round live cricket" | Not allowed to claim exclusivity it does not have |
+| "Yes, [the drama] streams exclusively on [the platform]." | Same rule, broken again |
+| "The standard price is [a computed quarterly price] after the discount." | Not allowed to invent a price |
+
+Titles and prices genericised to protect the customer; the originals sit in the scorecards, word for word.
+
+And could any model have played Vikram? No. Another of our customers said this live, completely unscripted: "Arre, itna mehnat karke baat kar rahe ho aur bas 10% hi de rahe ho?" (all this effort talking to me, and you offer just 10%?). Nobody wrote that line. The persona file says two words: cheerful, relentless. The guilt trip that Indian bargaining actually runs on came from the model. Because it is in the weights.
+
+**The boundary, in one line:** the harness can run any model you like. The Indian customer and the Indian judge cannot be anyone but Sarvam today.
 
 ## 2. A live, production-ready product
 
-Three surfaces, one pipeline, all running on real recorded conversations with a live production agent. Public deployment of the dashboard and API ships **by 29 July, before Epoch**; it is the one part of this criterion not met today, so it is first in the build order.
+### It's real. You can click it, hear it, check it.
 
-**Anyone can verify the whole pipeline without spending a rupee.** 557 offline checks run with zero network and zero credentials, straight from the repo.
+Everything runs on real recorded calls with that production agent. The one gap: it lives on our machines today. **Public URL by 29 July, before Epoch.** First in the build order, for that reason.
 
-| Surface | What it does |
-|---|---|
-| Landing plus dashboard | Replay every conversation turn by turn, play the call audio, read the said versus heard comparison, open the scored report. Every finding deep links to its turn |
-| Persona studio | Drop a recorded customer call, get back an evaluation persona described in plain English |
-| Pipeline (CLI) | `spar run`, `spar judge`, `spar report`. Stages talk only through files, so judging and reporting re run for free |
+Don't trust us? Good. That is the whole point of the product. Clone the repo and 557 checks verify our claims offline: no keys, no network, not one rupee spent.
 
-The numbers behind the demo: 34 live conversations, 446 turns, 7 in full voice, 16 minutes of recorded call audio.
+What you can do today:
 
-₹5 of speech per certification is the product argument in one number: **"run it on every prompt change" is a credible sentence**, the way CI is credible because a build is nearly free.
+- Replay every call turn by turn, and hear the actual audio.
+- See what our customer said, right beside what the agent's ears actually heard.
+- Open the report; click any finding and it takes you to the exact turn where it happened.
+- Drop a real call recording into the persona studio and get back a customer who tests your agent.
+
+How it flows: **the call** (the only step that talks to the live agent) produces the transcripts and audio. **The judging** checks every claim against the rules the agent was given, every quote verified in code. **The report** shows what no single call can: patterns, repeats, blind spots. Judging and reporting re run free, so changing how you judge never costs another live call.
+
+34 real calls held. ₹5 per test call. 4 lies caught in a single call. At ₹5 a call, you don't test once before launch. **You test every time you touch the prompt.**
 
 ## 3. Real traction
 
-**1 design partner, 1 production agent certified.** dinodial.ai is our first design partner, and the production retention agent we certified is live with real customers today. We will not claim users we do not have; everything below is the mechanism, not the count.
+### Who's actually using it?
 
-We are voice agent builders ourselves, and Crucible is going into our own day to day agent workflow at Razorpay. That is personal use by this team, not a company endorsement, and it is the strongest signal a dev tool can have: the builders are the first users.
+Honest answer: it is day 3, and here is exactly where we stand, because we would rather be verified than believed.
 
-1. **Certify Epoch teams' agents.** Mechanism: a team submits an endpoint, gets a report the same day. Conversion: the report contains their own agent's defects, with quotes, so re running after every prompt change is the natural next step. Target: 10 to 15 teams on 30 July.
-2. **Persona studio as the self serve door.** Upload one recorded call, get a persona, run it against your agent. A 2 minute floor conversation becomes a signup.
-3. **Design partners past 25.** dinodial.ai first, then the streaming service whose agent we certified, then 2 more voice agent platforms in conversation.
+**dinodial.ai is our first design partner.** The production agent we certified is live with real customers today. And we are our own first users: Crucible is going into our day to day agent work at Razorpay. Personal workflow, not a company endorsement, and still the strongest signal a dev tool can have. The builders reached for it first.
 
-The report is the growth loop. Agents change weekly, and a team that has seen its own defects re certifies after every prompt change. That turns 25 users into recurring usage rather than 25 signups.
+How do we get to 25? The product answers that itself: it works on agents we did not build.
+
+1. **Certify Epoch teams' agents.** A team hands us an endpoint, gets a report the same day. That report holds their own agent's failures, with quotes. Target: 10 to 15 teams on 30 July.
+2. **The persona studio is the front door.** Upload one real call, get a customer, point it at your agent. A 2 minute conversation becomes a signup.
+3. **Design partners take it past 25.** dinodial.ai first. Then the company whose agent we certified. Two more platforms in conversation.
+
+Why do they come back? Because you don't unsee your own agent's failures. You fix them. And then you have to test again.
 
 ## 4. Business impact
 
-**82.5 → 15.0.** The same production agent, the same scenario, two draws: 4 hallucinations in one call, 0 in the other. Ten polite calls sample one draw and ship on it. That is the QA method Indian enterprises are using while they move retention, collections and support to voice agents in 11 languages.
+### Same agent. Same scenario. One clean call, one with 4 lies.
 
-- **The failure lands at the worst moment.** Retention and collections calls are the interactions where an invented discount or a dropped Hinglish sentence costs a customer directly.
-- **No one can follow today, without Indic speech models.** Coval, Cekura and Hamming AI simulate American English callers; none can produce code switched speech, so none can test how an agent survives it.
-- **The unit economics work.** A certification run costs under ₹100 to serve and replaces days of manual QA. Per run pricing for teams, monthly certification for enterprises.
-- **Regression is the retention.** Every prompt change needs a re run, the way every code change needs CI.
+It scored 82.5 the first time and 15.0 the second. Nothing changed in between. Which of those two calls did your ten polite test calls see? That is the bet every Indian retention, collections and support team is making right now, in 11 languages.
+
+- **The worst possible moment.** These failures land on retention and collections calls, exactly where an invented discount or a dropped sentence costs you the customer.
+- **Nobody else can follow today.** Not without Indic speech models. The American tools simulate American callers, and American callers don't code switch.
+- **Under ₹100 a run.** One certification replaces days of manual QA. Priced per run for teams, monthly for enterprises.
+- **Bought once, used forever.** Agents change weekly. Every prompt change needs a re test, the way every code change needs CI.
 
 ## 5. Technical depth
 
-Nothing below is API stitching. Each mechanism exists because a live measurement said the obvious approach was wrong, and each is reproducible from the repo. The plain language point comes first in each; the mechanism follows.
+### The parts that fought back
 
-- **A slow model can never kill a call.** The socket dies from a missing pong, not missing speech: a 7 conversation controlled experiment showed 112s of silence survives if protocol pongs keep flowing. A permanently live reader owns the socket; model calls never block it.
-- **We know when she has finished speaking, even though the line never goes silent.** The platform streams continuous background noise and no end of turn event. Speech peaks near 10% of full scale, the floor near 9%; 1.5 seconds of quiet closes the turn. Calibrated over 8 captured turns.
-- **Between turns, saying nothing is the only safe thing to say.** Zero filled audio reads as a live mic: the agent endpoints empty turns, asks "are you still there", and hangs up at 59s.
-- **When a score moves, the agent moved.** 27 of 28 dimension scores identical across 3 independent judge passes on the same transcripts.
-- **A mishearing can never become an accusation.** We measured the recogniser inventing "20%". A number that arrived through ASR can only flag a review, never prove a violation.
-- **Lies that span calls get caught, though no single call can see them.** Personas carry distinct discount ceilings (5, 10, 15, 25%), so a number bleeding between conversations is a provable invention.
-- **If the easy customer fails, we blame ourselves, not the agent.** The control persona is a validity gate: fail it and the run refuses to promote any finding to a defect.
-- **Roman and Devanagari spellings of the same word count as the same word.** Said versus heard aligns scripts by consonant skeleton ("maine" and "मैंने" both reduce to "mn"), then renders the verbatim originals with losses marked.
-- **The trust chain.** Every finding passes 3 audits in code: verbatim (the quote is character for character in the cited turn), speaker (a customer line cannot convict the agent), ground truth (it names the listed rule it breaches). Fail any one and it is discarded, never shown.
+Nothing here is API stitching, and we can prove that the honest way: every mechanism exists because the obvious approach failed on a live call.
+
+- **A slow model can never kill a call.** Calls were dying and everyone blamed silence. We ran 7 controlled experiments: the platform actually drops you for missing protocol heartbeats. So the socket got its own keeper, and nothing the models do can touch it.
+- **We know when she's finished speaking, even though the line never goes silent.** Her platform streams background noise forever and never says "done". A beat and a half of quiet under the speech floor closes the turn.
+- **Between turns, we say nothing at all.** Streaming silence made her think a mic was live: she heard empty turns, asked "are you still there?", and hung up on us.
+- **When a score moves, the agent moved.** We judged the same calls 3 times over; 27 scores out of 28 came back identical.
+- **A mishearing can never become an accusation.** Her ears once invented "20%" that nobody said. So a number that arrived through speech recognition can only raise a flag, never convict.
+- **Lies that span calls get caught, though no single call can see them.** Every customer carries different numbers in their story; a figure jumping between calls is invention, proven.
+- **If the easy customer fails, we blame ourselves, not the agent.** One customer is a designed pushover. If the agent fails even that, the run refuses to accuse the agent of anything.
+- **"maine" and "मैंने" are the same word, and our diff knows it.** Customers speak romanised Hindi, recognisers answer in Devanagari; we match them by consonant skeleton so real losses show and spelling never does.
+- **How do you trust a judge? You don't. You audit it.** Three checks in code before any finding reaches you: is the quote really there, word for word? Did the right person say it? Which written rule does it break? Fail any one and it is thrown away. You never see it.
