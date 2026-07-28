@@ -51,7 +51,7 @@ And could any model have played Vikram? No. Another of our customers said this l
 
 Everything runs on real recorded calls with that production agent. The one gap: it lives on our machines today. **Public URL by 29 July, before Epoch.** First in the build order, for that reason.
 
-Don't trust us? Good. That is the whole point of the product. Clone the repo and 557 checks verify our claims offline: no keys, no API calls, not one rupee spent.
+Don't trust us? Good. That is the whole point of the product. Clone the repo and 544 checks verify our claims offline: no keys, no API calls, not one rupee spent. 14 more replay the customer's real call audio; those fixtures stay private, so that suite skips on a public clone and says why.
 
 ```
 git clone https://github.com/mohitpaddhariya/crucible && cd crucible && ./scripts/verify.sh
