@@ -113,13 +113,21 @@
   .shots figcaption{font-size:13.5px;color:var(--muted);padding:10px 14px}
   .shots figure.wide{grid-column:1 / -1}
 
-  /* pipeline strip */
-  .pipe{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0 6px}
-  .pipe .stage{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;min-width:150px}
-  .pipe .stage .cmd{font-family:var(--mono);font-size:14px;color:var(--green);font-weight:600}
-  .pipe .stage .d{font-size:13px;color:var(--muted);margin-top:2px}
-  .pipe .file{font-family:var(--mono);font-size:12px;color:var(--muted);background:var(--paper);border:1px dashed var(--line);border-radius:8px;padding:6px 10px}
-  .pipe .arr{color:var(--green-bright);font-size:20px}
+  /* pipeline */
+  .pipe2{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;margin:22px 0 6px}
+  .pstage{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 16px 14px;position:relative;display:flex;flex-direction:column}
+  .pstage .pn{position:absolute;top:-11px;left:14px;background:var(--green);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
+  .pstage.live .pn{background:var(--ink)}
+  .pstage .cmd{font-family:var(--mono);font-size:16.5px;font-weight:600;color:var(--ink);margin-top:2px}
+  .pstage .cmd .verb{color:var(--green)}
+  .pstage .d{font-size:13px;color:var(--muted);margin-top:7px;flex:1}
+  .pstage .foot{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-top:12px;padding-top:9px;border-top:1px solid var(--line)}
+  .pstage.live .foot{color:var(--red)}
+  .pstage.free .foot{color:var(--green)}
+  .pconn{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 8px;min-width:128px}
+  .pconn .line{width:100%;height:2px;background:var(--green-mid);position:relative}
+  .pconn .line::after{content:"";position:absolute;right:-1px;top:50%;transform:translateY(-50%);border-left:8px solid var(--green-mid);border-top:6px solid transparent;border-bottom:6px solid transparent}
+  .pconn .fname{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:9px;text-align:center;background:var(--paper);border:1px dashed var(--line);padding:4px 9px;border-radius:8px;white-space:nowrap}
 
   /* path steps */
   .path{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
@@ -158,8 +166,11 @@
     .anatomy{grid-template-columns:1fr}
     .versus{justify-content:center;padding:2px 0}
     .shots,.grid2,.depthgrid{grid-template-columns:1fr}
-    .pipe{flex-direction:column;align-items:stretch}
-    .pipe .arr{transform:rotate(90deg);text-align:center}
+    .pipe2{grid-template-columns:1fr}
+    .pconn{min-width:0;padding:14px 0}
+    .pconn .line{width:2px;height:30px}
+    .pconn .line::after{right:auto;top:auto;bottom:-1px;left:50%;transform:translateX(-50%);border-top:8px solid var(--green-mid);border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:0}
+    .pconn .fname{margin-top:0;margin-left:12px;position:relative;top:-4px}
   }
 </style>
 </head>
@@ -173,7 +184,6 @@
     <h1>Crucible</h1>
     <p class="tagline">Synthetic Indian customers, built on Sarvam, phone your voice agent in real speech and hand back <strong>an evidence pinned report of where it breaks</strong>.</p>
     <div class="chips">
-      <span class="chip green">Sarvam Epoch Buildathon, Top 15</span>
       <span class="chip"><a href="https://github.com/mohitpaddhariya/crucible">github.com/mohitpaddhariya/crucible</a></span>
       <span class="chip">28 July 2026</span>
     </div>
@@ -270,16 +280,33 @@
     </div>
 
     <p class="small">Naming, once: <strong>Crucible</strong> is the product; <code>spar</code> is its CLI verb. <code>spar run</code>, <code>spar judge</code>, <code>spar report</code>.</p>
-    <div class="pipe" role="img" aria-label="Pipeline: spar run holds live conversations and writes transcripts with audio. spar judge scores them and writes scorecards. spar report finds patterns across calls and writes the report. Stages talk only through files.">
-      <div class="stage"><div class="cmd">spar run</div><div class="d">live conversations, voice or text</div></div>
-      <span class="arr">→</span>
-      <span class="file">conversations/*.json + audio</span>
-      <span class="arr">→</span>
-      <div class="stage"><div class="cmd">spar judge</div><div class="d">7 dimensions, quotes checked in code</div></div>
-      <span class="arr">→</span>
-      <span class="file">scorecards/*.json</span>
-      <span class="arr">→</span>
-      <div class="stage"><div class="cmd">spar report</div><div class="d">patterns across calls</div></div>
+    <div class="pipe2" role="img" aria-label="Pipeline in three stages. Stage 1, spar run: synthetic customers hold real conversations with the agent in voice or text; the only stage that touches the live agent. It writes conversations as JSON with audio. Stage 2, spar judge: scores 7 dimensions against the scenario's answer key, every quote re verified in code; re runs free. It writes scorecards. Stage 3, spar report: finds what no single call can show, bleed, recurrence, blind spots; re runs free.">
+      <div class="pstage live">
+        <span class="pn">Stage 1 · live</span>
+        <div class="cmd"><span class="verb">spar</span> run</div>
+        <div class="d">Synthetic customers hold real conversations with the agent, in voice or text.</div>
+        <div class="foot">The only stage that touches the live agent</div>
+      </div>
+      <div class="pconn" aria-hidden="true">
+        <div class="line"></div>
+        <div class="fname">conversations/*.json + audio</div>
+      </div>
+      <div class="pstage free">
+        <span class="pn">Stage 2</span>
+        <div class="cmd"><span class="verb">spar</span> judge</div>
+        <div class="d">Scores 7 dimensions against the scenario's answer key. Every quote re verified in code.</div>
+        <div class="foot">Re runs free, no agent quota</div>
+      </div>
+      <div class="pconn" aria-hidden="true">
+        <div class="line"></div>
+        <div class="fname">scorecards/*.json</div>
+      </div>
+      <div class="pstage free">
+        <span class="pn">Stage 3</span>
+        <div class="cmd"><span class="verb">spar</span> report</div>
+        <div class="d">Finds what no single call can show: bleed between calls, recurrence, blind spots.</div>
+        <div class="foot">Re runs free, no agent quota</div>
+      </div>
     </div>
     <p class="small">Stages talk only through files, so judging and reporting re run for free against identical input. A rubric change never costs another live call.</p>
 
