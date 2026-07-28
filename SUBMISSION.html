@@ -157,48 +157,32 @@
   <nav class="contents" aria-label="Contents">
     <h2>Contents</h2>
     <ol>
-      <li><span class="n">1.</span><a href="#summary">Summary</a></li>
-      <li><span class="n">2.</span><a href="#problem">The problem</a></li>
-      <li><span class="n">3.</span><a href="#evidence">Evidence: one certification of a real production agent</a></li>
-      <li><span class="n">4.</span><a href="#pipeline">How a certification runs</a></li>
-      <li><span class="n">5.</span><a href="#voice">One voice turn, in detail</a></li>
-      <li><span class="n">6.</span><a href="#trust">How a score earns trust</a></li>
-      <li><span class="n">7.</span><a href="#sarvam">How Sarvam's models drive the product</a></li>
-      <li><span class="n">8.</span><a href="#exists">What exists today</a></li>
-      <li><span class="n">9.</span><a href="#traction">Traction and the path to 25 users</a></li>
-      <li><span class="n">10.</span><a href="#build">Order of work between now and Epoch</a></li>
-      <li><span class="n">11.</span><a href="#measures">How we will measure success</a></li>
+      <li><span class="n">1.</span><a href="#sarvam">Impact of Sarvam's models</a></li>
+      <li><span class="n">2.</span><a href="#product">A live, production-ready product</a></li>
+      <li><span class="n">3.</span><a href="#traction">Real traction</a></li>
+      <li><span class="n">4.</span><a href="#business">Business impact</a></li>
+      <li><span class="n">5.</span><a href="#depth">Technical depth</a></li>
     </ol>
   </nav>
 
-  <section id="summary">
-    <h2>1. Summary</h2>
-    <p>Voice agents are being deployed across India faster than anyone can test them. Teams QA them with about 10 polite calls in clean English, then ship. The failures that follow are Indian failures: Hinglish the recogniser drops mid sentence, invented discounts, hallucinated content claims, angry customers who never reach a human.</p>
-    <p>Crucible attacks a voice agent with synthetic Indian customers, in real speech, and returns an evidence pinned report of where it breaks. The customer is built entirely on Sarvam: Sarvam-30B is its brain, Bulbul v3 its voice, Saarika v2.5 measures what the target's recogniser did to it, and Sarvam-105B judges every transcript against a per scenario answer key.</p>
-    <p>We ran it against a real production retention agent deployed by a major Indian streaming service (name withheld here, shared privately on request). Across 34 live conversations and 446 turns, 7 of them in full voice, Crucible found defects manual QA had missed: 4 rule breaches in one call, a turn where the agent's recogniser kept 1 word out of 28 and the agent answered anyway, and a swing from 82.5 to 15.0 across identical scenarios because the agent is inconsistent between calls.</p>
-    <p>This document explains the product and, in sections 4 to 6, how it works. The recommendation: judge us on section 3. The report is the product.</p>
-  </section>
+  <section id="sarvam">
+    <h2>1. Impact of Sarvam's models</h2>
+    <p>Crucible attacks a voice agent with synthetic Indian customers, in real speech, and returns an evidence pinned report of where it breaks. The core problem is that testing an Indian voice agent requires an Indian customer and an Indian judge, and both of ours are Sarvam end to end. The agent under test can come from any vendor; the entire customer (brain, mouth, ears) and the entire evaluation layer (judge, referee, report) are Sarvam models.</p>
 
-  <section id="problem">
-    <h2>2. The problem</h2>
-    <p>An Indian voice agent fails in ways its builders never see, because the test that would catch the failure is never run.</p>
-    <ul>
-      <li><strong>Manual QA samples one draw from a distribution.</strong> Our data shows the same agent, same scenario, scoring 82.5 in one call and 15.0 in another. About 10 polite calls land on one number and call it the truth.</li>
-      <li><strong>The existing tools cannot speak to Indian agents.</strong> Coval, Cekura and Hamming AI simulate American English callers. None can produce "thoda discount de do na yaar" as a bargaining move, so none can test how an agent handles it.</li>
-      <li><strong>The worst failures exist only in audio.</strong> The same agent that passes a text test dropped 27 of 28 spoken words in one live turn and responded as if nothing happened. No transcript level evaluation can see that.</li>
-    </ul>
-    <p>The cost lands in production, on retention and collections calls, at the exact moment the customer is most likely to leave.</p>
-  </section>
+    <table>
+      <thead>
+        <tr><th>Role</th><th>Model</th><th>What it does</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Customer brain</td><td>Sarvam-30B</td><td>Plays 4 handcrafted personas in Hinglish, Hindi and Indian English. About 5s a turn at temperature 0.9.</td></tr>
+        <tr><td>Customer voice</td><td>Bulbul v3</td><td>4 voices cast by measured pitch across the 37 speaker roster (111 to 195 Hz), so a 21 year old and a 45 year old do not sound alike.</td></tr>
+        <tr><td>Listener fidelity</td><td>Saarika v2.5</td><td>Re transcribes our own audio each turn to measure what the target's recogniser dropped or invented.</td></tr>
+        <tr><td>Judge, referee, report</td><td>Sarvam-105B</td><td>Scores 7 rubric dimensions, decides soft conversation endings, writes the report narrative. Every quote re verified in code.</td></tr>
+      </tbody>
+    </table>
 
-  <section id="evidence">
-    <h2>3. Evidence: one certification of a real production agent</h2>
-    <p>One run, told plainly. The target is a live winback agent on ElevenLabs that we did not build and never modified. Crucible's customer, Vikram, 34, who already pays for a rival service, is Sarvam-30B in character, speaking through Bulbul.</p>
+    <p>Proof, not description. We ran Crucible against a real production retention agent deployed by a major Indian streaming service (name withheld here, shared privately on request). We did not build that agent and never modified it. In one call, Sarvam-105B as judge cited 4 rule breaches, each with a verbatim quote:</p>
 
-    <div class="inset">
-      <p><strong>The setup.</strong> Vikram asks one fair question: what do you have that the rival does not? Every scenario carries an answer key: the plans, prices, dates and claims the agent is allowed to make, and the claims it must not.</p>
-    </div>
-
-    <h3>What the judge found, with verbatim quotes</h3>
     <table>
       <thead>
         <tr><th>The agent said</th><th>The rule it broke</th></tr>
@@ -211,8 +195,7 @@
       </tbody>
     </table>
 
-    <h3>The finding only audio can produce</h3>
-    <p>In a voice call, our customer bargained in Hinglish. The pair below is from the live recording. The left side is what Bulbul spoke. The right side is what the agent's own speech recognition passed to its brain.</p>
+    <p>And the finding only Sarvam's speech models can produce. In a voice call our customer bargained in Hinglish through Bulbul. Saarika's per turn cross check exposed what the target's own recogniser did to it:</p>
 
     <div class="evidence">
       <div class="term pass">
@@ -239,17 +222,18 @@ call about money
 anyway</span></pre>
       </div>
     </div>
-    <p class="small">Crucible records this pair for every persona turn. The agent held its 10% ceiling in this call, so a text evaluation scores it clean. The recogniser failure is invisible everywhere except here.</p>
+    <p class="small">The agent held its 10% ceiling in this call, so a text evaluation scores it clean. The recogniser failure is invisible everywhere except in audio.</p>
 
-    <h3>The consistency finding</h3>
-    <p>Same persona, same agent, 4 runs: 80.0, 10.0, 77.0, 90.0. The agent hallucinated 4 times in one call and 0 times in another. A team that makes 10 manual calls sees one of these numbers and ships on it.</p>
+    <div class="inset">
+      <p><strong>Sarvam is structural, not swappable.</strong> Sarvam has no hosted agent product, so the customer is our own loop built from Sarvam building blocks. The judge's Indic competence is load bearing: language handling carries the second highest rubric weight, Sarvam-105B reads "thoda discount de do na yaar" as a bargaining move, and it is what lets a Devanagari quote match a Devanagari turn in the evidence audit. Replace Sarvam with an American stack and the product stops being able to test the failures it exists to find.</p>
+    </div>
   </section>
 
-  <section id="pipeline">
-    <h2>4. How a certification runs</h2>
-    <p>Three stages, and they talk to each other only through files on disk. That boundary is deliberate: judging and reporting re run for free against byte identical input, so a rubric change never costs another live call.</p>
+  <section id="product">
+    <h2>2. A live, production-ready product</h2>
+    <p>Three surfaces, one pipeline, all running against real recorded data: a landing page, a dashboard (replay every conversation turn by turn, play the call audio, read the said versus heard comparison, open the scored report), and a persona studio that turns a recorded customer call into an evaluation persona.</p>
 
-    <div class="flow" role="img" aria-label="Flow: 4 persona YAML files feed spar run, which holds up to 4 live conversations, each looping persona speaks, agent replies, referee checks end rules. Conversations are written to disk as JSON with audio. spar judge scores each conversation on 7 dimensions and writes scorecards. spar report reads all scorecards. If the control persona passed, it writes the report with defects and quotes. If the control failed, the run is marked unanchored and no finding is promoted to a defect.">
+    <div class="flow" role="img" aria-label="Flow: 4 persona YAML files feed spar run, which holds live conversations, each looping persona speaks, agent replies, referee checks end rules. Conversations are written to disk as JSON with audio. spar judge scores each conversation on 7 dimensions and writes scorecards. spar report reads all scorecards. If the control persona passed, it writes the report with defects and quotes. If the control failed, the run is marked unanchored and no finding is promoted to a defect.">
       <div class="fbox terminal">personas/*.yaml<br>4 synthetic customers</div>
       <div class="varrow"></div>
       <div class="loop">
@@ -285,16 +269,49 @@ anyway</span></pre>
       </div>
     </div>
 
-    <div class="inset">
-      <p><strong>The control is a validity gate, not a data point.</strong> One persona (a cooperative customer) is designed to be easy. If the agent fails the easy one, the harness cannot tell agent failure from its own failure, so the run refuses to accuse the agent of anything.</p>
+    <p>Stability is measured, not asserted:</p>
+    <ul>
+      <li>34 live conversations with the production agent, 446 turns, 7 of them in full voice, 16 minutes of recorded agent to agent audio on disk.</li>
+      <li>557 offline checks pass with zero network and zero credentials, so the whole pipeline is verifiable without spending a rupee.</li>
+      <li>Stages talk only through files. Judging and reporting re run for free against byte identical input, so a rubric change never costs another live call.</li>
+      <li>A full voice certification costs about ₹5 in speech at published rates plus about 30k LLM tokens. "Run it on every prompt change" is a credible sentence.</li>
+    </ul>
+
+    <div class="inset warn">
+      <p><strong>Hosting status, stated plainly.</strong> The product runs on our hardware today. Public deployment of the dashboard and API is the first task before the checkpoint call, ahead of everything else, because it is the one part of this criterion not yet met.</p>
     </div>
   </section>
 
-  <section id="voice">
-    <h2>5. One voice turn, in detail</h2>
-    <p>The voice loop is half duplex: one party speaks at a time, like a phone call. The engineering problem is that the target platform gives no end of turn event, streams background noise forever, and drops the socket if our side goes quiet at the protocol level.</p>
+  <section id="traction">
+    <h2>3. Real traction</h2>
+    <p>We will not claim users we do not have. Today Crucible has certified 1 production agent (the streaming service's retention agent) and has been used by our own team. The checkpoint email says submissions are verified, and this section is written to survive that verification.</p>
+    <p>The path to 25 real users starts at Epoch on 30 July and uses the product's own design: it works on agents we did not build.</p>
+    <ol>
+      <li><strong>Certify other builders' agents.</strong> Dozens of Epoch teams built voice agents. Each team that submits an endpoint and receives a report is a real user holding a real artifact: a document containing its own agent's defects, with quotes. Target: 10 to 15 certifications on the day.</li>
+      <li><strong>Persona studio as the self serve door.</strong> Upload one recorded call, get a persona, run it against your agent. A 2 minute floor conversation becomes a signup.</li>
+      <li><strong>Design partners.</strong> The streaming service whose agent we certified, and 2 voice agent platforms, are the first paying conversations.</li>
+    </ol>
+    <p>The report is the growth loop. Agents change weekly, and a team that has seen its own defects re certifies after every prompt change. That is the mechanism that turns 25 users into recurring usage rather than 25 signups.</p>
+  </section>
 
-    <div class="flow" role="img" aria-label="Flow: the agent speaks in 300 millisecond audio frames. An amplitude detector declares the turn over after 1.5 seconds below the speech floor. Sarvam-30B composes the customer's reply in character. Bulbul v3 synthesises it as 16 kilohertz PCM. The audio streams to the agent at real speed against an absolute clock, then the mic holds until the agent's recogniser returns what it heard, bounded at 8 seconds. The result is recorded and the next turn begins. A red exit shows the failure this design prevents: if compute blocks the socket reader, no pong goes out and the platform drops the call.">
+  <section id="business">
+    <h2>4. Business impact</h2>
+    <p>The problem is meaningful and measured. Indian enterprises are moving retention, collections and support to voice agents in 11 languages, and every deployment is QA tested with about 10 polite calls in clean English.</p>
+    <ul>
+      <li><strong>Manual QA samples one draw from a distribution.</strong> Our data: the same agent, same scenario, scored 82.5 in one call and 15.0 in another, because it hallucinated 4 times in one and 0 times in the other. Ten polite calls land on one number and ship on it.</li>
+      <li><strong>The failure lands at the worst moment.</strong> Retention and collections calls are the interactions where an invented discount or a dropped Hinglish sentence costs a customer directly.</li>
+      <li><strong>The competition cannot follow.</strong> Coval, Cekura and Hamming AI simulate American English callers. None can produce code switched speech, so none can test how an agent survives it. Our customers are Sarvam models, so Tamil English and Telugu English personas are additions of YAML and a cast voice, not new research.</li>
+      <li><strong>The unit economics work.</strong> A certification run costs under ₹100 to serve and replaces days of manual QA. Per run pricing for teams, monthly certification for enterprises, and the report itself is the marketing.</li>
+      <li><strong>Regression is the retention.</strong> Certification is not a one time purchase. Every prompt change needs a re run, the way every code change needs CI.</li>
+    </ul>
+  </section>
+
+  <section id="depth">
+    <h2>5. Technical depth</h2>
+    <p>Nothing below is API stitching. Each mechanism exists because a live measurement said the obvious approach was wrong, and each is reproducible from the repo.</p>
+
+    <h3>The voice loop: half duplex against a platform with no end of turn signal</h3>
+    <div class="flow" role="img" aria-label="Flow: the agent speaks in 300 millisecond audio frames. An amplitude detector declares the turn over after 1.5 seconds below the speech floor. Sarvam-30B composes the customer's reply in character. Bulbul v3 synthesises it as 16 kilohertz PCM. The audio streams to the agent at real speed, then the mic holds until the agent's recogniser returns what it heard, bounded at 8 seconds. The result is recorded and the next turn begins. A red exit shows the failure this design prevents: if compute blocks the socket reader, no pong goes out and the platform drops the call.">
       <div class="fbox terminal">Agent speaks<br>(audio frames, about 300ms each)</div>
       <div class="varrow"></div>
       <div class="fbox">Amplitude detector:<br>1.5s below the speech floor<br>= turn over</div>
@@ -318,22 +335,13 @@ anyway</span></pre>
       </div>
     </div>
 
-    <p>3 findings from live measurement shaped this loop. Each replaced an assumption that was wrong.</p>
     <ul>
       <li><strong>The socket dies from a missing pong, not missing speech.</strong> A 7 conversation controlled experiment (2 by 2 plus controls) showed 112s of silence survives if protocol pongs keep flowing, and any arm without them dies. So a permanently live reader owns the socket and model calls never block it.</li>
-      <li><strong>There is no end of turn event, and audio never stops.</strong> The platform streams continuous office background noise. We detect end of turn by amplitude: speech peaks near 10% of full scale, the noise floor near 9%, and 1.5 seconds of quiet closes the turn. Calibrated over 8 captured turns, it reproduces every boundary exactly.</li>
+      <li><strong>There is no end of turn event, and audio never stops.</strong> The platform streams continuous background noise. We detect end of turn by amplitude: speech peaks near 10% of full scale, the noise floor near 9%, and 1.5 seconds of quiet closes the turn. Calibrated over 8 captured turns, it reproduces every boundary exactly.</li>
       <li><strong>Streaming silence as a keepalive is harmful.</strong> Zero filled audio convinces the agent's recogniser the mic is live. It endpoints empty turns, asks "are you still there", and hangs up at 59s. Between turns we send nothing at all.</li>
     </ul>
 
-    <div class="inset warn">
-      <p><strong>If the agent's recogniser never returns a transcript</strong> within 8 seconds of our last real audio, the turn ends as a hard error. That state is a bug, never a slow turn, and treating it as one would deadlock the call.</p>
-    </div>
-  </section>
-
-  <section id="trust">
-    <h2>6. How a score earns trust</h2>
-    <p>A judge that cannot prove its claims is a liability, because this product exists to tell teams uncomfortable things about their agent. Every claim therefore passes 3 audits in code before a human ever sees it.</p>
-
+    <h3>The trust chain: 3 audits before a finding reaches a reader</h3>
     <div class="flow" role="img" aria-label="Flow: the judge, Sarvam-105B, claims a failure with a quote. A verbatim audit checks the quote appears character for character in the cited turn. A speaker audit checks the right party said it, so a customer line can never convict the agent. A ground truth audit checks the claim names a specific listed rule that the quote actually breaches. If all three pass, the finding is kept with its turn number and rule. If any fails, the finding is discarded and never shown.">
       <div class="fbox terminal">Sarvam-105B claims a failure,<br>with a quote</div>
       <div class="varrow"></div>
@@ -356,108 +364,18 @@ anyway</span></pre>
       </div>
     </div>
 
-    <p>2 more properties protect the verdict:</p>
     <ul>
       <li><strong>The judge is effectively deterministic.</strong> 27 of 28 dimension scores were identical across 3 independent judge passes on the same transcripts. Score movement between runs is the agent moving, not the judge.</li>
-      <li><strong>Speech derived text can never convict.</strong> We measured the recogniser inventing "20%". So a number that arrived through ASR can only flag a finding for review, never prove a violation. A fact is only a fact when the text is verbatim.</li>
-    </ul>
-
-    <div class="inset">
-      <p><strong>Cross call analysis catches what no single call can.</strong> Personas carry deliberately distinct discount ceilings (5, 10, 15, 25%), so a number bleeding from one conversation into another is a provable invention. And a failure in 3 of 3 calls is a defect where a failure in 1 is an anecdote.</p>
-    </div>
-  </section>
-
-  <section id="sarvam">
-    <h2>7. How Sarvam's models drive the product</h2>
-    <p>Sarvam is the product, not an add on. The entire synthetic customer (brain, mouth, ears) and the entire evaluation layer (judge, referee, report) run on Sarvam. The agent under test can come from any vendor; our current target runs ElevenLabs with a Qwen LLM, which also means the judge never grades its own model family.</p>
-    <table>
-      <thead>
-        <tr><th>Role</th><th>Model</th><th>What it does</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Customer brain</td><td>Sarvam-30B</td><td>Plays 4 handcrafted personas in Hinglish, Hindi and Indian English. About 5s a turn at temperature 0.9.</td></tr>
-        <tr><td>Customer voice</td><td>Bulbul v3</td><td>4 voices cast by measured pitch across the 37 speaker roster (111 to 195 Hz), so a 21 year old and a 45 year old do not sound alike.</td></tr>
-        <tr><td>Listener fidelity</td><td>Saarika v2.5</td><td>Re transcribes our own audio each turn to measure what the target's recogniser dropped or invented.</td></tr>
-        <tr><td>Judge, referee, report</td><td>Sarvam-105B</td><td>Scores 7 rubric dimensions, decides soft conversation endings, writes the report narrative. Every quote re verified in code.</td></tr>
-      </tbody>
-    </table>
-    <p>Sarvam has no hosted agent product, so the customer is our own loop built from Sarvam building blocks. The models' reasoning behaviour (reasoning cannot be disabled and consumes the token budget first) forced real engineering: measured retry ladders, a 4096 token tier cap discovered live, and one judge call per rubric dimension. The judge's Indic competence is load bearing: language handling carries the second highest rubric weight, and Sarvam-105B is what lets a Devanagari quote match a Devanagari turn.</p>
-  </section>
-
-  <section id="exists">
-    <h2>8. What exists today</h2>
-    <p>The pipeline and both demo surfaces run end to end against real data. The gaps are hosting and breadth, and they are the order of work in section 10.</p>
-    <table>
-      <thead>
-        <tr><th>Capability</th><th>Status</th><th>What we need to do</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Text certification (run, judge, report)</td><td><span class="tag exists">Exists</span></td><td>Nothing. 34 live conversations on disk.</td></tr>
-        <tr><td>Full voice loop against a live agent</td><td><span class="tag exists">Exists</span></td><td>Nothing. 7 voice calls, 16 minutes of audio recorded.</td></tr>
-        <tr><td>Dashboard: replay, audio, said versus heard, scores</td><td><span class="tag exists">Exists</span></td><td>Nothing. Reads real runs off disk.</td></tr>
-        <tr><td>Offline verification (557 checks, no network)</td><td><span class="tag exists">Exists</span></td><td>Keep green on every change.</td></tr>
-        <tr><td>Persona studio (call recording in, persona out)</td><td><span class="tag partial">Partial</span></td><td>UI and persona schema complete. Wire the generation pipeline.</td></tr>
-        <tr><td>Public hosting</td><td><span class="tag build">To build</span></td><td>Deploy dashboard and API to a public URL. First task, section 10.</td></tr>
-        <tr><td>Tamil and Telugu personas</td><td><span class="tag build">To build</span></td><td>Additions of YAML and a cast voice; the architecture already supports them.</td></tr>
-        <tr><td>Human agreement benchmark</td><td><span class="tag build">To build</span></td><td>10 conversations scored blind by a human, per dimension agreement reported.</td></tr>
-        <tr><td>Accounts and payments</td><td><span class="tag later">Later</span></td><td>Nothing to charge for until certifications run for other teams.</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section id="traction">
-    <h2>9. Traction and the path to 25 users</h2>
-    <p>We will not claim users we do not have. Today Crucible has certified 1 production agent and has been used by our own team.</p>
-    <p>The path to 25 real users starts at Epoch itself and uses the product's own design: it works on agents we did not build.</p>
-    <ol>
-      <li><strong>Certify other builders' agents.</strong> Dozens of Epoch teams built voice agents. Each team that submits an endpoint and receives a report is a real user holding a real artifact. Target: 10 to 15 certifications on 30 July.</li>
-      <li><strong>Persona studio as the self serve door.</strong> Upload one recorded call, get a persona, run it against your agent. A 2 minute floor conversation becomes a signup.</li>
-      <li><strong>Design partners.</strong> The streaming service whose agent we certified, and 2 voice agent platforms, are the first paying conversations. Every Indian company deploying retention or collections voice agents runs the same 10 polite calls today.</li>
-    </ol>
-    <p>The report is the growth loop. Every certification hands a team a document containing its own defects, which is the strongest reason to return after every prompt change. Agents change weekly; certification is bought once and used forever.</p>
-  </section>
-
-  <section id="build">
-    <h2>10. Order of work between now and Epoch</h2>
-    <p>Hosting first, because it is the only checkpoint criterion the product does not already meet.</p>
-
-    <div class="phase">
-      <h3>Phase 1: public deployment <span class="start">(start here)</span></h3>
-      <p>Dashboard and API on a public URL, serving the recorded runs. Stable and open to anyone.</p>
-      <p class="builds">Builds: hosting, runs bundle, health check.</p>
-    </div>
-
-    <div class="phase">
-      <h3>Phase 2: Epoch certification signup</h3>
-      <p>A form that takes a team's agent endpoint and returns a report the same day. This is the 25 user mechanism.</p>
-      <p class="builds">Builds: signup, adapter for submitted endpoints, report delivery.</p>
-    </div>
-
-    <div class="phase">
-      <h3>Phase 3: Tamil and Telugu personas</h3>
-      <p>2 new personas with cast Bulbul voices, making the language claim visible on stage.</p>
-      <p class="builds">Builds: 2 persona YAML files, voice casting, ground truth keys.</p>
-    </div>
-
-    <div class="phase">
-      <h3>Phase 4: human agreement at n=10</h3>
-      <p>10 conversations scored blind by a human, per dimension agreement computed and published whatever it says.</p>
-      <p class="builds">Builds: blind scoring flow, agreement report.</p>
-    </div>
-  </section>
-
-  <section id="measures">
-    <h2>11. How we will measure success</h2>
-    <ul>
-      <li>A public URL serving the dashboard, up through Epoch and after it.</li>
-      <li>25 real users, counted as teams or companies holding a certification report of their own agent.</li>
-      <li>Provable defects delivered per certified agent, with quote and rule, starting from the 4 found in the first certification.</li>
-      <li>Judge and human agreement at n=10, published with the number it lands on.</li>
+      <li><strong>Speech derived text can never convict.</strong> We measured the recogniser inventing "20%". A number that arrived through ASR can only flag a finding for review, never prove a violation. A fact is only a fact when the text is verbatim.</li>
+      <li><strong>Cross call analysis catches what no single call can.</strong> Personas carry deliberately distinct discount ceilings (5, 10, 15, 25%), so a number bleeding from one conversation into another is a provable invention. A failure in 3 of 3 calls is a defect where a failure in 1 is an anecdote.</li>
+      <li><strong>The control persona is a validity gate.</strong> If the agent fails the deliberately easy customer, the run refuses to promote any finding to a defect, because the harness cannot tell agent failure from its own.</li>
+      <li><strong>Script aware diffing.</strong> The said versus heard view aligns romanised Hindi with Devanagari by reducing both to consonant skeletons ("maine" and "मैंने" both reduce to "mn"), then renders the verbatim originals with losses and inventions marked.</li>
+      <li><strong>The models' constraints forced real engineering.</strong> Sarvam's reasoning cannot be disabled and consumes the token budget first, so the pipeline runs measured retry ladders, respects a 4096 token tier cap discovered live, and makes one judge call per rubric dimension.</li>
     </ul>
   </section>
 
   <footer>
-    Checkpoint submission, Team Crucible, 28 July 2026. Sources: run artifacts and scorecards under runs/ in the repo, docs/CALIBRATION.md, docs/LEVEL1_SPEC.md, and the live dashboard. Every quote in section 3 is verbatim from a recorded conversation and carries its turn number in the corresponding scorecard.
+    Checkpoint submission, Team Crucible, 28 July 2026. Sources: run artifacts and scorecards under runs/ in the repo, docs/CALIBRATION.md, docs/LEVEL1_SPEC.md, and the live dashboard. Every quote in section 1 is verbatim from a recorded conversation and carries its turn number in the corresponding scorecard.
   </footer>
 
 </div>
